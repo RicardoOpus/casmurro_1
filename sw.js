@@ -15,6 +15,8 @@ toolbox.precache([
     "components/navbar/script.js" + versionTrigger,
     "icons/icon.png" + versionTrigger,
     "node_modules/jquery/dist/jquery.min.js" + versionTrigger,
+    "assets/js/dixie.js" + versionTrigger,
+    "global/dataManager.js" + versionTrigger,
     "pages/mundo/page.html" + versionTrigger,
     "pages/mundo/script.js" + versionTrigger,
     "pages/notas/page.html" + versionTrigger,
