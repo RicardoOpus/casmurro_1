@@ -13,6 +13,8 @@ toolbox.precache([
     "global/init.js" + versionTrigger,
     "components/navbar/navbar.html" + versionTrigger,
     "components/navbar/script.js" + versionTrigger,
+    "components/newCharacter/page.html" + versionTrigger,
+    "components/newCharacter/script.js" + versionTrigger,
     "icons/icon.png" + versionTrigger,
     "node_modules/jquery/dist/jquery.min.js" + versionTrigger,
     "assets/js/dixie.js" + versionTrigger,

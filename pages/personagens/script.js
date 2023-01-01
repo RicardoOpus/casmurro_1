@@ -4,7 +4,6 @@
 //   db.characters.update(4, {name: area.value})
 // })
 
-
 function toList() {
   db.characters
     .each(function (character) {
@@ -24,3 +23,14 @@ function toList() {
     })
 }
 toList();
+
+function loadpage () {
+  $("#dinamic").load("components/newCharacter/page.html", function () {
+    $.getScript("components/newCharacter/script.js", function () {
+      });
+    });
+  }
+
+  $(document).on("click", "#new", function () {
+    loadpage();
+  })

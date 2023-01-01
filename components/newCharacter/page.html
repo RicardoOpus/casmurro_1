@@ -1,0 +1,21 @@
+<div>
+  <h3>Novo personagem</h3>
+  <form id="form">
+    <label for="name">Nome </label>
+    <input type="text" name="name" id="name">
+    <label for="age">Idade</label>
+    <input type="number" name="age" id="age">
+    <label for="birth">Nascimento</label>
+    <input type="date" name="birth" id="birth">
+    <label for="type">Tipo de personagem:
+      <select id="type" name="type">
+        <option value="Principal">Principal</option>
+        <option value="Secundário">Secundário</option>
+        <option value="Terciário">Terciário</option>
+      </select>
+    </label>
+    <label for="resume">Resumo</label>
+    <input type="text" name="resume" id="resume">
+    <input type="button" onclick=AddNewCharacter() value="SALVAR">
+  </form>
+</div>

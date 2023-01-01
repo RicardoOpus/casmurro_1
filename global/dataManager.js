@@ -45,7 +45,7 @@ db.version(1).stores({
 // db.personagens.update(4, {name: "Laira da boa!"})
 
 
-// db.characters.add("Roberto", "16/05/1988", "Principal", "Roberto é um cara legal que vai se meter em encrenca.");
+// db.characters.add({name: "Ricardo", age: 25, birth: "16/05/1988", type: "Principal", resume: "Roberto é um cara legal que vai se meter em encrenca."})
 
 // db.characters.bulkAdd([
 //   {name: "Roberto", age: 35, birth: "16/05/1988", type: "Principal", resume: "Roberto é um cara legal que vai se meter em encrenca."},

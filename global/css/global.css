@@ -8,3 +8,9 @@ body {
   top: 1px;
   left: 1px;
 }
+
+.required_input {
+  border-style: solid;
+  border-color: red;
+  border-radius: 5px;
+}
