@@ -1,9 +1,3 @@
-console.log("chamou script página de novo personagem");
-const newBtn = document.getElementById('new');
-newBtn.style.display = 'none';
-
-// const area = document.getElementById('name')
-
 function AddNewCharacter() {
   if (!form.name.value) {
     document.getElementById('name').className = "required_input";

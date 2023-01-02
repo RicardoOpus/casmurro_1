@@ -24,7 +24,7 @@ function toList() {
 }
 toList();
 
-function loadpage () {
+function loadInnerpage () {
   $("#dinamic").load("components/newCharacter/page.html", function () {
     $.getScript("components/newCharacter/script.js", function () {
       });
@@ -32,5 +32,5 @@ function loadpage () {
   }
 
   $(document).on("click", "#new", function () {
-    loadpage();
+    loadInnerpage();
   })
