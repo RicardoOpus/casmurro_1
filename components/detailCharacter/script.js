@@ -16,3 +16,16 @@ async function DetailCharData() {
   )
 };
 DetailCharData();
+
+async function deleteChar() {
+  const idDetail = localStorage.getItem("detail");
+  const response = confirm("Excluir personagem?")
+  if (response === true) {
+    db.characters.delete(Number(idDetail));
+    pageChange(
+      '#dinamicPage',
+      'pages/personagens/page.html',
+      'pages/personagens/script.js'
+      )
+  };
+}
