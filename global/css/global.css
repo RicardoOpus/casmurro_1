@@ -14,3 +14,8 @@ body {
   border-color: red;
   border-radius: 5px;
 }
+
+a {
+  color: blue;
+  cursor: pointer;
+}

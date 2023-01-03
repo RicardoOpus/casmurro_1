@@ -4,7 +4,7 @@ $(document).on("click", ".navtrigger", function () {
   loadpage(action)
 })
 
-function loadpage (pagename) {
+function loadpage(pagename) {
   $("#dinamicPage").load("pages/" + pagename + "/page.html", function () {
     $.getScript("pages/" + pagename + "/script.js", function () {
     });

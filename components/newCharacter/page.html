@@ -1,21 +1,23 @@
 <div>
-  <h3>Novo personagem</h3>
+  <h3 id="CharModeTitle">Novo personagem</h3>
+  <button id="editDetail" onclick="hasChanged()">Voltar</button>
   <form id="form">
+    <div class="charID" id="no"></div>
     <label for="name">Nome </label>
-    <input type="text" name="name" id="name">
+    <input class="charFormInput" type="text" name="name" id="name" class="teste">
     <label for="age">Idade</label>
-    <input type="number" name="age" id="age">
+    <input class="charFormInput" type="number" name="age" id="age" class="teste">
     <label for="birth">Nascimento</label>
-    <input type="date" name="birth" id="birth">
+    <input class="charFormInput" type="date" name="birth" id="birth" class="teste" timezone="[[timezone]]">
     <label for="type">Tipo de personagem:
-      <select id="type" name="type">
+      <select class="charFormInput" id="type" name="type">
         <option value="Principal">Principal</option>
         <option value="Secundário">Secundário</option>
         <option value="Terciário">Terciário</option>
       </select>
     </label>
     <label for="resume">Resumo</label>
-    <input type="text" name="resume" id="resume">
-    <input type="button" onclick=AddNewCharacter() value="SALVAR">
+    <input class="charFormInput" type="text" name="resume" id="resume">
+    <input type="button" id="salvar" onclick=AddNewCharacter() value="SALVAR">
   </form>
 </div>

@@ -1,7 +1,11 @@
 <div id="contentCharacter">
   <H2>Está é a página de Personagem!</H2>
   <div id="dinamic">
-    <button id="new" data-trigger="hover"><i>Novo</i></button>
+    <button id="new" onclick="pageChange(
+      '#dinamic',
+      'components/newCharacter/page.html',
+      'components/newCharacter/script.js'
+    )">Novo</button>
     <h3>Lista de personagens</h3>
     <table id="characters-list">
       <thead>
@@ -15,5 +19,4 @@
       </thead>
     </table>
   </div>
-  <!-- <input type="text" name="teste" id="teste"> -->
 </div>

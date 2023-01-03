@@ -16,10 +16,6 @@ try {
   localStorage.setItem("localstoragetest", "Hello World!");
   console.log("storage OK")
 } catch (e) {
-  console.log("Hello")
-  console.log("Your browser is not letting wavemaker store locally")
-  console.log("We need localstorage to keep your data in.... otherwise it's pointless")
-  console.log("thanks, Iain")
   alert("You need to enable Local Storage for wavemaker to work")
 }
 

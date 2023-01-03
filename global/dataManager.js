@@ -1,6 +1,6 @@
 const db = new Dexie('casmurro-test');
 db.version(1).stores({
-  characters: "++id,name,age,birth,type,resume"
+  characters: "++id,edit,name,age,birth,type,resume"
 });
 
 // tipo de classe:
