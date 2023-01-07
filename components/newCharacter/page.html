@@ -1,6 +1,7 @@
 <div>
   <h3 id="CharModeTitle">Novo personagem</h3>
   <button id="editDetail" onclick="hasChanged()">Voltar</button>
+  <button id="modalBtn"  onclick="addItemModal()">Adicinar característica</button>
   <form id="form">
     <div class="charID" id="no"></div>
     <label for="name">Nome </label>
@@ -20,4 +21,24 @@
     <input class="charFormInput" type="text" name="resume" id="resume">
     <input type="button" id="salvar" onclick=AddNewCharacter() value="SALVAR">
   </form>
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <form id="modalForm">
+        <span class="close">&times;</span>
+        <p>Adicinar nova caracteristica</p>
+        <label for="nameItem">Nome:</label>
+        <input type="text" id="nameItem">
+        <P>Tipo de campo:</P>
+        <label for="itemText">Texto</label>
+        <input type="radio" name="typeItem" value="text">
+        <label for="itemNumber">Núemro</label>
+        <input type="radio" name="typeItem" value="number">
+        <label for="itemDate">Data</label>
+        <input type="radio" name="typeItem" value="date">
+        <button id="modalSave" onclick="saveNewItem()">Salvar</button>
+      </form>
+    </div>
+  </div>
 </div>

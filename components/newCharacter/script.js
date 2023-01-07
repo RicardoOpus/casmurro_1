@@ -27,7 +27,8 @@ function verifyDiscartChanges() {
   let result = 0;
   const elementsArray = document.querySelectorAll("input");
   elementsArray.forEach( (ele) => {
-    if (ele.value !== "" && ele.value !== "SALVAR") result = result + 1;
+    console.log(ele.value);
+    if (ele.value !== "" && ele.value !== "SALVAR" && ele.type !== "radio") result = result + 1;
   })
   return result;
 };
