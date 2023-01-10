@@ -1,8 +1,20 @@
 body {
   background-color: #121214;
+  background-image: url("../../assets/images/arabesque3.png");
   color: rgb(183, 183, 172);
   font-family: "Trebuchet MS", sans-serif;
-  margin: 50px;
+  margin: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  /* background: linear-gradient(to right, rgba(18, 18, 20, 0) 0%, rgb(18, 18, 20) 10%, rgb(18, 18, 20) 90%, rgba(23, 23, 26, 0) 100%); */
+}
+
+footer {
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem; 
 }
 
 @font-face {
@@ -10,10 +22,17 @@ body {
   src: url('../../assets/fonts/texgyretermes-regular.otf') format('truetype');
 }
 
+.mainContent {
+  background-color: rgb(18, 18, 20);
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(to right, rgba(18, 18, 20, 0.45) 0%, rgb(18, 18, 20) 15%, rgb(18, 18, 20) 85%, rgba(23, 23, 26, 0.45) 100%);
+}
+
 .dinamicPage{
-    max-width: 76rem;
-    margin: auto;
-    padding: 3rem;
+  max-width: 76rem;
+  margin: auto;
+  padding: 0rem 3rem 5rem 3rem;
 }
 
 /* welcome page styles ================================================ */
@@ -89,13 +108,21 @@ body {
     border: 0 solid #e1e5eb;
   }
 
+.projectsName:hover {
+  border: solid 1px;
+  border-radius: 4px;
+  border-color: #0a62ce;
+}
+
 .projectTitle{
   margin: 1px;
+  margin-bottom: 1.2rem;
   font-size: x-large;
   z-index:1;
 }
 
 .projectCreated {
+  margin-top: -1em;
   font-size: smaller;
 }
 
@@ -145,6 +172,7 @@ body {
 }
 
 .cardsImage {
+  z-index:0;
   width: 150px;
   object-fit: none;
   max-height: 80px;
@@ -152,6 +180,14 @@ body {
   object-position: 0% 50%;
 -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
 }
+
+/* .zoom {
+  transition: transform .2s; 
+}
+
+.zoom:hover {
+  transform: scale(1.08);
+} */
 
 /* ========================================================================= */
 

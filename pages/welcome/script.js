@@ -62,30 +62,34 @@ function disableNavBar() {
   })
 }
 
+async function setProjectAtual(id) {
+  const result = await db.settings.update(1, {currentproject: id});
+  pageChange('#dinamicPage', '/pages/dashboard/page.html', '/pages/dashboard/script.js');
+  return result;
+}
+
 async function listProjects() {
   const result = await db.projects
     .each(function (project) {
-      const dateCreated = convertDateBR(project.created_at);
-      const timeCreated = convertToTime(project.created_at);
       const dateEdit = convertDateBR(project.last_edit);
       const timeEdit = convertToTime(project.last_edit);
       $('#project-list').append(
         `
         <ul class="projectsList">
-          <li class="projectsItens">
-          <a class="projectsName">
-          <img src="/casmurro/assets/images/manuscript.jpeg" class="coverImage"> 
+          <li class="projectsItens zoom">
+          <a class="projectsName" onclick="setProjectAtual(${ project.id })">
+          <img src="../../assets/images/manuscript.jpeg" class="coverImage "> 
               <div>
                 <p class="projectTitle">${ project.title }</p>
-                <p class="projectCreated"><span class="ui-icon ui-icon-calendar"></span>Criado em: <strong>${ dateCreated }</strong> | <strong>${ timeCreated }</strong></p>
+                <p class="projectCreated"><span class="ui-icon ui-icon-calendar"></span>Modificado em: <strong>${ dateEdit }</strong> | <strong>${ timeEdit }</strong></p>
               </div>
               <span class="projectStatus new"> ${ project.status } </span>
               <div>${ !project.literary_genre ? 'Romance' : project.literary_genre }</div>
               <div class="cards">
-                <p><strong>${ project.cards_qty }</strong></p>
+                <p class="projectTitle"><strong>${ project.cards_qty }</strong></p>
                 <p class="projectCreated">Cartões</p>  
-              </div>
-              <img src="/casmurro/assets/images/cards2.jpeg" class="cardsImage">     
+                </div>
+              <img src="../../assets/images/cards3.png" class="cardsImage">
           </a>
           </li>
         </ul>
