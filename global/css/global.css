@@ -1,9 +1,159 @@
 body {
-  background-color: rgb(38, 39, 40);
+  background-color: #121214;
   color: rgb(183, 183, 172);
   font-family: "Trebuchet MS", sans-serif;
   margin: 50px;
 }
+
+@font-face {
+  font-family: Texgyre;
+  src: url('../../assets/fonts/texgyretermes-regular.otf') format('truetype');
+}
+
+.dinamicPage{
+    max-width: 76rem;
+    margin: auto;
+    padding: 3rem;
+}
+
+/* welcome page styles ================================================ */
+.welcome {
+  text-align: center;
+}
+
+.app-title {
+  font-family: Playfair;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 5em;
+  margin: 0;
+}
+
+.app-subtitle {
+  margin-top: 0;
+}
+
+.newProjetcBtn {
+  margin-top: 3em;
+}
+
+.fullwidth {
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 1em;
+  background-color: #444C56;
+  color: aliceblue;
+}
+
+.projectsList {
+  
+  display: flex;
+  flex-direction: column;
+  /* gap: var(--space-spacingMd); */
+  align-items: flex-start;
+  justify-content: flex-start;
+  list-style-type: none;
+  /* margin-bottom: 0px; */
+  padding-inline-start: 0px;
+  padding: 0rem 3rem 0rem 3rem;
+}
+
+.projectsItens {
+  
+  min-width: 100%;
+  max-width: 100%;
+  /* box-sizing: border-box;
+  border: solid #e1e5eb;
+  border-width: 1px; */
+  padding-top: 0.75rem;
+}
+
+.projectsName {
+  /* padding: 1rem; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-width: 1px;
+  border-color: #565f6a;
+  border-radius: 4px;
+  background: linear-gradient(90deg, rgb(32, 32, 36) 0%, rgb(23, 23, 26) 100%);
+  transition: background 200ms ease 0s;
+  width: 100%;
+  box-shadow:  0 1px 4px 0 #0000001a;
+  flex-wrap: wrap;
+  }
+
+  *, :after, :before {
+    box-sizing: border-box;
+    border: 0 solid #e1e5eb;
+  }
+
+.projectTitle{
+  margin: 1px;
+  font-size: x-large;
+  z-index:1;
+}
+
+.projectCreated {
+  font-size: smaller;
+}
+
+.cards {
+  text-align: center;
+}
+
+.projectStatus{
+  font-size: smaller;
+  color: black;
+  padding: 0px 5px;
+  border-radius: 12px;
+}
+
+.new {
+  color: white;
+  border: solid #565f6a;
+  border-width: 1px;
+  background-color: #444C56;
+}
+
+.concluído {
+  border: solid green;
+  border-width: 1px;
+  background-color: #5FD149;
+}
+
+.emAndamento {
+  border: solid #e1e5eb;
+  border-width: 1px;
+  background-color: #3E8FBB;
+}
+
+.pausado {
+  border: solid coral;
+  border-width: 1px;
+  background-color: chocolate;
+}
+
+.coverImage {
+  width: 200px;
+  object-fit: none;
+  max-height: 80px;
+  max-width: 300px;
+  object-position: 05% 50%;
+-webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+}
+
+.cardsImage {
+  width: 150px;
+  object-fit: none;
+  max-height: 80px;
+  max-width: 300px;
+  object-position: 0% 50%;
+-webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+}
+
+/* ========================================================================= */
 
 .add-button {
   position: absolute;
@@ -18,36 +168,29 @@ body {
 }
 
 a {
-  color: blue;
   cursor: pointer;
 }
 
+
+
+
+
 /* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
+/* .modal {
+position: absolute; height: auto; width: 600px; top: 160.081px; left: 367.48px;
+} */
 
 /* Modal Content */
-.modal-content {
+/* .modal-content {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
-}
+} */
 
 /* The Close Button */
-.close {
+/* .close {
   color: #aaaaaa;
   float: right;
   font-size: 28px;
@@ -59,4 +202,4 @@ a {
   color: #000;
   text-decoration: none;
   cursor: pointer;
-}
+} */

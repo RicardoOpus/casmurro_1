@@ -17,7 +17,7 @@ function toList() {
       );
     })
 }
-toList();
+// toList();
 
 function detailChar(id) {
   localStorage.setItem("detail", id);

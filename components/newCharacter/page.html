@@ -22,10 +22,10 @@
     <input type="button" id="salvar" onclick=AddNewCharacter() value="SALVAR">
   </form>
   <!-- The Modal -->
-  <div id="myModal" class="modal">
+  <div id="myModal" class="modal ">
     <!-- Modal content -->
     <div class="modal-content">
-      <form id="modalForm">
+      <form id="modalForm ui-dialog ui-corner-all ui-widget ui-widget-content ui-front ui-dialog-buttons ui-draggable ui-resizable">
         <span class="close">&times;</span>
         <p>Adicinar nova caracteristica</p>
         <label for="nameItem">Nome:</label>
@@ -41,4 +41,32 @@
       </form>
     </div>
   </div>
+
+  <!-- <div tabindex="-1" role="dialog" style="position: absolute; height: auto; width: 600px; top: 160.081px; left: 367.48px;" class="ui-dialog ui-corner-all ui-widget ui-widget-content ui-front ui-dialog-buttons ui-draggable ui-resizable" aria-describedby="dialog" aria-labelledby="ui-id-1"><div class="ui-dialog-titlebar ui-corner-all ui-widget-header ui-helper-clearfix ui-draggable-handle"><span id="ui-id-1" class="ui-dialog-title">Novo projeto</span><button type="button" class="ui-button ui-corner-all ui-widget ui-button-icon-only ui-dialog-titlebar-close" title="Close"><span class="ui-button-icon ui-icon ui-icon-closethick"></span><span class="ui-button-icon-space"> </span>Close</button></div><div id="dialog" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 2.288px; max-height: none; height: auto;">
+    <div class="welcome">
+      <p>Título do projeto: </p>
+      <form id="form">
+        <input type="text" id="projectName" class="welcome text ui-corner-all fullwidth">
+      </form>
+    </div>
+      <h6>
+        Ao adicionar um novo projeto, você concorda que esta ciente dos termos de uso.
+      </h6>
+  </div>
+    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+      <div class="ui-dialog-buttonset">
+        <button type="button" id="okBtn" class="ui-button ui-corner-all ui-widget ui-button-disabled ui-state-disabled">Ok</button>
+        <button type="button" class="ui-button ui-corner-all ui-widget">Cancel</button>
+      </div>
+    </div>
+    <div class="ui-resizable-handle ui-resizable-n" style="z-index: 90;">
+    </div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div>
+    <div class="ui-resizable-handle ui-resizable-s" style="z-index: 90;"></div>
+    <div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div>
+    <div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"></div>
+    <div class="ui-resizable-handle ui-resizable-sw" style="z-index: 90;"></div>
+    <div class="ui-resizable-handle ui-resizable-ne" style="z-index: 90;"></div>
+    <div class="ui-resizable-handle ui-resizable-nw" style="z-index: 90;"></div>
+  </div> -->
+
 </div>
