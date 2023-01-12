@@ -42,4 +42,11 @@ function restoreBackground() {
   document.body.style.backgroundImage = "url('../../assets/images/arabesque3.png')";
 }
 
+function changeTabColor(tabName) {
+  var tab = document.getElementById(tabName);
+  // tab.style.backgroundColor = "#121214"
+  tab.classList.add("tabActive")
+  tab.classList.remove("tabInactive")
+}
+
 // pageChange('#dinamicPage', 'components/projects/editProject.html', 'components/projects/script.js')

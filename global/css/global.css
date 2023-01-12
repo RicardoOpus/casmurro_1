@@ -33,7 +33,48 @@ footer {
 .dinamicPage{
   max-width: 76rem;
   margin: auto;
-  padding: 0rem 3rem 5rem 3rem;
+  padding: 1rem 3rem 5rem 3rem;
+}
+
+
+/* Main Tabs page styles ================================================ */
+
+.tabInactive{
+  border-bottom-left-radius: 0%;
+  border-bottom-right-radius: 0%;
+  background: linear-gradient(180deg, #2D333B 50%, #121214 95%);
+}
+
+.mainTabs {
+  margin-top: 1rem;
+}
+
+.innerContent {
+  border: solid #565f6a;
+  border-width: 1px;
+  border-radius: 5px;
+  background-color: #121214;
+  padding: 2rem;
+}
+
+.tabActive {
+  background-color: #121214;
+  border: solid #565f6a; 
+  margin-bottom: -6px;
+  border-width: 1px;
+  border-bottom: transparent;
+  border-bottom-left-radius: 0%;
+  border-bottom-right-radius: 0%;
+}
+
+.backArrow {
+  /* color: #e1e5eb; */
+  font-size: larger;
+  margin-top: -15px;
+}
+
+.backArrow :hover {
+  color: #0a62ce;
 }
 
 /* welcome page styles ================================================ */

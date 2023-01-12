@@ -1,3 +1,5 @@
+console.log("chamou Peronagens");
+
 function toList() {
   db.characters
     .each(function (character) {
@@ -23,3 +25,10 @@ function detailChar(id) {
   localStorage.setItem("detail", id);
   pageChange('#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js');
 }
+
+
+$("#Header").load("components/navbar/navbar.html", function () {
+  $.getScript("components/navbar/script.js", function () {
+  });
+  changeTabColor("personagens");
+});
