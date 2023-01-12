@@ -43,6 +43,8 @@ function validateNewProject() {
 async function createNewProject() {
   const inputName = document.getElementById("projectName");
   const currentDate = new Date();
+  const timeStamp = Date.now();
+  console.log(typeof(timeStampI));
   const idNew = await db.projects.add(
     { title: inputName.value,
       status: "novo",
@@ -52,6 +54,7 @@ async function createNewProject() {
       image_cover: null,
       created_at: currentDate,
       last_edit: currentDate,
+      timestamp: timeStamp,
     }).then();
   const updadeCurrent = await db.settings.update(1,{ currentproject: idNew });
   inputName.value = '';
@@ -61,7 +64,7 @@ async function createNewProject() {
 function disableNavBar() {
   const navBarButtons = document.querySelectorAll(".navtrigger");
   navBarButtons.forEach( (buton) => {
-    buton.style.display = 'none'
+    buton.style.display = 'none';
   })
 }
 
@@ -72,8 +75,8 @@ async function setProjectAtual(id) {
 }
 
 async function listProjects() {
-  const result = await db.projects
-    .each(function (project) {
+  const result = await db.projects.orderBy('timestamp').desc();
+  await result.each(function (project) {
       const dateEdit = convertDateBR(project.last_edit);
       const timeEdit = convertToTime(project.last_edit);
       $('#project-list').append(
@@ -81,13 +84,13 @@ async function listProjects() {
         <ul class="projectsList">
           <li class="projectsItens zoom">
           <a class="projectsName" onclick="setProjectAtual(${ project.id })">
-          <img src="../../assets/images/manuscript.jpeg" class="coverImage "> 
+        <img src="${ !project.image_cover ? '../../assets/images/manuscript.jpeg' : project.image_cover }" class="coverImage "> 
               <div>
                 <p class="projectTitle">${ project.title }</p>
                 <p class="projectCreated"><span class="ui-icon ui-icon-calendar"></span>Modificado em: <strong>${ dateEdit }</strong> | <strong>${ timeEdit }</strong></p>
               </div>
-              <span class="projectStatus new"> ${ project.status } </span>
-              <div>${ !project.literary_genre ? 'Romance' : project.literary_genre }</div>
+              <span class="projectStatus"> ${ project.status } </span>
+              <div>${ !project.literary_genre ? '' : project.literary_genre }</div>
               <div class="cards">
                 <p class="projectTitle"><strong>${ project.cards_qty }</strong></p>
                 <p class="projectCreated">Cartões</p>  
@@ -99,12 +102,21 @@ async function listProjects() {
         `
       );
     })
+  changeStatusColor()
   return result
 }
 
+function changeStatusColor() {
+  const statusHtml = document.querySelectorAll(".projectStatus");
+  statusHtml.forEach( (elem) => {
+    const classStatus = elem.innerText;
+    const n = classStatus.split(" ").pop();
+    elem.classList.add(n);
+  })
+}
 
 $( document ).ready(function() {
   listProjects();
   validateNewProject();
-  disableNavBar()
+  disableNavBar();
 });

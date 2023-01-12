@@ -138,7 +138,14 @@ footer {
   border-radius: 12px;
 }
 
-.new {
+.novo {
+  color: white;
+  border: solid #565f6a;
+  border-width: 1px;
+  background-color: #444C56;
+}
+
+.outro {
   color: white;
   border: solid #565f6a;
   border-width: 1px;
@@ -151,10 +158,10 @@ footer {
   background-color: #5FD149;
 }
 
-.emAndamento {
-  border: solid #e1e5eb;
+.andamento {
+  border: solid #1f2f48;
   border-width: 1px;
-  background-color: #3E8FBB;
+  background-color: #437895;
 }
 
 .pausado {
@@ -165,7 +172,7 @@ footer {
 
 .coverImage {
   width: 200px;
-  object-fit: none;
+  object-fit: cover;
   max-height: 80px;
   max-width: 300px;
   object-position: 05% 50%;
