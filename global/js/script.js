@@ -39,7 +39,7 @@ function convertDateUS(dateUS) {
 }
 
 function restoreBackground() {
-  document.body.style.backgroundImage = "url('../../assets/images/arabesque3.png')";
+  document.body.style.backgroundImage = "url('../../assets/images/arabesque4.png')";
 }
 
 function changeTabColor(tabName) {
