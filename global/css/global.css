@@ -23,6 +23,11 @@ footer {
   src: url('../../assets/fonts/texgyretermes-regular.otf') format('truetype');
 }
 
+@font-face {
+  font-family: Courier;
+  src: url('../../assets/fonts/Courier_Prime.ttf') format('truetype');
+}
+
 .mainContent {
   background-color: rgb(18, 18, 20);
   position: relative;
@@ -40,6 +45,7 @@ footer {
 /* Main Tabs page styles ================================================ */
 
 .tabInactive{
+  font-family: Courier;
   border-bottom-left-radius: 0%;
   border-bottom-right-radius: 0%;
   background: linear-gradient(180deg, #2D333B 50%, #121214 95%);
@@ -58,6 +64,7 @@ footer {
 }
 
 .tabActive {
+  font-family: Courier;
   background-color: #121214;
   border: solid #565f6a; 
   margin-bottom: -6px;
