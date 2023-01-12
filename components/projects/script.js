@@ -68,6 +68,30 @@ $( "#dialog-delete-project" ).dialog({
 	]
 });
 
+async function saveProjectCover() {
+  const projectActual = await db.settings.toArray();
+  const idProject = await projectActual[0].currentproject;
+  const projectData = await db.projects.get(idProject);
+  const fileInput = document.querySelector('#my-image');
+  const file = fileInput.files[0];
+  const reader = new FileReader();
+  reader.onloadend = async () => {
+    const base64String = reader.result
+    await db.projects.update(projectData.id, {image_cover: base64String})
+  };
+  reader.readAsDataURL(file);
+  pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js')
+}
+
+async function restoreProjectCover() {
+  const projectActual = await db.settings.toArray();
+  const idProject = await projectActual[0].currentproject;
+  const projectData = await db.projects.get(idProject);
+  await db.projects.update(projectData.id, {image_cover: null})
+  pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js')
+}
+
+
 // Link to open the dialog
 $( "#deleteProject" ).click(function( event ) {
 	$( "#dialog-delete-project" ).dialog( "open" );

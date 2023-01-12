@@ -129,6 +129,7 @@ footer {
 
 .cards {
   text-align: center;
+  margin-right: 1rem;
 }
 
 .projectStatus{
@@ -171,11 +172,10 @@ footer {
 }
 
 .coverImage {
-  width: 200px;
+  width: 300px;
   object-fit: cover;
   max-height: 80px;
-  max-width: 300px;
-  object-position: 05% 50%;
+  object-position: 0% 50%;
 -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
 }
 
@@ -266,6 +266,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .delete :hover {
   color: red;
 }
+
+.btnSmall {
+  margin-top: 1rem;
+  margin-right: 1rem;
+
+}
+
+
 
 /* ========================================================================= */
 

@@ -38,4 +38,8 @@ function convertDateUS(dateUS) {
   return dateBR;
 }
 
+function restoreBackground() {
+  document.body.style.backgroundImage = "url('../../assets/images/arabesque3.png')";
+}
+
 // pageChange('#dinamicPage', 'components/projects/editProject.html', 'components/projects/script.js')

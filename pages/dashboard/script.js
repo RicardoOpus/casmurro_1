@@ -13,7 +13,7 @@ function addInfosHtml(data) {
   $('#dinamic').append(
     `
     <h2>${data.title}</h2>
-    <img id="imageid" src="${data.image_cover}" width="300">
+    <img id="imageid" src="${ !data.image_cover ? '../../assets/images/manuscript.jpeg' : data.image_cover }" class="coverImage" width="300">
     `
   )
 }
@@ -23,18 +23,15 @@ $("#Header").load("components/navbar/navbar.html", function () {
   });
 });
 
-async function saveProjectCover() {
+async function setBackground() {
   const projectActual = await db.settings.toArray();
   const idProject = await projectActual[0].currentproject;
   const projectData = await db.projects.get(idProject);
-  const fileInput = document.querySelector('#my-image');
-  const file = fileInput.files[0];
-  console.log(file);
-  const reader = new FileReader();
-  reader.onloadend = async () => {
-    const base64String = reader.result
-    await db.projects.update(projectData.id, {image_cover: base64String})
-  };
-  reader.readAsDataURL(file);
-  pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js')
+  if (projectData.image_cover) {
+    // var teste = document.querySelectorAll("body")
+    document.body.style.backgroundImage = `url('${projectData.image_cover}')`;
+  } else {
+    restoreBackground() 
+  }
 }
+setBackground() 

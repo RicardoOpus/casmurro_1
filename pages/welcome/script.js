@@ -84,7 +84,7 @@ async function listProjects() {
         <ul class="projectsList">
           <li class="projectsItens zoom">
           <a class="projectsName" onclick="setProjectAtual(${ project.id })">
-        <img src="${ !project.image_cover ? '../../assets/images/manuscript.jpeg' : project.image_cover }" class="coverImage "> 
+          <img src="${ !project.image_cover ? '../../assets/images/manuscript.jpeg' : project.image_cover }" class="coverImage"> 
               <div>
                 <p class="projectTitle">${ project.title }</p>
                 <p class="projectCreated"><span class="ui-icon ui-icon-calendar"></span>Modificado em: <strong>${ dateEdit }</strong> | <strong>${ timeEdit }</strong></p>
@@ -94,8 +94,7 @@ async function listProjects() {
               <div class="cards">
                 <p class="projectTitle"><strong>${ project.cards_qty }</strong></p>
                 <p class="projectCreated">Cartões</p>  
-                </div>
-              <img src="../../assets/images/cards3.png" class="cardsImage">
+              </div>
           </a>
           </li>
         </ul>
@@ -114,6 +113,8 @@ function changeStatusColor() {
     elem.classList.add(n);
   })
 }
+
+restoreBackground() 
 
 $( document ).ready(function() {
   listProjects();
