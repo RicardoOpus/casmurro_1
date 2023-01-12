@@ -1,7 +1,8 @@
 body {
   background-color: #121214;
   background-image: url("../../assets/images/arabesque3.png");
-  color: rgb(183, 183, 172);
+  /* color: rgb(183, 183, 172); */
+  color: white;
   font-family: "Trebuchet MS", sans-serif;
   margin: 0px;
   margin-top: 0px;
@@ -189,6 +190,76 @@ footer {
   transform: scale(1.08);
 } */
 
+/* Project Edit Infos page styles ================================================ */
+
+.editProjectMain {
+  margin: 1rem 7rem;
+}
+
+.editProjectTable {
+  display: flex;
+  justify-content: flex-start;
+  /* margin: 1rem; */
+}
+
+.editProjectBlock {
+  margin-right: 10rem;
+}
+
+.editProjectSpan{
+  font-size: small;
+  margin-top: -10px;
+}
+
+.editProjectTitle {
+  text-align: center;
+  width: 100%;
+  height: 50px;
+  font-size: 2rem;
+  background: rgb(18, 18, 20);
+  border-color: rgb(18, 18, 20);
+  color: rgb(255, 255, 255);
+  padding: 0px 1em 0px 0.65em;
+  border-radius: 5px;
+}
+
+.card{
+  -webkit-border-radius: 27px;
+  -moz-border-radius: 27px;
+  border-radius: 5px;
+  background-color:#202024;
+  background: linear-gradient(90deg, rgb(32, 32, 36) 0%, rgb(23, 23, 26) 100%);
+  transition: background 200ms ease 0s;
+  padding: 1rem 2rem;
+  opacity: 0.9;
+  margin: 1rem;
+  /* font-family: Verdana, Geneva, sans-serif; */
+}
+
+.cardInputNormal {
+  width: 100%;
+  height: 40px;
+  font-size: 16px;
+  background: rgb(18, 18, 20);
+  border-color: rgb(18, 18, 20);
+  color: rgb(255, 255, 255);
+  padding: 0px 1em 0px 0.65em;
+  border-radius: 5px;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+.delete {
+  text-align: right;
+  margin-bottom: -10px;
+}
+.delete :hover {
+  color: red;
+}
+
 /* ========================================================================= */
 
 .add-button {
@@ -206,8 +277,6 @@ footer {
 a {
   cursor: pointer;
 }
-
-
 
 
 

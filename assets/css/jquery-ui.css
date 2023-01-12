@@ -953,7 +953,7 @@ a:visited.ui-button,
 .ui-button:hover,
 .ui-button:focus {
 	border: 1px solid #0b93d5;
-	background: #003147;
+	background: #121214;
 	font-weight: normal;
 	color: #ffffff;
 }
@@ -981,7 +981,7 @@ a.ui-button:active,
 .ui-button:active,
 .ui-button.ui-state-active:hover {
 	border: 1px solid #26b3f7;
-	background: #0972a5;
+	background: #121214;
 	font-weight: normal;
 	color: #ffffff;
 }

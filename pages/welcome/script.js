@@ -47,6 +47,9 @@ async function createNewProject() {
     { title: inputName.value,
       status: "novo",
       cards_qty: 0,
+      literary_genre: null,
+      description: null,
+      image_cover: null,
       created_at: currentDate,
       last_edit: currentDate,
     }).then();

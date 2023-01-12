@@ -1,0 +1,55 @@
+<div class="editProjectMain">
+  <div class="card">
+    <input class="editProjectTitle projectInputForm" id="title">
+    <p class="delete"><span class="ui-icon ui-icon-trash"></span><a id="deleteProject"> Excluir projeto</a></p>
+    <div class="editProjectTable">
+      <div class="editProjectBlock">
+        <h3>Tipo literário:</h3>
+        <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget" id="literary_genre">
+          <option disabled selected value> -- selecione -- </option>
+          <option value="Romance">Romance</option>
+          <option value="Novela">Novela</option>
+          <option value="Noveleta">Noveleta</option>
+          <option value="Conto">Conto</option>
+          <option value="Outro">Outro</option>
+        </select>
+        <h3>Status:</h3>
+        <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget" id="status">
+          <option disabled selected value> -- selecione -- </option>
+          <option value="Em andamento">Em andamento</option>
+          <option value="Pausado">Pausado</option>
+          <option value="novo">Novo</option>
+          <option value="Finalizado">Finalizado</option>
+          <option value="Outro">Outro</option>
+        </select>
+      </div>
+      <div>
+        <h3>Data de início:</h3>
+        <input class="cardInputNormal projectInputForm" id="created_at" type="date" timezone="[[timezone]]">
+        <h3>Capa:</h3>
+        <p>Selceinar capa</p>
+      </div>
+    </div>
+
+  <div>
+    <h3>Descrição:</h3>
+    <p class="editProjectSpan">Um resumo sobre o projeto</p>
+    <input class="cardInputNormal projectInputForm" type="text" id="description">
+  </div>
+  
+  </div>
+</div>
+
+
+<!-- ui-dialog -->
+<div id="dialog-delete-project" title="Excluir projeto">
+  <div class="welcome">
+    <h4>
+      Tem certeza que deseja excluir este projeto?
+    </h4>
+    <p style="font-size: medium;">
+      Todas as informações serão perdidas.
+      <br>Esta ação não poderá ser desfeita.
+    </p>
+  </div>
+</div>
