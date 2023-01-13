@@ -13,7 +13,7 @@ function addInfosHtml(data) {
   $('#dinamic').append(
     `
     <h2>${data.title}</h2>
-    <img id="imageid" src="${ !data.image_cover ? '../../assets/images/manuscript.jpeg' : data.image_cover }" class="coverImage" width="300">
+    <img id="imageid" src="${ !data.image_cover ? 'assets/images/manuscript.jpeg' : data.image_cover }" class="coverImage" width="300">
     `
   )
 }

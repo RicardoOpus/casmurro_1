@@ -6,12 +6,11 @@ function pageChange(place, page, script) {
 
 async function welcome() {
   const projectActual = await db.settings.toArray();
-  if (projectActual[0].currentproject === 0) {
+  if (projectActual.length === 0) {
+    hasSettings();
     $("#dinamicPage").load("pages/welcome/page.html", function () {
-      $.getScript("pages/welcome/script.js", function () {
+      $.getScript("pages/welcome/script.js", function () {});
     });
-
-});
   } else {
     pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js')
   }
@@ -39,12 +38,11 @@ function convertDateUS(dateUS) {
 }
 
 function restoreBackground() {
-  document.body.style.backgroundImage = "url('../../assets/images/arabesque4.png')";
+  document.body.style.backgroundImage = "url('assets/images/arabesque4.png')";
 }
 
 function changeTabColor(tabName) {
   var tab = document.getElementById(tabName);
-  // tab.style.backgroundColor = "#121214"
   tab.classList.add("tabActive")
   tab.classList.remove("tabInactive")
 }
