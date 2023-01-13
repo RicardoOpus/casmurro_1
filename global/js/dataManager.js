@@ -11,3 +11,4 @@ async function hasSettings() {
     return updated
   }
 };
+

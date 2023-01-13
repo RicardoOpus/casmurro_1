@@ -45,7 +45,6 @@ async function deleteProject() {
   return await db.projects.delete(projectID);
 }
 
-
 $( "#dialog-delete-project" ).dialog({
 	autoOpen: false,
 	width: 500,
@@ -82,7 +81,7 @@ async function saveProjectCover() {
   };
   reader.readAsDataURL(file);
   pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js')
-}
+};
 
 async function restoreProjectCover() {
   const projectActual = await db.settings.toArray();
@@ -90,7 +89,7 @@ async function restoreProjectCover() {
   const projectData = await db.projects.get(idProject);
   await db.projects.update(projectData.id, {image_cover: null})
   pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js')
-}
+};
 
 // Link to open the dialog
 $( "#deleteProject" ).click(function( event ) {
@@ -99,13 +98,12 @@ $( "#deleteProject" ).click(function( event ) {
 	event.preventDefault();
 });
 
+function verify() {
+  document.getElementById("btnSaveWall").disabled = false;
+};
+
 document.getElementById("btnSaveWall").disabled = true;
 var teste = document.getElementById("my-image");
 teste.addEventListener('input', () => {
   verify();
-})
-
-function verify() {
-  console.log('chamou verify');
-  document.getElementById("btnSaveWall").disabled = false;
-}
+});
