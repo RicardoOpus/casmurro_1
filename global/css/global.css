@@ -248,7 +248,9 @@ footer {
 /* Project Edit Infos page styles ================================================ */
 
 .editProjectMain {
-  margin: 1rem 7rem;
+  max-width: 55em;
+  margin: auto;
+  color: #898989;
 }
 
 .editProjectTable {
@@ -258,8 +260,13 @@ footer {
 }
 
 .editProjectBlock {
-  margin-right: 10rem;
+  margin-right: 1rem;
 }
+
+.editProjectBlock h3 {
+  margin-bottom: 5px;
+}
+
 
 .editProjectSpan{
   font-size: small;
@@ -300,6 +307,11 @@ footer {
   color: rgb(255, 255, 255);
   padding: 0px 1em 0px 0.65em;
   border-radius: 5px;
+}
+
+.projectInputResume {
+  height: 100px;
+  padding: 1rem;
 }
 
 input[type="date"]::-webkit-inner-spin-button,

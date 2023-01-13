@@ -69,6 +69,7 @@ $( "#dialog-delete-project" ).dialog({
 });
 
 async function saveProjectCover() {
+  console.log("clicou");
   const projectActual = await db.settings.toArray();
   const idProject = await projectActual[0].currentproject;
   const projectData = await db.projects.get(idProject);
@@ -91,10 +92,20 @@ async function restoreProjectCover() {
   pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js')
 }
 
-
 // Link to open the dialog
 $( "#deleteProject" ).click(function( event ) {
 	$( "#dialog-delete-project" ).dialog( "open" );
   $("#btnTwo").focus();
 	event.preventDefault();
 });
+
+document.getElementById("btnSaveWall").disabled = true;
+var teste = document.getElementById("my-image");
+teste.addEventListener('input', () => {
+  verify();
+})
+
+function verify() {
+  console.log('chamou verify');
+  document.getElementById("btnSaveWall").disabled = false;
+}

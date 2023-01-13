@@ -26,7 +26,7 @@
           <option value="outro">Outro</option>
         </select>
       </div>
-      <div>
+      <div class="editProjectBlock">
         <h3>Data de início:</h3>
         <input class="cardInputNormal projectInputForm" id="created_at" type="date" timezone="[[timezone]]"> 
       </div>
@@ -35,7 +35,7 @@
     <div>
       <h3>Descrição:</h3>
       <p class="editProjectSpan">Um resumo sobre o projeto</p>
-      <input class="cardInputNormal projectInputForm" type="text" id="description">
+      <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="description"></textarea>
     </div>
   
   </div>
@@ -43,12 +43,11 @@
     <h3>Wallpaper</h3>
       <input type="file" id="my-image" class="inputFile ui-corner-all ui-widget">
       <div>
-        <input type="button" value="Atualizar Wallpaper" class="ui-button ui-corner-all btnSmall" onclick="saveProjectCover()">
+        <input id="btnSaveWall" type="button" value="Atualizar Wallpaper" class="ui-button ui-corner-all btnSmall" onclick="saveProjectCover()">
         <input type="button" value="Restaurar padrão" class="ui-button ui-corner-all btnSmall" onclick="restoreProjectCover()">
       </div>
   </div>
 </div>
-
 
 
 <!-- ui-dialog -->
