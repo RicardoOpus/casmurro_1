@@ -5,7 +5,6 @@ db.version(1).stores({
 });
 
 async function hasSettings() {
-  console.log("chamour hasSettings, deveria vir primeiro");
   const projectActual = await db.settings.toArray();
   if (!projectActual[0]) {
     const updated = await db.settings.add({ currentproject: 0 })

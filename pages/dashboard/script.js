@@ -14,15 +14,12 @@ function addInfosHtml(data) {
     `
     <h2>${data.title}</h2>
     <img id="imageid" src="${ !data.image_cover ? 'assets/images/manuscript.jpeg' : data.image_cover }" class="coverImage" width="300">
+    <div>
+    <input type="button" value="Editar" onclick="pageChange('#dinamic', 'components/projects/editProject.html', 'components/projects/script.js')">
+    </div>
     `
   )
 }
-
-$("#Header").load("components/navbar/navbar.html", function () {
-  $.getScript("components/navbar/script.js", function () {
-  });
-  changeTabColor("dashboard");
-});
 
 async function setBackground() {
   const projectActual = await db.settings.toArray();

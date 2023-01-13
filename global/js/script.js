@@ -4,6 +4,13 @@ function pageChange(place, page, script) {
   });
 }
 
+function loadpage(pagename) {
+  $("#dinamic").load("pages/" + pagename + "/page.html", function () {
+    $.getScript("pages/" + pagename + "/script.js", function () {
+    });
+  });
+}
+
 async function welcome() {
   const projectActual = await db.settings.toArray();
   if (projectActual.length === 0) {
@@ -42,9 +49,14 @@ function restoreBackground() {
 }
 
 function changeTabColor(tabName) {
-  var tab = document.getElementById(tabName);
-  tab.classList.add("tabActive")
+  let mainTabs = document.querySelectorAll(".tabActive");
+  mainTabs.forEach( (tab) => {
+    tab.classList.remove("tabActive");
+    tab.classList.add("tabInactive")
+  })
+  const tab = document.getElementById(tabName);
   tab.classList.remove("tabInactive")
+  tab.classList.add("tabActive")
 }
 
 // pageChange('#dinamicPage', 'components/projects/editProject.html', 'components/projects/script.js')

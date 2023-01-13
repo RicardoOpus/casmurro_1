@@ -26,9 +26,4 @@ function detailChar(id) {
   pageChange('#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js');
 }
 
-
-$("#Header").load("components/navbar/navbar.html", function () {
-  $.getScript("components/navbar/script.js", function () {
-  });
-  changeTabColor("personagens");
-});
+changeTabColor("personagens");
