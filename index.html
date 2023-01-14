@@ -12,7 +12,14 @@
   <link rel="manifest" href="manifest.webmanifest">
 </head>
 <body>
-  <button class="add-button2">Add to home screen</button>
+  <div id="install-alert" class="add-button" role="alert">
+    Instale este aplicativo para usá-lo offline!
+    <button id="install-button" class="ui-button ui-corner">Instalar</button>
+    <button id="close-button" class="closeX" type="button" >
+      <span aria-hidden="true"> 🗙</span>
+    </button>
+  </div>
+
   <div class="mainContent">
     <div class="dinamicPage" id="dinamicPage"></div>
     
@@ -20,15 +27,7 @@
       <p>Author: Ricardo Serafim</p>
     </footer>
   </div>
-  
-  <!-- <div id="install-alert" class="add-button" role="alert">
-    Você pode salvar esse aplicativo para usar offline!
-    <button id="install-button" class="btn btn-secondary btn-sm ">Instalar</button>
-    <button id="close-button" type="button" >
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div> -->
-  
+    
   <script src="assets/js/jquery.min.js" type="text/javascript"></script>
   <script src="assets/css/jquery-ui.js"></script>
   <script src="assets/js/dixie.js"></script>

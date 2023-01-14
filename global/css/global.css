@@ -340,9 +340,19 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* ========================================================================= */
 
 .add-button {
-  position: absolute;
-  top: 1px;
-  left: 1px;
+padding: 1px 15px;
+background-color: #444C56;
+}
+
+.closeX{
+  font-size: larger;
+  background: transparent;
+  cursor: pointer;
+  color: rgb(255, 73, 73);
+}
+
+.closeX :hover {
+  background-color: rgb(18, 18, 20);
 }
 
 .required_input {
@@ -350,6 +360,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   border-color: red;
   border-radius: 5px;
 }
+
 
 a {
   cursor: pointer;
