@@ -1,21 +1,33 @@
-function pageChange(place, page) {
+function myLoadScript(url) {
+  var js_script = document.createElement('script');
+  js_script.type = "text/javascript";
+  js_script.src = url;
+  js_script.async = true;
+  document.getElementsByTagName('head')[0].appendChild(js_script);
+}
+
+function pageChange(place, page, script) {
   $(place).load(page, function () {
+    myLoadScript(script);
   });
 }
 
 function loadpage(pagename) {
   $("#dinamic").load("pages/" + pagename + "/page.html", function () {
+    myLoadScript("pages/" + pagename + "/script.js");
   });
 }
+
 
 async function welcome() {
   const projectActual = await db.settings.toArray();
   if (projectActual.length === 0) {
     hasSettings();
     $("#dinamicPage").load("pages/welcome/page.html", function () {
+      myLoadScript("pages/welcome/script.js");
     });
   } else {
-    pageChange('#dinamicPage', 'pages/dashboard/page.html')
+    pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js')
   }
 };
 

@@ -50,6 +50,8 @@ const precacheResources = [
   './',
   './index.html',
   './index.js',
+  './sw.js',
+  './manifest.webmanifest',
   './assets/css/images/ui-icons_222222_256x240.png',
   './assets/css/images/ui-icons_a83300_256x240.png',
   './assets/css/images/ui-icons_cccccc_256x240.png',
@@ -65,23 +67,31 @@ const precacheResources = [
   './assets/js/dixie.js',
   './assets/js/jquery.min.js',
   './components/detailCharacter/page.html',
+  './components/detailCharacter/script.js',
   './components/editCharacter/script.js',
   './components/newCharacter/page.html',
+  './components/newCharacter/script.js',
   './components/projects/editProject.html',
+  './components/projects/script.js',
   './global/css/global.css',
   './global/js/dataManager.js',
   './global/js/script.js',
   './pages/dashboard/page.html',
+  './pages/dashboard/script.js',
   './pages/mundo/page.html',
+  './pages/mundo/script.js',
   './pages/notas/page.html',
+  './pages/notas/script.js',
   './pages/personagens/page.html',
+  './pages/personagens/script.js',
   './pages/timeline/page.html',
+  './pages/timeline/script.js',
   './pages/trama/page.html',
+  './pages/trama/script.js',
   './pages/welcome/page.html',
-  './sw.js',
-  './manifest.webmanifest',
+  './pages/welcome/script.js',
 ];
-
+  
 // When the service worker is installing, open the cache and add the precache resources to it
 self.addEventListener('install', (e) => {
   console.log('[Service Worker] Install');

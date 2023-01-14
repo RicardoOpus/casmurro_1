@@ -28,5 +28,5 @@ document.getElementById('salvar').style.display = 'none';
 
 // as this script use the same html page as newCharacter, this change the button function:
 document.getElementById('editDetail').setAttribute("onclick",
-  "pageChange('#dinamic', 'components/detailCharacter/page.html')")
+  "pageChange('#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')")
 document.getElementById('editDetail').innerHTML = "PRONTO";
