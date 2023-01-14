@@ -3,8 +3,7 @@
   <div id="dinamic">
     <button id="new" class="ui-button ui-corner-all ui-widget" onclick="pageChange(
       '#dinamic',
-      'components/newCharacter/page.html',
-      'components/newCharacter/script.js'
+      'components/newCharacter/page.html'
     )">Novo</button>
     <h3>Lista de personagens</h3>
     <table id="characters-list">
@@ -22,3 +21,34 @@
 </div> -->
 
   <H2>Esta é a página de Personagens</H2>
+<script>
+  console.log("chamou Peronagens");
+
+function toList() {
+  db.characters
+    .each(function (character) {
+      const dateBR = convertDateBR(character.birth)
+      $('#characters-list').append(
+        `
+          <tbody>
+            <tr key=${character.name}>
+              <td><a onclick="detailChar(${character.id})">${character.name}</a></td>
+              <td>${character.age}</td>
+              <td>${dateBR}</td>
+              <td>${character.type}</td>
+              <td>${character.resume}</td>
+            </tr>
+          </tbody>
+        `
+      );
+    })
+}
+// toList();
+
+function detailChar(id) {
+  localStorage.setItem("detail", id);
+  pageChange('#dinamic', 'components/detailCharacter/page.html');
+}
+
+changeTabColor("personagens");
+</script>

@@ -1,5 +1,5 @@
 <div class="mainTabs" id="Header"></div>
-<button class="navtrigger ui-button ui-corner-all ui-widget tabActive" onclick="pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js')" data-trigger="hover" id="dashboard">Dashboard</button>
+<button class="navtrigger ui-button ui-corner-all ui-widget tabActive" onclick="pageChange('#dinamicPage', 'pages/dashboard/page.html')" data-trigger="hover" id="dashboard">Dashboard</button>
 <button class="navtrigger ui-button ui-corner-all ui-widget tabInactive" onclick="loadpage('welcome')"
 data-trigger="hover" id="welcome">Projetos</button>
 <button class="navtrigger ui-button ui-corner-all ui-widget tabInactive" onclick="loadpage('personagens')"
@@ -10,8 +10,47 @@ data-trigger="hover" id="mundo">Mundo</button>
 data-trigger="hover" id="timeline">Linha do tempo</button>
 <button class="navtrigger ui-button ui-corner-all ui-widget tabInactive" onclick="loadpage('trama')"
 data-trigger="hover" id="trama">Trama</button>
-<button class="navtrigger ui-button ui-corner-all ui-widget tabInactive" onclick="loadpage2('notas')"
+<button class="navtrigger ui-button ui-corner-all ui-widget tabInactive" onclick="loadpage('notas')"
 data-trigger="hover" id="notas">Notas</button>
 <div class="innerContent">
   <div id="dinamic"></div>
 </div>
+<script>
+
+console.log('chamou dashboard (dentro)');
+
+async function recoverProjectInfos() {
+  const projectActual = await db.settings.toArray();
+  const idProject = await projectActual[0].currentproject;
+  const projectData = await db.projects.get(idProject);
+  // const title = projectData.title;
+  addInfosHtml(projectData)
+};
+recoverProjectInfos();
+
+function addInfosHtml(data) {
+  $('#dinamic').append(
+    `
+    <h2>${data.title}</h2>
+    <img id="imageid" src="${ !data.image_cover ? 'assets/images/manuscript.jpeg' : data.image_cover }" class="coverImage" width="300">
+    <div>
+    <input type="button" value="Editar" onclick="pageChange('#dinamic', 'components/projects/editProject.html')">
+    </div>
+    `
+  )
+};
+
+async function setBackground() {
+  const projectActual = await db.settings.toArray();
+  const idProject = await projectActual[0].currentproject;
+  const projectData = await db.projects.get(idProject);
+  if (projectData.image_cover) {
+    // var teste = document.querySelectorAll("body")
+    document.body.style.backgroundImage = `url('${projectData.image_cover}')`;
+  } else {
+    restoreBackground() 
+  }
+};
+setBackground();
+
+</script>

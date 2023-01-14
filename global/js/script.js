@@ -1,17 +1,9 @@
-function pageChange(place, page, script) {
+function pageChange(place, page) {
   $(place).load(page, function () {
-    $.getScript(script, function () {});
   });
 }
 
 function loadpage(pagename) {
-  $("#dinamic").load("pages/" + pagename + "/page.html", function () {
-    $.getScript("pages/" + pagename + "/script.js", function () {
-    });
-  });
-}
-
-function loadpage2(pagename) {
   $("#dinamic").load("pages/" + pagename + "/page.html", function () {
   });
 }
@@ -21,10 +13,9 @@ async function welcome() {
   if (projectActual.length === 0) {
     hasSettings();
     $("#dinamicPage").load("pages/welcome/page.html", function () {
-      $.getScript("pages/welcome/script.js", function () {});
     });
   } else {
-    pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js')
+    pageChange('#dinamicPage', 'pages/dashboard/page.html')
   }
 };
 
@@ -64,4 +55,4 @@ function changeTabColor(tabName) {
   tab.classList.add("tabActive")
 }
 
-// pageChange('#dinamicPage', 'components/projects/editProject.html', 'components/projects/script.js')
+// pageChange('#dinamicPage', 'components/projects/editProject.html')

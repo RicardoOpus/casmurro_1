@@ -1,12 +1,44 @@
 <button onclick="pageChange(
   '#dinamicPage',
-  'pages/personagens/page.html',
-  'pages/personagens/script.js'
+  'pages/personagens/page.html'
 )">Voltar</button>
 <button id="editDetail" onclick="pageChange(
   '#dinamic',
-  'components/newCharacter/page.html',
-  'components/editCharacter/script.js'
+  'components/newCharacter/page.html'
   )">Editar</button>
   <button id="deleteChar" onclick="deleteChar()">Excluir</button>
 <div id="details"></div>
+
+<script>
+  async function DetailCharData() {
+  const idDetail = localStorage.getItem("detail");
+  const person = await db.characters.get({ id: Number(idDetail) });
+
+  const dateBR = convertDateBR(person.birth)
+  $('#details').append(
+    `
+    <h2>${person.name}</h2>
+    <p>${person.type}</p>
+    <p>${person.resume}</p>
+    <p>Idade:</p>
+    <i>${person.age}</i>
+    <p>Nascimento:</p>
+    <p>${dateBR}</p>
+    `
+  )
+};
+DetailCharData();
+
+async function deleteChar() {
+  const idDetail = localStorage.getItem("detail");
+  const response = confirm("Excluir personagem?")
+  if (response === true) {
+    db.characters.delete(Number(idDetail));
+    pageChange(
+      '#dinamicPage',
+      'pages/personagens/page.html'
+      )
+  };
+}
+
+</script>
