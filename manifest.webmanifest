@@ -1,0 +1,15 @@
+{
+  "background_color": "black",
+  "description": "Uma bom começo para sua história",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "assets/icons/assis.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "name": "Casmurro - Planejamento de ficção",
+  "short_name": "Casmurro",
+  "start_url": "index.html"
+}

@@ -11,6 +11,11 @@ function loadpage(pagename) {
   });
 }
 
+function loadpage2(pagename) {
+  $("#dinamic").load("pages/" + pagename + "/page.html", function () {
+  });
+}
+
 async function welcome() {
   const projectActual = await db.settings.toArray();
   if (projectActual.length === 0) {
