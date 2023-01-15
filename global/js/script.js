@@ -67,4 +67,15 @@ function changeTabColor(tabName) {
   tab.classList.add("tabActive")
 }
 
+function changeInnerTabColor(tabName) {
+  let mainTabs = document.querySelectorAll(".innerTabActive");
+  mainTabs.forEach( (tab) => {
+    tab.classList.remove("innerTabActive");
+    tab.classList.add("innerTabInactive")
+  })
+  const tab = document.getElementById(tabName);
+  tab.classList.remove("innerTabInactive")
+  tab.classList.add("innerTabActive")
+}
+
 // pageChange('#dinamicPage', 'components/projects/editProject.html')

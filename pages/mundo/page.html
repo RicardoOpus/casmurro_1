@@ -1,11 +1,17 @@
+<div class="worldNewCardBtn">
+  <button id="" class="ui-button ui-corner-all worldNewCatBtn"><span class="ui-icon ui-icon-plusthick "></span> Categoria</button>
+  <button id="" class="ui-button ui-corner-all ui-widget"><span class="ui-icon ui-icon-plusthick"></span> Cartão</button>
+</div>
+
 <div class="tab">
   <div class="innerTabDefault">
-    <button class="innerTabActive" id="defaultOpen">Locais</button>
-    <button class="innerTabInactive" >Objetos</button>
-    <button class="innerTabInactive" >Organizações</button>
-    <button class="innerTabInactive" >Fatos históricos</button>
-    <button class="innerTabInactive" >Culturas</button>
+    <button class="innerTabActive" onclick="changeInnerTabColor('Locais')"id="Locais">Locais</button>
+    <button class="innerTabInactive" onclick="changeInnerTabColor('Objetos')"id="Objetos" >Objetos</button>
+    <button class="innerTabInactive" onclick="changeInnerTabColor('Organizações')"id="Organizações" >Organizações</button>
+    <button class="innerTabInactive" onclick="changeInnerTabColor('Fatos_históricos')"id="Fatos_históricos" >Fatos históricos</button>
+    <button class="innerTabInactive" onclick="changeInnerTabColor('Culturas')"id="Culturas" >Culturas</button>
   </div>
-  <!-- <div><hr class="rete"></div> -->
-  <div id="project-list"></div>
+  <div id="project-list">
+
+  </div>
 </div>

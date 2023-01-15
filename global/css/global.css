@@ -405,6 +405,14 @@ footer {
   margin-top: 1rem;
 }
 
+.worldNewCatBtn {
+  float: left;
+}
+
+.worldNewCardBtn {
+  text-align: center;
+}
+
 /* Project Edit Infos page styles ================================================ */
 
 .editProjectMain {
