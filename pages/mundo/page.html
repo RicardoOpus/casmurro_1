@@ -1,17 +1,34 @@
 <div class="worldNewCardBtn">
   <button id="" class="ui-button ui-corner-all worldNewCatBtn"><span class="ui-icon ui-icon-plusthick "></span> Categoria</button>
-  <button id="" class="ui-button ui-corner-all ui-widget"><span class="ui-icon ui-icon-plusthick"></span> Cartão</button>
+  <button id="dialog-link-world" class="ui-button ui-corner-all ui-widget"><span class="ui-icon ui-icon-plusthick"></span> Cartão</button>
 </div>
 
 <div class="tab">
   <div class="innerTabDefault">
-    <button class="innerTabActive" onclick="changeInnerTabColor('Locais')"id="Locais">Locais</button>
+    <button class="innerTabActive" onclick="changeInnerTabColor('Locais')"id="Todos">Todos</button>
+    <button class="innerTabInactive" onclick="changeInnerTabColor('Locais')"id="Locais">Locais</button>
     <button class="innerTabInactive" onclick="changeInnerTabColor('Objetos')"id="Objetos" >Objetos</button>
     <button class="innerTabInactive" onclick="changeInnerTabColor('Organizações')"id="Organizações" >Organizações</button>
     <button class="innerTabInactive" onclick="changeInnerTabColor('Fatos_históricos')"id="Fatos_históricos" >Fatos históricos</button>
     <button class="innerTabInactive" onclick="changeInnerTabColor('Culturas')"id="Culturas" >Culturas</button>
   </div>
-  <div id="project-list">
+  <div id="project-list"></div>
+</div>
 
-  </div>
+  <!-- ui-dialog -->
+  <div id="dialogWorld" title="Novo cartão (Mundo)">
+    <div class="welcome">
+      <p>Título: </p>
+      <form id="form">
+        <input type="text" id="worldName" class="welcome text ui-corner-all fullwidth">
+        <p>Categoria</p>
+        <select id="worldCat" class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widge">
+          <option disabled selected value> -- selecione -- </option>
+          <option value="Local">Local</option>
+          <option value="Objeto">Objeto</option>
+          <option value="Organização">Organização</option>
+          <option value="Fato_histórico">Fato histórico</option>
+          <option value="Culturas">Culturas</option>
+        </select>
+      </form>
 </div>

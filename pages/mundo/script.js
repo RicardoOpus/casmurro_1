@@ -1,6 +1,41 @@
 console.log("Chamou Mundo!");
 changeTabColor("mundo");
 
+$( "#dialogWorld" ).dialog({
+autoOpen: false,
+width: 600,
+buttons: [
+  {
+    text: "Ok",
+    id: "okBtn-world",
+    disabled: false,
+    click: async function() {
+      await createNewProject();
+      $( this ).dialog( "close" );
+      pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js')
+    }
+  },
+  {
+    text: "Cancel",
+    click: function() {
+      document.getElementById("worldName").value = "";
+      document.getElementById("worldCat").value = "";
+      $( this ).dialog( "close" );
+    }
+  }
+]
+});
+
+// Link to open the dialog
+$( "#dialog-link-world" ).click(function( event ) {
+$( "#dialogWorld" ).dialog( "open" );
+$( "#okBtn-world" ).addClass( "ui-button-disabled ui-state-disabled" );
+$( ".ui-icon-closethick" ).click(function( event ) {
+  document.getElementById("worldName").value = "";
+  document.getElementById("worldCat").value = "";
+})
+event.preventDefault();
+});
 
 async function getWorldCards() {
   const projectActual = await db.settings.toArray();
@@ -12,7 +47,7 @@ async function getWorldCards() {
       `
       <ul class="worldList">
         <li class="worldItens">
-          <div class="worldName" onclick="setProjectAtual()">
+          <div class="worldName paper" onclick="setProjectAtual()">
             <div class="contentListWorld">
               <p class="wordlTitle">${ ele.title }</p>
               <hr class="cardLineTop">
@@ -54,8 +89,8 @@ function setImageOpacity() {
   })
 }
 
-
-
 getWorldCards();
+validateNewCard("worldName", "#okBtn-world");
 
-
+$( document ).ready(function() {
+});

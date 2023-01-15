@@ -78,4 +78,17 @@ function changeInnerTabColor(tabName) {
   tab.classList.add("innerTabActive")
 }
 
+
+function validateNewCard(inputTextId, idOkbtn) {
+  const inputName = document.getElementById(inputTextId);
+  inputName.addEventListener('input', () => {
+    const inputValue = inputName.value
+    if (!inputValue) {
+      $( idOkbtn ).addClass( "ui-button-disabled ui-state-disabled" )
+    } else {
+      $( idOkbtn ).removeClass( "ui-button-disabled ui-state-disabled" )
+    }
+  });
+}
+
 // pageChange('#dinamicPage', 'components/projects/editProject.html')

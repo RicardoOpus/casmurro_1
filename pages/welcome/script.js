@@ -16,6 +16,7 @@
 		{
 			text: "Cancel",
 			click: function() {
+        document.getElementById("projectName").value = "";
 				$( this ).dialog( "close" );
 			}
 		}
@@ -25,21 +26,11 @@
 // Link to open the dialog
 $( "#dialog-link" ).click(function( event ) {
 	$( "#dialog" ).dialog( "open" );
-  $( "#okBtn" ).addClass( "ui-button-disabled ui-state-disabled" )
-	event.preventDefault();
+  $( "#okBtn" ).addClass( "ui-button-disabled ui-state-disabled" );
+  $( ".ui-icon-closethick" ).click(function( event ) {
+    document.getElementById("projectName").value = "";
+  })
 });
-
-function validateNewProject() {
-  const inputName = document.getElementById("projectName");
-  inputName.addEventListener('input', (event) => {
-    const inputValue = inputName.value
-    if (!inputValue) {
-      $( "#okBtn" ).addClass( "ui-button-disabled ui-state-disabled" )
-    } else {
-      $( "#okBtn" ).removeClass( "ui-button-disabled ui-state-disabled" )
-    }
-  });
-}
 
 async function createNewProject() {
   const inputName = document.getElementById("projectName");
@@ -121,6 +112,6 @@ restoreBackground()
 
 $( document ).ready(function() {
   listProjects();
-  validateNewProject();
+  validateNewCard("projectName", "#okBtn");
   disableNavBar();
 });
