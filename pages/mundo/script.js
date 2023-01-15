@@ -55,5 +55,7 @@ function setImageOpacity() {
 }
 
 
+
 getWorldCards();
+
 
