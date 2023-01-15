@@ -1,44 +1,44 @@
-// Register service worker to control making site work offline
+// // Register service worker to control making site work offline
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker
-    .register('sw.js')
-    .then(() => { console.log('Service Worker Registered'); });
-}
+// if ('serviceWorker' in navigator) {
+//   navigator.serviceWorker
+//     .register('sw.js')
+//     .then(() => { console.log('Service Worker Registered'); });
+// }
 
-// Code to handle install prompt on desktop
+// // Code to handle install prompt on desktop
 
-let deferredPrompt;
-const installAlert = document.getElementById('install-alert');
-const installBtn = document.getElementById('install-button');
-const closeBtn = document.getElementById('close-button');
-installAlert.style.display = 'none';
+// let deferredPrompt;
+// const installAlert = document.getElementById('install-alert');
+// const installBtn = document.getElementById('install-button');
+// const closeBtn = document.getElementById('close-button');
+// installAlert.style.display = 'none';
 
-window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent Chrome 67 and earlier from automatically showing the prompt
-  e.preventDefault();
-  // Stash the event so it can be triggered later.
-  deferredPrompt = e;
-  // Update UI to notify the user they can add to home screen
-  installAlert.style.display = 'block';
+// window.addEventListener('beforeinstallprompt', (e) => {
+//   // Prevent Chrome 67 and earlier from automatically showing the prompt
+//   e.preventDefault();
+//   // Stash the event so it can be triggered later.
+//   deferredPrompt = e;
+//   // Update UI to notify the user they can add to home screen
+//   installAlert.style.display = 'block';
   
-  closeBtn.addEventListener('click', () => {
-    installAlert.style.display = 'none';
-  })
+//   closeBtn.addEventListener('click', () => {
+//     installAlert.style.display = 'none';
+//   })
 
-  installBtn.addEventListener('click', () => {
-    // hide our user interface that shows our A2HS button
-    installAlert.style.display = 'none';
-    // Show the prompt
-    deferredPrompt.prompt();
-    // Wait for the user to respond to the prompt
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === 'accepted') {
-        // console.log('User accepted the A2HS prompt');
-      } else {
-        //  console.log('User dismissed the A2HS prompt');
-      }
-      deferredPrompt = null;
-    });
-  });
-});
+//   installBtn.addEventListener('click', () => {
+//     // hide our user interface that shows our A2HS button
+//     installAlert.style.display = 'none';
+//     // Show the prompt
+//     deferredPrompt.prompt();
+//     // Wait for the user to respond to the prompt
+//     deferredPrompt.userChoice.then((choiceResult) => {
+//       if (choiceResult.outcome === 'accepted') {
+//         // console.log('User accepted the A2HS prompt');
+//       } else {
+//         //  console.log('User dismissed the A2HS prompt');
+//       }
+//       deferredPrompt = null;
+//     });
+//   });
+// });

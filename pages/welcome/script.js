@@ -45,11 +45,13 @@ async function createNewProject() {
   const inputName = document.getElementById("projectName");
   const currentDate = new Date();
   const timeStamp = Date.now();
+  const data = { world: [] }
   console.log(typeof(timeStampI));
   const idNew = await db.projects.add(
     { title: inputName.value,
       status: "novo",
       cards_qty: 0,
+      data: data,
       literary_genre: null,
       description: null,
       image_cover: null,
