@@ -10,9 +10,9 @@ buttons: [
     id: "okBtn-world",
     disabled: false,
     click: async function() {
-      await createNewProject();
+      await createNewWorld();
       $( this ).dialog( "close" );
-      pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js')
+      pageChange('#dinamic', 'pages/mundo/page.html', 'pages/mundo/script.js')
     }
   },
   {
@@ -22,8 +22,7 @@ buttons: [
       document.getElementById("worldCat").value = "";
       $( this ).dialog( "close" );
     }
-  }
-]
+  }]
 });
 
 // Link to open the dialog
@@ -57,7 +56,7 @@ async function getWorldCards() {
                   <p class="it">${ ele.content }</p>
                 </div>
                 <div>
-                  <img src="${ !ele.image_card ? 'assets/images/manuscript.jpeg' : ele.image_card }" class="worldListImage esse"> 
+                  <img src="${ !ele.image_card ? '' : ele.image_card }" class="worldListImage esse"> 
                 </div>
               </div>
             </div>
@@ -89,8 +88,26 @@ function setImageOpacity() {
   })
 }
 
+async function createNewWorld() {
+  const currentDate = new Date();
+  const timeStamp = Date.now();
+  const pjID = await getCurrentProjectID()
+  const worldName = document.getElementById("worldName");
+  const worldCat = document.getElementById("worldCat");
+  var data = {
+    title: worldName.value,
+    category: worldCat.value,
+    image_card: '',
+    content: ''
+  };
+  db.projects.where('id').equals(pjID).modify( (ele) => {
+    ele.data.world.push(data) 
+    }
+  );  
+  await db.projects.update(pjID,{ last_edit: currentDate,  timestamp: timeStamp });
+  return
+};
+
+
 getWorldCards();
 validateNewCard("worldName", "#okBtn-world");
-
-$( document ).ready(function() {
-});

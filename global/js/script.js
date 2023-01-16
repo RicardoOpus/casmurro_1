@@ -91,4 +91,10 @@ function validateNewCard(inputTextId, idOkbtn) {
   });
 }
 
+async function getCurrentProjectID() {
+  const projectActual = await db.settings.toArray();
+  const idProject = projectActual[0].currentproject;
+  return idProject;
+} 
+
 // pageChange('#dinamicPage', 'components/projects/editProject.html')
