@@ -258,7 +258,9 @@ footer {
 } */
 
 /* World page styles ================================================ */
-
+.listCards{
+  width: 100%;
+}
 .worldList {
   display: flex;
   flex-direction: column;
@@ -269,6 +271,7 @@ footer {
   /* margin-bottom: 0px; */
   padding-inline-start: 0px;
   padding: 0rem 1rem 0rem 1rem;
+
 }
 .worldItens {
   min-width: 100%;
