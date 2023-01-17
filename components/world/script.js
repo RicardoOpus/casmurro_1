@@ -28,11 +28,13 @@ async function restoreWordCard() {
       const dateConverted = convertDateBR(dataObj[key]);
       const date = convertDateUS(dateConverted);
       return result.value = date;
-    } if (key === "image_card") {
-      var cardbackgrond = document.querySelector(".cardImageDiv");
-      cardbackgrond.style.backgroundImage =  `url(${ dataObj[key] })`;
-      // cardbackgrond.children[0].style.backgroundImage =  `url(${ dataObj[key] })`;
+    } if (key === "image_card" && dataObj[key] !== '') {
+      var cardbackgrond = document.getElementById("imageCardBackgournd");
+      cardbackgrond.classList.add("imageCardBackgournd");
+      cardbackgrond.children[0].style.backgroundImage =  `url(${ dataObj[key] })`;
+      cardbackgrond.children[0].classList.add("cardImageDiv");
       result.setAttribute("src", dataObj[key]);
+      result.classList.add("cardImage");
     } if (result) {
       return result.value = dataObj[key];
     }
