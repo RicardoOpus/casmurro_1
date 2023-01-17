@@ -141,4 +141,14 @@ async function deleteImageCard(typeCard, callback) {
   return callback;
 };
 
+function auto_grow(element) {
+  element.style.height = "5px";
+  element.style.height = (element.scrollHeight)+"px";
+};
+
+function resumeHeight() {
+  const result = document.getElementById("content")
+  result.style.height = result.scrollHeight+"px";
+};
+
 // pageChange('#dinamicPage', 'components/projects/editProject.html')

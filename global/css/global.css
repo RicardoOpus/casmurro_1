@@ -507,7 +507,6 @@ footer {
 
 .cardInputNormal {
   width: 100%;
-  height: 40px;
   font-size: 16px;
   background: rgb(18, 18, 20);
   border-color: rgb(18, 18, 20);
@@ -516,8 +515,11 @@ footer {
   border-radius: 5px;
 }
 
+.dateFactInputForm{
+  height: 40px;
+}
+
 .projectInputResume {
-  height: 100px;
   padding: 1rem;
 }
 

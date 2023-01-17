@@ -39,6 +39,7 @@ async function restoreWordCard() {
       return result.value = dataObj[key];
     }
   })
+  resumeHeight()
 };
 
 var elementsArray = document.querySelectorAll(".projectInputForm");
