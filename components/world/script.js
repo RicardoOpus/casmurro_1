@@ -30,8 +30,9 @@ async function restoreWordCard() {
       return result.value = date;
     } if (key === "image_card") {
       var cardbackgrond = document.querySelector(".cardImageDiv");
-      cardbackgrond.style.backgroundImage =  `url(${ dataObj[key] })`
-      result.setAttribute("src", dataObj[key])
+      cardbackgrond.style.backgroundImage =  `url(${ dataObj[key] })`;
+      // cardbackgrond.children[0].style.backgroundImage =  `url(${ dataObj[key] })`;
+      result.setAttribute("src", dataObj[key]);
     } if (result) {
       return result.value = dataObj[key];
     }

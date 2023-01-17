@@ -115,7 +115,7 @@ async function deleteCard(cardType) {
   });
 };
 
-async function saveCardImage(typeCard, callback) {
+async function saveCardImage(typeCard, htmlPlace, pege, srcipt) {
   const currentID = await getCurrentProjectID();
   const currentCard = await getCurrentCard();
   const fileInput = document.querySelector('#my-image');
@@ -123,12 +123,13 @@ async function saveCardImage(typeCard, callback) {
   const reader = new FileReader();
   reader.onloadend = async () => {
     const base64String = reader.result
-    db.projects.where('id').equals(currentID).modify( (e) => {
+    await db.projects.where('id').equals(currentID).modify( (e) => {
       e.data[typeCard][currentCard].image_card = base64String;
     });
   };
   reader.readAsDataURL(file);
-  return callback;
+  console.log('chegou aqui');
+  return pageChange(htmlPlace, pege, srcipt)
 };
 
 async function deleteImageCard(typeCard, callback) {
@@ -139,6 +140,5 @@ async function deleteImageCard(typeCard, callback) {
   });
   return callback;
 };
-
 
 // pageChange('#dinamicPage', 'components/projects/editProject.html')

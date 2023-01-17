@@ -255,6 +255,7 @@ footer {
   background-size: cover; 
   background-position-x: center;
   background-position-y: center;
+  
   /* filter: blur(8px) brightness(50%); */
   /* z-index: -1; */
   
@@ -268,11 +269,10 @@ footer {
   border-color:#444C56;
   border-width: 1px;
   box-shadow: 0px 0px 12px #000000;
-  opacity: 0.9;
   margin-bottom: -155px;
-  -webkit-box-shadow: 0px 0px 300px 300px rgba(0,0,0,1);
-  -moz-box-shadow: 0px 0px 300px 300px rgba(0,0,0,1);
-  box-shadow: 0px 0px 300px 300px rgba(0,0,0,1);
+  -webkit-box-shadow: 0px 0px 0px 300px rgba(0,0,0,0.902);
+  -moz-box-shadow: 0px 0px 0px 300px rgba(0,0,0,0.902);
+  box-shadow: 0px 0px 300px 400px rgba(0, 0, 0, 0.902);
 }
 
 .imageCardBackgournd {
