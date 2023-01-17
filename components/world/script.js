@@ -91,21 +91,6 @@ $( "#deleteWorldCard" ).click(function( event ) {
 	event.preventDefault();
 });
 
-async function saveCardImage(typeCard) {
-  const currentID = await getCurrentProjectID();
-  const currentCard = await getCurrentCard();
-  const fileInput = document.querySelector('#my-image');
-  const file = fileInput.files[0];
-  const reader = new FileReader();
-  reader.onloadend = async () => {
-    const base64String = reader.result
-    db.projects.where('id').equals(currentID).modify( (e) => {
-      e.data[typeCard][currentCard].image_card = base64String;
-    });
-  };
-  reader.readAsDataURL(file);
-};
-
 async function restoreProjectCover() {
   const projectActual = await db.settings.toArray();
   const idProject = await projectActual[0].currentproject;

@@ -249,36 +249,6 @@ footer {
         mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
 }
 
-/* =========================== v */
-/* .cardImageDiv{
-  position: relative;
-  height: 300px;
-  background-size: cover; 
-  background-position-x: center;
-  background-position-y: center;
-  filter: blur(8px) brightness(50%);
-}
-
-.cardImage{
-  height: 300px;
-  border-radius: 15px;
-  position: absolute;
-  z-index: 1;
-  margin-top: 1em;
-  -webkit-box-shadow: 0px 0px 12px #000000;
--moz-box-shadow: 0px 0px 12px #000000;
-border-color:#262626;
-box-shadow: 0px 0px 12px #000000;
-opacity: 0.9;
-}
-
-.teste {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-} */
-/* ============================================================^ */
-
 .cardImageDiv{
   /* position: relative; */
   height: 300px;
@@ -292,10 +262,11 @@ opacity: 0.9;
 
 .cardImage{
   height: 300px;
-  border-radius: 15px;
+  border-radius: 9px;
   -webkit-box-shadow: 0px 0px 12px #000000;
   -moz-box-shadow: 0px 0px 12px #000000;
-  border-color:#262626;
+  border-color:#444C56;
+  border-width: 1px;
   box-shadow: 0px 0px 12px #000000;
   opacity: 0.9;
   margin-bottom: -155px;
@@ -304,7 +275,7 @@ opacity: 0.9;
   box-shadow: 0px 0px 300px 300px rgba(0,0,0,1);
 }
 
-.teste {
+.imageCardBackgournd {
   margin-top: 1rem;
   text-align: center;
   overflow:hidden;

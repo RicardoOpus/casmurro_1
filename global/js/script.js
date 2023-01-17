@@ -113,7 +113,32 @@ async function deleteCard(cardType) {
   db.projects.where('id').equals(currentID).modify( (e) => {
     e.data[cardType].splice(currentCard, 1)
   });
-}
+};
+
+async function saveCardImage(typeCard, callback) {
+  const currentID = await getCurrentProjectID();
+  const currentCard = await getCurrentCard();
+  const fileInput = document.querySelector('#my-image');
+  const file = fileInput.files[0];
+  const reader = new FileReader();
+  reader.onloadend = async () => {
+    const base64String = reader.result
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data[typeCard][currentCard].image_card = base64String;
+    });
+  };
+  reader.readAsDataURL(file);
+  return callback;
+};
+
+async function deleteImageCard(typeCard, callback) {
+  const currentID = await getCurrentProjectID();
+  const currentCard = await getCurrentCard();
+  await db.projects.where('id').equals(currentID).modify( (e) => {
+    e.data[typeCard][currentCard].image_card = '';
+  });
+  return callback;
+};
 
 
 // pageChange('#dinamicPage', 'components/projects/editProject.html')

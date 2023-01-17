@@ -6,21 +6,11 @@
     <input class="editProjectTitle projectInputForm" id="title">
     <p class="delete"><span class="ui-icon ui-icon-trash"></span><a id="deleteWorldCard"> Excluir</a></p>
 
-    <!-- <div class="teste">
-      <img src="" id="image_card"class="cardImage">
-    </div>
-    <div class="">
-      <div class="cardImageDiv">
-        <p></p>
-      </div>
-    </div> -->
-
-    <div class="teste">
+    <div class="imageCardBackgournd">
       <div class="cardImageDiv">
         <img src="" id="image_card"class="cardImage">
       </div>
     </div>
-
 
     <div class="editProjectTable">
       <div class="editProjectBlock">
@@ -51,8 +41,8 @@
     <h3>Imagem:</h3>
       <input type="file" id="my-image" class="inputFile ui-corner-all ui-widget">
       <div>
-        <input id="btnSaveWall" type="button" value="Atualizar imagem" class="ui-button ui-corner-all btnSmall" onclick="saveCardImage('world')">
-        <input type="button" value="Limpar imagem" class="ui-button ui-corner-all btnSmall" onclick="restoreProjectCover()">
+        <input id="btnSaveWall" type="button" value="Atualizar imagem" class="ui-button ui-corner-all btnSmall" onclick="saveCardImage('world', pageChange('#project-list', 'components/world/page.html', 'components/world/script.js'))">
+        <input type="button" value="Limpar imagem" class="ui-button ui-corner-all btnSmall" onclick="deleteImageCard('world', pageChange('#project-list', 'components/world/page.html', 'components/world/script.js'))">
       </div>
     <img src="" width="300" id="image_card">
   </div>
