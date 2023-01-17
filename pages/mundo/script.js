@@ -12,6 +12,7 @@ buttons: [
     click: async function() {
       await createNewWorld();
       $( this ).dialog( "close" );
+      document.getElementById("worldName").value = "";
       pageChange('#dinamic', 'pages/mundo/page.html', 'pages/mundo/script.js')
     }
   },
@@ -19,7 +20,6 @@ buttons: [
     text: "Cancel",
     click: function() {
       document.getElementById("worldName").value = "";
-      document.getElementById("worldCat").value = "";
       $( this ).dialog( "close" );
     }
   }]
@@ -31,7 +31,6 @@ $( "#dialogWorld" ).dialog( "open" );
 $( "#okBtn-world" ).addClass( "ui-button-disabled ui-state-disabled" );
 $( ".ui-icon-closethick" ).click(function( event ) {
   document.getElementById("worldName").value = "";
-  document.getElementById("worldCat").value = "";
 })
 event.preventDefault();
 });
@@ -40,13 +39,13 @@ async function getWorldCards() {
   const projectActual = await db.settings.toArray();
   const idProject = await projectActual[0].currentproject;
   const result = await db.projects.get(idProject);
-  console.log(result.data.world);
-  result.data.world.forEach( (ele) => {
+  result.data.world.forEach( (ele, i) => {
     $('#project-list').append(
       `
       <ul class="worldList">
         <li class="worldItens">
-          <div class="worldName paper" onclick="setProjectAtual()">
+        <a onclick="pageChange('#project-list', 'components/world/page.html', 'components/world/script.js')">
+          <div class="worldName paper" onclick="setCurrentCard(${ i })">
             <div class="contentListWorld">
               <p class="wordlTitle">${ ele.title }</p>
               <hr class="cardLineTop">
@@ -61,6 +60,7 @@ async function getWorldCards() {
               </div>
             </div>
           </div>
+        </a>
         </li>
       </ul>
       `
@@ -93,12 +93,12 @@ async function createNewWorld() {
   const timeStamp = Date.now();
   const pjID = await getCurrentProjectID()
   const worldName = document.getElementById("worldName");
-  const worldCat = document.getElementById("worldCat");
   var data = {
     title: worldName.value,
-    category: worldCat.value,
+    category: '',
     image_card: '',
-    content: ''
+    content: '',
+    date: ''
   };
   db.projects.where('id').equals(pjID).modify( (ele) => {
     ele.data.world.push(data) 
@@ -107,7 +107,6 @@ async function createNewWorld() {
   await db.projects.update(pjID,{ last_edit: currentDate,  timestamp: timeStamp });
   return
 };
-
 
 getWorldCards();
 validateNewCard("worldName", "#okBtn-world");

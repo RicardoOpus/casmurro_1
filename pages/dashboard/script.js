@@ -1,4 +1,4 @@
-console.log('chamou dashboard (dentro)');
+console.log('chamou dashboard');
 
 async function recoverProjectInfos() {
   const projectActual = await db.settings.toArray();

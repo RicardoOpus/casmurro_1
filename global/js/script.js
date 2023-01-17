@@ -18,7 +18,6 @@ function loadpage(pagename) {
   });
 }
 
-
 async function welcome() {
   const projectActual = await db.settings.toArray();
   if (projectActual.length === 0) {
@@ -78,7 +77,6 @@ function changeInnerTabColor(tabName) {
   tab.classList.add("innerTabActive")
 }
 
-
 function validateNewCard(inputTextId, idOkbtn) {
   const inputName = document.getElementById(inputTextId);
   inputName.addEventListener('input', () => {
@@ -89,12 +87,33 @@ function validateNewCard(inputTextId, idOkbtn) {
       $( idOkbtn ).removeClass( "ui-button-disabled ui-state-disabled" )
     }
   });
-}
+};
 
 async function getCurrentProjectID() {
   const projectActual = await db.settings.toArray();
   const idProject = projectActual[0].currentproject;
   return idProject;
-} 
+};
+
+async function setCurrentCard(id) {
+  await db.settings.update(1, { currentCard: id})
+  return
+};
+
+async function getCurrentCard() {
+  const cardActual = await db.settings.toArray();
+  const idProject = cardActual[0].currentCard;
+  return idProject;
+};
+
+async function deleteCard(cardType) {
+  const currentID = await getCurrentProjectID();
+  const currentCard = await getCurrentCard();
+
+  db.projects.where('id').equals(currentID).modify( (e) => {
+    e.data[cardType].splice(currentCard, 1)
+  });
+}
+
 
 // pageChange('#dinamicPage', 'components/projects/editProject.html')

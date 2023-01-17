@@ -97,13 +97,7 @@ $( "#deleteProject" ).click(function( event ) {
 	event.preventDefault();
 });
 
-function verify() {
-  console.log('chamou verify');
-  document.getElementById("btnSaveWall").disabled = false;
-};
-
 document.getElementById("btnSaveWall").disabled = true;
-var result = document.getElementById("my-image");
-result.addEventListener('input', () => {
-  verify();
+document.getElementById("my-image").addEventListener('input', () => { 
+  document.getElementById("btnSaveWall").disabled = false;
 });
