@@ -35,8 +35,6 @@ $( ".ui-icon-closethick" ).click(function( event ) {
 event.preventDefault();
 });
 
-
-
 function sortByKey(array, key) {
   return array.sort(function(a, b) {
       var x = a[key]; var y = b[key];
@@ -83,17 +81,20 @@ async function getWorldCards() {
 
 
 async function getWorldCardsFiltred(filter) {
+  $('#project-list').empty();
   const projectActual = await db.settings.toArray();
   const idProject = await projectActual[0].currentproject;
   const result = await db.projects.get(idProject);
-  result.data.world.forEach( (ele, i) => {
+  const resultSorted = sortByKey(result.data.world, 'title')
+
+  resultSorted.forEach( (ele) => {
     if (ele.category === filter) {
       $('#project-list').append(
         `
         <ul class="worldList">
           <li class="worldItens">
           <a onclick="pageChange('#project-list', 'components/world/page.html', 'components/world/script.js')">
-            <div class="worldName paper" onclick="setCurrentCard(${ i })">
+            <div class="worldName paper" onclick="setCurrentCard('world', ${ ele.id })">
               <div class="contentListWorld">
                 <p class="wordlTitle">${ ele.title }</p>
                 <hr class="cardLineTop">
@@ -140,8 +141,6 @@ function setImageOpacity() {
   })
 }
 
-
-
 async function createNewWorld() {
   const ID = await idManager('id_world')
   console.log(ID);
@@ -166,5 +165,10 @@ async function createNewWorld() {
 };
 
 getWorldCards();
-// getWorldCardsFiltred('Local');
+
+function setFilterCategory(tab, filterCategory) {
+  changeInnerTabColor(tab);
+  getWorldCardsFiltred(filterCategory);
+}
+
 validateNewCard("worldName", "#okBtn-world");
