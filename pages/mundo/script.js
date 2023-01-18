@@ -35,11 +35,22 @@ $( ".ui-icon-closethick" ).click(function( event ) {
 event.preventDefault();
 });
 
+
+
+function sortByKey(array, key) {
+  return array.sort(function(a, b) {
+      var x = a[key]; var y = b[key];
+      return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+  });
+}
+
 async function getWorldCards() {
   const projectActual = await db.settings.toArray();
   const idProject = await projectActual[0].currentproject;
   const result = await db.projects.get(idProject);
-  result.data.world.forEach( (ele, i) => {
+  const resultSorted = sortByKey(result.data.world, 'title')
+  console.log(resultSorted);
+  resultSorted.forEach( (ele, i) => {
     $('#project-list').append(
       `
       <ul class="worldList">
@@ -70,6 +81,47 @@ async function getWorldCards() {
   })
 };
 
+
+async function getWorldCardsFiltred(filter) {
+  const projectActual = await db.settings.toArray();
+  const idProject = await projectActual[0].currentproject;
+  const result = await db.projects.get(idProject);
+  result.data.world.forEach( (ele, i) => {
+    if (ele.category === filter) {
+      $('#project-list').append(
+        `
+        <ul class="worldList">
+          <li class="worldItens">
+          <a onclick="pageChange('#project-list', 'components/world/page.html', 'components/world/script.js')">
+            <div class="worldName paper" onclick="setCurrentCard(${ i })">
+              <div class="contentListWorld">
+                <p class="wordlTitle">${ ele.title }</p>
+                <hr class="cardLineTop">
+                <span> ${ ele.category } </span>
+                <div class="worldCardDivider">
+                  <div>
+                    <p class="it">${ ele.content }</p>
+                  </div>
+                  <div>
+                    <img src="${ !ele.image_card ? '' : ele.image_card }" class="worldListImage esse"> 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+          </li>
+        </ul>
+        `
+      );
+    } else {
+      null
+    }
+    setContentOpacity();
+    setImageOpacity();
+  })
+};
+
+
 function setContentOpacity() {
   const content = document.querySelectorAll(".it");
   content.forEach( (cont) => {
@@ -88,7 +140,11 @@ function setImageOpacity() {
   })
 }
 
+
+
 async function createNewWorld() {
+  const ID = await idManager('id_world')
+  console.log(ID);
   const currentDate = new Date();
   const timeStamp = Date.now();
   const pjID = await getCurrentProjectID()
@@ -98,7 +154,8 @@ async function createNewWorld() {
     category: '',
     image_card: '',
     content: '',
-    date: ''
+    date: '',
+    id: ID
   };
   db.projects.where('id').equals(pjID).modify( (ele) => {
     ele.data.world.push(data) 
@@ -109,4 +166,5 @@ async function createNewWorld() {
 };
 
 getWorldCards();
+// getWorldCardsFiltred('Local');
 validateNewCard("worldName", "#okBtn-world");

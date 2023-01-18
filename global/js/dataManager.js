@@ -7,8 +7,7 @@ db.version(1).stores({
 async function hasSettings() {
   const projectActual = await db.settings.toArray();
   if (!projectActual[0]) {
-    const updated = await db.settings.add({ currentproject: 0, currentCard: 0 })
-    return updated
+    return await db.settings.add({ currentproject: 0, currentCard: 0 })
   }
 };
 

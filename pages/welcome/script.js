@@ -49,6 +49,7 @@ async function createNewProject() {
       created_at: currentDate,
       last_edit: currentDate,
       timestamp: timeStamp,
+      id_world: 0,
     }).then();
   const updadeCurrent = await db.settings.update(1,{ currentproject: idNew });
   inputName.value = '';

@@ -151,4 +151,28 @@ function resumeHeight() {
   result.style.height = result.scrollHeight+"px";
 };
 
+// async function idManager() {
+//   let result = '';
+//   const projectActual = await db.settings.toArray();
+//   const idProject = await projectActual[0].currentproject;
+//   const dataProject = await db.projects.get(idProject);
+//   result = await dataProject.id_world;
+//   await db.projects.update(idProject, { id_world: ++result });
+//   return result
+// };
+
+async function idManager(typeCard) {
+  let result = '';
+  const currentID = await getCurrentProjectID();
+  const dataProject = await db.projects.get(currentID);
+  result = await dataProject.id_world;
+  // await db.projects.update(currentID, { id_world: ++result });
+
+  await db.projects.where('id').equals(currentID).modify( (e) => {
+    e[typeCard] = ++result;
+  });
+
+  return result
+};
+
 // pageChange('#dinamicPage', 'components/projects/editProject.html')
