@@ -95,15 +95,24 @@ async function getCurrentProjectID() {
   return idProject;
 };
 
-async function setCurrentCard(id) {
-  await db.settings.update(1, { currentCard: id})
+async function setCurrentCard(card, id) {
+  await db.settings.update(1, { currentCard: card, currendIdCard: id})
   return
 };
 
+// async function getCurrentCard() {
+//   const cardActual = await db.settings.toArray();
+//   const idProject = cardActual[0].currentCard;
+//   return idProject;
+// };
+
 async function getCurrentCard() {
-  const cardActual = await db.settings.toArray();
-  const idProject = cardActual[0].currentCard;
-  return idProject;
+  const currentID = await getCurrentProjectID();
+  const currentSettings = await db.settings.get(1);
+  const currentCardID = await currentSettings.currendIdCard;
+  const projectData = await db.projects.get(currentID);
+  const positionInArray =  projectData.data.world.map(function (e) { return e.id; }).indexOf(currentCardID);
+  return positionInArray;
 };
 
 async function deleteCard(cardType) {
@@ -132,13 +141,13 @@ async function saveCardImage(typeCard, htmlPlace, pege, srcipt) {
   return pageChange(htmlPlace, pege, srcipt)
 };
 
-async function deleteImageCard(typeCard, callback) {
+async function deleteImageCard(typeCard, htmlPlace, pege, srcipt) {
   const currentID = await getCurrentProjectID();
   const currentCard = await getCurrentCard();
   await db.projects.where('id').equals(currentID).modify( (e) => {
     e.data[typeCard][currentCard].image_card = '';
   });
-  return callback;
+  return pageChange(htmlPlace, pege, srcipt)
 };
 
 function auto_grow(element) {
@@ -151,27 +160,14 @@ function resumeHeight() {
   result.style.height = result.scrollHeight+"px";
 };
 
-// async function idManager() {
-//   let result = '';
-//   const projectActual = await db.settings.toArray();
-//   const idProject = await projectActual[0].currentproject;
-//   const dataProject = await db.projects.get(idProject);
-//   result = await dataProject.id_world;
-//   await db.projects.update(idProject, { id_world: ++result });
-//   return result
-// };
-
 async function idManager(typeCard) {
   let result = '';
   const currentID = await getCurrentProjectID();
   const dataProject = await db.projects.get(currentID);
   result = await dataProject.id_world;
-  // await db.projects.update(currentID, { id_world: ++result });
-
   await db.projects.where('id').equals(currentID).modify( (e) => {
     e[typeCard] = ++result;
   });
-
   return result
 };
 

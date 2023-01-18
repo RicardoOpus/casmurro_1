@@ -49,14 +49,14 @@ async function getWorldCards() {
   const idProject = await projectActual[0].currentproject;
   const result = await db.projects.get(idProject);
   const resultSorted = sortByKey(result.data.world, 'title')
-  console.log(resultSorted);
-  resultSorted.forEach( (ele, i) => {
+
+  resultSorted.forEach( (ele) => {
     $('#project-list').append(
       `
       <ul class="worldList">
         <li class="worldItens">
         <a onclick="pageChange('#project-list', 'components/world/page.html', 'components/world/script.js')">
-          <div class="worldName paper" onclick="setCurrentCard(${ i })">
+          <div class="worldName paper" onclick="setCurrentCard('world', ${ ele.id })">
             <div class="contentListWorld">
               <p class="wordlTitle">${ ele.title }</p>
               <hr class="cardLineTop">
