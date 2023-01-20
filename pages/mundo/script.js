@@ -107,7 +107,6 @@ event.preventDefault();
 });
 
 function setFilterCategory(tab, filterCategory) {
-  console.log('TAB: ', tab, "filter: ", filterCategory);
   changeInnerTabColor(tab);
   getWorldCardsFiltred(filterCategory);
 }
@@ -220,7 +219,6 @@ function setImageOpacity() {
 
 async function createNewWorld() {
   const ID = await idManager('id_world')
-  console.log(ID);
   const currentDate = new Date();
   const timeStamp = Date.now();
   const pjID = await getCurrentProjectID()
@@ -271,11 +269,9 @@ async function restoreDelCategories() {
   });
 }
 
-
-
 setCustomTabs();
 getWorldCards();
 
 validateNewCard("worldName", "#okBtn-world");
-validateNewCard("categoryName", "#okBtn-cat")
-validateNewCard("categoryDelName", "#okBtn-delcat")
+validateNewCard("categoryName", "#okBtn-cat");
+validateNewCard("categoryDelName", "#okBtn-delcat");
