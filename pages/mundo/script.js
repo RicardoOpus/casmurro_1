@@ -37,7 +37,7 @@ event.preventDefault();
 
 $( "#dialog_new_worldCategory" ).dialog({
   autoOpen: false,
-  width: 350,
+  width: 400,
   buttons: [
     {
       text: "Ok",
@@ -59,16 +59,52 @@ $( "#dialog_new_worldCategory" ).dialog({
       }
     }]
   });
-  
-  // Link to open the dialog Category
-  $( "#dialog-link-category" ).click(function( event ) {
-  $( "#dialog_new_worldCategory" ).dialog( "open" );
-  $( "#okBtn-cat" ).addClass( "ui-button-disabled ui-state-disabled" );
-  $( ".ui-icon-closethick" ).click(function( event ) {
-    document.getElementById("categoryName").value = "";
+
+// Link to open the dialog Category
+$( "#dialog-link-category" ).click(function( event ) {
+$( "#dialog_new_worldCategory" ).dialog( "open" );
+$( "#okBtn-cat" ).addClass( "ui-button-disabled ui-state-disabled" );
+$( ".ui-icon-closethick" ).click(function( event ) {
+  document.getElementById("categoryName").value = "";
   })
-  event.preventDefault();
+event.preventDefault();
+});
+
+$( "#dialog_delete_worldCategory" ).dialog({
+  autoOpen: false,
+  width: 400,
+  buttons: [
+    {
+      text: "Ok",
+      id: "okBtn-delcat",
+      disabled: false,
+      click: async function() {
+        const catDel = document.getElementById("categoryDelName");
+        await removeCategory('world', catDel.value);
+        $( this ).dialog( "close" );
+        document.getElementById("categoryDelName").value = "";
+        pageChange('#dinamic', 'pages/mundo/page.html', 'pages/mundo/script.js')
+      }
+    },
+    {
+      text: "Cancel",
+      click: function() {
+        document.getElementById("categoryDelName").value = "";
+        $( this ).dialog( "close" );
+      }
+    }]
   });
+
+// Link to open the dialog Delete Category
+$( "#dialog-link-delcategory" ).click(function( event ) {
+  $( "#dialog_delete_worldCategory" ).dialog( "open" );
+  $( "#okBtn-delcat" ).addClass( "ui-button-disabled ui-state-disabled" );
+  $( ".ui-icon-closethick" ).click(function( event ) {
+    document.getElementById("categoryDelName").value = "";
+  })
+restoreDelCategories();
+event.preventDefault();
+});
 
 function setFilterCategory(tab, filterCategory) {
   console.log('TAB: ', tab, "filter: ", filterCategory);
@@ -218,10 +254,28 @@ async function setCustomTabs() {
   });
 }
 
-setCustomTabs()
+async function restoreDelCategories() {
+  const project = await getCurrentProject();
+  const categoryList = project.settings.world;
+
+  $('#categoryDelName').empty();
+  $.each(categoryList, function(i, value) {
+    if (value === "-- selecione --" ) {
+      return $('#categoryDelName').append($('<option disabeld></option>').val('').html(value));
+    }
+    if (value === "Fato histórico" || value === "-- nenhum --") {
+      return null
+    } else {
+      return $('#categoryDelName').append($('<option></option>').val(value).html(value));
+    }
+  });
+}
 
 
+
+setCustomTabs();
 getWorldCards();
 
 validateNewCard("worldName", "#okBtn-world");
 validateNewCard("categoryName", "#okBtn-cat")
+validateNewCard("categoryDelName", "#okBtn-delcat")

@@ -181,9 +181,17 @@ async function idManager(typeCard) {
 
 async function addNewCategory(type, category) {
   const projectID = await getCurrentProjectID();
-  console.log(projectID);
   db.projects.where('id').equals(projectID).modify( (e) => {
     e.settings[type].push(category);
+  })
+}
+
+async function removeCategory(type, category) {
+  const projectID = await getCurrentProjectID();
+  const projectData = await db.projects.get(projectID);
+  const positionInArray =  projectData.settings.world.indexOf(category);
+  db.projects.where('id').equals(projectID).modify( (e) => {
+    e.settings[type].splice(positionInArray, 1);
   })
 }
 

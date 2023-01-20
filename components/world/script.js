@@ -129,11 +129,9 @@ async function restoreCategories() {
   $('#category').empty();
   $.each(categoryList, function(i, value) {
     if (value === "-- selecione --") {
-      return $('#category').append($('<option disabled></option>').val(value).html(value));
+      return $('#category').append($('<option disabled></option>').val("").html(value));
     } if (value === "-- nenhum --") {
       return $('#category').append($('<option></option>').val("").html(value));
-    } if  (value === "Fato histórico") {
-      return $('#category').append($('<option></option>').val(value).html("Fato histórico"));
     } else {
       return $('#category').append($('<option></option>').val(value).html(value));
     }
