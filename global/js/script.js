@@ -73,6 +73,7 @@ function changeInnerTabColor(tabName) {
     tab.classList.add("innerTabInactive")
   })
   const tab = document.getElementById(tabName);
+    console.log(tab);
   tab.classList.remove("innerTabInactive")
   tab.classList.add("innerTabActive")
 }

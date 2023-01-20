@@ -41,11 +41,11 @@ $( "#dialog_new_worldCategory" ).dialog({
   buttons: [
     {
       text: "Ok",
-      id: "okBtn-world",
+      id: "okBtn-cat",
       disabled: false,
       click: async function() {
-        const cat = formCat.categoryName.value;
-        await addNewCategory('world',cat);
+        const cat = document.getElementById("categoryName");
+        await addNewCategory('world', cat.value);
         $( this ).dialog( "close" );
         document.getElementById("categoryName").value = "";
         pageChange('#dinamic', 'pages/mundo/page.html', 'pages/mundo/script.js')
@@ -63,7 +63,7 @@ $( "#dialog_new_worldCategory" ).dialog({
   // Link to open the dialog Category
   $( "#dialog-link-category" ).click(function( event ) {
   $( "#dialog_new_worldCategory" ).dialog( "open" );
-  $( "#okBtn-world" ).addClass( "ui-button-disabled ui-state-disabled" );
+  $( "#okBtn-cat" ).addClass( "ui-button-disabled ui-state-disabled" );
   $( ".ui-icon-closethick" ).click(function( event ) {
     document.getElementById("categoryName").value = "";
   })
@@ -71,6 +71,7 @@ $( "#dialog_new_worldCategory" ).dialog({
   });
 
 function setFilterCategory(tab, filterCategory) {
+  console.log('TAB: ', tab, "filter: ", filterCategory);
   changeInnerTabColor(tab);
   getWorldCardsFiltred(filterCategory);
 }
@@ -204,6 +205,23 @@ async function createNewWorld() {
   return
 };
 
+async function setCustomTabs() {
+  const project = await getCurrentProject();
+  const categoryList = project.settings.world;
+
+  $.each(categoryList, function(i, value) {
+    if (value === "-- selecione --" || value === "-- nenhum --") {
+      return null
+    } else {
+      return $('.innerTabDefault').append($(`<button class='innerTabInactive' onclick="setFilterCategory('${value}', '${value}')" id='${value}'></button>`).html(value));
+    }
+  });
+}
+
+setCustomTabs()
+
+
 getWorldCards();
 
 validateNewCard("worldName", "#okBtn-world");
+validateNewCard("categoryName", "#okBtn-cat")

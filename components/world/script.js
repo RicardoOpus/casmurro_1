@@ -2,8 +2,8 @@ document.getElementById("category").addEventListener('change', (e) => enableDate
 
 async function enableDateInput(target) {
   const divDate = document.getElementById("div_Date");
-  target === 'Fato_histórico' ? divDate.removeAttribute("style") : divDate.style.display = "none";
-  target !== 'Fato_histórico' ? clearDate() : '';
+  target === 'Fato histórico' ? divDate.removeAttribute("style") : divDate.style.display = "none";
+  target !== 'Fato histórico' ? clearDate() : '';
 };
 
 async function clearDate() {
@@ -132,7 +132,7 @@ async function restoreCategories() {
       return $('#category').append($('<option disabled></option>').val(value).html(value));
     } if (value === "-- nenhum --") {
       return $('#category').append($('<option></option>').val("").html(value));
-    } if  (value === "Fato_histórico") {
+    } if  (value === "Fato histórico") {
       return $('#category').append($('<option></option>').val(value).html("Fato histórico"));
     } else {
       return $('#category').append($('<option></option>').val(value).html(value));
