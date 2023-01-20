@@ -36,8 +36,8 @@ async function createNewProject() {
   const inputName = document.getElementById("projectName");
   const currentDate = new Date();
   const timeStamp = Date.now();
-  const data = { world: [] }
-  console.log(typeof(timeStampI));
+  const data = { world: [] };
+  const categoriesDefault = { world: ["-- selecione --", "Local", "Objeto", "Organização", "Fato_histórico",  "Culturas", "-- nenhum --"] };
   const idNew = await db.projects.add(
     { title: inputName.value,
       status: "novo",
@@ -50,6 +50,7 @@ async function createNewProject() {
       last_edit: currentDate,
       timestamp: timeStamp,
       id_world: 0,
+      settings: categoriesDefault
     }).then();
   const updadeCurrent = await db.settings.update(1,{ currentproject: idNew });
   inputName.value = '';

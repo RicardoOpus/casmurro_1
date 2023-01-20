@@ -95,6 +95,13 @@ async function getCurrentProjectID() {
   return idProject;
 };
 
+async function getCurrentProject() {
+  const currentID = await getCurrentProjectID();
+  const project = await db.projects.get(currentID);
+  return project;
+}
+
+
 async function setCurrentCard(card, id) {
   await db.settings.update(1, { currentCard: card, currendIdCard: id})
   return
@@ -170,5 +177,13 @@ async function idManager(typeCard) {
   });
   return result
 };
+
+async function addNewCategory(type, category) {
+  const projectID = await getCurrentProjectID();
+  console.log(projectID);
+  db.projects.where('id').equals(projectID).modify( (e) => {
+    e.settings[type].push(category);
+  })
+}
 
 // pageChange('#dinamicPage', 'components/projects/editProject.html')

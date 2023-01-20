@@ -521,6 +521,7 @@ footer {
 
 .projectInputResume {
   padding: 1rem;
+  height: 54px;
 }
 
 input[type="date"]::-webkit-inner-spin-button,

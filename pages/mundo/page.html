@@ -1,5 +1,5 @@
 <div class="worldNewCardBtn">
-  <button id="" class="ui-button ui-corner-all worldNewCatBtn"><span class="ui-icon ui-icon-plusthick "></span> Categoria</button>
+  <button id="dialog-link-category" class="ui-button ui-corner-all worldNewCatBtn"><span class="ui-icon ui-icon-plusthick "></span> Categoria</button>
   <button id="dialog-link-world" class="ui-button ui-corner-all ui-widget"><span class="ui-icon ui-icon-plusthick"></span> Cartão</button>
 </div>
 
@@ -16,12 +16,21 @@
   </div>
 </div>
 
-<!-- ui-dialog -->
+<!-- ui-dialogs -->
 <div id="dialogWorld" title="Novo cartão (Mundo)">
   <div class="welcome">
     <p>Título: </p>
     <form id="form">
       <input type="text" id="worldName" class="welcome text ui-corner-all fullwidth">
+    </form>
+  </div>
+</div>
+
+<div id="dialog_new_worldCategory" title="Nova categoria (Mundo)">
+  <div class="welcome">
+    <p>Título: </p>
+    <form id="formCat">
+      <input type="text" id="categoryName" class="welcome text ui-corner-all fullwidth">
     </form>
   </div>
 </div>

@@ -121,3 +121,23 @@ document.getElementById("my-image").addEventListener('input', () => {
 });
 
 restoreWordCard();
+
+async function restoreCategories() {
+  const project = await getCurrentProject();
+  const categoryList = project.settings.world;
+
+  $('#category').empty();
+  $.each(categoryList, function(i, value) {
+    if (value === "-- selecione --") {
+      return $('#category').append($('<option disabled></option>').val(value).html(value));
+    } if (value === "-- nenhum --") {
+      return $('#category').append($('<option></option>').val("").html(value));
+    } if  (value === "Fato_histórico") {
+      return $('#category').append($('<option></option>').val(value).html("Fato histórico"));
+    } else {
+      return $('#category').append($('<option></option>').val(value).html(value));
+    }
+  });
+}
+
+restoreCategories()
