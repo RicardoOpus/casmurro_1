@@ -24,15 +24,14 @@ buttons: [
     }
   }]
 });
-
 // Link to open the dialog
 $( "#dialog-link-world" ).click(function( event ) {
-$( "#dialogWorld" ).dialog( "open" );
-$( "#okBtn-world" ).addClass( "ui-button-disabled ui-state-disabled" );
-$( ".ui-icon-closethick" ).click(function( event ) {
-  document.getElementById("worldName").value = "";
-})
-event.preventDefault();
+  $( "#dialogWorld" ).dialog( "open" );
+  $( "#okBtn-world" ).addClass( "ui-button-disabled ui-state-disabled" );
+  $( ".ui-icon-closethick" ).click(function( event ) {
+    document.getElementById("worldName").value = "";
+  })
+  event.preventDefault();
 });
 
 $( "#dialog_new_worldCategory" ).dialog({
@@ -58,16 +57,15 @@ $( "#dialog_new_worldCategory" ).dialog({
         $( this ).dialog( "close" );
       }
     }]
-  });
-
+});
 // Link to open the dialog Category
 $( "#dialog-link-category" ).click(function( event ) {
-$( "#dialog_new_worldCategory" ).dialog( "open" );
-$( "#okBtn-cat" ).addClass( "ui-button-disabled ui-state-disabled" );
-$( ".ui-icon-closethick" ).click(function( event ) {
-  document.getElementById("categoryName").value = "";
-  })
-event.preventDefault();
+  $( "#dialog_new_worldCategory" ).dialog( "open" );
+  $( "#okBtn-cat" ).addClass( "ui-button-disabled ui-state-disabled" );
+  $( ".ui-icon-closethick" ).click(function( event ) {
+    document.getElementById("categoryName").value = "";
+    })
+  event.preventDefault();
 });
 
 $( "#dialog_delete_worldCategory" ).dialog({
@@ -93,17 +91,16 @@ $( "#dialog_delete_worldCategory" ).dialog({
         $( this ).dialog( "close" );
       }
     }]
-  });
-
+});
 // Link to open the dialog Delete Category
 $( "#dialog-link-delcategory" ).click(function( event ) {
   $( "#dialog_delete_worldCategory" ).dialog( "open" );
   $( "#okBtn-delcat" ).addClass( "ui-button-disabled ui-state-disabled" );
   $( ".ui-icon-closethick" ).click(function( event ) {
     document.getElementById("categoryDelName").value = "";
-  })
-restoreDelCategories();
-event.preventDefault();
+    })
+  restoreDelCategories('world');
+  event.preventDefault();
 });
 
 function setFilterCategory(tab, filterCategory) {
@@ -111,26 +108,16 @@ function setFilterCategory(tab, filterCategory) {
   getWorldCardsFiltred(filterCategory);
 }
 
-function sortByKey(array, key) {
-  return array.sort(function(a, b) {
-      var x = a[key]; var y = b[key];
-      return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-  });
-}
-
 async function getWorldCards() {
-  const projectActual = await db.settings.toArray();
-  const idProject = await projectActual[0].currentproject;
-  const result = await db.projects.get(idProject);
-  const resultSorted = sortByKey(result.data.world, 'title')
-
+  const project = await getCurrentProject();
+  const resultSorted = sortByKey(project.data.world, 'title')
   resultSorted.forEach( (ele) => {
     $('#project-list').append(
       `
       <ul class="worldList">
         <li class="worldItens">
         <a onclick="pageChange('#project-list', 'components/world/page.html', 'components/world/script.js')">
-          <div class="worldName paper" onclick="setCurrentCard('world', ${ ele.id })">
+          <div class="worldName" onclick="setCurrentCard('world', ${ ele.id })">
             <div class="contentListWorld">
               <p class="wordlTitle">${ ele.title }</p>
               <hr class="cardLineTop">
@@ -155,14 +142,10 @@ async function getWorldCards() {
   })
 };
 
-
 async function getWorldCardsFiltred(filter) {
   $('#project-list').empty();
-  const projectActual = await db.settings.toArray();
-  const idProject = await projectActual[0].currentproject;
-  const result = await db.projects.get(idProject);
-  const resultSorted = sortByKey(result.data.world, 'title')
-
+  const project = await getCurrentProject();
+  const resultSorted = sortByKey(project.data.world, 'title')
   resultSorted.forEach( (ele) => {
     if (ele.category === filter) {
       $('#project-list').append(
@@ -198,25 +181,6 @@ async function getWorldCardsFiltred(filter) {
   })
 };
 
-
-function setContentOpacity() {
-  const content = document.querySelectorAll(".it");
-  content.forEach( (cont) => {
-    if (cont.clientHeight > 149) {
-      cont.classList.add("worldContent")
-    }
-  })
-}
-
-function setImageOpacity() {
-  const content = document.querySelectorAll(".worldListImage");
-  content.forEach( (cont) => {
-    if (cont.clientHeight > 149) {
-      cont.classList.add("worldListImageOpacity")
-    }
-  })
-}
-
 async function createNewWorld() {
   const ID = await idManager('id_world')
   const currentDate = new Date();
@@ -239,39 +203,8 @@ async function createNewWorld() {
   return
 };
 
-async function setCustomTabs() {
-  const project = await getCurrentProject();
-  const categoryList = project.settings.world;
-
-  $.each(categoryList, function(i, value) {
-    if (value === "-- selecione --" || value === "-- nenhum --") {
-      return null
-    } else {
-      return $('.innerTabDefault').append($(`<button class='innerTabInactive' onclick="setFilterCategory('${value}', '${value}')" id='${value}'></button>`).html(value));
-    }
-  });
-}
-
-async function restoreDelCategories() {
-  const project = await getCurrentProject();
-  const categoryList = project.settings.world;
-
-  $('#categoryDelName').empty();
-  $.each(categoryList, function(i, value) {
-    if (value === "-- selecione --" ) {
-      return $('#categoryDelName').append($('<option disabeld></option>').val('').html(value));
-    }
-    if (value === "Fato histórico" || value === "-- nenhum --") {
-      return null
-    } else {
-      return $('#categoryDelName').append($('<option></option>').val(value).html(value));
-    }
-  });
-}
-
-setCustomTabs();
+setCustomTabs('world');
 getWorldCards();
-
 validateNewCard("worldName", "#okBtn-world");
 validateNewCard("categoryName", "#okBtn-cat");
 validateNewCard("categoryDelName", "#okBtn-delcat");

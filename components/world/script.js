@@ -9,21 +9,15 @@ async function enableDateInput(target) {
 async function clearDate() {
   document.getElementById("date").value = '';
   const currentID = await getCurrentProjectID();
-  const currentSettings = await db.settings.get(1);
-  const currentCardID = await currentSettings.currendIdCard;
-  const projectData = await db.projects.get(currentID);
-  const positionInArray =  projectData.data.world.map(function (e) { return e.id; }).indexOf(currentCardID);
-
+  const positionInArray =  await getCurrentCard();
   return db.projects.where('id').equals(currentID).modify( (e) => {
       e.data.world[positionInArray].date = '';
     })
 };
 
 async function restoreWordCard() {
-  const currentID = await getCurrentProjectID();
-  const currentSettings = await db.settings.get(1);
-  const currentCardID = await currentSettings.currendIdCard;
-  const projectData = await db.projects.get(currentID);
+  const currentCardID = await getCurrentCardID();
+  const projectData = await getCurrentProject();
   projectData.data.world.forEach( (ele) => {
     if (ele.id === currentCardID) {
       Object.keys(ele).forEach(key => {
@@ -56,11 +50,9 @@ var elementsArray = document.querySelectorAll(".projectInputForm");
 
 elementsArray.forEach(async function(elem) {
   const currentID = await getCurrentProjectID();
-  const currentSettings = await db.settings.get(1);
-  const currentCardID = await currentSettings.currendIdCard;
-  const projectData = await db.projects.get(currentID);
-  const positionInArray =  projectData.data.world.map(function (e) { return e.id; }).indexOf(currentCardID);
-
+  const currentCardID = await getCurrentCardID();
+  const projectData = await getCurrentProject();
+  const positionInArray = await getCurrentCard();
   projectData.data.world.forEach( (ele) => {
     if (ele.id === currentCardID) {
       elem.addEventListener("input", async () => {
@@ -107,7 +99,6 @@ $( "#dialog-delete-world" ).dialog({
 		}
 	]
 });
-
 // Link to open the dialog
 $( "#deleteWorldCard" ).click(function( event ) {
 	$( "#dialog-delete-world" ).dialog( "open" );
@@ -121,21 +112,4 @@ document.getElementById("my-image").addEventListener('input', () => {
 });
 
 restoreWordCard();
-
-async function restoreCategories() {
-  const project = await getCurrentProject();
-  const categoryList = project.settings.world;
-
-  $('#category').empty();
-  $.each(categoryList, function(i, value) {
-    if (value === "-- selecione --") {
-      return $('#category').append($('<option disabled></option>').val("").html(value));
-    } if (value === "-- nenhum --") {
-      return $('#category').append($('<option></option>').val("").html(value));
-    } else {
-      return $('#category').append($('<option></option>').val(value).html(value));
-    }
-  });
-}
-
-restoreCategories()
+restoreCategories('world');

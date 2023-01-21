@@ -73,7 +73,6 @@ function changeInnerTabColor(tabName) {
     tab.classList.add("innerTabInactive")
   })
   const tab = document.getElementById(tabName);
-    console.log(tab);
   tab.classList.remove("innerTabInactive")
   tab.classList.add("innerTabActive")
 }
@@ -90,6 +89,8 @@ function validateNewCard(inputTextId, idOkbtn) {
   });
 };
 
+// ================= project ============================
+
 async function getCurrentProjectID() {
   const projectActual = await db.settings.toArray();
   const idProject = projectActual[0].currentproject;
@@ -101,7 +102,6 @@ async function getCurrentProject() {
   const project = await db.projects.get(currentID);
   return project;
 }
-
 
 async function setCurrentCard(card, id) {
   await db.settings.update(1, { currentCard: card, currendIdCard: id})
@@ -119,8 +119,14 @@ async function getCurrentCard() {
   const currentSettings = await db.settings.get(1);
   const currentCardID = await currentSettings.currendIdCard;
   const projectData = await db.projects.get(currentID);
-  const positionInArray =  projectData.data.world.map(function (e) { return e.id; }).indexOf(currentCardID);
+  const positionInArray = projectData.data.world.map(function (e) { return e.id; }).indexOf(currentCardID);
   return positionInArray;
+};
+
+async function getCurrentCardID() {
+  const currentSettings = await db.settings.get(1);
+  const currentCardID = await currentSettings.currendIdCard;
+  return currentCardID;
 };
 
 async function deleteCard(cardType) {
@@ -132,7 +138,7 @@ async function deleteCard(cardType) {
   });
 };
 
-async function saveCardImage(typeCard, htmlPlace, pege, srcipt) {
+async function saveCardImage(typeCard, htmlPlace, page, srcipt) {
   const currentID = await getCurrentProjectID();
   const currentCard = await getCurrentCard();
   const fileInput = document.querySelector('#my-image');
@@ -142,20 +148,19 @@ async function saveCardImage(typeCard, htmlPlace, pege, srcipt) {
     const base64String = reader.result
     await db.projects.where('id').equals(currentID).modify( (e) => {
       e.data[typeCard][currentCard].image_card = base64String;
+      return pageChange(htmlPlace, page, srcipt);
     });
   };
   reader.readAsDataURL(file);
-  console.log('chegou aqui');
-  return pageChange(htmlPlace, pege, srcipt)
 };
 
-async function deleteImageCard(typeCard, htmlPlace, pege, srcipt) {
+async function deleteImageCard(typeCard, htmlPlace, page, srcipt) {
   const currentID = await getCurrentProjectID();
   const currentCard = await getCurrentCard();
   await db.projects.where('id').equals(currentID).modify( (e) => {
     e.data[typeCard][currentCard].image_card = '';
   });
-  return pageChange(htmlPlace, pege, srcipt)
+  return pageChange(htmlPlace, page, srcipt);
 };
 
 function auto_grow(element) {
@@ -166,6 +171,24 @@ function auto_grow(element) {
 function resumeHeight() {
   const result = document.getElementById("content")
   result.style.height = result.scrollHeight+"px";
+};
+
+function setContentOpacity() {
+  const content = document.querySelectorAll(".it");
+  content.forEach( (cont) => {
+    if (cont.clientHeight > 149) {
+      cont.classList.add("worldContent")
+    };
+  })
+};
+
+function setImageOpacity() {
+  const content = document.querySelectorAll(".worldListImage");
+  content.forEach( (cont) => {
+    if (cont.clientHeight > 149) {
+      cont.classList.add("worldListImageOpacity")
+    }
+  })
 };
 
 async function idManager(typeCard) {
@@ -195,4 +218,51 @@ async function removeCategory(type, category) {
   })
 }
 
-// pageChange('#dinamicPage', 'components/projects/editProject.html')
+function sortByKey(array, key) {
+  return array.sort(function(a, b) {
+      var x = a[key]; var y = b[key];
+      return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+  });
+}
+
+async function setCustomTabs(type) {
+  const project = await getCurrentProject();
+  const categoryList = project.settings[type];
+  $.each(categoryList, function(i, value) {
+    if (value === "-- selecione --" || value === "-- nenhum --") {
+      return null
+    } else {
+      return $('.innerTabDefault').append($(`<button class='innerTabInactive' onclick="setFilterCategory('${value}', '${value}')" id='${value}'></button>`).html(value));
+    }
+  });
+};
+
+async function restoreDelCategories(type) {
+  const project = await getCurrentProject();
+  const categoryList = project.settings[type];
+  $('#categoryDelName').empty();
+  $.each(categoryList, function(i, value) {
+    if (value === "-- selecione --" ) {
+      return $('#categoryDelName').append($('<option disabeld></option>').val('').html(value));
+    } if (value === "Fato histórico" || value === "-- nenhum --") {
+      return null
+    } else {
+      return $('#categoryDelName').append($('<option></option>').val(value).html(value));
+    }
+  });
+};
+
+async function restoreCategories(type) {
+  const project = await getCurrentProject();
+  const categoryList = project.settings[type];
+  $('#category').empty();
+  $.each(categoryList, function(i, value) {
+    if (value === "-- selecione --") {
+      return $('#category').append($('<option disabled></option>').val("").html(value));
+    } if (value === "-- nenhum --") {
+      return $('#category').append($('<option></option>').val("").html(value));
+    } else {
+      return $('#category').append($('<option></option>').val(value).html(value));
+    }
+  });
+};
