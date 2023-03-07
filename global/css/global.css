@@ -52,6 +52,23 @@ footer {
   box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25),inset -2px -2px 2px rgba(0,0,0,.25);
 }
 
+textarea {
+  font-family: "Trebuchet MS", sans-serif;
+}
+
+
+#content {
+  box-shadow: none;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+#content:focus {
+  position: relative;
+  box-shadow: 0 0 1px 900px rgba(0, 0, 0, 0.72);
+  z-index: 9999;
+}
+
+
 /* Main Tabs page styles ================================================ */
 
 .tabInactive{
@@ -500,7 +517,7 @@ footer {
   background: linear-gradient(90deg, rgb(32, 32, 36) 0%, rgb(23, 23, 26) 100%);
   transition: background 200ms ease 0s;
   padding: 1rem 2rem;
-  opacity: 0.9;
+  /* opacity: 0.9; */
   margin: 1rem;
   /* font-family: Verdana, Geneva, sans-serif; */
 }
