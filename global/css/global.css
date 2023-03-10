@@ -309,6 +309,28 @@ textarea {
   transform: scale(1.08);
 } */
 
+
+/* Characters page styles ================================================ */
+
+.contentListChar {
+  display: flex;
+}
+
+.contentListChar span{
+  font-size: smaller;
+}
+
+.charInfos {
+  margin-left: 15px;
+}
+
+.charListImage {
+  width: 120px;
+  object-fit: cover;
+  /* margin-top: 16px; */
+  border-radius: 100%;
+}
+
 /* World page styles ================================================ */
 .listCards{
   width: 100%;
@@ -405,7 +427,6 @@ textarea {
   margin-top: 16px;
   border-radius: 10px;
 }
-
 
 .tab {
   display: flex;
