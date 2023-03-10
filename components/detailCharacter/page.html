@@ -1,12 +1,47 @@
-<button onclick="pageChange(
-  '#dinamicPage',
-  'pages/personagens/page.html',
-  'pages/personagens/script.js'
-)">Voltar</button>
-<button id="editDetail" onclick="pageChange(
-  '#dinamic',
-  'components/newCharacter/page.html',
-  'components/newCharacter/script.js'
-  )">Editar</button>
-  <button id="deleteChar" onclick="deleteChar()">Excluir</button>
-<div id="details"></div>
+<div class="edirCardWorld">
+  <div class="backArrow">
+    <a onclick="pageChange('#dinamic', 'pages/personagens/page.html', 'pages/personagens/script.js')">❮ voltar</a>
+  </div>
+  <div class="card">
+    <input class="editProjectTitle projectInputForm" id="title">
+    <p class="delete"><span class="ui-icon ui-icon-trash"></span><a id="deleteWorldCard"> Excluir</a></p>
+
+    <div id="imageCardBackgournd">
+      <div>
+        <img src="" id="image_card">
+      </div>
+    </div>
+
+    <div class="editProjectTable">
+      <div class="editProjectBlock">
+        <h3>Categoria:</h3>
+        <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget" id="category">
+        </select>
+      </div>
+      <div id="div_Date" class="editProjectBlock" style="display: none">
+        <h3>Data do fato:</h3>
+        <input class="cardInputNormal projectInputForm dateFactInputForm" id="date" type="date"> 
+      </div>
+    </div>
+    <div>
+      <h3>Conteúdo:</h3>
+      <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content" oninput="auto_grow(this)"></textarea>
+    </div>
+  
+  </div>
+  <div class="card">
+    <h3>Imagem:</h3>
+      <input type="file" id="my-image" class="inputFile ui-corner-all ui-widget">
+      <div>
+        <input id="btnSaveWall" type="button" value="Atualizar imagem" class="ui-button ui-corner-all btnSmall" onclick="saveCardImage('characters', '#project-list', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')">
+        <input type="button" value="Limpar imagem" class="ui-button ui-corner-all btnSmall" onclick="deleteImageCard('characters', '#project-list', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')">
+      </div>
+  </div>
+</div>
+
+<!-- ui-dialog -->
+<div id="dialog-delete-char" title="Excluir cartão">
+    <h4>
+      Tem certeza que deseja deletar este cartão?
+    </h4>
+</div>

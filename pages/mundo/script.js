@@ -99,7 +99,7 @@ $( "#dialog-link-delcategory" ).click(function( event ) {
   $( ".ui-icon-closethick" ).click(function( event ) {
     document.getElementById("categoryDelName").value = "";
     })
-  restoreDelCategories('world');
+  restoreDelCategories('world', '#categoryDelName');
   event.preventDefault();
 });
 

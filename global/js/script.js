@@ -118,8 +118,9 @@ async function getCurrentCard() {
   const currentID = await getCurrentProjectID();
   const currentSettings = await db.settings.get(1);
   const currentCardID = await currentSettings.currendIdCard;
+  const currentCardName = await currentSettings.currentCard;
   const projectData = await db.projects.get(currentID);
-  const positionInArray = projectData.data.world.map(function (e) { return e.id; }).indexOf(currentCardID);
+  const positionInArray = projectData.data[currentCardName].map(function (e) { return e.id; }).indexOf(currentCardID);
   return positionInArray;
 };
 
@@ -195,7 +196,7 @@ async function idManager(typeCard) {
   let result = '';
   const currentID = await getCurrentProjectID();
   const dataProject = await db.projects.get(currentID);
-  result = await dataProject.id_world;
+  result = await dataProject[typeCard];
   await db.projects.where('id').equals(currentID).modify( (e) => {
     e[typeCard] = ++result;
   });
@@ -212,7 +213,7 @@ async function addNewCategory(type, category) {
 async function removeCategory(type, category) {
   const projectID = await getCurrentProjectID();
   const projectData = await db.projects.get(projectID);
-  const positionInArray =  projectData.settings.world.indexOf(category);
+  const positionInArray =  projectData.settings[type].indexOf(category);
   db.projects.where('id').equals(projectID).modify( (e) => {
     e.settings[type].splice(positionInArray, 1);
   })
@@ -237,17 +238,17 @@ async function setCustomTabs(type) {
   });
 };
 
-async function restoreDelCategories(type) {
+async function restoreDelCategories(type, id) {
   const project = await getCurrentProject();
   const categoryList = project.settings[type];
-  $('#categoryDelName').empty();
+  $(id).empty();
   $.each(categoryList, function(i, value) {
     if (value === "-- selecione --" ) {
-      return $('#categoryDelName').append($('<option disabeld></option>').val('').html(value));
+      return $(id).append($('<option disabeld></option>').val('').html(value));
     } if (value === "Fato histórico" || value === "-- nenhum --") {
       return null
     } else {
-      return $('#categoryDelName').append($('<option></option>').val(value).html(value));
+      return $(id).append($('<option></option>').val(value).html(value));
     }
   });
 };

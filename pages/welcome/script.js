@@ -1,5 +1,11 @@
   console.log('chamou Welcome (dentro)');
-  $( "#dialog" ).dialog({
+
+const categoriesDefault = { 
+  world: ["-- selecione --", "Local", "Objeto", "Fato histórico", "-- nenhum --"],
+  characters: ["-- selecione --", "Principais", "Secundários", "-- nenhum --"],
+};
+
+$( "#dialog" ).dialog({
 	autoOpen: false,
 	width: 600,
 	buttons: [
@@ -36,8 +42,7 @@ async function createNewProject() {
   const inputName = document.getElementById("projectName");
   const currentDate = new Date();
   const timeStamp = Date.now();
-  const data = { world: [] };
-  const categoriesDefault = { world: ["-- selecione --", "Local", "Objeto", "Fato histórico", "-- nenhum --"] };
+  const data = { world: [], characters: [] };
   const idNew = await db.projects.add(
     { title: inputName.value,
       status: "novo",
@@ -50,6 +55,7 @@ async function createNewProject() {
       last_edit: currentDate,
       timestamp: timeStamp,
       id_world: 0,
+      id_characters: 0,
       settings: categoriesDefault
     }).then();
   const updadeCurrent = await db.settings.update(1,{ currentproject: idNew });

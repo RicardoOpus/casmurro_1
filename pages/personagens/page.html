@@ -1,24 +1,42 @@
-<!-- <div id="contentCharacter">
-  <H2>Está é a página de Personagem!</H2>
-  <div id="dinamic">
-    <button id="new" class="ui-button ui-corner-all ui-widget" onclick="pageChange(
-      '#dinamic',
-      'components/newCharacter/page.html',
-      'components/newCharacter/script.js'
-    )">Novo</button>
-    <h3>Lista de personagens</h3>
-    <table id="characters-list">
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Idade</th>
-          <th>Nascimento</th>
-          <th>Tipo</th>
-          <th>Resumo</th>
-        </tr>
-      </thead>
-    </table>
-  </div>
-</div> -->
+<div class="worldNewCardBtn">
+  <button id="dialog-link-category-char" class="ui-button ui-corner-all worldNewCatBtn"><span class="ui-icon ui-icon-plusthick "></span> Categoria</button>
+  <button id="dialog-link-delcategory-char" class="ui-button ui-corner-all worldNewCatBtn"><span class="ui-icon ui-icon-trash"></span> </button>
+  <button id="dialog-link-character" class="ui-button ui-corner-all ui-widget"><span class="ui-icon ui-icon-plusthick"></span> Cartão</button>
+</div>
 
-  <H2>Esta é a página de Personagens</H2>
+<div class="tab">
+  <div class="innerTabDefault">
+    <button class="innerTabActive" onclick="loadpage('personagens')" id="Todos">Todos</button>
+  </div>
+  <div id="project-list" class="listCards">
+  </div>
+</div>
+
+<!-- ui-dialogs -->
+<div id="dialogCharacter" title="Novo cartão (Personagem)">
+  <div class="welcome">
+    <p>Nome: </p>
+    <form id="form">
+      <input type="text" id="characterName" class="welcome text ui-corner-all fullwidth">
+    </form>
+  </div>
+</div>
+
+<div id="dialog_new_characterCategory" title="Nova categoria (Personagem)">
+  <div class="welcome">
+    <p>Título: </p>
+    <form id="formCat">
+      <input type="text" id="categoryName" class="welcome text ui-corner-all fullwidth">
+    </form>
+  </div>
+</div>
+
+<div id="dialog_delete_characterCategory" title="Excluir categoria (Personagem)">
+  <div class="welcome">
+    <br>
+    <form id="formDelCat">
+      <select id="categoryDelName-char" class="ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget"></select>
+    </form>
+    <p style="font-size: smaller;">Obs: 'Fato histórico' não pode se excluído. Deletar uma categoria não afeta os cartões contidos nela.</p>
+  </div>
+</div>
