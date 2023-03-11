@@ -5,29 +5,43 @@
   <div class="card">
     <input class="editProjectTitle projectInputForm" id="title">
     <p class="delete"><span class="ui-icon ui-icon-trash"></span><a id="deleteWorldCard"> Excluir</a></p>
-
-    <div id="imageCardBackgournd">
-      <div>
+    <div class="cardImageDivChar">
+      <div id="imageCardBackgourndChar">
         <img src="" id="image_card">
       </div>
-    </div>
+      <div class="editProjectTable charInfos">
+        <div class="editProjectBlock">
+          <h3>Categoria:</h3>
+          <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget" id="category"></select>
+          <h3>Idade:</h3>
+          <input class="cardInputNormal dateFactInputForm projectInputForm" type="number" min="0" oninput="validity.valid||(value='')" id="age">
+        </div>
+        <div class="editProjectBlock">
+          <h3>Gênero: <span class="ui-icon ui-icon-help" style="cursor: pointer
+            " title="Novos gêneros podem ser cadastrados na aba 'opções'"></span></h3>
 
-    <div class="editProjectTable">
-      <div class="editProjectBlock">
-        <h3>Categoria:</h3>
-        <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget" id="category">
-        </select>
-      </div>
-      <div id="div_Date" class="editProjectBlock" style="display: none">
-        <h3>Data do fato:</h3>
-        <input class="cardInputNormal projectInputForm dateFactInputForm" id="date" type="date"> 
+          <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget"name="" id="gender"></select>
+          <h3>Ocupação:</h3>
+          <input class="projectInputForm cardInputNormal dateFactInputForm" type="text" name="" id="ocupation">
+        </div>
+        <div id="div_Date" class="editProjectBlock">
+          <h3>Nascimento:</h3>
+          <input class="cardInputNormal projectInputForm dateFactInputForm" id="date_birth" type="date" placeholder="Nascimento">
+          <div style="display: none" id="dateDeathDiv">
+            <h3>Morte:</h3>
+            <input class="cardInputNormal projectInputForm dateFactInputForm" type="date" id="date_death">
+          </div>
+          <label>
+            <input type="checkbox" onclick="showHideDate(this)" id="chkDeath">
+            Adicionar data da morte
+          </label>
+        </div>
       </div>
     </div>
     <div>
       <h3>Conteúdo:</h3>
       <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content" oninput="auto_grow(this)"></textarea>
     </div>
-  
   </div>
   <div class="card">
     <h3>Imagem:</h3>

@@ -68,7 +68,15 @@ textarea {
   z-index: 9999;
 }
 
-
+.ui-button-select {
+  /* border: 1px solid #444444; */
+  background: rgb(18, 18, 20);
+  font-weight: normal;
+  color: #eeeeee;
+  width: 14em;
+  cursor: pointer;
+  padding: 0.4em 1em;
+}
 /* Main Tabs page styles ================================================ */
 
 .tabInactive{
@@ -326,9 +334,19 @@ textarea {
 
 .charListImage {
   width: 120px;
+  height: 120px;
   object-fit: cover;
-  /* margin-top: 16px; */
   border-radius: 100%;
+}
+
+.cardImageDivChar {
+  display: flex;
+  align-items: center;
+}
+
+.cardImageChar{
+  width: 200px;
+  border-radius: 15px;
 }
 
 /* World page styles ================================================ */
@@ -541,6 +559,7 @@ textarea {
   /* opacity: 0.9; */
   margin: 1rem;
   /* font-family: Verdana, Geneva, sans-serif; */
+  color: #898989;
 }
 
 .cardInputNormal {

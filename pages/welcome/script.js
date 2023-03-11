@@ -1,8 +1,9 @@
   console.log('chamou Welcome (dentro)');
 
-const categoriesDefault = { 
+var categoriesDefault = { 
   world: ["-- selecione --", "Local", "Objeto", "Fato histórico", "-- nenhum --"],
   characters: ["-- selecione --", "Principais", "Secundários", "-- nenhum --"],
+  genders: ["-- selecione --", "Masculino", "Feminino", "N/A"]
 };
 
 $( "#dialog" ).dialog({
