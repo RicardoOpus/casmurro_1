@@ -125,7 +125,7 @@ async function getCharactersCards() {
               <div class="charInfos">
                 <p class="wordlTitle">${ ele.title }</p>
                 <hr class="cardLineTop">
-                <span> ${ ele.category } </span>
+                <span> ${ ele.category } ${!ele.age ? '' : ` • ${ele.age} anos`}</span>
                 <div class="worldCardDivider">
                   <div>
                     <p class="it">${ ele.content }</p>
@@ -155,17 +155,19 @@ async function getWorldCardsFiltred(filter) {
         <ul class="worldList">
           <li class="worldItens">
           <a onclick="pageChange('#project-list', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')">
-            <div class="worldName paper" onclick="setCurrentCard('characters', ${ ele.id })">
-              <div class="contentListWorld">
-                <p class="wordlTitle">${ ele.title }</p>
-                <hr class="cardLineTop">
-                <span> ${ ele.category } </span>
-                <div class="worldCardDivider">
-                  <div>
-                    <p class="it">${ ele.content }</p>
-                  </div>
-                  <div>
-                    <img src="${ !ele.image_card ? '' : ele.image_card }" class="worldListImage"> 
+            <div class="worldName" onclick="setCurrentCard('characters', ${ ele.id })">
+              <div class="contentListChar">
+                <div>
+                  <img src="${ !ele.image_card ? '' : ele.image_card }" class="charListImage"> 
+                </div>
+                <div class="charInfos">
+                  <p class="wordlTitle">${ ele.title }</p>
+                  <hr class="cardLineTop">
+                  <span> ${ ele.category } ${!ele.age ? '' : ` • ${ele.age} anos`}</span>
+                  <div class="worldCardDivider">
+                    <div>
+                      <p class="it">${ ele.content }</p>
+                    </div>
                   </div>
                 </div>
               </div>
