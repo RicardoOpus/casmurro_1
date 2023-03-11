@@ -288,3 +288,16 @@ async function restoreGenders() {
     }
   });
 };
+
+async function randomColor() {
+  const randomColor = Math.floor(Math.random()*16777215).toString(16);
+  const place = document.getElementById('color')
+  const colorNow = "#" + randomColor;
+  place.value = colorNow
+
+  const currentID = await getCurrentProjectID();
+  const positionInArray =  await getCurrentCard();
+  return db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.characters[positionInArray].color = colorNow;
+    })
+}

@@ -13,13 +13,30 @@
         <div class="editProjectBlock">
           <h3>Categoria:</h3>
           <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget" id="category"></select>
-          <h3>Idade:</h3>
-          <input class="cardInputNormal dateFactInputForm projectInputForm" type="number" min="0" oninput="validity.valid||(value='')" id="age">
+          <div class="colorAgeChar">
+            <div>
+              <h3>
+                Idade:
+              </h3>
+              <input class="cardInputNormal dateFactInputForm projectInputForm" type="number" min="0" oninput="validity.valid||(value='')" id="age">
+            </div>
+            <div>
+              <h3>
+                Cor:
+              </h3>
+              <input type="color" id="color" class="color projectInputForm">
+            </div>
+            <div>
+              <h3>
+                <br>
+              </h3>
+              <input type="button" value="↻" class="btnReload ui-corner-all" title="Gerar aleatoriamente uma cor" onclick="randomColor()">
+            </div>
+          </div>
         </div>
         <div class="editProjectBlock">
           <h3>Gênero: <span class="ui-icon ui-icon-help" style="cursor: pointer
             " title="Novos gêneros podem ser cadastrados na aba 'opções'"></span></h3>
-
           <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget"name="" id="gender"></select>
           <h3>Ocupação:</h3>
           <input class="projectInputForm cardInputNormal dateFactInputForm" type="text" name="" id="ocupation">
