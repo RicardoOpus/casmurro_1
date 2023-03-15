@@ -43,7 +43,7 @@ $( "#dialog_new_worldCategory" ).dialog({
       id: "okBtn-cat",
       disabled: false,
       click: async function() {
-        const cat = document.getElementById("categoryName");
+        var cat = document.getElementById("categoryName");
         await addNewCategory('world', cat.value);
         $( this ).dialog( "close" );
         document.getElementById("categoryName").value = "";
@@ -77,7 +77,7 @@ $( "#dialog_delete_worldCategory" ).dialog({
       id: "okBtn-delcat",
       disabled: false,
       click: async function() {
-        const catDel = document.getElementById("categoryDelName");
+        var catDel = document.getElementById("categoryDelName");
         await removeCategory('world', catDel.value);
         $( this ).dialog( "close" );
         document.getElementById("categoryDelName").value = "";

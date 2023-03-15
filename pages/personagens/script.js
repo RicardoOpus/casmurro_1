@@ -43,17 +43,17 @@ $( "#dialog_new_characterCategory" ).dialog({
       id: "okBtn-cat",
       disabled: false,
       click: async function() {
-        const cat = document.getElementById("categoryName");
-        await addNewCategory('characters', cat.value);
+        var catChar = document.getElementById("categoryCharName");
+        await addNewCategory('characters', catChar.value);
         $( this ).dialog( "close" );
-        document.getElementById("categoryName").value = "";
+        document.getElementById("categoryCharName").value = "";
         pageChange('#dinamic', 'pages/personagens/page.html', 'pages/personagens/script.js')
       }
     },
     {
       text: "Cancel",
       click: function() {
-        document.getElementById("categoryName").value = "";
+        document.getElementById("categoryCharName").value = "";
         $( this ).dialog( "close" );
       }
     }]
@@ -63,7 +63,7 @@ $( "#dialog-link-category-char" ).click(function( event ) {
   $( "#dialog_new_characterCategory" ).dialog( "open" );
   $( "#okBtn-cat" ).addClass( "ui-button-disabled ui-state-disabled" );
   $( ".ui-icon-closethick" ).click(function( event ) {
-    document.getElementById("categoryName").value = "";
+    document.getElementById("categoryCharName").value = "";
     })
   event.preventDefault();
 });
@@ -77,8 +77,8 @@ $( "#dialog_delete_characterCategory" ).dialog({
       id: "okBtn-delcat",
       disabled: false,
       click: async function() {
-        const catDel = document.getElementById("categoryDelName-char");
-        await removeCategory('characters', catDel.value);
+        var catDelChar = document.getElementById("categoryDelName-char");
+        await removeCategory('characters', catDelChar.value);
         $( this ).dialog( "close" );
         document.getElementById("categoryDelName-char").value = "";
         pageChange('#dinamic', 'pages/personagens/page.html', 'pages/personagens/script.js')
@@ -217,5 +217,5 @@ async function createNewCharacter() {
 setCustomTabs('characters');
 getCharactersCards();
 validateNewCard("characterName", "#okBtn-character");
-validateNewCard("categoryName", "#okBtn-cat");
+validateNewCard("categoryCharName", "#okBtn-cat");
 validateNewCard("categoryDelName-char", "#okBtn-delcat");

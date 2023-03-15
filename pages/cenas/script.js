@@ -43,8 +43,8 @@ $( "#dialog_new_pov" ).dialog({
       id: "okBtn-cat",
       disabled: false,
       click: async function() {
-        const cat = document.getElementById("povName");
-        await addNewCategory('scenes', cat.value);
+        var catPOV = document.getElementById("povName");
+        await addNewCategory('scenes', catPOV.value);
         $( this ).dialog( "close" );
         document.getElementById("povName").value = "";
         pageChange('#dinamic', 'pages/cenas/page.html', 'pages/cenas/script.js')
@@ -78,8 +78,8 @@ $( "#dialog_delete_pov" ).dialog({
       id: "okBtn-delpov",
       disabled: false,
       click: async function() {
-        const catDel = document.getElementById("povDelName");
-        await removeCategory('scenes', catDel.value);
+        var catDelPov = document.getElementById("povDelName");
+        await removeCategory('scenes', catDelPov.value);
         $( this ).dialog( "close" );
         document.getElementById("povDelName").value = "";
         pageChange('#dinamic', 'pages/cenas/page.html', 'pages/cenas/script.js')
