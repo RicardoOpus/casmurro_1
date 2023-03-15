@@ -1,0 +1,79 @@
+<div class="edirCardWorld">
+  <div class="backArrow">
+    <a onclick="pageChange('#dinamic', 'pages/cenas/page.html', 'pages/cenas/script.js')">❮ voltar</a>
+  </div>
+  <div class="card">
+    <input class="editProjectTitle projectInputForm" id="title">
+    <p class="delete"><span class="ui-icon ui-icon-trash"></span><a id="deleteWorldCard"> Excluir</a></p>
+    <div class="cardImageDivChar">
+      <div id="imageCardBackgourndChar">
+        <img src="" id="image_card">
+      </div>
+      <div class="editProjectTable charInfos">
+        <div class="editProjectBlock">
+          <h3>Data:</h3>
+          <input class="cardInputNormal projectInputForm dateFactInputForm" id="date" type="date">
+          <h3>Período:</h3>
+          <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget" id="time">
+            <option value=""> </option>
+            <option value="Nascer do sol">Nascer do sol</option>
+            <option value="Manhã">&nbsp;&nbsp;&nbsp;Manhã</option>
+            <option value="Meio-dia">&nbsp;&nbsp;&nbsp;Meio-dia</option>
+            <option value="Tarde">&nbsp;&nbsp;&nbsp;Tarde</option>
+            <option value="Pôr do sol">Pôr do sol</option>
+            <option value="Noite">&nbsp;&nbsp;&nbsp;Noite</option>
+            <option value="Meia-noite">&nbsp;&nbsp;&nbsp;Meia-noite</option>
+            <option value="Madrugada">&nbsp;&nbsp;&nbsp;Madrugada</option>
+          </select>
+        </div>
+        <div class="editProjectBlock">
+          <h3>Local:</h3>
+          <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget"name="" id="place_id"></select>
+            <h3>Condições climáticas:</h3>
+          <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget"name="" id="weather">
+            <option value=""> </option>
+            <option value="Ensolarado">Ensolarado</option>
+            <option value="Chuvoso">Chuvoso</option>
+            <option value="Tempestuoso">Tempestuoso</option>
+            <option value="Neve">Neve</option>
+            <option value="Nublado">Nublado</option>
+            <option value="Seco">Seco</option>
+            <option value="Quente">Quente</option>
+            <option value="Frio">Frio</option>
+            <option value="Úmido">Úmido</option>
+            <option value="Vento">Vento</option>
+            <option value="Bruma">Bruma</option>
+            <option value="Granizo">Granizo</option>
+            <option value="Tempestade de neve">Tempestade de neve</option>
+            <option value="Gelo">Gelo</option>
+            <option value="Tempestade de areia">Tempestade de areia</option>
+            <option value="Chuva ácida">Chuva ácida</option>
+            <option value="Geada">Geada</option>
+            <option value="Neblina">Neblina</option>
+            <option value="Ciclone">Ciclone</option>
+            <option value="Tornado">Tornado</option>
+          </select>
+        </div>
+        <div id="div_Date" class="editProjectBlock">          
+          <h3>POV:</h3>
+          <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget" id="pov_id"></select>
+          <h3>Capítulo:</h3>
+          <input class="projectInputForm cardInputNormal dateFactInputForm" type="text" name="" id="chapter">
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3>Resumo:</h3>
+      <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content" oninput="auto_grow(this)"></textarea>
+      <h3>Descrição completa:</h3>
+      <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content_full" oninput="auto_grow(this)"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ui-dialog -->
+<div id="dialog-delete-char" title="Excluir cartão">
+    <h4>
+      Tem certeza que deseja deletar este cartão?
+    </h4>
+</div>

@@ -13,23 +13,21 @@ function showHideDate(cond) {
   cond.checked ? null : clearDateDeath();
 }
 
-function restoreDateDeath() {
-  const div = document.getElementById("dateDeathDiv");
-  var div2 = document.getElementById("chkDeath");
-  date_death.value ?  div2.checked = true : null;
-  date_death.value ? div.style.display = "block" : div.style.display = "none";
-}
+// function restoreDateDeath() {
+//   const div = document.getElementById("dateDeathDiv");
+//   var div2 = document.getElementById("chkDeath");
+//   date_death.value ?  div2.checked = true : null;
+//   date_death.value ? div.style.display = "block" : div.style.display = "none";
+// }
 
-async function restoreWordCard() {
+async function restoreSceneCard() {
   const currentCardID = await getCurrentCardID();
   const projectData = await getCurrentProject();
-  projectData.data.characters.forEach( (ele) => {
+  projectData.data.scenes.forEach( (ele) => {
     if (ele.id === currentCardID) {
       Object.keys(ele).forEach(key => {
         const result = document.getElementById(key);
         if (key === "date" &&  ele[key] !== '') {
-          const divDate = document.getElementById("div_Date");
-          divDate.removeAttribute("style");
           const dateConverted = convertDateBR(ele[key]);
           const date = convertDateUS(dateConverted);
           return result.value = date;
@@ -40,7 +38,8 @@ async function restoreWordCard() {
           return result.value = ele[key];
         }
       })
-      restoreDateDeath()
+      // restoreDateDeath()
+      resumeHeight("content_full")
       resumeHeight("content")
     } else {
       return null
@@ -71,7 +70,7 @@ elementsArray.forEach(async function(elem) {
   const currentCardID = await getCurrentCardID();
   const projectData = await getCurrentProject();
   const positionInArray = await getCurrentCard();
-  projectData.data.characters.forEach( (ele) => {
+  projectData.data.scenes.forEach( (ele) => {
     if (ele.id === currentCardID) {
       elem.addEventListener("change", async (event) => {
         const field = elem.id
@@ -81,20 +80,20 @@ elementsArray.forEach(async function(elem) {
           const dateSum1 = tomorrow.setDate(dateObject.getDate()+1);
           const correctDate = new Date(dateSum1);
           return db.projects.where('id').equals(currentID).modify( (e) => {
-            e.data.characters[positionInArray][field] = correctDate;
+            e.data.scenes[positionInArray][field] = correctDate;
           });
         } if (elem.id === "gender") {
           result = changeImgDefault(elem.value);
           db.projects.where('id').equals(currentID).modify( (e) => {
-            e.data.characters[positionInArray][field] = elem.value;
+            e.data.scenes[positionInArray][field] = elem.value;
           });
           db.projects.where('id').equals(currentID).modify( (e) => {
-            e.data.characters[positionInArray].image_card = result;
+            e.data.scenes[positionInArray].image_card = result;
           });
           pageChange('#project-list', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js');
         } else {
           db.projects.where('id').equals(currentID).modify( (e) => {
-            e.data.characters[positionInArray][field] = elem.value;
+            e.data.scenes[positionInArray][field] = elem.value;
           });
         }
       });
@@ -132,11 +131,7 @@ $( "#deleteWorldCard" ).click(function( event ) {
 	event.preventDefault();
 });
 
-document.getElementById("btnSaveWall").disabled = true;
-document.getElementById("my-image").addEventListener('input', () => { 
-  document.getElementById("btnSaveWall").disabled = false;
-});
-
-restoreWordCard();
-restoreCategories('characters');
-restoreGenders();
+restoreSceneCard();
+restoreCategories('scenes');
+restorePOV("#pov_id", "characters");
+restorePOV("#place_id", "world");

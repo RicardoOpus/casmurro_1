@@ -68,6 +68,16 @@ textarea {
   z-index: 9999;
 }
 
+#content_full {
+  box-shadow: none;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+#content_full:focus {
+  position: relative;
+  box-shadow: 0 0 1px 900px rgba(0, 0, 0, 0.72);
+  z-index: 9999;
+}
 .ui-button-select {
   /* border: 1px solid #444444; */
   background: rgb(18, 18, 20);
@@ -409,6 +419,7 @@ input[type="color"]::-webkit-color-swatch {
   flex-wrap: wrap;
   margin: 15px 0px 5px 15px;
 }
+
 .worldListScenes {
   width: 360px;
   display: flex;
@@ -424,6 +435,12 @@ input[type="color"]::-webkit-color-swatch {
 
 .listCardsScenes ul {
   margin-top: 0px;
+}
+
+.povLabel {
+  color:rgb(0, 0, 0);
+  border-radius: 5px;
+  padding: 5px;
 }
 
 /* World page styles ================================================ */

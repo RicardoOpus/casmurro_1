@@ -40,8 +40,12 @@ function convertToTime(date) {
 }
 
 function convertDateBR(date) {
-  const result = date.toLocaleDateString('pt-br');
-  return result;
+  if (date instanceof Date) {
+    const result = date.toLocaleDateString('pt-br');
+    return result;
+  } else {
+    return null;
+  }
 }
 
 function convertDateUS(dateUS) {
@@ -184,8 +188,8 @@ function auto_grow(element) {
   element.style.height = (element.scrollHeight)+"px";
 };
 
-function resumeHeight() {
-  const result = document.getElementById("content")
+function resumeHeight(id) {
+  const result = document.getElementById(id)
   result.style.height = result.scrollHeight+"px";
 };
 
@@ -279,13 +283,13 @@ async function restoreDelCategories(type, id) {
   });
 };
 
-async function restorePOV(id) {
+async function restorePOV(id, type) {
   const project = await getCurrentProject();
-  const povList = project.data.characters;
+  const itensList = project.data[type];
   $(id).empty();
   $(id).append($('<option disabeld></option>').val('').html('-- selecione --'))
-  $.each(povList, function(i, value) {
-    return $(id).append($('<option></option>').val(value.title).html(value.title))
+  $.each(itensList, function(i, value) {
+    return $(id).append($('<option></option>').val(value.id).html(value.title))
   });
 };
 

@@ -113,19 +113,26 @@ async function getScenesdCards() {
   const project = await getCurrentProject();
   const resultSorted = sortByKey(project.data.scenes, 'position')
   resultSorted.forEach( (ele) => {
+
+    const povID = project.data.characters.map(function (e) { return e.id; }).indexOf(Number(ele.pov_id));
+    const povName = project?.data?.characters?.[povID]?.title ?? '';
+    const povColor = project?.data?.characters?.[povID]?.color ?? '';
+    const placeID = project.data.world.map(function (e) { return e.id; }).indexOf(Number(ele.place_id));
+    const placeName = project?.data?.world?.[placeID]?.title ?? '';
+    const dateConverted = convertDateBR(ele.date);
     $('#project-list').append(
       `
         <ul class="worldListScenes" id="${ele.id}">
           <li class="worldItens">
-          <div class="ui-widget-content portlet ui-corner-all" onclick="setCurrentCard('scene', ${ ele.id })">
+          <div class="ui-widget-content portlet ui-corner-all" onclick="setCurrentCard('scenes', ${ ele.id })">
           <div class="contentListWorld">
           <div class="ui-widget-header ui-corner-all portlet-header">${ ele.title }
           <a onclick="pageChange('#project-list', 'components/detailScene/page.html', 'components/detailScene/script.js')">
             </div>
-              <p class="infosCardScenes">${ !ele.pov_id ? '' : ele.pov_id} 
-                ${ !ele.date ? '' : `• ${ele.date }`} 
+              <p class="infosCardScenes"><span class="povLabel" style="background-color:${povColor}">${ !ele.pov_id ? '⮞⮞⮞ ' : povName }</span> 
+                ${ !ele.date ? '' : `• ${dateConverted}`} 
                 ${ !ele.time ? '' : `• ${ele.time}`} 
-                ${ !ele.place_id ? '' : `• ${ele.place_id}`}
+                ${ !ele.place_id ? '' : `• ${placeName}`}
               </p>
             </div>
             <div>  

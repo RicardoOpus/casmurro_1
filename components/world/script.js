@@ -39,7 +39,7 @@ async function restoreWordCard() {
           return result.value = ele[key];
         }
       })
-      resumeHeight()
+      resumeHeight("content")
     } else {
       return null
     }
