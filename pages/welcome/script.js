@@ -3,7 +3,8 @@
 var categoriesDefault = { 
   world: ["-- selecione --", "Local", "Objeto", "Fato histórico", "-- nenhum --"],
   characters: ["-- selecione --", "Principais", "Secundários", "-- nenhum --"],
-  genders: ["-- selecione --", "Masculino", "Feminino", "N/A"]
+  genders: ["-- selecione --", "Masculino", "Feminino", "N/A"],
+  scenes: ["-- selecione --", "-- nenhum --"]
 };
 
 $( "#dialog" ).dialog({
@@ -43,7 +44,7 @@ async function createNewProject() {
   const inputName = document.getElementById("projectName");
   const currentDate = new Date();
   const timeStamp = Date.now();
-  const data = { world: [], characters: [] };
+  const data = { world: [], characters: [], scenes: [] };
   const idNew = await db.projects.add(
     { title: inputName.value,
       status: "novo",
@@ -57,6 +58,7 @@ async function createNewProject() {
       timestamp: timeStamp,
       id_world: 0,
       id_characters: 0,
+      id_scenes: 0,
       settings: categoriesDefault
     }).then();
   const updadeCurrent = await db.settings.update(1,{ currentproject: idNew });

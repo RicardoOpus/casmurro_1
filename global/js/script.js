@@ -114,6 +114,13 @@ async function setCurrentCard(card, id) {
 //   return idProject;
 // };
 
+async function getCurrentScene(id_param) {
+  const currentID = await getCurrentProjectID();
+  const projectData = await db.projects.get(currentID);
+  const positionInArray = projectData.data.scenes.map(function (e) { return e.id; }).indexOf(id_param);
+  return positionInArray;
+};
+
 async function getCurrentCard() {
   const currentID = await getCurrentProjectID();
   const currentSettings = await db.settings.get(1);
@@ -211,12 +218,23 @@ async function idManager(typeCard) {
   return result
 };
 
-async function addNewCategory(type, category) {
+async function verifyCat(type, category) {
   const projectID = await getCurrentProjectID();
-  db.projects.where('id').equals(projectID).modify( (e) => {
+  const projectData = await db.projects.get(projectID)
+  const categoryList = await projectData.settings[type];
+  return categoryList.includes(category);
+}
+
+async function addNewCategory(type, category) {
+  const verify = await verifyCat(type, category);
+  if (verify) {
+    return alert("Item já foi adicionado!");
+  }
+  const projectID = await getCurrentProjectID();
+  return db.projects.where('id').equals(projectID).modify( (e) => {
     e.settings[type].push(category);
   })
-}
+};
 
 async function removeCategory(type, category) {
   const projectID = await getCurrentProjectID();
@@ -258,6 +276,16 @@ async function restoreDelCategories(type, id) {
     } else {
       return $(id).append($('<option></option>').val(value).html(value));
     }
+  });
+};
+
+async function restorePOV(id) {
+  const project = await getCurrentProject();
+  const povList = project.data.characters;
+  $(id).empty();
+  $(id).append($('<option disabeld></option>').val('').html('-- selecione --'))
+  $.each(povList, function(i, value) {
+    return $(id).append($('<option></option>').val(value.title).html(value.title))
   });
 };
 

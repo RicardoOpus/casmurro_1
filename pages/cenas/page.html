@@ -1,0 +1,51 @@
+<div class="worldNewCardBtn">
+  <button id="dialog-link-category" class="ui-button ui-corner-all worldNewCatBtn"><span class="ui-icon ui-icon-plusthick "></span> POV</button>
+  <button id="dialog-link-delcategory" class="ui-button ui-corner-all worldNewCatBtn"><span class="ui-icon ui-icon-trash"></span> </button>
+  <button id="dialog-link-scene" class="ui-button ui-corner-all ui-widget"><span class="ui-icon ui-icon-plusthick"></span> Cartão</button>
+</div>
+
+<div class="tab">
+  <div class="innerTabDefault">
+    <button class="innerTabActive" onclick="loadpage('mundo')" id="Todos">Todos</button>
+  </div>
+  <div id="project-list" class="listCards">
+  </div>
+</div>
+
+<!-- ui-dialogs -->
+<div id="dialogScene" title="Novo cartão (Cena)">
+  <div class="welcome">
+    <p>Título: </p>
+    <form id="form">
+      <input type="text" id="sceneName" class="welcome text ui-corner-all fullwidth">
+    </form>
+  </div>
+</div>
+
+<div id="dialog_new_pov" title="Novo 'Point of View' (Cena)">
+  <div class="welcome">
+    <p>Título: </p>
+    <form id="formCat">
+      <select id="povName" class="ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget">
+      </select>
+    </form>
+  </div>
+</div>
+
+<div id="dialog_delete_pov" title="Excluir 'Point of View' (Cena)">
+  <div class="welcome">
+    <p></p>
+    <form id="formDelCat">
+      <select id="povDelName" class="ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget"></select>
+    </form>
+    <p style="font-size: smaller;">Obs: 'Fato histórico' não pode se excluído. Deletar uma categoria não afeta os cartões contidos nela.</p>
+  </div>
+</div>
+
+<script>
+  $( function() {
+  $( ".listCards" ).sortable({
+    connectWith: ".listCards",
+  });
+})
+</script>

@@ -375,6 +375,57 @@ input[type="color"]::-webkit-color-swatch {
 	border-radius: 40px;
 }
 
+/* Scenes page styles ================================================ */
+
+.portlet-header {
+  padding: 0.2em 0.3em;
+  font-size: 1.1em;
+  cursor: grab;
+}
+
+.portlet {
+  padding: 0.3em;
+}
+
+.infosCardScenes {
+  /* text-align: right; */
+  font-weight: normal;
+  font-size: smaller;
+  margin-left: 5px;
+  margin-top: 5px;
+  color: #868686;
+}
+
+.sceneCartContent {
+  margin: 10px 5px 5px 5px;
+}
+
+.listCardsScenes{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  /* justify-content: space-between; */
+  /* height: 100vh; */
+  flex-wrap: wrap;
+  margin: 15px 0px 5px 15px;
+}
+.worldListScenes {
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  /* gap: var(--space-spacingMd); */
+  align-items: center;
+  justify-content: space-between;
+  list-style-type: none;
+  padding-inline-start: 0px;
+  padding: 0rem 5px 0rem 5px;
+
+}
+
+.listCardsScenes ul {
+  margin-top: 0px;
+}
+
 /* World page styles ================================================ */
 .listCards{
   width: 100%;
@@ -389,7 +440,6 @@ input[type="color"]::-webkit-color-swatch {
   /* margin-bottom: 0px; */
   padding-inline-start: 0px;
   padding: 0rem 1rem 0rem 1rem;
-
 }
 .worldItens {
   min-width: 100%;
