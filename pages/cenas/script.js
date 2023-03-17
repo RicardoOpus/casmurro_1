@@ -200,9 +200,9 @@ async function createNewScene() {
     position: 'Z',
     content: '',
     date: '',
-    time: '',
     pov_id: '',
     place_id: '',
+    time_weather: '',
     id: ID
   };
   db.projects.where('id').equals(pjID).modify( (ele) => {

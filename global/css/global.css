@@ -344,8 +344,8 @@ textarea {
 }
 
 .charListImage {
-  width: 120px;
-  height: 120px;
+  width: 90px;
+  height: 90px;
   object-fit: cover;
   border-radius: 100%;
 }
@@ -442,6 +442,26 @@ input[type="color"]::-webkit-color-swatch {
   border-radius: 5px;
   padding: 5px;
 }
+
+.sceneImg {
+  border-radius: 15px;
+  margin-top: 15px;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 90%);
+}
+
+
+.sceneCard{
+  -webkit-border-radius: 27px;
+  -moz-border-radius: 27px;
+  border-radius: 5px;
+  background-color:#202024;
+  background: linear-gradient(90deg, rgb(32, 32, 36) 0%, rgb(23, 23, 26) 100%);
+  transition: background 200ms ease 0s;
+  padding: 1rem 2rem;
+  margin: 1rem;
+  color: #898989;
+}
+
 
 /* World page styles ================================================ */
 .listCards{
