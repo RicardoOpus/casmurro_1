@@ -65,7 +65,7 @@ $( "#dialog-link-category" ).click(function( event ) {
   $( ".ui-icon-closethick" ).click(function( event ) {
     document.getElementById("povName").value = "";
     })
-  restorePOV('#povName');
+  restorePOV('#povName', 'characters');
   event.preventDefault();
 });
 
@@ -100,7 +100,7 @@ $( "#dialog-link-delcategory" ).click(function( event ) {
   $( ".ui-icon-closethick" ).click(function( event ) {
     document.getElementById("povDelName").value = "";
     })
-  restoreDelCategories('scenes', '#povDelName');
+    restoreDelPovTab('scenes', '#povDelName');
   event.preventDefault();
 });
 
@@ -213,7 +213,7 @@ async function createNewScene() {
   return
 };
 
-setCustomTabs('scenes');
+setCustomPovTabs('scenes');
 getScenesdCards();
 validateNewCard("sceneName", "#okBtn-scene");
 validateNewCard("povName", "#okBtn-cat");

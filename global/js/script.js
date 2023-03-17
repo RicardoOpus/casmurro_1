@@ -268,6 +268,21 @@ async function setCustomTabs(type) {
   });
 };
 
+async function setCustomPovTabs(type) {
+  const project = await getCurrentProject();
+  const categoryList = project.settings[type];
+  $.each(categoryList, function(i, value) {
+    if (value === "-- selecione --" || value === "-- nenhum --") {
+      return null
+    } else {
+      const povID = project.data.characters.map(function (e) { return e.id; }).indexOf(Number(value));
+      const povName = project?.data?.characters?.[povID]?.title ?? '';
+      console.log(povName);
+      return $('.innerTabDefault').append($(`<button class='innerTabInactive' onclick="setFilterCategory('${value}', '${value}')" id='${value}'></button>`).html(povName));
+    }
+  });
+};
+
 async function restoreDelCategories(type, id) {
   const project = await getCurrentProject();
   const categoryList = project.settings[type];
@@ -279,6 +294,23 @@ async function restoreDelCategories(type, id) {
       return null
     } else {
       return $(id).append($('<option></option>').val(value).html(value));
+    }
+  });
+};
+
+async function restoreDelPovTab(type, id) {
+  const project = await getCurrentProject();
+  const categoryList = project.settings[type];
+  $(id).empty();
+  $.each(categoryList, function(i, value) {
+    if (value === "-- selecione --" ) {
+      return $(id).append($('<option disabeld></option>').val('').html(value));
+    } if (value === "Fato histórico" || value === "-- nenhum --") {
+      return null
+    } else {
+      const povID = project.data.characters.map(function (e) { return e.id; }).indexOf(Number(value));
+      const povName = project?.data?.characters?.[povID]?.title ?? '';
+      return $(id).append($('<option></option>').val(value).html(povName));
     }
   });
 };
