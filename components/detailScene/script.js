@@ -67,7 +67,7 @@ async function restoreSceneCard() {
             }
           return result.value = ele[key];
         }if (key === "chkExtra1") {
-          const divExtra = document.getElementById("div_extra_1");
+          const divExtra = document.getElementById("info_extra_1");
           if (ele[key] ) {
             const checkExtra = document.getElementById("checkbox-constucao");
             divExtra.removeAttribute("style");
@@ -79,9 +79,18 @@ async function restoreSceneCard() {
           return result.value = ele[key];
         }
       })
-      resumeHeight("content_full");
-      resumeHeight("content");
-      resumeHeight("extra_1");
+      resumeHeight("content_full", 
+        "content",
+        "extra_1",
+        "extra_1-1",
+        "extra_1-2",
+        "extra_1-3",
+        "extra_2",
+        "extra_2-1",
+        "extra_3",
+        "extra_3-1",
+        "extra_3-2"
+        );
     } else {
       return null
     }
@@ -177,33 +186,28 @@ document.querySelectorAll(".target").forEach( ele => ele.remove())
 
 var label = document.createElement('p');
 label.innerText = "Adicionar:"
+label.classList = "extraInfosTab"
 innerTabDefault.appendChild(label)
 
-var btnPersonagens = document.createElement('button');
-btnPersonagens.innerText = 'Personagens em cena';
-btnPersonagens.id = 'btn-personagens';
-btnPersonagens.classList = 'ui-button ui-corner-all btnExtra'
-innerTabDefault.appendChild(btnPersonagens);
-btnPersonagens.addEventListener('click', function() {
-  console.log('Botão "Personagens em cena" clicado!');
-});
-
+// Contrução de cena (Extra 1) ==========================>
 var checkboxConstrucao = document.createElement('input');
 checkboxConstrucao.type = 'checkbox';
 checkboxConstrucao.id = 'checkbox-constucao';
 innerTabDefault.appendChild(checkboxConstrucao);
 var labelConstrucao = document.createElement('label');
 labelConstrucao.htmlFor = 'checkbox-constucao';
-labelConstrucao.innerText = 'Construção detalhada';
+labelConstrucao.innerHTML = 'Construção de cena<br>';
+labelConstrucao.classList = "extraInfosTab"
 innerTabDefault.appendChild(labelConstrucao);
-var divExtraInfos1 = document.getElementById('div_extra_1');
+var divExtraInfos1 = document.getElementById('info_extra_1');
 divExtraInfos1.classList.add('divExtraInfos');
 checkboxConstrucao.addEventListener('change', async function() {
   const currentID = await getCurrentProjectID();
   const positionInArray = await getCurrentCard();
   if (this.checked) {
     divExtraInfos1.style.display = 'block';
-    resumeHeight("extra_1");
+    divExtraInfos1.scrollIntoView({behavior: 'smooth'})
+    resumeHeight("extra_1", "extra_1-1", "extra_1-2", "extra_1-3");
     db.projects.where('id').equals(currentID).modify( (e) => {
       e.data.scenes[positionInArray].chkExtra1 = true;
     });
@@ -211,6 +215,66 @@ checkboxConstrucao.addEventListener('change', async function() {
     divExtraInfos1.style.display = 'none';
     db.projects.where('id').equals(currentID).modify( (e) => {
       e.data.scenes[positionInArray].chkExtra1 = false;
+    });
+  }
+});
+
+// Contrução de cena (Extra 2) ==========================>
+var checkboxExtra2 = document.createElement('input');
+checkboxExtra2.type = 'checkbox';
+checkboxExtra2.id = 'checkboxExtra-2';
+innerTabDefault.appendChild(checkboxExtra2);
+var labelExtra2 = document.createElement('label');
+labelExtra2.htmlFor = 'checkboxExtra-2';
+labelExtra2.innerHTML = 'Detalhes da cena<br>';
+labelExtra2.classList = "extraInfosTab"
+innerTabDefault.appendChild(labelExtra2);
+var divExtra2 = document.getElementById('info_extra_2');
+divExtra2.classList.add('divExtraInfos');
+checkboxExtra2.addEventListener('change', async function() {
+  const currentID = await getCurrentProjectID();
+  const positionInArray = await getCurrentCard();
+  if (this.checked) {
+    divExtra2.style.display = 'block';
+    divExtra2.scrollIntoView({behavior: 'smooth'})
+    resumeHeight("extra_2", "extra_2-1");
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.scenes[positionInArray].chkExtra2 = true;
+    });
+  } else {
+    divExtra2.style.display = 'none';
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.scenes[positionInArray].chkExtra2 = false;
+    });
+  }
+});
+
+// Contrução de cena (Extra 3) ==========================>
+var checkboxExtra3 = document.createElement('input');
+checkboxExtra3.type = 'checkbox';
+checkboxExtra3.id = 'checkboxExtra-3';
+innerTabDefault.appendChild(checkboxExtra3);
+var labelExtra3 = document.createElement('label');
+labelExtra3.htmlFor = 'checkboxExtra-3';
+labelExtra3.innerHTML = 'Profundidade<br>';
+labelExtra3.classList = "extraInfosTab"
+innerTabDefault.appendChild(labelExtra3);
+var divExtra3 = document.getElementById('info_extra_3');
+divExtra3.classList.add('divExtraInfos');
+checkboxExtra3.addEventListener('change', async function() {
+  const currentID = await getCurrentProjectID();
+  const positionInArray = await getCurrentCard();
+  if (this.checked) {
+    divExtra3.style.display = 'block';
+    divExtra3.scrollIntoView({behavior: 'smooth'})
+    resumeHeight("extra_3", "extra_3-1", "extra_3-2");
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.scenes[positionInArray].chkExtra3 = true;
+    });
+  } else {
+    divExtra3.style.display = 'none';
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.scenes[positionInArray].chkExtra3 = false;
     });
   }
 });

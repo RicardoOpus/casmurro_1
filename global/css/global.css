@@ -466,6 +466,16 @@ input[type="color"]::-webkit-color-swatch {
   margin-bottom: 7px;
 }
 
+fieldset {
+  border: solid 1px #898989;
+  border-radius: 5px;
+  margin-top: 1em;
+}
+
+.extraInfosTab {
+  color: #898989;
+  cursor: pointer;
+}
 
 /* World page styles ================================================ */
 .listCards{

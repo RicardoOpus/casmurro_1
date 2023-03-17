@@ -188,10 +188,13 @@ function auto_grow(element) {
   element.style.height = (element.scrollHeight)+"px";
 };
 
-function resumeHeight(id) {
-  const result = document.getElementById(id)
-  result.style.height = result.scrollHeight+"px";
+function resumeHeight(...args) {
+  const results = args.map(arg => document.getElementById(arg));
+  results.forEach(result => {
+    result.style.height = result.scrollHeight + "px";
+  });
 };
+
 
 function setContentOpacity() {
   const content = document.querySelectorAll(".it");
