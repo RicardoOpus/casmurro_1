@@ -196,13 +196,11 @@ async function createNewScene() {
   const sceneName = document.getElementById("sceneName");
   const data = {
     title: sceneName.value,
-    chapter: '',
     position: 'Z',
     content: '',
     date: '',
     pov_id: '',
     place_id: '',
-    time_weather: '',
     id: ID
   };
   db.projects.where('id').equals(pjID).modify( (ele) => {

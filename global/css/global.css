@@ -449,7 +449,6 @@ input[type="color"]::-webkit-color-swatch {
   -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 90%);
 }
 
-
 .sceneCard{
   -webkit-border-radius: 27px;
   -moz-border-radius: 27px;
@@ -460,6 +459,11 @@ input[type="color"]::-webkit-color-swatch {
   padding: 1rem 2rem;
   margin: 1rem;
   color: #898989;
+}
+
+.btnExtra {
+  display: block;
+  margin-bottom: 7px;
 }
 
 

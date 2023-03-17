@@ -277,8 +277,7 @@ async function setCustomPovTabs(type) {
     } else {
       const povID = project.data.characters.map(function (e) { return e.id; }).indexOf(Number(value));
       const povName = project?.data?.characters?.[povID]?.title ?? '';
-      console.log(povName);
-      return $('.innerTabDefault').append($(`<button class='innerTabInactive' onclick="setFilterCategory('${value}', '${value}')" id='${value}'></button>`).html(povName));
+      return $('.innerTabDefault').append($(`<button class='innerTabInactive target' onclick="setFilterCategory('${value}', '${value}')" id='${value}'></button>`).html(povName));
     }
   });
 };
