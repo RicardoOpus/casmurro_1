@@ -49,9 +49,10 @@ function addBackgroundToMainDiv(time, placeID) {
     mainDiv.style.width = "100%";
     mainDiv.style.backgroundColor  = "#202024";
   } else {
-    null
-  }
-}
+    const mainDiv = document.getElementById(placeID);
+    mainDiv.style.backgroundImage = '';
+  };
+};
 
 async function restoreSceneCard() {
   const currentCardID = await getCurrentCardID();
@@ -70,15 +71,29 @@ async function restoreSceneCard() {
               addBackgroundToMainDiv(ele[key], "detail_scene")
             }
           return result.value = ele[key];
-        }if (key === "chkExtra1") {
+        } if (key === "chkExtra1") {
           const divExtra = document.getElementById("info_extra_1");
           if (ele[key] ) {
             const checkExtra = document.getElementById("checkbox-constucao");
             divExtra.removeAttribute("style");
             checkExtra.checked = true;
-          } else {
-            null
           }
+        } if (key === "chkExtra2") {
+          const divExtra = document.getElementById("info_extra_2");
+          if (ele[key] ) {
+            const checkExtra = document.getElementById("checkboxExtra-2");
+            divExtra.removeAttribute("style");
+            checkExtra.checked = true;
+          }
+        } if (key === "chkExtra3") {
+          const divExtra = document.getElementById("info_extra_3");
+          if (ele[key] ) {
+            const checkExtra = document.getElementById("checkboxExtra-3");
+            divExtra.removeAttribute("style");
+            checkExtra.checked = true;
+          }
+        } if (key === "scene_characters") {
+          applyCharScene("#characters_scene", ele[key]);
         } if (result) {
           return result.value = ele[key];
         }
@@ -197,12 +212,12 @@ innerTabDefault.appendChild(label);
 // Add Personagens ==========================>
 var btnAddCharacters = document.createElement('button');
 btnAddCharacters.innerText = 'Personagens em cena';
-btnAddCharacters.id = 'btn-subplot';
+btnAddCharacters.id = 'btn-addChar';
 btnAddCharacters.classList = "btnExtra ui-button ui-corner-all"
 innerTabDefault.appendChild(btnAddCharacters);
-btnAddCharacters.addEventListener('click', function() {
-  console.log('Botão "Add personagens em cena" clicado!');
-});
+// btnAddCharacters.addEventListener('click', function() {
+//   console.log('Botão "Add personagens em cena" clicado!');
+// });
 
 // Add Subtrama ==========================>
 var btnSubPlot = document.createElement('button');
@@ -233,7 +248,6 @@ innerTabDefault.appendChild(btnElementClosed);
 btnElementClosed.addEventListener('click', function() {
   console.log('Botão "Fechar ponta solta" clicado!');
 });
-
 
 // Contrução de cena (Extra 1) ==========================>
 var checkboxConstrucao = document.createElement('input');
@@ -324,3 +338,49 @@ checkboxExtra3.addEventListener('change', async function() {
     });
   }
 });
+
+async function saveCheckedValues() {
+  const form = document.getElementById("chars_scene");
+  const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+  const checkedValues = [];
+  const currentID = await getCurrentProjectID();
+  const positionInArray = await getCurrentCard();
+  checkboxes.forEach((checkbox) => {
+    if (checkbox.checked) {
+      checkedValues.push(Number(checkbox.value));
+    }
+  });
+  db.projects.where('id').equals(currentID).modify( (e) => {
+    e.data.scenes[positionInArray].scene_characters = checkedValues;
+  });
+}
+
+$( "#dialog-addCharScene" ).dialog({
+	autoOpen: false,
+	width: 500,
+	buttons: [
+		{
+			text: "Ok",
+			click: async function() {
+        await saveCheckedValues()
+        $( this ).dialog( "close" );
+        restoreSceneCard()
+			}
+		},
+		{
+			text: "Cancel",
+      id: "btnTwo",
+			click: function() {
+				$( this ).dialog( "close" );
+			}
+		}
+	]
+});
+// Link to open the dialog
+$( "#btn-addChar" ).click(function( event ) {
+	$( "#dialog-addCharScene" ).dialog( "open" );
+  $("#btnTwo").focus();
+	event.preventDefault();
+});
+
+restoreCharScene("#chars_scene", "characters");
