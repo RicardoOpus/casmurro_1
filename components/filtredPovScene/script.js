@@ -130,7 +130,7 @@ async function getScenesCardsFiltred(filter) {
             <div class="ui-widget-header ui-corner-all portlet-headerStatic">${ ele.title }
             <a onclick="pageChange('#project-list', 'components/detailScene/page.html', 'components/detailScene/script.js')">
               </div>
-                <p class="infosCardScenes"><span class="povLabel" style="background-color:${povColor}">${ !ele.pov_id ? '⮞⮞⮞ ' : povName }</span> 
+                <p class="infosCardScenes"><span class="povLabel" style="background-color:${ele.pov_id ? povColor: "#444C56"}">${ !ele.pov_id ? '⮞⮞⮞ ' : povName }</span> 
                   ${ !ele.date ? '' : `• ${dateConverted}`} 
                   ${ !ele.time ? '' : `• ${ele.time}`} 
                   ${ !ele.place_id ? '' : `• ${placeName}`}

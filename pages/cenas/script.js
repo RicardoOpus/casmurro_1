@@ -128,7 +128,7 @@ async function getScenesdCards() {
           <div class="ui-widget-header ui-corner-all portlet-header">${ ele.title }
           <a onclick="pageChange('#project-list', 'components/detailScene/page.html', 'components/detailScene/script.js')">
             </div>
-              <p class="infosCardScenes"><span class="povLabel" style="background-color:${povColor}">${ !ele.pov_id ? '⮞⮞⮞ ' : povName }</span> 
+              <p class="infosCardScenes"><span class="povLabel" style="background-color:${ele.pov_id ? povColor: "#444C56"}">${ !ele.pov_id ? ' nova cena ' : povName }</span> 
                 ${ !ele.date ? '' : `• ${dateConverted}`} 
                 ${ !ele.time ? '' : `• ${ele.time}`} 
                 ${ !ele.place_id ? '' : `• ${placeName}`}
@@ -144,51 +144,6 @@ async function getScenesdCards() {
         </ul>
       `
     );
-    setContentOpacity();
-    setImageOpacity();
-  })
-};
-
-async function getScenesCardsFiltred(filter) {
-  $('#project-list').empty();
-  const project = await getCurrentProject();
-  const resultSorted = sortByKey(project.data.scenes, 'position')
-  resultSorted.forEach( (ele) => {
-    const povID = project.data.characters.map(function (e) { return e.id; }).indexOf(Number(ele.pov_id));
-    const povName = project?.data?.characters?.[povID]?.title ?? '';
-    const povColor = project?.data?.characters?.[povID]?.color ?? '';
-    const placeID = project.data.world.map(function (e) { return e.id; }).indexOf(Number(ele.place_id));
-    const placeName = project?.data?.world?.[placeID]?.title ?? '';
-    const dateConverted = convertDateBR(ele.date);
-    if (ele.pov_id === filter) {
-      $('#project-list').append(
-        `
-          <ul class="worldListScenes" id="${ele.id}">
-            <li class="worldItens">
-            <div class="ui-widget-content portlet ui-corner-all" onclick="setCurrentCard('scenes', ${ ele.id })">
-            <div class="contentListWorld">
-            <div class="ui-widget-header ui-corner-all portlet-header">${ ele.title }
-            <a onclick="pageChange('#project-list', 'components/detailScene/page.html', 'components/detailScene/script.js')">
-              </div>
-                <p class="infosCardScenes"><span class="povLabel" style="background-color:${povColor}">${ !ele.pov_id ? '⮞⮞⮞ ' : povName }</span> 
-                  ${ !ele.date ? '' : `• ${dateConverted}`} 
-                  ${ !ele.time ? '' : `• ${ele.time}`} 
-                  ${ !ele.place_id ? '' : `• ${placeName}`}
-                </p>
-                <p class="infosCardScenes">${ !ele.status ? '' : ele.status }</p>
-              </div>
-              <div>  
-                <p class="sceneCartContent">${ ele.content }</p>
-              </div>
-              </div>
-            </a>
-            </li>
-          </ul>
-        `
-      );
-    } else {
-      null
-    }
     setContentOpacity();
     setImageOpacity();
   })
