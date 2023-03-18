@@ -1,4 +1,4 @@
-console.log("Chamou Cenas!");
+console.log('chamou pagina cenas filtara');
 changeTabColor("cenas");
 
 $( "#dialogScene" ).dialog({
@@ -109,46 +109,6 @@ function setFilterCategory(tab, filterCategory) {
   getScenesCardsFiltred(filterCategory);
 }
 
-async function getScenesdCards() {
-  const project = await getCurrentProject();
-  const resultSorted = sortByKey(project.data.scenes, 'position')
-  resultSorted.forEach( (ele) => {
-    const povID = project.data.characters.map(function (e) { return e.id; }).indexOf(Number(ele.pov_id));
-    const povName = project?.data?.characters?.[povID]?.title ?? '';
-    const povColor = project?.data?.characters?.[povID]?.color ?? '';
-    const placeID = project.data.world.map(function (e) { return e.id; }).indexOf(Number(ele.place_id));
-    const placeName = project?.data?.world?.[placeID]?.title ?? '';
-    const dateConverted = convertDateBR(ele.date);
-    $('#project-list').append(
-      `
-        <ul class="worldListScenes" id="${ele.id}">
-          <li class="worldItens">
-          <div class="ui-widget-content portlet ui-corner-all" onclick="setCurrentCard('scenes', ${ ele.id })">
-          <div class="contentListWorld">
-          <div class="ui-widget-header ui-corner-all portlet-header">${ ele.title }
-          <a onclick="pageChange('#project-list', 'components/detailScene/page.html', 'components/detailScene/script.js')">
-            </div>
-              <p class="infosCardScenes"><span class="povLabel" style="background-color:${povColor}">${ !ele.pov_id ? '⮞⮞⮞ ' : povName }</span> 
-                ${ !ele.date ? '' : `• ${dateConverted}`} 
-                ${ !ele.time ? '' : `• ${ele.time}`} 
-                ${ !ele.place_id ? '' : `• ${placeName}`}
-              </p>
-              <p class="infosCardScenes">${ !ele.status ? '' : ele.status }</p>
-            </div>
-            <div>  
-              <p class="sceneCartContent">${ ele.content }</p>
-            </div>
-            </div>
-          </a>
-          </li>
-        </ul>
-      `
-    );
-    setContentOpacity();
-    setImageOpacity();
-  })
-};
-
 async function getScenesCardsFiltred(filter) {
   $('#project-list').empty();
   const project = await getCurrentProject();
@@ -167,7 +127,7 @@ async function getScenesCardsFiltred(filter) {
             <li class="worldItens">
             <div class="ui-widget-content portlet ui-corner-all" onclick="setCurrentCard('scenes', ${ ele.id })">
             <div class="contentListWorld">
-            <div class="ui-widget-header ui-corner-all portlet-header">${ ele.title }
+            <div class="ui-widget-header ui-corner-all portlet-headerStatic">${ ele.title }
             <a onclick="pageChange('#project-list', 'components/detailScene/page.html', 'components/detailScene/script.js')">
               </div>
                 <p class="infosCardScenes"><span class="povLabel" style="background-color:${povColor}">${ !ele.pov_id ? '⮞⮞⮞ ' : povName }</span> 
@@ -217,30 +177,14 @@ async function createNewScene() {
   return
 };
 
-setCustomPovTabs('scenes');
-getScenesdCards();
+var idRecoved = localStorage.getItem("idPovFilter");
+
+setCustomPovTabs('scenes', function() {
+  changeInnerTabColor(idRecoved);
+});
+
+getScenesCardsFiltred(idRecoved);
 validateNewCard("sceneName", "#okBtn-scene");
 validateNewCard("povName", "#okBtn-cat");
 validateNewCard("povDelName", "#okBtn-delpov");
 document.getElementById("project-list").className = "listCardsScenes"
-
-$(function() {
-  $("#project-list").sortable({
-    update: function(event, ui) {
-      savePositions();
-    }
-  });
-  $("#project-list").disableSelection();
-  function savePositions() {
-    $("#project-list .worldListScenes").each(async function() {
-      var id = $(this).attr("id");
-      var position = $(this).index();
-      var currentID = await getCurrentProjectID();
-      var positionInDB = await getCurrentScene(Number(id)) 
-      db.projects.where('id').equals(currentID).modify( (ele) => {
-        ele.data.scenes[positionInDB].position = position;
-        }
-      );
-    });
-  }
-});

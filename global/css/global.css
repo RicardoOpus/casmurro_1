@@ -393,6 +393,11 @@ input[type="color"]::-webkit-color-swatch {
   cursor: grab;
 }
 
+.portlet-headerStatic {
+  padding: 0.2em 0.3em;
+  font-size: 1.1em;
+}
+
 .portlet {
   padding: 0.3em;
 }
@@ -430,7 +435,6 @@ input[type="color"]::-webkit-color-swatch {
   list-style-type: none;
   padding-inline-start: 0px;
   padding: 0rem 5px 0rem 5px;
-
 }
 
 .listCardsScenes ul {
@@ -482,6 +486,7 @@ fieldset {
 .listCards{
   width: 100%;
 }
+
 .worldList {
   display: flex;
   flex-direction: column;

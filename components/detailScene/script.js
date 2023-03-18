@@ -215,39 +215,6 @@ btnAddCharacters.innerText = 'Personagens em cena';
 btnAddCharacters.id = 'btn-addChar';
 btnAddCharacters.classList = "btnExtra ui-button ui-corner-all"
 innerTabDefault.appendChild(btnAddCharacters);
-// btnAddCharacters.addEventListener('click', function() {
-//   console.log('Botão "Add personagens em cena" clicado!');
-// });
-
-// Add Subtrama ==========================>
-var btnSubPlot = document.createElement('button');
-btnSubPlot.innerText = 'Subtrama';
-btnSubPlot.id = 'btn-subplot';
-btnSubPlot.classList = "btnExtra ui-button ui-corner-all"
-innerTabDefault.appendChild(btnSubPlot);
-btnSubPlot.addEventListener('click', function() {
-  console.log('Botão "Add subtrama" clicado!');
-});
-
-// Add Ponta Solta ==========================>
-var btnElementOpen = document.createElement('button');
-btnElementOpen.innerText = 'Ponta solta';
-btnElementOpen.id = 'btn-element-open';
-btnElementOpen.classList = "btnExtra ui-button ui-corner-all"
-innerTabDefault.appendChild(btnElementOpen);
-btnElementOpen.addEventListener('click', function() {
-  console.log('Botão "Add ponta solta" clicado!');
-});
-
-// Fechar ponta ==========================>
-var btnElementClosed = document.createElement('button');
-btnElementClosed.innerText = 'Fechar ponta solta';
-btnElementClosed.id = 'btn-element-closed';
-btnElementClosed.classList = "btnExtra ui-button ui-corner-all"
-innerTabDefault.appendChild(btnElementClosed);
-btnElementClosed.addEventListener('click', function() {
-  console.log('Botão "Fechar ponta solta" clicado!');
-});
 
 // Contrução de cena (Extra 1) ==========================>
 var checkboxConstrucao = document.createElement('input');

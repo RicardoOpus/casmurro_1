@@ -76,7 +76,7 @@ function changeInnerTabColor(tabName) {
     tab.classList.remove("innerTabActive");
     tab.classList.add("innerTabInactive")
   })
-  const tab = document.getElementById(tabName);
+  let tab = document.getElementById(tabName);
   tab.classList.remove("innerTabInactive")
   tab.classList.add("innerTabActive")
 }
@@ -270,7 +270,13 @@ async function setCustomTabs(type) {
   });
 };
 
-async function setCustomPovTabs(type) {
+function povFilterLoadPage(id) {
+  localStorage.setItem("idPovFilter", id);
+  pageChange('#dinamic', 'components/filtredPovScene/page.html', 'components/filtredPovScene/script.js')
+}
+
+
+async function setCustomPovTabs(type, callback) {
   const project = await getCurrentProject();
   const categoryList = project.settings[type];
   $.each(categoryList, function(i, value) {
@@ -279,9 +285,12 @@ async function setCustomPovTabs(type) {
     } else {
       const povID = project.data.characters.map(function (e) { return e.id; }).indexOf(Number(value));
       const povName = project?.data?.characters?.[povID]?.title ?? '';
-      return $('.innerTabDefault').append($(`<button class='innerTabInactive target' onclick="setFilterCategory('${value}', '${value}')" id='${value}'></button>`).html(povName));
+      return $('.innerTabDefault').append($(`<button id='${value}' class='innerTabInactive target' onclick="povFilterLoadPage(${value})"'></button>`).html(povName));
     }
   });
+  if (callback) {
+    callback(); // chama a função de callback, se fornecida
+  }
 };
 
 async function restoreDelCategories(type, id) {
@@ -351,7 +360,7 @@ async function restoreCharScene(id, type) {
   $(id).empty();
   $.each(itensList, function(i, value) {
     const checkbox = $("<input type='checkbox'></input><label></label><br>").val(value.id).html(value.title);
-    if (chklist.includes(Number(value.id))) {
+    if (chklist?.includes(Number(value.id))) {
       checkbox.prop('checked', true);
     }
     $(id).append(checkbox);
