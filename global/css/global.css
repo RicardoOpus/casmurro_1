@@ -447,6 +447,7 @@ input[type="color"]::-webkit-color-swatch {
   border-radius: 15px;
   margin-top: 15px;
   -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 90%);
+          mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 90%);
 }
 
 .sceneCard{
