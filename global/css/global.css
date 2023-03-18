@@ -717,6 +717,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   text-align: right;
   margin-bottom: -10px;
 }
+
 .delete :hover {
   color: red;
 }
@@ -724,10 +725,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .btnSmall {
   margin-top: 1rem;
   margin-right: 1rem;
-
 }
-
-
 
 /* ========================================================================= */
 

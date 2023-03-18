@@ -134,6 +134,7 @@ async function getScenesdCards() {
                 ${ !ele.time ? '' : `• ${ele.time}`} 
                 ${ !ele.place_id ? '' : `• ${placeName}`}
               </p>
+              <p class="infosCardScenes">${ !ele.status ? '' : ele.status }</p>
             </div>
             <div>  
               <p class="sceneCartContent">${ ele.content }</p>

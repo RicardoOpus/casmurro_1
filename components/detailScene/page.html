@@ -5,7 +5,7 @@
   <div class="card" id="detail_scene">
     <div id="weather_img">
         <input class="editProjectTitle projectInputForm" id="title">
-        <p class="delete"><span class="ui-icon ui-icon-trash"></span><a id="deleteWorldCard"> Excluir</a></p>
+        <p class="delete"><a id="deleteWorldCard" style="background-color: #202024; border-radius: 5px; padding: 5px;"><span class="ui-icon ui-icon-trash"></span> Excluir</a></p>
           <div>
             <img src="" id="image_card" class="sceneImg">
           </div>
@@ -17,7 +17,7 @@
               <h3>Período:</h3>
               <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget" id="time">
                 <option value=""> </option>
-                <option value="">N/A</option>
+                <option value="">n/a</option>
                 <option value="Nascer do sol">Nascer do sol</option>
                 <option value="Manhã">&nbsp;&nbsp;&nbsp;Manhã</option>
                 <option value="Meio-dia">&nbsp;&nbsp;&nbsp;Meio-dia</option>
@@ -27,11 +27,21 @@
                 <option value="Meia-noite">&nbsp;&nbsp;&nbsp;Meia-noite</option>
                 <option value="Madrugada">&nbsp;&nbsp;&nbsp;Madrugada</option>
               </select>
+              <h3>Status:</h3>
+              <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget"name="" id="status">
+                <option value="" > </option>
+                <option value="" >n/a</option>
+                <option value="Pronto">Pronto</option>
+                <option value="Chuvoso">Em andamento</option>
+                <option value="Pausado">Pausado</option>
+                <option value="Problema">Problema</option>
+                <option value="Não iniciado">Não iniciado</option>
+              </select>
             </div>
             <div class="editProjectBlock">
               <h3>Local:</h3>
               <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget"name="" id="place_id"></select>
-                <h3>Condições climáticas:</h3>
+              <h3>Condições climáticas:</h3>
               <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget"name="" id="weather">
                 <option value="" > </option>
                 <option value="" >Normal</option>
