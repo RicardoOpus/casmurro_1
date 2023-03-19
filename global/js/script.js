@@ -265,7 +265,7 @@ async function setCustomTabs(type) {
     if (value === "-- selecione --" || value === "-- nenhum --") {
       return null
     } else {
-      return $('.innerTabDefault').append($(`<button class='innerTabInactive' onclick="setFilterCategory('${value}', '${value}')" id='${value}'></button>`).html(value));
+      return $('.innerTabDefault').append($(`<button class='innerTabInactive target' onclick="setFilterCategory('${value}', '${value}')" id='${value}'></button>`).html(value));
     }
   });
 };

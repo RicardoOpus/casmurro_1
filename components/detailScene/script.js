@@ -201,7 +201,6 @@ restorePOV("#pov_id", "characters");
 restorePOV("#place_id", "world");
 
 var innerTabDefault = document.querySelector('.innerTabDefault');
-var extraInfosDiv = document.getElementById('extra_infos');
 document.querySelectorAll(".target").forEach( ele => ele.remove());
 
 var label = document.createElement('p');
@@ -226,20 +225,20 @@ labelConstrucao.htmlFor = 'checkbox-constucao';
 labelConstrucao.innerHTML = 'Construção de cena<br>';
 labelConstrucao.classList = "extraInfosTab"
 innerTabDefault.appendChild(labelConstrucao);
-var divExtraInfos1 = document.getElementById('info_extra_1');
-divExtraInfos1.classList.add('divExtraInfos');
+var divExtraInfos3 = document.getElementById('info_extra_1');
+divExtraInfos3.classList.add('divExtraInfos');
 checkboxConstrucao.addEventListener('change', async function() {
   const currentID = await getCurrentProjectID();
   const positionInArray = await getCurrentCard();
   if (this.checked) {
-    divExtraInfos1.style.display = 'block';
-    divExtraInfos1.scrollIntoView({behavior: 'smooth'})
+    divExtraInfos3.style.display = 'block';
+    divExtraInfos3.scrollIntoView({behavior: 'smooth'})
     resumeHeight("extra_1", "extra_1-1", "extra_1-2", "extra_1-3");
     db.projects.where('id').equals(currentID).modify( (e) => {
       e.data.scenes[positionInArray].chkExtra1 = true;
     });
   } else {
-    divExtraInfos1.style.display = 'none';
+    divExtraInfos3.style.display = 'none';
     db.projects.where('id').equals(currentID).modify( (e) => {
       e.data.scenes[positionInArray].chkExtra1 = false;
     });
@@ -247,10 +246,10 @@ checkboxConstrucao.addEventListener('change', async function() {
 });
 
 // Contrução de cena (Extra 2) ==========================>
-var checkboxExtra2 = document.createElement('input');
-checkboxExtra2.type = 'checkbox';
-checkboxExtra2.id = 'checkboxExtra-2';
-innerTabDefault.appendChild(checkboxExtra2);
+var checkboxExtra3 = document.createElement('input');
+checkboxExtra3.type = 'checkbox';
+checkboxExtra3.id = 'checkboxExtra-2';
+innerTabDefault.appendChild(checkboxExtra3);
 var labelExtra2 = document.createElement('label');
 labelExtra2.htmlFor = 'checkboxExtra-2';
 labelExtra2.innerHTML = 'Detalhes da cena<br>';
@@ -258,7 +257,7 @@ labelExtra2.classList = "extraInfosTab"
 innerTabDefault.appendChild(labelExtra2);
 var divExtra2 = document.getElementById('info_extra_2');
 divExtra2.classList.add('divExtraInfos');
-checkboxExtra2.addEventListener('change', async function() {
+checkboxExtra3.addEventListener('change', async function() {
   const currentID = await getCurrentProjectID();
   const positionInArray = await getCurrentCard();
   if (this.checked) {

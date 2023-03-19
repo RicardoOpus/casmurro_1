@@ -472,7 +472,7 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 fieldset {
-  border: solid 1px #898989;
+  border: solid 1px #313131;
   border-radius: 5px;
   margin-top: 1em;
 }
@@ -586,7 +586,7 @@ fieldset {
 
 .innerTabDefault{
   padding-top: 1rem;
-  /* width: 200px; */
+  width: 200px;
   /* margin-right: 5rem; */
 }
 

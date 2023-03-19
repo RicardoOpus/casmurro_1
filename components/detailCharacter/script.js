@@ -7,19 +7,6 @@ async function clearDateDeath() {
     })
 };
 
-function showHideDate(cond) {
-  const dateDeathInput = document.getElementById("dateDeathDiv");
-  dateDeathInput.style.display = cond.checked ? "block" : "none";
-  cond.checked ? null : clearDateDeath();
-}
-
-function restoreDateDeath() {
-  const div = document.getElementById("dateDeathDiv");
-  var div2 = document.getElementById("chkDeath");
-  date_death.value ?  div2.checked = true : null;
-  date_death.value ? div.style.display = "block" : div.style.display = "none";
-}
-
 async function restoreWordCard() {
   const currentCardID = await getCurrentCardID();
   const projectData = await getCurrentProject();
@@ -36,12 +23,48 @@ async function restoreWordCard() {
         } if (key === "image_card" && ele[key] !== '') {
           result.setAttribute("src", ele[key]);
           result.classList.add("cardImageChar");
+        } if (key === "chkExtra1") {
+          const divExtra = document.getElementById("info_extra_1");
+          if (ele[key] ) {
+            const checkExtra = document.getElementById("checkbox-extra_1");
+            divExtra.removeAttribute("style");
+            checkExtra.checked = true;
+          }
+        } if (key === "chkExtra2") {
+          const divExtra = document.getElementById("info_extra_2");
+          if (ele[key] ) {
+            const checkExtra = document.getElementById("checkbox-extra_2");
+            divExtra.removeAttribute("style");
+            checkExtra.checked = true;
+          }
+        } if (key === "chkExtra3") {
+          const divExtra = document.getElementById("info_extra_3");
+          if (ele[key] ) {
+            const checkExtra = document.getElementById("checkbox-extra_3");
+            divExtra.removeAttribute("style");
+            checkExtra.checked = true;
+          }
+        } if (key === "chkDeath") {
+          const divExtra = document.getElementById("dateDeathDiv");
+          if (ele[key] ) {
+            const checkExtra = document.getElementById("checkbox-date-death");
+            divExtra.removeAttribute("style");
+            checkExtra.checked = true;
+          }
         } if (result) {
           return result.value = ele[key];
         }
       })
-      restoreDateDeath()
-      resumeHeight("content")
+      // restoreDateDeath()
+      resumeHeight("content", 
+      "extra_1",
+      "extra_1_1",
+      "extra_2",
+      "extra_2_1",
+      "extra_2_2",
+      "extra_3",
+      "extra_3_1"
+      )
     } else {
       return null
     }
@@ -140,3 +163,135 @@ document.getElementById("my-image").addEventListener('input', () => {
 restoreWordCard();
 restoreCategories('characters');
 restoreGenders();
+
+var innerTabDefault = document.querySelector('.innerTabDefault');
+document.querySelectorAll(".target").forEach( ele => ele.remove());
+
+var label = document.createElement('p');
+label.innerText = "Adicionar:";
+label.classList = "extraInfosTab target";
+innerTabDefault.appendChild(label);
+
+//Date death ==========================>
+var date_deathchk = document.createElement('input');
+date_deathchk.type = 'checkbox';
+date_deathchk.id = 'checkbox-date-death';
+date_deathchk.classList = "target"
+innerTabDefault.appendChild(date_deathchk);
+var labelDateDeath = document.createElement('label');
+labelDateDeath.htmlFor = 'checkbox-date-death';
+labelDateDeath.innerHTML = 'Data da morte<br>';
+labelDateDeath.classList = "extraInfosTab target"
+innerTabDefault.appendChild(labelDateDeath);
+var fieldDateDeath = document.getElementById('dateDeathDiv');
+fieldDateDeath.classList.add('divExtraInfos');
+date_deathchk.addEventListener('change', async function() {
+  const currentID = await getCurrentProjectID();
+  const positionInArray = await getCurrentCard();
+  if (this.checked) {
+    fieldDateDeath.style.display = 'block';
+    fieldDateDeath.scrollIntoView({behavior: 'smooth'})
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.characters[positionInArray].chkDeath = true;
+    });
+  } else {
+    clearDateDeath()
+    fieldDateDeath.style.display = 'none';
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.characters[positionInArray].chkDeath = false;
+    });
+  }
+});
+
+//Extra 1 ==========================>
+var checkboxExtra1 = document.createElement('input');
+checkboxExtra1.type = 'checkbox';
+checkboxExtra1.id = 'checkbox-extra_1';
+checkboxExtra1.classList = "target"
+innerTabDefault.appendChild(checkboxExtra1);
+var labelExtra_1 = document.createElement('label');
+labelExtra_1.htmlFor = 'checkbox-extra_1';
+labelExtra_1.innerHTML = 'Características<br>';
+labelExtra_1.classList = "extraInfosTab target"
+innerTabDefault.appendChild(labelExtra_1);
+var divExtraInfos1 = document.getElementById('info_extra_1');
+divExtraInfos1.classList.add('divExtraInfos');
+checkboxExtra1.addEventListener('change', async function() {
+  const currentID = await getCurrentProjectID();
+  const positionInArray = await getCurrentCard();
+  if (this.checked) {
+    divExtraInfos1.style.display = 'block';
+    divExtraInfos1.scrollIntoView({behavior: 'smooth'})
+    resumeHeight("extra_1", "extra_1_1");
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.characters[positionInArray].chkExtra1 = true;
+    });
+  } else {
+    divExtraInfos1.style.display = 'none';
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.characters[positionInArray].chkExtra1 = false;
+    });
+  }
+});
+
+// Extra 2 ==========================>
+var checkboxExtra2 = document.createElement('input');
+checkboxExtra2.type = 'checkbox';
+checkboxExtra2.id = 'checkbox-extra_2';
+checkboxExtra2.classList = "target"
+innerTabDefault.appendChild(checkboxExtra2);
+var labelExtra_2 = document.createElement('label');
+labelExtra_2.htmlFor = 'checkbox-extra_2';
+labelExtra_2.innerHTML = 'Jornada<br>';
+labelExtra_2.classList = "extraInfosTab target"
+innerTabDefault.appendChild(labelExtra_2);
+var divExtraInfos2 = document.getElementById('info_extra_2');
+divExtraInfos2.classList.add('divExtraInfos');
+checkboxExtra2.addEventListener('change', async function() {
+  const currentID = await getCurrentProjectID();
+  const positionInArray = await getCurrentCard();
+  if (this.checked) {
+    divExtraInfos2.style.display = 'block';
+    divExtraInfos2.scrollIntoView({behavior: 'smooth'})
+    resumeHeight("extra_2", "extra_2_1", "extra_2_2");
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.characters[positionInArray].chkExtra2 = true;
+    });
+  } else {
+    divExtraInfos2.style.display = 'none';
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.characters[positionInArray].chkExtra2 = false;
+    });
+  }
+});
+
+// Extra 3 ==========================>
+var checkboxExtra3 = document.createElement('input');
+checkboxExtra3.type = 'checkbox';
+checkboxExtra3.id = 'checkbox-extra_3';
+checkboxExtra3.classList = "target"
+innerTabDefault.appendChild(checkboxExtra3);
+var labelExtra_3 = document.createElement('label');
+labelExtra_3.htmlFor = 'checkbox-extra_3';
+labelExtra_3.innerHTML = 'Dualidade<br>';
+labelExtra_3.classList = "extraInfosTab target"
+innerTabDefault.appendChild(labelExtra_3);
+var divExtraInfos3 = document.getElementById('info_extra_3');
+divExtraInfos3.classList.add('divExtraInfos');
+checkboxExtra3.addEventListener('change', async function() {
+  const currentID = await getCurrentProjectID();
+  const positionInArray = await getCurrentCard();
+  if (this.checked) {
+    divExtraInfos3.style.display = 'block';
+    divExtraInfos3.scrollIntoView({behavior: 'smooth'})
+    resumeHeight("extra_3", "extra_3_1");
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.characters[positionInArray].chkExtra3 = true;
+    });
+  } else {
+    divExtraInfos3.style.display = 'none';
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.characters[positionInArray].chkExtra3 = false;
+    });
+  }
+});
