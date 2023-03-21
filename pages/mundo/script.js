@@ -10,7 +10,7 @@ buttons: [
     id: "okBtn-world",
     disabled: false,
     click: async function() {
-      await createNewScene();
+      await createNewTimeline();
       $( this ).dialog( "close" );
       document.getElementById("worldName").value = "";
       pageChange('#dinamic', 'pages/mundo/page.html', 'pages/mundo/script.js')
@@ -108,7 +108,7 @@ function setFilterCategory(tab, filterCategory) {
   getWorldCardsFiltred(filterCategory);
 }
 
-async function getScenesdCards() {
+async function getTimeline() {
   const project = await getCurrentProject();
   const resultSorted = sortByKey(project.data.world, 'title')
   resultSorted.forEach( (ele) => {
@@ -181,7 +181,7 @@ async function getWorldCardsFiltred(filter) {
   })
 };
 
-async function createNewScene() {
+async function createNewTimeline() {
   const ID = await idManager('id_world')
   const currentDate = new Date();
   const timeStamp = Date.now();
@@ -204,7 +204,7 @@ async function createNewScene() {
 };
 
 setCustomTabs('world');
-getScenesdCards();
+getTimeline();
 validateNewCard("worldName", "#okBtn-world");
 validateNewCard("categoryName", "#okBtn-cat");
 validateNewCard("categoryDelName", "#okBtn-delcat");

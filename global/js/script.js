@@ -55,6 +55,13 @@ function convertDateUS(dateUS) {
   return dateBR;
 }
 
+function convertDatePT_BR(dateUS) {
+  const date = dateUS;
+  const [year, month, day] = date.split('-');
+  const dateBR = [day, month, year].join('/');;
+  return dateBR;
+}
+
 function restoreBackground() {
   document.body.style.backgroundImage = "url('assets/images/arabesque4.png')";
 }

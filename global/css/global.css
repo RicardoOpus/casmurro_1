@@ -640,6 +640,86 @@ fieldset {
   text-align: center;
 }
 
+/* Timeline page styles ================================================ */
+
+.containerTimeline{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+  /* padding: 3rem 0; */
+}
+
+.containerTimeline ul, li{
+  list-style: none;
+  padding: 0;
+}
+
+.wrapper{
+  /* background: #eaf6ff; */
+  padding: 2rem;
+  border-radius: 15px;
+}
+
+.sessions{
+  margin-top: 2rem;
+  border-radius: 12px;
+  position: relative;
+}
+
+.containerTimeline li{
+  padding-bottom: 0.5rem;
+  border-left: 1px solid #555555;
+  position: relative;
+  padding-left: 20px;
+  margin-left: 10px;
+}
+
+.containerTimeline li:last-child{
+  border: 0px;
+  padding-bottom: 0;
+}
+
+.containerTimeline li:before{
+  content: '';
+  width: 15px;
+  height: 15px;
+  background: #a8a8a8;
+  border: 1px solid #000000;
+  box-shadow: 3px 3px 0px #606060;
+  /* box-shadow: 3px 3px 0px #bab5f8; */
+  border-radius: 50%;
+  position: absolute;
+  left: -10px;
+  top: 0px;
+}
+
+.time {
+  color: #898989;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+@media (min-width: 768px) {
+  .time {
+    font-size: .9rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .time {
+    margin-bottom: .3rem;
+    font-size: 0.85rem;
+  }
+}
+
+.containerTimeline p{
+  /* color: #4f4f4f; */
+  font-family: sans-serif;
+  line-height: 1.5;
+  margin-top:0.4rem;
+  margin-bottom: 0px;
+}
 
 /* Project Edit Infos page styles ================================================ */
 
@@ -756,7 +836,6 @@ background-color: #444C56;
   border-color: red;
   border-radius: 5px;
 }
-
 
 a {
   cursor: pointer;
