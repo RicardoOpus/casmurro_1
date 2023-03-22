@@ -415,3 +415,25 @@ async function randomColor() {
       e.data.characters[positionInArray].color = colorNow;
     })
 }
+
+async function NewTimelineCharacter(date, idCharcter, type) {
+  const typeDate = type === 'characters-birth' ? 'characters-birth' : 'characters-death';
+  const ID = await idManager('id_timeline');
+  const pjID = await getCurrentProjectID();
+  let result = ''
+  const data = {
+    title: '',
+    elementType: typeDate,
+    elementID: idCharcter,
+    content: '',
+    date: date,
+    id: ID
+  };
+  await db.projects.where('id').equals(pjID).modify( (ele) => {
+    ele.data.timeline.push(data)
+    }
+  ).then( () => {
+    result = data.id
+  });
+  return result
+};

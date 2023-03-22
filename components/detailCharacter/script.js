@@ -1,9 +1,15 @@
-async function clearDateDeath() {
-  document.getElementById("date_death").value = '';
+async function clearDateDeathBirth(type) {
+  document.getElementById(type).value = '';
+  const projectData = await getCurrentProject();
   const currentID = await getCurrentProjectID();
   const positionInArray =  await getCurrentCard();
+  const idTimeline = projectData.data.characters[positionInArray][type]
+  const positionInArrayTime = projectData.data.timeline.map(function (e) { return e.id; }).indexOf(idTimeline);
+  await db.projects.where('id').equals(currentID).modify( (e) => {
+    e.data.timeline.splice(positionInArrayTime, 1)
+  });
   return db.projects.where('id').equals(currentID).modify( (e) => {
-      e.data.characters[positionInArray].date_death = '';
+      e.data.characters[positionInArray][type] = '';
     })
 };
 
@@ -14,12 +20,16 @@ async function restoreWordCard() {
     if (ele.id === currentCardID) {
       Object.keys(ele).forEach(key => {
         const result = document.getElementById(key);
-        if (key === "date" &&  ele[key] !== '') {
-          const divDate = document.getElementById("div_Date");
-          divDate.removeAttribute("style");
-          const dateConverted = convertDateBR(ele[key]);
-          const date = convertDateUS(dateConverted);
-          return result.value = date;
+        if (key === "date_birth" && ele[key] !== '') {
+          const resultDate = projectData.data.timeline.filter( (timelineElement) => {
+            return timelineElement.id === ele[key]
+          })
+          return result.value = resultDate[0].date;
+        } if (key === "date_death" && ele[key] !== '') {
+          const resultDate = projectData.data.timeline.filter( (timelineElement) => {
+            return timelineElement.id === ele[key]
+          })
+          return result.value = resultDate[0].date;
         } if (key === "image_card" && ele[key] !== '') {
           result.setAttribute("src", ele[key]);
           result.classList.add("cardImageChar");
@@ -89,6 +99,14 @@ function changeImgDefault(gender) {
   }
 };
 
+async function checkTimelineNewDate(elementID, typeDate) {
+  const projectData = await getCurrentProject();
+  const resultado = projectData.data.timeline.filter((item) => {
+    return item.elementType === typeDate && item.elementID === elementID;
+  });
+  return resultado.length > 0;
+}
+
 elementsArray.forEach(async function(elem) {
   const currentID = await getCurrentProjectID();
   const currentCardID = await getCurrentCardID();
@@ -98,14 +116,32 @@ elementsArray.forEach(async function(elem) {
     if (ele.id === currentCardID) {
       elem.addEventListener("change", async (event) => {
         const field = elem.id
-        if (elem.id === "date") {
-          const dateObject = new Date(elem.value);
-          const tomorrow = new Date(dateObject);
-          const dateSum1 = tomorrow.setDate(dateObject.getDate()+1);
-          const correctDate = new Date(dateSum1);
-          return db.projects.where('id').equals(currentID).modify( (e) => {
-            e.data.characters[positionInArray][field] = correctDate;
-          });
+        if (elem.id === "date_birth") {
+          const checkIfisNew = await checkTimelineNewDate(ele.id, 'characters-birth')
+          if (checkIfisNew) {
+            const positionInArrayTime = projectData.data.timeline.map(function (e) { return e.id; }).indexOf(ele.date_birth);
+            return db.projects.where('id').equals(currentID).modify( (e) => {
+              e.data.timeline[positionInArrayTime].date = elem.value;
+            });
+          } else {
+            const timelineID = await NewTimelineCharacter(elem.value, ele.id, 'characters-birth');
+            return db.projects.where('id').equals(currentID).modify( (e) => {
+              e.data.characters[positionInArray][field] = timelineID;
+            });
+          }
+        } if (elem.id === "date_death") {
+          const checkIfisNew = await checkTimelineNewDate(ele.id, 'characters-death')
+          if (checkIfisNew) {
+            const positionInArrayTime = projectData.data.timeline.map(function (e) { return e.id; }).indexOf(ele.date_death);
+            return db.projects.where('id').equals(currentID).modify( (e) => {
+              e.data.timeline[positionInArrayTime].date = elem.value;
+            });
+          } else {
+            const timelineID = await NewTimelineCharacter(elem.value, ele.id, 'characters-death');
+            return db.projects.where('id').equals(currentID).modify( (e) => {
+              e.data.characters[positionInArray][field] = timelineID;
+            });
+          }
         } if (elem.id === "gender") {
           result = changeImgDefault(elem.value);
           db.projects.where('id').equals(currentID).modify( (e) => {
@@ -172,6 +208,37 @@ label.innerText = "Adicionar:";
 label.classList = "extraInfosTab target";
 innerTabDefault.appendChild(label);
 
+//Date birth ==========================>
+var date_birthchk = document.createElement('input');
+date_birthchk.type = 'checkbox';
+date_birthchk.id = 'checkbox-date-birth';
+date_birthchk.classList = "target"
+innerTabDefault.appendChild(date_birthchk);
+var labelDateBirth = document.createElement('label');
+labelDateBirth.htmlFor = 'checkbox-date-birth';
+labelDateBirth.innerHTML = 'Data de Nascimento<br>';
+labelDateBirth.classList = "extraInfosTab target"
+innerTabDefault.appendChild(labelDateBirth);
+var fieldDateBirth = document.getElementById('dateBirthDiv');
+fieldDateBirth.classList.add('divExtraInfos');
+date_birthchk.addEventListener('change', async function() {
+  const currentID = await getCurrentProjectID();
+  const positionInArray = await getCurrentCard();
+  if (this.checked) {
+    fieldDateBirth.style.display = 'block';
+    fieldDateBirth.scrollIntoView({behavior: 'smooth'})
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.characters[positionInArray].chkBirth = true;
+    });
+  } else {
+    clearDateDeathBirth('date_birth')
+    fieldDateBirth.style.display = 'none';
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.characters[positionInArray].chkBirth = false;
+    });
+  }
+});
+
 //Date death ==========================>
 var date_deathchk = document.createElement('input');
 date_deathchk.type = 'checkbox';
@@ -195,7 +262,7 @@ date_deathchk.addEventListener('change', async function() {
       e.data.characters[positionInArray].chkDeath = true;
     });
   } else {
-    clearDateDeath()
+    clearDateDeathBirth('date_death')
     fieldDateDeath.style.display = 'none';
     db.projects.where('id').equals(currentID).modify( (e) => {
       e.data.characters[positionInArray].chkDeath = false;

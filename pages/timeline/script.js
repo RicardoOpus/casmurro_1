@@ -190,7 +190,7 @@ async function createNewTimeline() {
     title: timelineName.value,
     elementType: '',
     elementID: '',
-    content: '<br>',
+    content: '',
     date: timelineDate.value,
     id: ID
   };
