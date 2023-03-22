@@ -121,16 +121,69 @@ function setFilterCategory(tab, filterCategory) {
   getWorldCardsFiltred(filterCategory);
 }
 
+function handleTitle(type) {
+  let result;
+  switch(type) {
+    case "characters-death":
+      result = "🪦 Morre ";
+      break;
+    case "characters-birth":
+      result = "✶ Nasce ";
+      break;
+    case "scene":
+      result = "🎬 ";
+      break;
+    default:
+      result = '';
+  }
+  return result;
+}
+
+function tableName(name) {
+  let result;
+  switch(name) {
+    case "characters-death":
+      result = "characters";
+      break;
+    case "characters-birth":
+      result = "characters";
+      break;
+    case "scene":
+      result = "scenes";
+      break;
+    case "historical-event":
+      result = "world";
+      break;
+    default:
+      result = '';
+  }
+  return result;
+}
+
+async function getElementTitle(type, elementID) {
+  const table = tableName(type);
+  if (table) {
+    const project = await getCurrentProject();
+    const element = project.data[table].map(function (e) { return e.id; }).indexOf(elementID);
+    const resultName = project.data[table][element].title;
+    const resultColor = project.data[table][element].color;
+    return { 'name': resultName, 'color': resultColor };
+  }
+  return ''
+}
+
 async function getTimeline() {
   const project = await getCurrentProject();
   const tagColor = false;
-  const resultSorted = sortByKey(project.data.timeline, 'date')
-  resultSorted.forEach( (ele) => {
+  const resultSorted = sortByKey(project.data.timeline, 'date');
+  resultSorted.forEach( async (ele) => {
     const dateConverted = convertDatePT_BR(ele.date);
+    const symbolTitle = handleTitle(ele.elementType)
+    const charName = await getElementTitle(ele.elementType, ele.elementID)
     $('#timelineMain').append(
       `
       <li>
-        <div class="time" style="background: ${ tagColor? 'red' : '#2D333B' }">${ dateConverted } | ${ ele.title }</div>
+        <div class="time" style="background: ${charName.color ? charName.color : '#2D333B'}; color: ${charName.color ? 'black' : ''}"> ${ dateConverted } | ${symbolTitle} ${charName.name}</div>
         <p>${ ele.content } </p>
       </li>
       `
