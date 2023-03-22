@@ -437,3 +437,32 @@ async function NewTimelineCharacter(date, idCharcter, type) {
   });
   return result
 };
+
+async function NewTimelineGeneric(date, idCharcter, type) {
+  const ID = await idManager('id_timeline');
+  const pjID = await getCurrentProjectID();
+  let result = ''
+  const data = {
+    title: '',
+    elementType: type,
+    elementID: idCharcter,
+    content: '',
+    date: date,
+    id: ID
+  };
+  await db.projects.where('id').equals(pjID).modify( (ele) => {
+    ele.data.timeline.push(data)
+    }
+  ).then( () => {
+    result = data.id
+  });
+  return result
+};
+
+async function checkTimelineNewDate(elementID, typeDate) {
+  const projectData = await getCurrentProject();
+  const resultado = projectData.data.timeline.filter((item) => {
+    return item.elementType === typeDate && item.elementID === elementID;
+  });
+  return resultado.length > 0;
+}

@@ -1,18 +1,26 @@
 document.getElementById("category").addEventListener('change', (e) => enableDateInput(e.target.value))
 
+async function clearDate() {
+  document.getElementById("date").value = '';
+  const projectData = await getCurrentProject();
+  const currentID = await getCurrentProjectID();
+  const positionInArray =  await getCurrentCard();
+  const idTimeline = projectData.data.world[positionInArray].date
+  const positionInArrayTime = projectData.data.timeline.map(function (e) { return e.id; }).indexOf(idTimeline);
+  if (positionInArrayTime !== -1) {
+    await db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.timeline.splice(positionInArrayTime, 1)
+    });
+  }
+  return db.projects.where('id').equals(currentID).modify( (e) => {
+    e.data.world[positionInArray].date = '';
+  })
+};
+
 async function enableDateInput(target) {
   const divDate = document.getElementById("div_Date");
   target === 'Fato histórico' ? divDate.removeAttribute("style") : divDate.style.display = "none";
   target !== 'Fato histórico' ? clearDate() : '';
-};
-
-async function clearDate() {
-  document.getElementById("date").value = '';
-  const currentID = await getCurrentProjectID();
-  const positionInArray =  await getCurrentCard();
-  return db.projects.where('id').equals(currentID).modify( (e) => {
-      e.data.world[positionInArray].date = '';
-    })
 };
 
 async function restoreWordCard() {
@@ -25,9 +33,10 @@ async function restoreWordCard() {
         if (key === "date" &&  ele[key] !== '') {
           const divDate = document.getElementById("div_Date");
           divDate.removeAttribute("style");
-          const dateConverted = convertDateBR(ele[key]);
-          const date = convertDateUS(dateConverted);
-          return result.value = date;
+          const resultDate = projectData.data.timeline.filter( (timelineElement) => {
+            return timelineElement.id === ele[key]
+          })
+          return result.value = resultDate[0].date;
         } if (key === "image_card" && ele[key] !== '') {
           var cardbackgrond = document.getElementById("imageCardBackgournd");
           cardbackgrond.classList.add("imageCardBackgournd");
@@ -58,18 +67,23 @@ elementsArray.forEach(async function(elem) {
       elem.addEventListener("input", async () => {
         const field = elem.id
         if (elem.id === "date") {
-          const dateObject = new Date(elem.value);
-          const tomorrow = new Date(dateObject);
-          const dateSum1 = tomorrow.setDate(dateObject.getDate()+1);
-          const correctDate = new Date(dateSum1);
-          return db.projects.where('id').equals(currentID).modify( (e) => {
-            e.data.world[positionInArray][field] = correctDate;
-          });
+          const checkIfisNew = await checkTimelineNewDate(ele.id, 'historical-event')
+          if (checkIfisNew) {
+            console.log('já existe');
+            const positionInArrayTime = projectData.data.timeline.map(function (e) { return e.id; }).indexOf(ele.date);
+            return db.projects.where('id').equals(currentID).modify( (e) => {
+              e.data.timeline[positionInArrayTime].date = elem.value;
+            });
+          } else {
+            const timelineID = await NewTimelineGeneric(elem.value, ele.id, 'historical-event');
+            return db.projects.where('id').equals(currentID).modify( (e) => {
+              e.data.world[positionInArray][field] = timelineID;
+            });
+          }
         } else {
           db.projects.where('id').equals(currentID).modify( (e) => {
             e.data.world[positionInArray][field] = elem.value;
           });
-          // db.projects.update(projectID, obj);
         }
       });
     } else {

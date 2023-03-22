@@ -106,14 +106,6 @@ function changeImgDefault(gender) {
   }
 };
 
-async function checkTimelineNewDate(elementID, typeDate) {
-  const projectData = await getCurrentProject();
-  const resultado = projectData.data.timeline.filter((item) => {
-    return item.elementType === typeDate && item.elementID === elementID;
-  });
-  return resultado.length > 0;
-}
-
 elementsArray.forEach(async function(elem) {
   const currentID = await getCurrentProjectID();
   const currentCardID = await getCurrentCardID();
