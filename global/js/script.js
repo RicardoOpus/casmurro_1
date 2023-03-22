@@ -466,3 +466,20 @@ async function checkTimelineNewDate(elementID, typeDate) {
   });
   return resultado.length > 0;
 }
+
+async function clearDate(type) {
+  document.getElementById("date").value = '';
+  const projectData = await getCurrentProject();
+  const currentID = await getCurrentProjectID();
+  const positionInArray =  await getCurrentCard();
+  const idTimeline = projectData.data[type][positionInArray].date
+  const positionInArrayTime = projectData.data.timeline.map(function (e) { return e.id; }).indexOf(idTimeline);
+  if (positionInArrayTime !== -1) {
+    await db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.timeline.splice(positionInArrayTime, 1)
+    });
+  }
+  return db.projects.where('id').equals(currentID).modify( (e) => {
+    e.data[type][positionInArray].date = '';
+  })
+};

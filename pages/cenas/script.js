@@ -118,7 +118,9 @@ async function getScenesdCards() {
     const povColor = project?.data?.characters?.[povID]?.color ?? '';
     const placeID = project.data.world.map(function (e) { return e.id; }).indexOf(Number(ele.place_id));
     const placeName = project?.data?.world?.[placeID]?.title ?? '';
-    const dateConverted = convertDateBR(ele.date);
+    const resultDate = project.data.timeline.map(function (e) { return e.id; }).indexOf(Number(ele.date));
+    const dateValue = project?.data?.timeline?.[resultDate]?.date ?? '';
+    const dateConverted = convertDatePT_BR(dateValue);
     $('#project-list').append(
       `
         <ul class="worldListScenes" id="${ele.id}">

@@ -62,9 +62,10 @@ async function restoreSceneCard() {
       Object.keys(ele).forEach(key => {
         const result = document.getElementById(key);
         if (key === "date" &&  ele[key] !== '') {
-          const dateConverted = convertDateBR(ele[key]);
-          const date = convertDateUS(dateConverted);
-          return result.value = date;
+          const resultDate = projectData.data.timeline.filter( (timelineElement) => {
+            return timelineElement.id === ele[key]
+          })
+          return result.value = resultDate[0].date;
         } if (key === "time" || key === "weather") {
             const noImg = ["Ensolarado", "Seco", "Quente", "Frio", "Úmido", "Vento", "Tempestade de areia"]
             if (!noImg.includes(ele[key])) {
@@ -94,6 +95,13 @@ async function restoreSceneCard() {
           }
         } if (key === "scene_characters") {
           applyCharScene("#characters_scene", ele[key]);
+        } if (key === "chkDateScene") {
+          const divExtra = document.getElementById("dateSceneDiv");
+          if (ele[key] ) {
+            const checkExtra = document.getElementById("checkbox-date-scene");
+            divExtra.removeAttribute("style");
+            checkExtra.checked = true;
+          }
         } if (result) {
           return result.value = ele[key];
         }
@@ -144,13 +152,19 @@ elementsArray.forEach(async function(elem) {
       elem.addEventListener("change", async (event) => {
         const field = elem.id
         if (elem.id === "date") {
-          const dateObject = new Date(elem.value);
-          const tomorrow = new Date(dateObject);
-          const dateSum1 = tomorrow.setDate(dateObject.getDate()+1);
-          const correctDate = new Date(dateSum1);
-          return db.projects.where('id').equals(currentID).modify( (e) => {
-            e.data.scenes[positionInArray][field] = correctDate;
-          });
+          const checkIfisNew = await checkTimelineNewDate(ele.id, 'scene')
+          if (checkIfisNew) {
+            console.log('existe');
+            const positionInArrayTime = projectData.data.timeline.map(function (e) { return e.id; }).indexOf(ele.date);
+            return db.projects.where('id').equals(currentID).modify( (e) => {
+              e.data.timeline[positionInArrayTime].date = elem.value;
+            });
+          } else {
+            const timelineID = await NewTimelineGeneric(elem.value, ele.id, 'scene');
+            return db.projects.where('id').equals(currentID).modify( (e) => {
+              e.data.scenes[positionInArray][field] = timelineID;
+            });
+          }
         } if (elem.id === "time" || elem.id === "weather") {
           db.projects.where('id').equals(currentID).modify( (e) => {
             e.data.scenes[positionInArray][field] = elem.value;
@@ -214,6 +228,37 @@ btnAddCharacters.innerText = 'Personagens em cena';
 btnAddCharacters.id = 'btn-addChar';
 btnAddCharacters.classList = "btnExtra ui-button ui-corner-all"
 innerTabDefault.appendChild(btnAddCharacters);
+
+//Date scene ==========================>
+var date_scene = document.createElement('input');
+date_scene.type = 'checkbox';
+date_scene.id = 'checkbox-date-scene';
+date_scene.classList = "target"
+innerTabDefault.appendChild(date_scene);
+var labelDateScene = document.createElement('label');
+labelDateScene.htmlFor = 'checkbox-date-scene';
+labelDateScene.innerHTML = 'Data da cena<br>';
+labelDateScene.classList = "extraInfosTab target"
+innerTabDefault.appendChild(labelDateScene);
+var fieldDateScene = document.getElementById('dateSceneDiv');
+fieldDateScene.classList.add('divExtraInfos');
+date_scene.addEventListener('change', async function() {
+  const currentID = await getCurrentProjectID();
+  const positionInArray = await getCurrentCard();
+  if (this.checked) {
+    fieldDateScene.style.display = 'block';
+    fieldDateScene.scrollIntoView({behavior: 'smooth'})
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.scenes[positionInArray].chkDateScene = true;
+    });
+  } else {
+    clearDate('scenes');
+    fieldDateScene.style.display = 'none';
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.scenes[positionInArray].chkDateScene = false;
+    });
+  }
+});
 
 // Contrução de cena (Extra 1) ==========================>
 var checkboxConstrucao = document.createElement('input');

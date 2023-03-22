@@ -1,26 +1,9 @@
 document.getElementById("category").addEventListener('change', (e) => enableDateInput(e.target.value))
 
-async function clearDate() {
-  document.getElementById("date").value = '';
-  const projectData = await getCurrentProject();
-  const currentID = await getCurrentProjectID();
-  const positionInArray =  await getCurrentCard();
-  const idTimeline = projectData.data.world[positionInArray].date
-  const positionInArrayTime = projectData.data.timeline.map(function (e) { return e.id; }).indexOf(idTimeline);
-  if (positionInArrayTime !== -1) {
-    await db.projects.where('id').equals(currentID).modify( (e) => {
-      e.data.timeline.splice(positionInArrayTime, 1)
-    });
-  }
-  return db.projects.where('id').equals(currentID).modify( (e) => {
-    e.data.world[positionInArray].date = '';
-  })
-};
-
 async function enableDateInput(target) {
   const divDate = document.getElementById("div_Date");
   target === 'Fato histórico' ? divDate.removeAttribute("style") : divDate.style.display = "none";
-  target !== 'Fato histórico' ? clearDate() : '';
+  target !== 'Fato histórico' ? clearDate('world') : '';
 };
 
 async function restoreWordCard() {
