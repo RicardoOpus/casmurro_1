@@ -54,6 +54,13 @@ async function restoreWordCard() {
             divExtra.removeAttribute("style");
             checkExtra.checked = true;
           }
+        } if (key === "chkBirth") {
+          const divExtra = document.getElementById("dateBirthDiv");
+          if (ele[key] ) {
+            const checkExtra = document.getElementById("checkbox-date-birth");
+            divExtra.removeAttribute("style");
+            checkExtra.checked = true;
+          }
         } if (key === "chkDeath") {
           const divExtra = document.getElementById("dateDeathDiv");
           if (ele[key] ) {
