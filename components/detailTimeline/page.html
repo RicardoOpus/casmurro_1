@@ -1,0 +1,27 @@
+<div class="edirCardWorld">
+  <div class="backArrow">
+    <a onclick="pageChange('#dinamic', 'pages/timeline/page.html', 'pages/timeline/script.js')">❮ voltar</a>
+  </div>
+  <div class="card">
+    <input class="editProjectTitle projectInputForm" id="title">
+    <p class="delete"><span class="ui-icon ui-icon-trash"></span><a id="deleteTimelineCard"> Excluir</a></p>
+
+    <div class="editProjectTable">
+      <div id="div_Date" class="editProjectBlock">
+        <h3>Data do fato:</h3>
+        <input class="cardInputNormal projectInputForm dateFactInputForm" id="date" type="date"> 
+      </div>
+    </div>
+    <div>
+      <h3>Conteúdo:</h3>
+      <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content" oninput="auto_grow(this)"></textarea>
+    </div> 
+  </div>
+</div>
+
+<!-- ui-dialog -->
+<div id="dialog-delete-timeline" title="Excluir cartão">
+    <h4>
+      Tem certeza que deseja deletar este cartão?
+    </h4>
+</div>

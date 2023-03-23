@@ -13,7 +13,7 @@ async function clearDateDeathBirth(type) {
     })
 };
 
-async function restoreWordCard() {
+async function restoreCharactersCard() {
   const currentCardID = await getCurrentCardID();
   const projectData = await getCurrentProject();
   projectData.data.characters.forEach( (ele) => {
@@ -195,7 +195,7 @@ document.getElementById("my-image").addEventListener('input', () => {
   document.getElementById("btnSaveWall").disabled = false;
 });
 
-restoreWordCard();
+restoreCharactersCard();
 restoreCategories('characters');
 restoreGenders();
 

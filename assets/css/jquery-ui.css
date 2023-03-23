@@ -903,10 +903,10 @@ body .ui-tooltip {
 .ui-widget-content {
 	border: 1px solid #555555;
 	background: linear-gradient(90deg, rgb(32, 32, 36) 0%, rgb(19, 19, 21) 100%);;
-	color: #ffffff;
+	color: #cbcbcb;
 }
 .ui-widget-content a {
-	color: #ffffff;
+	color: #cbcbcb;
 }
 .ui-widget-header {
 	border: 1px solid #333333;

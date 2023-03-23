@@ -6,7 +6,7 @@ async function enableDateInput(target) {
   target !== 'Fato histórico' ? clearDate('world') : '';
 };
 
-async function restoreWordCard() {
+async function restoreCharactersCard() {
   const currentCardID = await getCurrentCardID();
   const projectData = await getCurrentProject();
   projectData.data.world.forEach( (ele) => {
@@ -108,5 +108,5 @@ document.getElementById("my-image").addEventListener('input', () => {
   document.getElementById("btnSaveWall").disabled = false;
 });
 
-restoreWordCard();
+restoreCharactersCard();
 restoreCategories('world');
