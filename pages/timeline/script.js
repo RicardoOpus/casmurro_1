@@ -6,6 +6,17 @@ function validadeForm() {
   return dateField !== "" ? true : false;
 }
 
+function showElapsedtime() {
+  const divtarget = document.getElementById('elipsedTimeResult');
+  divtarget.innerHTML = '';
+  const date1 = document.getElementById('date1_ElapsedTime').value;
+  const date2 = document.getElementById('date2_ElapsedTime').value;
+  const element = document.createElement('p');
+  const result = calculateTimeElapsed(date1, date2);
+  element.innerText = `Passaram-se ${result.years} anos, ${result.months} meses e ${result.days} dias`
+  divtarget.appendChild(element);
+};
+
 $( "#dialogTimeline" ).dialog({
 autoOpen: false,
 width: 600,
@@ -121,6 +132,47 @@ function setFilterCategory(tab, filterCategory) {
   changeInnerTabColor(tab);
   geTimelineFiltred(filterCategory);
 }
+
+$( "#elapsedTime" ).dialog({
+  autoOpen: false,
+  width: 600,
+  buttons: [
+    {
+      text: "Ok",
+      id: "okBtn-elapsedTime",
+      disabled: false,
+      click: async function() {
+        const validade = validadeForm();
+        if (true) {
+          showElapsedtime();
+          document.getElementById("timelineName").value = "";
+          document.getElementById("timelineDate").value = "";
+        } else {
+          alert('Por favor, preencha a data!')
+        }
+      }
+    },
+    {
+      text: "Cancel",
+      click: function() {
+        document.getElementById("timelineName").value = "";
+        document.getElementById("timelineDate").value = "";
+        $( this ).dialog( "close" );
+      }
+    }]
+  });
+  // Link to open the dialog Elapsedtime
+  $( "#dialog-link-elapsedTime" ).click(function( event ) {
+    $( "#elapsedTime" ).dialog( "open" );
+    $( "#okBtn-timeline" ).addClass( "ui-button-disabled ui-state-disabled" );
+    $( ".ui-icon-closethick" ).click(function( event ) {
+      document.getElementById("timelineName").value = "";
+      document.getElementById("timelineDate").value = "";
+    })
+    restoreTimelineDates('#date1_ElapsedTime', 'timeline');
+    restoreTimelineDates('#date2_ElapsedTime', 'timeline')
+    event.preventDefault();
+  });
 
 function handleTitle(type) {
   let result;
@@ -303,3 +355,29 @@ getTimeline();
 validateNewCard("timelineName", "#okBtn-timeline");
 validateNewCard("catCharacterName", "#okBtn-cat");
 validateNewCard("categoryDeltimelineName", "#okBtn-delcatTimeline");
+
+function reduceString(str) {
+  if (str.length > 35) {
+    return str.slice(0, 35) + '...';
+  }
+  return str;
+}
+
+async function getTimelineSimle(id) {
+  const project = await getCurrentProject();
+  const resultSorted = sortByDate(project.data.timeline);
+  for (let i = 0; i < resultSorted.length; i++) {
+    const ele = resultSorted[i];
+    const dateConverted = convertDatePT_BR(ele.date);
+    const symbolTitle = handleTitle(ele.elementType);
+    const charName = await getElementTitle(ele.elementType, ele.elementID);
+    const titleShort = reduceString(ele.title);
+    $(id).append(
+      `
+      <option value='${ele.date}'>
+        <div> ${ dateConverted } - ${symbolTitle} ${ele.title? titleShort : charName.name}</div>
+      </option>
+      `
+    );
+  }
+}

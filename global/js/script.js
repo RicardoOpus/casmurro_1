@@ -359,12 +359,23 @@ async function restoreDelPovTab(type, id) {
 async function restorePOV(id, type) {
   const project = await getCurrentProject();
   const itensList = project.data[type];
+  console.log(itensList);
   $(id).empty();
   $(id).append($('<option disabeld></option>').val('').html('-- selecione --'))
   $.each(itensList, function(i, value) {
-    return $(id).append($('<option></option>').val(value.id).html(value.title))
+    return $(id).append($('<option></option>').val(value.id).html(value.date))
   });
 };
+
+async function restoreTimelineDates(id, type) {
+  const project = await getCurrentProject();
+  const itensList = project.data[type];
+  console.log(itensList);
+  $(id).empty();
+  $(id).append($('<option disabeld></option>').val('').html('-- selecione --'))
+  getTimelineSimle(id)
+};
+
 
 async function applyCharScene(id, idChars) {
   const project = await getCurrentProject();
@@ -397,6 +408,27 @@ async function restoreCharScene(id, type) {
     $(id).append(checkbox);
   })
 };
+
+function calculateTimeElapsed(date1, date2) {
+  const date1Obj = new Date(date1);
+  const date2Obj = new Date(date2);
+
+  const timeElapsed = Math.abs(date2Obj.getTime() - date1Obj.getTime());
+
+  const yearInMs = 1000 * 60 * 60 * 24 * 365;
+  const monthInMs = 1000 * 60 * 60 * 24 * 30;
+  const dayInMs = 1000 * 60 * 60 * 24;
+
+  const yearsElapsed = Math.floor(timeElapsed / yearInMs);
+  const monthsElapsed = Math.floor((timeElapsed % yearInMs) / monthInMs);
+  const daysElapsed = Math.floor(((timeElapsed % yearInMs) % monthInMs) / dayInMs);
+
+  return {
+    years: yearsElapsed,
+    months: monthsElapsed,
+    days: daysElapsed
+  };
+}
 
 
 async function restoreCategories(type) {

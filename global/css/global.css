@@ -656,7 +656,8 @@ fieldset {
 
 .wrapper{
   /* background: #eaf6ff; */
-  padding: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   border-radius: 15px;
   width: 100%;
 }

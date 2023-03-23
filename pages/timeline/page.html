@@ -6,6 +6,7 @@
 
 <div class="tab">
   <div class="innerTabDefault">
+    <button id="dialog-link-elapsedTime" class="ui-button ui-corner-all worldNewCatBtn" style="margin-bottom: 5px;">Calcular tempo entre datas</button>
     <button class="innerTabActive" onclick="loadpage('timeline')" id="Todos">Todos</button>
   </div>
   <div id="project-list" class="listCards">
@@ -39,12 +40,30 @@
   </div>
 </div>
 
-<div id="dialog_delete_timelineCategory" title="Excluir categoria (Mundo)">
+<div id="dialog_delete_timelineCategory" title="Excluir filtro por Personagem">
   <div class="welcome">
     <p></p>
     <form id="formDelCat">
       <select id="categoryDeltimelineName" class="ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget"></select>
     </form>
-    <p style="font-size: smaller;">Obs: 'Fato histórico' não pode se excluído. Deletar uma categoria não afeta os cartões contidos nela.</p>
+  </div>
+</div>
+
+<div id="elapsedTime" title="Calcular tempo entre datas">
+  <div class="welcome">
+    <!-- <p style="margin-bottom: 0px;">Selecione as datas:</p> -->
+    <form id="formElapsedTime">
+      <div style="display: flex; justify-content: space-around">
+        <div>
+          <h3>Data 1</h3>
+          <select id="date1_ElapsedTime" class="ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget"></select>
+        </div>
+        <div>
+          <h3>Data 2</h3>
+          <select id="date2_ElapsedTime" class="ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget"></select>
+        </div>
+      </div>
+    </form>
+    <div id="elipsedTimeResult"></div>
   </div>
 </div>
