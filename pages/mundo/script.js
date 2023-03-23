@@ -105,7 +105,7 @@ $( "#dialog-link-delcategory" ).click(function( event ) {
 
 function setFilterCategory(tab, filterCategory) {
   changeInnerTabColor(tab);
-  getWorldCardsFiltred(filterCategory);
+  geTimelineFiltred(filterCategory);
 }
 
 async function getTimeline() {
@@ -142,7 +142,7 @@ async function getTimeline() {
   })
 };
 
-async function getWorldCardsFiltred(filter) {
+async function geTimelineFiltred(filter) {
   $('#project-list').empty();
   const project = await getCurrentProject();
   const resultSorted = sortByKey(project.data.world, 'title')

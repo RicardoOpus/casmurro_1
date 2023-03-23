@@ -119,7 +119,7 @@ $( "#dialog-link-delcategory" ).click(function( event ) {
 
 function setFilterCategory(tab, filterCategory) {
   changeInnerTabColor(tab);
-  getWorldCardsFiltred(filterCategory);
+  geTimelineFiltred(filterCategory);
 }
 
 function handleTitle(type) {
@@ -226,45 +226,52 @@ async function getTimeline() {
   removeDuplicateIds()
 };
 
+function checkObject(obj, id) {
+  if (obj.elementType && obj.elementType.startsWith("characters") && obj.elementID === id) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
-
-async function getWorldCardsFiltred(filter) {
-  $('#project-list').empty();
+async function geTimelineFiltred(filter) {
+  $('#timelineMain').empty();
   const project = await getCurrentProject();
-  const resultSorted = sortByKey(project.data.world, 'title')
-  resultSorted.forEach( (ele) => {
-    if (ele.category === filter) {
-      $('#project-list').append(
-        `
-        <ul class="worldList">
-          <li class="worldItens">
-          <a onclick="pageChange('#project-list', 'components/world/page.html', 'components/world/script.js')">
-            <div class="worldName paper" onclick="setCurrentCard('world', ${ ele.id })">
-              <div class="contentListWorld">
-                <p class="wordlTitle">${ ele.title }</p>
-                <hr class="cardLineTop">
-                <span> ${ ele.category } </span>
-                <div class="worldCardDivider">
-                  <div>
-                    <p class="it">${ ele.content }</p>
-                  </div>
-                  <div>
-                    <img src="${ !ele.image_card ? '' : ele.image_card }" class="worldListImage esse"> 
-                  </div>
-                </div>
-              </div>
-            </div>
+  const resultSorted = sortByDate(project.data.timeline);
+  let prevDate = null;
+  let prevLi = null;
+  for (let i = 0; i < resultSorted.length; i++) {
+    const ele = resultSorted[i];
+    if (ele.pov_id === filter || checkObject(ele, Number(filter))) {
+      const dateConverted = convertDatePT_BR(ele.date);
+      const symbolTitle = handleTitle(ele.elementType);
+      const charName = await getElementTitle(ele.elementType, ele.elementID);
+      if (dateConverted === prevDate) {
+        prevLi.find('p').append(`
+        <a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `setCurrentCard('timeline', ${ ele.id }), pageChange('#project-list', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
+          <div id="${ele.id}" class="time" style="background: linear-gradient(to right, ${charName.color ? charName.color : '#2D333B'} 0%, #2D333B 85%); color: ${charName.color ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
           </a>
-          </li>
-        </ul>
-        `
-      );
-    } else {
-      null
+          <p><a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `setCurrentCard('timeline', ${ ele.id }), pageChange('#project-list', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ ele.content }</a></p>
+        `);
+      } else {
+        prevDate = dateConverted;
+        const li = $(`
+        <li>
+          <div class="timeline-section">
+            <a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `setCurrentCard('timeline', ${ ele.id }), pageChange('#project-list', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
+              <div class="timeDate">${ dateConverted }</div>
+              <div class="time" style="background: linear-gradient(to right, ${charName.color ? charName.color : '#2D333B'} 0%, #2D333B 85%); color: ${charName.color ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
+              </a>
+              <p><a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `setCurrentCard('timeline', ${ ele.id }), pageChange('#project-list', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ ele.content }</a></p>
+          </div>
+        </li>
+        `);
+        prevLi = li;
+        $('#timelineMain').append(li);
+      }
     }
-    setContentOpacity();
-    setImageOpacity();
-  })
+    removeDuplicateIds()
+  }
 };
 
 async function createNewTimeline() {

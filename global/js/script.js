@@ -316,7 +316,7 @@ async function setCustomTimelineTabs(type, callback) {
     } else {
       const povID = project.data.characters.map(function (e) { return e.id; }).indexOf(Number(value));
       const povName = project?.data?.characters?.[povID]?.title ?? '';
-      return $('.innerTabDefault').append($(`<button id='${value}' class='innerTabInactive target' onclick="povFilterLoadPage(${value})"'></button>`).html(povName));
+      return $('.innerTabDefault').append($(`<button id='${value}' class='innerTabInactive target' onclick="geTimelineFiltred('${value}')"'></button>`).html(povName));
     }
   });
   if (callback) {
