@@ -77,13 +77,13 @@ function changeTabColor(tabName) {
   tab.classList.add("tabActive")
 }
 
-function changeInnerTabColor(tabName) {
+function changeInnerTabColor(tabID) {
   let mainTabs = document.querySelectorAll(".innerTabActive");
   mainTabs.forEach( (tab) => {
     tab.classList.remove("innerTabActive");
     tab.classList.add("innerTabInactive")
   })
-  let tab = document.getElementById(tabName);
+  let tab = document.getElementById(tabID);
   tab.classList.remove("innerTabInactive")
   tab.classList.add("innerTabActive")
 }

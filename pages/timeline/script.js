@@ -272,6 +272,7 @@ async function geTimelineFiltred(filter) {
     }
     removeDuplicateIds()
   }
+  changeInnerTabColor(filter)
 };
 
 async function createNewTimeline() {
