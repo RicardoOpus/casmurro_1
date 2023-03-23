@@ -4,7 +4,8 @@ var categoriesDefault = {
   world: ["-- selecione --", "Local", "Objeto", "Fato histórico", "-- nenhum --"],
   characters: ["-- selecione --", "Principais", "Secundários", "-- nenhum --"],
   genders: ["-- selecione --", "Masculino", "Feminino", "N/A"],
-  scenes: ["-- selecione --", "-- nenhum --"]
+  scenes: ["-- selecione --", "-- nenhum --"],
+  timeline: ["-- selecione --", "-- nenhum --"]
 };
 
 $( "#dialog" ).dialog({

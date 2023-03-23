@@ -1,5 +1,5 @@
 <div class="worldNewCardBtn">
-  <button id="dialog-link-category" class="ui-button ui-corner-all worldNewCatBtn"><span class="ui-icon ui-icon-plusthick "></span> Categoria</button>
+  <button id="dialog-link-character-filter" class="ui-button ui-corner-all worldNewCatBtn"><span class="ui-icon ui-icon-plusthick "></span> Personagem</button>
   <button id="dialog-link-delcategory" class="ui-button ui-corner-all worldNewCatBtn"><span class="ui-icon ui-icon-trash"></span> </button>
   <button id="dialog-link-timeline" class="ui-button ui-corner-all ui-widget"><span class="ui-icon ui-icon-plusthick"></span> Cartão</button>
 </div>
@@ -30,20 +30,20 @@
   </div>
 </div>
 
-<div id="dialog_new_worldCategory" title="Nova categoria (Mundo)">
+<div id="dialog_new_timelineCategory" title="Filtro rápido por Personagem">
   <div class="welcome">
     <p>Título: </p>
-    <form id="formCat">
-      <input type="text" id="categoryName" class="welcome text ui-corner-all fullwidth">
+    <form id="formCatTimeline">
+      <select id="catCharacterName" class="ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget"></select>
     </form>
   </div>
 </div>
 
-<div id="dialog_delete_worldCategory" title="Excluir categoria (Mundo)">
+<div id="dialog_delete_timelineCategory" title="Excluir categoria (Mundo)">
   <div class="welcome">
     <p></p>
     <form id="formDelCat">
-      <select id="categoryDelName" class="ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget"></select>
+      <select id="categoryDeltimelineName" class="ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget"></select>
     </form>
     <p style="font-size: smaller;">Obs: 'Fato histórico' não pode se excluído. Deletar uma categoria não afeta os cartões contidos nela.</p>
   </div>

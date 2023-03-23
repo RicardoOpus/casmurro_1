@@ -290,8 +290,24 @@ function povFilterLoadPage(id) {
   pageChange('#dinamic', 'components/filtredPovScene/page.html', 'components/filtredPovScene/script.js')
 }
 
-
 async function setCustomPovTabs(type, callback) {
+  const project = await getCurrentProject();
+  const categoryList = project.settings[type];
+  $.each(categoryList, function(i, value) {
+    if (value === "-- selecione --" || value === "-- nenhum --") {
+      return null
+    } else {
+      const povID = project.data.characters.map(function (e) { return e.id; }).indexOf(Number(value));
+      const povName = project?.data?.characters?.[povID]?.title ?? '';
+      return $('.innerTabDefault').append($(`<button id='${value}' class='innerTabInactive target' onclick="povFilterLoadPage(${value})"'></button>`).html(povName));
+    }
+  });
+  if (callback) {
+    callback(); // chama a função de callback, se fornecida
+  }
+};
+
+async function setCustomTimelineTabs(type, callback) {
   const project = await getCurrentProject();
   const categoryList = project.settings[type];
   $.each(categoryList, function(i, value) {

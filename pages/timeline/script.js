@@ -47,7 +47,7 @@ $( "#dialog-link-timeline" ).click(function( event ) {
   event.preventDefault();
 });
 
-$( "#dialog_new_worldCategory" ).dialog({
+$( "#dialog_new_timelineCategory" ).dialog({
   autoOpen: false,
   width: 400,
   buttons: [
@@ -56,63 +56,64 @@ $( "#dialog_new_worldCategory" ).dialog({
       id: "okBtn-cat",
       disabled: false,
       click: async function() {
-        var cat = document.getElementById("categoryName");
-        await addNewCategory('world', cat.value);
+        var filterChar = document.getElementById("catCharacterName");
+        await addNewCategory('timeline', filterChar.value);
         $( this ).dialog( "close" );
-        document.getElementById("categoryName").value = "";
-        pageChange('#dinamic', 'pages/mundo/page.html', 'pages/mundo/script.js')
+        document.getElementById("catCharacterName").value = "";
+        pageChange('#dinamic', 'pages/timeline/page.html', 'pages/timeline/script.js')
       }
     },
     {
       text: "Cancel",
       click: function() {
-        document.getElementById("categoryName").value = "";
+        document.getElementById("catCharacterName").value = "";
         $( this ).dialog( "close" );
       }
     }]
 });
 // Link to open the dialog Category
-$( "#dialog-link-category" ).click(function( event ) {
-  $( "#dialog_new_worldCategory" ).dialog( "open" );
+$( "#dialog-link-character-filter" ).click(function( event ) {
+  $( "#dialog_new_timelineCategory" ).dialog( "open" );
   $( "#okBtn-cat" ).addClass( "ui-button-disabled ui-state-disabled" );
   $( ".ui-icon-closethick" ).click(function( event ) {
-    document.getElementById("categoryName").value = "";
+    document.getElementById("catCharacterName").value = "";
     })
+  restorePOV('#catCharacterName', 'characters');
   event.preventDefault();
 });
 
-$( "#dialog_delete_worldCategory" ).dialog({
+$( "#dialog_delete_timelineCategory" ).dialog({
   autoOpen: false,
   width: 400,
   buttons: [
     {
       text: "Ok",
-      id: "okBtn-delcat",
+      id: "okBtn-delcatTimeline",
       disabled: false,
       click: async function() {
-        var catDel = document.getElementById("categoryDelName");
-        await removeCategory('world', catDel.value);
+        var catDel = document.getElementById("categoryDeltimelineName");
+        await removeCategory('timeline', catDel.value);
         $( this ).dialog( "close" );
-        document.getElementById("categoryDelName").value = "";
-        pageChange('#dinamic', 'pages/mundo/page.html', 'pages/mundo/script.js')
+        document.getElementById("categoryDeltimelineName").value = "";
+        pageChange('#dinamic', 'pages/timeline/page.html', 'pages/timeline/script.js')
       }
     },
     {
       text: "Cancel",
       click: function() {
-        document.getElementById("categoryDelName").value = "";
+        document.getElementById("categoryDeltimelineName").value = "";
         $( this ).dialog( "close" );
       }
     }]
 });
 // Link to open the dialog Delete Category
 $( "#dialog-link-delcategory" ).click(function( event ) {
-  $( "#dialog_delete_worldCategory" ).dialog( "open" );
-  $( "#okBtn-delcat" ).addClass( "ui-button-disabled ui-state-disabled" );
+  $( "#dialog_delete_timelineCategory" ).dialog( "open" );
+  $( "#okBtn-delcatTimeline" ).addClass( "ui-button-disabled ui-state-disabled" );
   $( ".ui-icon-closethick" ).click(function( event ) {
-    document.getElementById("categoryDelName").value = "";
+    document.getElementById("categoryDeltimelineName").value = "";
     })
-  restoreDelCategories('world', '#categoryDelName');
+    restoreDelPovTab('timeline', '#categoryDeltimelineName');
   event.preventDefault();
 });
 
@@ -289,8 +290,8 @@ async function createNewTimeline() {
   return
 };
 
-setCustomTabs('timeline');
+setCustomTimelineTabs('timeline');
 getTimeline();
 validateNewCard("timelineName", "#okBtn-timeline");
-validateNewCard("categoryName", "#okBtn-cat");
-validateNewCard("categoryDelName", "#okBtn-delcat");
+validateNewCard("catCharacterName", "#okBtn-cat");
+validateNewCard("categoryDeltimelineName", "#okBtn-delcatTimeline");

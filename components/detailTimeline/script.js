@@ -68,4 +68,6 @@ $( "#deleteTimelineCard" ).click(function( event ) {
 });
 
 restoreCharactersCard();
-restoreCategories('world');
+// restoreCategories('world');
+
+restorePOV("#pov_id", "characters");
