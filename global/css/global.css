@@ -700,6 +700,26 @@ fieldset {
   padding: 5px;
 }
 
+.timeline-section {
+  padding-left: 27px;
+}
+
+.timeline-section:before {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 1px;
+  background-color: #606060;
+  top: 10px;
+  left: 5px;
+}
+
+.timeDate {
+  color: #898989;
+  border-radius: 5px;
+  padding-bottom: 5px;
+}
+
 @media (min-width: 768px) {
   .time {
     font-size: .9rem;

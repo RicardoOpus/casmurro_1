@@ -265,6 +265,14 @@ function sortByKey(array, key) {
   });
 }
 
+function sortByDate(array) {
+  return array.sort(function(a, b) {
+    let dateA = new Date(a.date);
+    let dateB = new Date(b.date);
+    return dateA - dateB;
+  });
+}
+
 async function setCustomTabs(type) {
   const project = await getCurrentProject();
   const categoryList = project.settings[type];

@@ -133,6 +133,9 @@ function handleTitle(type) {
     case "scene":
       result = "🎬 ";
       break;
+    case "historical-event":
+      result = "🗓 ";
+      break;
     default:
       result = '';
   }
@@ -169,29 +172,56 @@ async function getElementTitle(type, elementID) {
     const resultColor = project.data[table][element].color;
     return { 'name': resultName, 'color': resultColor };
   }
-  return ''
+  return '';
+}
+
+function removeDuplicateIds() {
+  const allIds = document.querySelectorAll('[id]');
+  const seenIds = {};
+  allIds.forEach((el) => {
+    const id = el.getAttribute('id');
+    if (seenIds[id]) {
+      el.parentNode.removeChild(el);
+    } else {
+      seenIds[id] = true;
+    }
+  });
 }
 
 async function getTimeline() {
   const project = await getCurrentProject();
-  const tagColor = false;
-  const resultSorted = sortByKey(project.data.timeline, 'date');
-  resultSorted.forEach( async (ele) => {
+  const resultSorted = sortByDate(project.data.timeline);
+  let prevDate = null;
+  let prevLi = null;
+  for (let i = 0; i < resultSorted.length; i++) {
+    const ele = resultSorted[i];
     const dateConverted = convertDatePT_BR(ele.date);
-    const symbolTitle = handleTitle(ele.elementType)
-    const charName = await getElementTitle(ele.elementType, ele.elementID)
-    $('#timelineMain').append(
-      `
+    const symbolTitle = handleTitle(ele.elementType);
+    const charName = await getElementTitle(ele.elementType, ele.elementID);
+    if (dateConverted === prevDate) {
+      prevLi.find('p').append(`
+      <div class="time" style="background: linear-gradient(to right, ${charName.color ? charName.color : '#2D333B'} 0%, #2D333B 85%); color: ${charName.color ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
+      <p>${ ele.content } </p>
+      `);
+    } else {
+      prevDate = dateConverted;
+      const li = $(`
       <li>
-        <div class="time" style="background: ${charName.color ? charName.color : '#2D333B'}; color: ${charName.color ? 'black' : ''}"> ${ dateConverted } | ${symbolTitle} ${charName.name}</div>
-        <p>${ ele.content } </p>
+        <div class="timeline-section">
+          <div class="timeDate">${ dateConverted }</div>
+            <div class="time" style="background: linear-gradient(to right, ${charName.color ? charName.color : '#2D333B'} 0%, #2D333B 85%); color: ${charName.color ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
+            <p>${ ele.content } </p>
+          </div>
       </li>
-      `
-    );
-    setContentOpacity();
-    setImageOpacity();
-  })
+      `);
+      prevLi = li;
+      $('#timelineMain').append(li);
+    }
+  }
+  removeDuplicateIds()
 };
+
+
 
 async function getWorldCardsFiltred(filter) {
   $('#project-list').empty();
