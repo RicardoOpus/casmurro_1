@@ -1,0 +1,38 @@
+<div class="worldNewCardBtn">
+  <button id="dialog-link-structure" class="ui-button ui-corner-all ui-widget"><span class="ui-icon ui-icon-plusthick"></span> Cartão</button>
+</div>
+
+<div class="tab" id="controlStructure">
+  <div class="innerTabDefault">
+    <button class="innerTabActive" onclick="pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script.js')" id="chaptersTab">Capítulos</button>
+    <button class="innerTabInactive" onclick="pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_parts.js')" id="partsTab">Partes</button>
+    <button class="innerTabInactive" onclick="pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_subplots.js')" id="subplotsTab">Subtramas</button>
+  </div>
+  <div id="project-list" class="listStructure">
+  </div>
+</div>
+
+<!-- ui-dialogs -->
+<div id="dialogStructure" title="Novo cartão (Estrutura)">
+  <div class="welcome">
+    <p>Título: </p>
+    <form id="formStructure">
+      <input type="text" id="structureName" class="welcome text ui-corner-all fullwidth">
+      <p>Categoria: </p>
+      <select id="structureType" class="ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget">
+        <option value='' selected disabled>-- selecione --</option>
+        <option value="chapters">Capítulo</option>
+        <option value="parts">Parte</option>
+        <option value="subplots">Subtrama</option>
+      </select>
+    </form>
+  </div>
+</div>
+
+<script>
+  $( function() {
+  $( ".listStructure" ).sortable({
+    connectWith: ".listStructure",
+  });
+})
+</script>

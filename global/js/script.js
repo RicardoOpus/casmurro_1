@@ -132,6 +132,13 @@ async function getCurrentScene(id_param) {
   return positionInArray;
 };
 
+async function getStructureByID(table, id_param) {
+  const currentID = await getCurrentProjectID();
+  const projectData = await db.projects.get(currentID);
+  const positionInArray = projectData.data[table].map(function (e) { return e.id; }).indexOf(id_param);
+  return positionInArray;
+};
+
 async function getCurrentCard() {
   const currentID = await getCurrentProjectID();
   const currentSettings = await db.settings.get(1);
@@ -363,7 +370,7 @@ async function restorePOV(id, type) {
   $(id).empty();
   $(id).append($('<option disabeld></option>').val('').html('-- selecione --'))
   $.each(itensList, function(i, value) {
-    return $(id).append($('<option></option>').val(value.id).html(value.date))
+    return $(id).append($('<option></option>').val(value.id).html(value.title))
   });
 };
 

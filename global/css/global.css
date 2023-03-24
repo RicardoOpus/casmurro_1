@@ -87,6 +87,10 @@ textarea {
   padding: 0.4em 1em;
 }
 
+.ui-dialog-titlebar-close {
+  visibility: hidden;
+}
+
 /* Main Tabs page styles ================================================ */
 
 .tabInactive{
@@ -754,6 +758,13 @@ fieldset {
   border-radius: 7px;
   /* padding-left: 15px; */
   margin-left: 15px;
+}
+
+/* Project Structure page styles ================================================ */
+
+.worldListStructure {
+  width: 100%;
+  /* padding: 0rem 5px 0rem 5px; */
 }
 
 /* Project Edit Infos page styles ================================================ */
