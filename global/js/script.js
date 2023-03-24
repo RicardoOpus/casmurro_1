@@ -400,7 +400,7 @@ async function restoreCharScene(id, type) {
   const currentCardID = await getCurrentCardID();
   const project = await getCurrentProject();
   let chklist = ''
-  project.data.scenes.forEach( (ele) => {
+  project.data[type].forEach( (ele) => {
     if (ele.id === currentCardID) {
       chklist = ele.scene_characters
     }
@@ -409,6 +409,27 @@ async function restoreCharScene(id, type) {
   $(id).empty();
   $.each(itensList, function(i, value) {
     const checkbox = $("<input type='checkbox'></input><label></label><br>").val(value.id).html(value.title);
+    if (chklist?.includes(Number(value.id))) {
+      checkbox.prop('checked', true);
+    }
+    $(id).append(checkbox);
+  })
+};
+
+async function restoreScenesListInput(id) {
+  const currentCardID = await getCurrentCardID();
+  const project = await getCurrentProject();
+  const resultSorted = sortByKey(project.data.scenes, 'position')
+  let chklist = ''
+  resultSorted.forEach( (ele) => {
+    if (ele.id === currentCardID) {
+      chklist = ele.scene_characters
+    }
+  })
+  const itensList = resultSorted;
+  $(id).empty();
+  $.each(itensList, function(i, value) {
+    const checkbox = $(`<input type='checkbox' name='${value.position}'></input><label></label><br>`).val(value.id).html(value.title);
     if (chklist?.includes(Number(value.id))) {
       checkbox.prop('checked', true);
     }

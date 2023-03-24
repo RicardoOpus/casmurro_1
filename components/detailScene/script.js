@@ -59,7 +59,7 @@ async function restoreSceneCard() {
   const projectData = await getCurrentProject();
   projectData.data.scenes.forEach( (ele) => {
     if (ele.id === currentCardID) {
-      Object.keys(ele).forEach(key => {
+      Object.keys(ele).forEach(async key => {
         const result = document.getElementById(key);
         if (key === "date" &&  ele[key] !== '') {
           const resultDate = projectData.data.timeline.filter( (timelineElement) => {
@@ -94,7 +94,8 @@ async function restoreSceneCard() {
             checkExtra.checked = true;
           }
         } if (key === "scene_characters") {
-          applyCharScene("#characters_scene", ele[key]);
+          await applyCharScene("#characters_scene", ele[key]);
+          ele[key].length === 0 ? document.getElementById('characters_scene').innerHTML = '' : null;
         } if (key === "chkDateScene") {
           const divExtra = document.getElementById("dateSceneDiv");
           if (ele[key] ) {

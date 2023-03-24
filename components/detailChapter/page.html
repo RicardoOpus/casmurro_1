@@ -7,12 +7,11 @@
     <p class="delete"><span class="ui-icon ui-icon-trash"></span><a id="deleteChapterCard"> Excluir</a></p>
 
     <div class="editProjectTable">
-      <div class="editProjectBlock">
-      </div>
     </div>
     <div>
       <h3>Resumo:</h3>
       <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content" oninput="auto_grow(this)"></textarea>
+      <div class="editProjectBlock" id="scenes_list"></div>
       <h3>Conteúdo:</h3>
       <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content_full" oninput="auto_grow(this)"></textarea>
     </div>
@@ -25,4 +24,11 @@
     <h4>
       Tem certeza que deseja deletar este cartão?
     </h4>
+</div>
+
+
+<!-- Add char-dialog -->
+<div id="dialog-addScenetoChap" title="Adicionar cenas ao capítulo">
+  <p>Selecione:</p>
+  <form id="scenesToChapter"></form>
 </div>

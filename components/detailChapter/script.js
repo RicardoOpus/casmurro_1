@@ -1,19 +1,26 @@
-// document.getElementById("category").addEventListener('change', (e) => enableDateInput(e.target.value))
-
-// async function enableDateInput(target) {
-//   const divDate = document.getElementById("div_Date");
-//   target === 'Fato histórico' ? divDate.removeAttribute("style") : divDate.style.display = "none";
-//   target !== 'Fato histórico' ? clearDate('world') : '';
-// };
+async function applySceneslist(id, idChars) {
+  const project = await getCurrentProject();
+  $(id).empty();
+  $(id).append($('<h3></h3>').val('').html('Lista de cenas:'))
+  const resultSorted = sortByKey(project.data.scenes, 'position')
+  resultSorted.forEach( (ele) => {
+    if (idChars.includes(ele.id)) {
+      return $(id).append($(`<button style='margin: 5px; color: black; background-color: #8F8F8F; border-radius: 5px; padding: 5px'></button><br>`).val(ele.id).html(ele.title))
+    }
+  })
+};
 
 async function restoreChapterCard() {
   const currentCardID = await getCurrentCardID();
   const projectData = await getCurrentProject();
   projectData.data.chapters.forEach( (ele) => {
     if (ele.id === currentCardID) {
-      Object.keys(ele).forEach(key => {
+      Object.keys(ele).forEach(async key => {
         const result = document.getElementById(key);
-        if (result) {
+        if (key === "scenes") {
+          await applySceneslist("#scenes_list", ele[key]);
+          ele[key].length === 0 ? document.getElementById('scenes_list').innerHTML = '' : null;
+        } if (result) {
           return result.value = ele[key];
         }
       })
@@ -71,3 +78,65 @@ $( "#deleteChapterCard" ).click(function( event ) {
 
 restoreChapterCard();
 // restoreCategories('world');
+
+var innerTabDefault = document.querySelector('.innerTabDefault');
+document.querySelectorAll(".target").forEach( ele => ele.remove());
+
+var label = document.createElement('p');
+label.innerText = "Adicionar:";
+label.classList = "extraInfosTab";
+innerTabDefault.appendChild(label);
+
+// Add Personagens ==========================>
+var btnAddCharacters = document.createElement('button');
+btnAddCharacters.innerText = 'Cenas ao capítulo';
+btnAddCharacters.id = 'btn-addSceneToChap';
+btnAddCharacters.classList = "btnExtra ui-button ui-corner-all"
+innerTabDefault.appendChild(btnAddCharacters);
+
+async function saveCheckedValues() {
+  const form = document.getElementById("scenesToChapter");
+  const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+  const checkedValues = [];
+  const currentID = await getCurrentProjectID();
+  const positionInArray = await getCurrentCard();
+  checkboxes.forEach((checkbox) => {
+    if (checkbox.checked) {
+      checkedValues.push(Number(checkbox.value));
+    }
+  });
+  db.projects.where('id').equals(currentID).modify( (e) => {
+    e.data.chapters[positionInArray].scenes = checkedValues;
+  });
+}
+
+
+$( "#dialog-addScenetoChap" ).dialog({
+	autoOpen: false,
+	width: 500,
+	buttons: [
+		{
+			text: "Ok",
+			click: async function() {
+        await saveCheckedValues()
+        $( this ).dialog( "close" );
+        restoreChapterCard()
+			}
+		},
+		{
+			text: "Cancel",
+      id: "btnTwo",
+			click: function() {
+				$( this ).dialog( "close" );
+			}
+		}
+	]
+});
+// Link to open the dialog
+$( "#btn-addSceneToChap" ).click(function( event ) {
+	$( "#dialog-addScenetoChap" ).dialog( "open" );
+  $("#btnTwo").focus();
+	event.preventDefault();
+});
+
+restoreScenesListInput("#scenesToChapter", "scenes");
