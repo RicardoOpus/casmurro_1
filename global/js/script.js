@@ -437,6 +437,28 @@ async function restoreScenesListInput(id) {
   })
 };
 
+// juntar com a de cima
+async function restoreChapListInput(id) {
+  const currentCardID = await getCurrentCardID();
+  const project = await getCurrentProject();
+  const resultSorted = sortByKey(project.data.chapters, 'position')
+  let chklist = ''
+  resultSorted.forEach( (ele) => {
+    if (ele.id === currentCardID) {
+      chklist = ele.scene_characters
+    }
+  })
+  const itensList = resultSorted;
+  $(id).empty();
+  $.each(itensList, function(i, value) {
+    const checkbox = $(`<input type='checkbox' name='${value.position}'></input><label></label><br>`).val(value.id).html(value.title);
+    if (chklist?.includes(Number(value.id))) {
+      checkbox.prop('checked', true);
+    }
+    $(id).append(checkbox);
+  })
+};
+
 function calculateTimeElapsed(date1, date2) {
   const date1Obj = new Date(date1);
   const date2Obj = new Date(date2);

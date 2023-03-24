@@ -1,0 +1,34 @@
+<div class="edirCardWorld">
+  <div class="backArrow">
+    <a onclick="pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script.js')">❮ voltar</a>
+  </div>
+  <div class="card">
+    <input class="editProjectTitle projectInputForm" id="title">
+    <p class="delete"><span class="ui-icon ui-icon-trash"></span><a id="deletePartCard"> Excluir</a></p>
+
+    <div class="editProjectTable">
+    </div>
+    <div>
+      <h3>Resumo:</h3>
+      <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content" oninput="auto_grow(this)"></textarea>
+      <div class="editProjectBlock" id="chapter_list"></div>
+      <h3>Conteúdo:</h3>
+      <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content_full" oninput="auto_grow(this)"></textarea>
+    </div>
+  
+  </div>
+</div>
+
+<!-- ui-dialog -->
+<div id="dialog-delete-part" title="Excluir cartão">
+    <h4>
+      Tem certeza que deseja deletar este cartão?
+    </h4>
+</div>
+
+
+<!-- Add char-dialog -->
+<div id="dialog-addChaptersToPart" title="Adicionar capítulos à parte">
+  <p>Selecione:</p>
+  <form id="chapterToPart"></form>
+</div>
