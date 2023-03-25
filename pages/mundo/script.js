@@ -105,12 +105,16 @@ $( "#dialog-link-delcategory" ).click(function( event ) {
 
 function setFilterCategory(tab, filterCategory) {
   changeInnerTabColor(tab);
-  geTimelineFiltred(filterCategory);
+  getWorldCardsFiltred(filterCategory);
 }
 
-async function getTimeline() {
+async function getWorldCards() {
   const project = await getCurrentProject();
-  const resultSorted = sortByKey(project.data.world, 'title')
+  const resultSorted = sortByKey(project.data.world, 'title');
+  if (resultSorted.length === 0) {
+    console.log('é nada');
+    return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
+  }
   resultSorted.forEach( (ele) => {
     $('#project-list').append(
       `
@@ -142,10 +146,14 @@ async function getTimeline() {
   })
 };
 
-async function geTimelineFiltred(filter) {
+async function getWorldCardsFiltred(filter) {
   $('#project-list').empty();
   const project = await getCurrentProject();
-  const resultSorted = sortByKey(project.data.world, 'title')
+  const resultSorted = sortByKey(project.data.world, 'title');
+  if (resultSorted.length === 0) {
+    console.log('é nada');
+    return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
+  };
   resultSorted.forEach( (ele) => {
     if (ele.category === filter) {
       $('#project-list').append(
@@ -204,7 +212,7 @@ async function createNewTimeline() {
 };
 
 setCustomTabs('world');
-getTimeline();
+getWorldCards();
 validateNewCard("worldName", "#okBtn-world");
 validateNewCard("categoryName", "#okBtn-cat");
 validateNewCard("categoryDelName", "#okBtn-delcat");

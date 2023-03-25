@@ -244,6 +244,9 @@ function removeDuplicateIds() {
 async function getTimeline() {
   const project = await getCurrentProject();
   const resultSorted = sortByDate(project.data.timeline);
+  if (resultSorted.length === 0) {
+    return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
+  }
   let prevDate = null;
   let prevLi = null;
   for (let i = 0; i < resultSorted.length; i++) {

@@ -45,7 +45,7 @@ async function createNewProject() {
   const inputName = document.getElementById("projectName");
   const currentDate = new Date();
   const timeStamp = Date.now();
-  const data = { world: [], characters: [], scenes: [], timeline: [], chapters: [], parts: [], subplots: [] };
+  const data = { world: [], characters: [], scenes: [], timeline: [], chapters: [], parts: [] };
   const idNew = await db.projects.add(
     { title: inputName.value,
       status: "novo",

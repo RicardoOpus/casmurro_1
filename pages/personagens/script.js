@@ -105,12 +105,15 @@ $( "#dialog-link-delcategory-char" ).click(function( event ) {
 
 function setFilterCategory(tab, filterCategory) {
   changeInnerTabColor(tab);
-  geTimelineFiltred(filterCategory);
+  getCharactersCardsFiltred(filterCategory);
 }
 
 async function getCharactersCards() {
   const project = await getCurrentProject();
-  const resultSorted = sortByKey(project.data.characters, 'title')
+  const resultSorted = sortByKey(project.data.characters, 'title');
+  if (resultSorted.length === 0) {
+    return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
+  }
   resultSorted.forEach( (ele) => {
     $('#project-list').append(
       `
@@ -144,10 +147,13 @@ async function getCharactersCards() {
   })
 };
 
-async function geTimelineFiltred(filter) {
+async function getCharactersCardsFiltred(filter) {
   $('#project-list').empty();
   const project = await getCurrentProject();
-  const resultSorted = sortByKey(project.data.characters, 'title')
+  const resultSorted = sortByKey(project.data.characters, 'title');
+  if (resultSorted.length === 0) {
+    return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
+  };
   resultSorted.forEach( (ele) => {
     if (ele.category === filter) {
       $('#project-list').append(
@@ -161,7 +167,7 @@ async function geTimelineFiltred(filter) {
                   <img src="${ !ele.image_card ? '' : ele.image_card }" class="charListImage"> 
                 </div>
                 <div class="charInfos">
-                  <p class="wordlTitle">${ ele.title }</p>
+                  <p class="wordlTitle"><span style="color:${ ele.color }">🯊 </span>${ ele.title }</p>
                   <hr class="cardLineTop">
                   <span> ${ ele.category } ${!ele.age ? '' : ` • ${ele.age} anos`}</span>
                   <div class="worldCardDivider">
@@ -177,8 +183,6 @@ async function geTimelineFiltred(filter) {
         </ul>
         `
       );
-    } else {
-      null
     }
     setContentOpacity();
     setImageOpacity();

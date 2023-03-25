@@ -111,7 +111,11 @@ function setFilterCategory(tab, filterCategory) {
 
 async function getScenesdCards() {
   const project = await getCurrentProject();
-  const resultSorted = sortByKey(project.data.scenes, 'position')
+  const resultSorted = sortByKey(project.data.scenes, 'position');
+  if (resultSorted.length === 0) {
+    console.log('é nada');
+    return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
+  }
   resultSorted.forEach( (ele) => {
     const povID = project.data.characters.map(function (e) { return e.id; }).indexOf(Number(ele.pov_id));
     const povName = project?.data?.characters?.[povID]?.title ?? '';
