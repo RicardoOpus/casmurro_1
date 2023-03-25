@@ -213,7 +213,7 @@ $( "#deleteWorldCard" ).click(function( event ) {
 restoreSceneCard();
 restoreCategories('scenes');
 restorePOV("#pov_id", "characters");
-restorePOV("#place_id", "world");
+restorePlace("#place_id", "world");
 
 var innerTabDefault = document.querySelector('.innerTabDefault');
 document.querySelectorAll(".target").forEach( ele => ele.remove());

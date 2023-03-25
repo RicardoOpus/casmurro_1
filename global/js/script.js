@@ -366,7 +366,6 @@ async function restoreDelPovTab(type, id) {
 async function restorePOV(id, type) {
   const project = await getCurrentProject();
   const itensList = project.data[type];
-  console.log(itensList);
   $(id).empty();
   $(id).append($('<option disabeld></option>').val('').html('-- selecione --'))
   $.each(itensList, function(i, value) {
@@ -374,10 +373,19 @@ async function restorePOV(id, type) {
   });
 };
 
-async function restoreTimelineDates(id, type) {
+async function restorePlace(id, type) {
   const project = await getCurrentProject();
   const itensList = project.data[type];
-  console.log(itensList);
+  $(id).empty();
+  $(id).append($('<option disabeld></option>').val('').html('-- selecione --'))
+  $.each(itensList, function(i, value) {
+    if (value.category === 'Local') {
+      return $(id).append($('<option></option>').val(value.id).html(value.title))
+    }
+  });
+};
+
+async function restoreTimelineDates(id, type) {
   $(id).empty();
   $(id).append($('<option disabeld></option>').val('').html('-- selecione --'))
   getTimelineSimle(id)
