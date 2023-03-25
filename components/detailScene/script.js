@@ -182,7 +182,7 @@ elementsArray.forEach(async function(elem) {
   })
 });
 
-$( "#dialog-delete-char" ).dialog({
+$( "#dialog-delete-scene" ).dialog({
 	autoOpen: false,
 	width: 500,
 	buttons: [
@@ -205,7 +205,7 @@ $( "#dialog-delete-char" ).dialog({
 });
 // Link to open the dialog
 $( "#deleteWorldCard" ).click(function( event ) {
-	$( "#dialog-delete-char" ).dialog( "open" );
+	$( "#dialog-delete-scene" ).dialog( "open" );
   $("#btnTwo").focus();
 	event.preventDefault();
 });
