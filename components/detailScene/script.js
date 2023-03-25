@@ -396,3 +396,16 @@ $( "#btn-addChar" ).click(function( event ) {
 });
 
 restoreCharScene("#chars_scene", "characters");
+
+async function getChapter() {
+  const projectData = await getCurrentProject();
+  const currentCardID = await getCurrentCardID();
+  const chapters = projectData.data.chapters;
+  chapters.forEach( (ele) => {
+    if (ele.scenes.includes(currentCardID)) {
+      document.getElementById('chap_name').innerHTML = `<p>${ele.title}</p>`
+    }
+  })
+};
+
+getChapter()

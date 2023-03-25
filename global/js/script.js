@@ -597,3 +597,14 @@ async function clearDate(type) {
     e.data[type][positionInArray].date = '';
   })
 };
+
+function getChapterName(chapters, id) {
+  if (chapters) {
+    for (let i = 0; i < chapters.length; i++) {
+      const elem = chapters[i];
+      if (elem.scenes.includes(id)) {
+        return elem.title;
+      }
+    }
+  }
+}

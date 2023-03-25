@@ -116,10 +116,10 @@ async function getScenesdCards() {
     const povID = project.data.characters.map(function (e) { return e.id; }).indexOf(Number(ele.pov_id));
     const povName = project?.data?.characters?.[povID]?.title ?? '';
     const povColor = project?.data?.characters?.[povID]?.color ?? '';
-    const placeID = project.data.world.map(function (e) { return e.id; }).indexOf(Number(ele.place_id));
-    const placeName = project?.data?.world?.[placeID]?.title ?? '';
     const resultDate = project.data.timeline.map(function (e) { return e.id; }).indexOf(Number(ele.date));
     const dateValue = project?.data?.timeline?.[resultDate]?.date ?? '';
+    const chapters = project?.data?.chapters
+    const chapterName = getChapterName(chapters, ele.id);
     const dateConverted = convertDatePT_BR(dateValue);
     $('#project-list').append(
       `
@@ -130,12 +130,11 @@ async function getScenesdCards() {
           <div class="ui-widget-header ui-corner-all portlet-header">${ ele.title }
           <a onclick="pageChange('#project-list', 'components/detailScene/page.html', 'components/detailScene/script.js')">
             </div>
-              <p class="infosCardScenes"><span class="povLabel" style="background-color:${ele.pov_id ? povColor: "#444C56"}">${ !ele.pov_id ? ' nova cena ' : povName }</span> 
-                ${ !ele.date ? '' : `• ${dateConverted}`} 
-                ${ !ele.time ? '' : `• ${ele.time}`} 
-                ${ !ele.place_id ? '' : `• ${placeName}`}
+              <p class="infosCardScenes"><span class="povLabel" style="background-color:${ele.pov_id ? povColor: ""}">${ !ele.pov_id ? '<br> ' : povName }</span> 
+              ${ !ele.status ? '' : ` ${ele.status}` }
+                ${ !ele.date ? '' : `• ${dateConverted}`}
               </p>
-              <p class="infosCardScenes">${ !ele.status ? '' : ele.status }</p>
+              <p class="infosCardScenes">${ !chapterName ? '' : `Cap. ${chapterName}` }</p>
             </div>
             <div>  
               <p class="sceneCartContent">${ ele.content }</p>
