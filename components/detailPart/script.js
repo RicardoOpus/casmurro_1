@@ -89,7 +89,7 @@ innerTabDefault.appendChild(label);
 
 // Add Personagens ==========================>
 var btnAddCharacters = document.createElement('button');
-btnAddCharacters.innerText = 'Capítulos à cena';
+btnAddCharacters.innerText = 'Capítulos à parte';
 btnAddCharacters.id = 'btn-addChaptersToPart';
 btnAddCharacters.classList = "btnExtra ui-button ui-corner-all"
 innerTabDefault.appendChild(btnAddCharacters);

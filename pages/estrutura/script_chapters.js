@@ -1,6 +1,6 @@
-console.log('chamou subplotes');
+console.log("Chamou Estrutura!");
 changeTabColor("estrutura");
-changeInnerTabColor('subplotsTab');
+changeInnerTabColor('chaptersTab');
 
 function validadeForm() {
   const dateField = document.getElementById("structureType").value
@@ -23,7 +23,7 @@ buttons: [
         $( this ).dialog( "close" );
         document.getElementById("structureName").value = "";
         document.getElementById("structureType").value = "";
-        pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_subplots.js')
+        pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_chapters.js')
       } else {
         alert('Por favor, preencha todas as informações!')
       }
@@ -57,10 +57,10 @@ async function getStructureFiltred(filter) {
       `
       <ul class="worldListStructure" id="${ele.id}">
         <li class="worldItens">
-        <div class="ui-widget-content portlet ui-corner-all" onclick="setCurrentCard('scenes', ${ ele.id })">
+        <div class="ui-widget-content portlet ui-corner-all" onclick="setCurrentCard('chapters', ${ ele.id })">
         <div class="contentListWorld">
-        <div class="ui-widget-header ui-corner-all portlet-header">${ ele.title }
-        <a onclick="pageChange('#project-list', 'components/detailScene/page.html', 'components/detailScene/script.js')">
+        <div class="ui-widget-header ui-corner-all portlet-header">Capítulo ${ i + 1 } - ${ ele.title }
+        <a onclick="pageChange('#project-list', 'components/detailChapter/page.html', 'components/detailChapter/script.js')">
           </div>
             <p class="infosCardScenes">${ !ele.status ? '' : ele.status }</p>
           </div>
@@ -98,7 +98,7 @@ async function createNewStructure() {
   return
 };
 
-getStructureFiltred('subplots');
+getStructureFiltred('chapters');
 validateNewCard("structureName", "#okBtn-structure");
 validateNewCard("structureType", "#okBtn-structure");
 document.getElementById("project-list").className = "worldListStructure"
@@ -116,11 +116,11 @@ $(function() {
       var id = $(worldListStructure[i]).attr("id");
       var position = $(worldListStructure[i]).index();
       var currentID = await getCurrentProjectID();
-      var positionInDB = await getStructureByID('subplots', Number(id));
+      var positionInDB = await getStructureByID('chapters', Number(id));
       await db.projects.where('id').equals(currentID).modify( (ele) => {
-        ele.data.subplots[positionInDB].position = position;
+        ele.data.chapters[positionInDB].position = position;
       });
     }
-    pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_subplots.js')
+    pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_chapters.js')
   }
 });

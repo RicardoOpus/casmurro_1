@@ -1,12 +1,6 @@
-console.log("Chamou Estrutura!");
+console.log('chamou subplotes');
 changeTabColor("estrutura");
-changeInnerTabColor('chaptersTab');
-
-function validadeForm() {
-  const dateField = document.getElementById("structureType").value
-  const date2Field = document.getElementById("structureName").value
-  return dateField && date2Field !== "" ? true : false;
-}
+changeInnerTabColor('subplotsTab');
 
 $( "#dialogStructure" ).dialog({
 autoOpen: false,
@@ -48,33 +42,69 @@ $( "#dialog-link-structure" ).click(function( event ) {
   event.preventDefault();
 });
 
-async function getStructureFiltred(filter) {
-  $('#project-list').empty();
-  const project = await getCurrentProject();
-  const resultSorted = sortByKey(project.data[filter], 'position')
-  resultSorted.forEach( (ele, i) => {
-    $('#project-list').append(
-      `
-      <ul class="worldListStructure" id="${ele.id}">
-        <li class="worldItens">
-        <div class="ui-widget-content portlet ui-corner-all" onclick="setCurrentCard('chapters', ${ ele.id })">
-        <div class="contentListWorld">
-        <div class="ui-widget-header ui-corner-all portlet-header">Capítulo ${ i + 1 } - ${ ele.title }
-        <a onclick="pageChange('#project-list', 'components/detailChapter/page.html', 'components/detailChapter/script.js')">
-          </div>
-            <p class="infosCardScenes">${ !ele.status ? '' : ele.status }</p>
-          </div>
-          <div>  
-            <p class="sceneCartContent">${ ele.content? ele.content : '<br>' }</p>
-          </div>
-          </div>
-        </a>
-        </li>
-      </ul>
-      `
-    );
-  setContentOpacity();
+function putScenesInChapters(arrayChapters, idPart, filterChapters) {
+  arrayChapters.forEach( (ele, i) => {
+    if (filterChapters?.includes(ele.id)) {
+      $(idPart).append(
+        `
+        <li>${ele.title}</li>
+        `
+      );
+    }
   })
+}
+
+function putChaptersInPat(arrayChapters, idPart, filterChapters, arrayScenes) {
+  if (!filterChapters) {
+    return arrayChapters.forEach( (elem, i) => {
+        $(idPart).append(
+          `
+          <p class="ChapterOutline"> ${elem.title}
+          </p>
+          <ul id="List${i}" class="SceneOutline"></ul>
+          `
+        );
+        putScenesInChapters(arrayScenes,  `#List${i}`, elem.scenes)
+    })
+  }
+  return arrayChapters.forEach( (elem, i) => {
+    if (filterChapters?.includes(elem.id)) {
+      $(idPart).append(
+        `
+        <p class="ChapterOutline"> ${elem.title}
+        </p>
+        <ul id="List${i}" class="SceneOutline"></ul>
+        `
+      );
+      putScenesInChapters(arrayScenes,  `#List${i}`, elem.scenes)
+    }
+  })
+}
+
+async function getStructureFiltred() {
+  $('#project-list').empty();
+  $('#project-list').append("<div id='outlineContent' class='cardStructure'></div>")
+  const project = await getCurrentProject();
+  const partsSorted = sortByKey(project.data.parts, 'position')
+  const chaptersSorted = sortByKey(project.data.chapters, 'position')
+  if (chaptersSorted.length === 0) {
+    return $('#outlineContent').append('<p>No momenton não existem capítulos.</p><p>Crie capítulos (adicione cenas) para vizializr a estrutura.</p>')
+  }
+  const scenesSorted = sortByKey(project.data.scenes, 'position')
+  if (partsSorted[0]?.chapters?.length > 0) {
+    return partsSorted.forEach( async (ele, i) => {
+      $('#outlineContent').append(
+        `
+        <h3 class="PartOutline">${ele.title}
+        <hr class="chapterLine">
+        </h3>
+        <p id="partList${i}" style="margin: 0px"></p>
+        `
+      );
+      putChaptersInPat(chaptersSorted, `#partList${i}`, ele.chapters, scenesSorted)
+    })
+  }
+  return putChaptersInPat(chaptersSorted, '#outlineContent', null, scenesSorted)
 };
 
 async function createNewStructure() {
@@ -98,29 +128,8 @@ async function createNewStructure() {
   return
 };
 
-getStructureFiltred('chapters');
+getStructureFiltred();
 validateNewCard("structureName", "#okBtn-structure");
 validateNewCard("structureType", "#okBtn-structure");
 document.getElementById("project-list").className = "worldListStructure"
 
-$(function() {
-  $("#project-list").sortable({
-    update: function(event, ui) {
-      savePositions();
-    }
-  });
-  $("#project-list").disableSelection();
-  async function savePositions() {
-    const worldListStructure = $("#project-list .worldListStructure");
-    for (let i = 0; i < worldListStructure.length; i++) {
-      var id = $(worldListStructure[i]).attr("id");
-      var position = $(worldListStructure[i]).index();
-      var currentID = await getCurrentProjectID();
-      var positionInDB = await getStructureByID('chapters', Number(id));
-      await db.projects.where('id').equals(currentID).modify( (ele) => {
-        ele.data.chapters[positionInDB].position = position;
-      });
-    }
-    pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script.js')
-  }
-});
