@@ -42,12 +42,23 @@ $( "#dialog-link-structure" ).click(function( event ) {
   event.preventDefault();
 });
 
-function putScenesInChapters(arrayChapters, idPart, filterChapters) {
-  arrayChapters.forEach( (ele, i) => {
+function checkStatus(data, status) {
+  if (data.length === 0) {
+    return false
+  }
+  return data.every(obj => obj.status === status);
+}
+
+function filterDataById(data, filterIDs) {
+  return data.filter(obj => filterIDs.includes(obj.id));
+}
+
+function putScenesInChapters(arrayScenes, idPart, filterChapters) {
+  arrayScenes.forEach( (ele, i) => {
     if (filterChapters?.includes(ele.id)) {
       $(idPart).append(
         `
-        <li>${ele.title}</li>
+        <li>${ele.status === 'Pronto' ? "<span style='color: green'> 🗸 </span>": ''}${ele.title}</li>
         `
       );
     }
@@ -57,21 +68,25 @@ function putScenesInChapters(arrayChapters, idPart, filterChapters) {
 function putChaptersInPat(arrayChapters, idPart, filterChapters, arrayScenes) {
   if (!filterChapters) {
     return arrayChapters.forEach( (elem, i) => {
-        $(idPart).append(
-          `
-          <p class="ChapterOutline"> ${elem.title}
-          </p>
-          <ul id="List${i}" class="SceneOutline"></ul>
-          `
-        );
-        putScenesInChapters(arrayScenes,  `#List${i}`, elem.scenes)
-    })
-  }
-  return arrayChapters.forEach( (elem, i) => {
-    if (filterChapters?.includes(elem.id)) {
+      const newfiltredScenes = filterDataById(arrayScenes, elem.scenes)
+      const isAlldone = checkStatus(newfiltredScenes, 'Pronto')
       $(idPart).append(
         `
-        <p class="ChapterOutline"> ${elem.title}
+        <p class="ChapterOutline">${isAlldone? "<span style='color: green'>🗸 </span>" : ''}${elem.title}
+        </p>
+        <ul id="List${i}" class="SceneOutline"></ul>
+        `
+        );
+        putScenesInChapters(arrayScenes,  `#List${i}`, elem.scenes)
+      })
+    }
+    return arrayChapters.forEach( (elem, i) => {
+      if (filterChapters?.includes(elem.id)) {
+        const newfiltredScenes = filterDataById(arrayScenes, elem.scenes)
+        const isAlldone = checkStatus(newfiltredScenes, 'Pronto')
+      $(idPart).append(
+        `
+        <p class="ChapterOutline">${isAlldone? "<span style='color: green'>🗸 </span>" : ''}${elem.title}
         </p>
         <ul id="List${i}" class="SceneOutline"></ul>
         `
