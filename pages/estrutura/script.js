@@ -103,7 +103,7 @@ async function getStructureFiltred() {
   const partsSorted = sortByKey(project.data.parts, 'position')
   const chaptersSorted = sortByKey(project.data.chapters, 'position')
   if (chaptersSorted.length === 0) {
-    return $('#outlineContent').append('<p>No momenton não existem capítulos.</p><p>Crie capítulos (adicione cenas) para vizializr a estrutura.</p>')
+    return $('#outlineContent').append('<p>No momento não existem capítulos.</p><p>Crie capítulos (e adicione cenas) para visualizar a estrutura.</p>')
   }
   const scenesSorted = sortByKey(project.data.scenes, 'position')
   if (partsSorted[0]?.chapters?.length > 0) {
