@@ -184,7 +184,7 @@ $( "#dialog-delete-char" ).dialog({
 	]
 });
 // Link to open the dialog
-$( "#deleteWorldCard" ).click(function( event ) {
+$( "#deleteCharCard" ).click(function( event ) {
 	$( "#dialog-delete-char" ).dialog( "open" );
   $("#btnTwo").focus();
 	event.preventDefault();

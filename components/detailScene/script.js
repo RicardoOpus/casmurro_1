@@ -204,7 +204,7 @@ $( "#dialog-delete-scene" ).dialog({
 	]
 });
 // Link to open the dialog
-$( "#deleteWorldCard" ).click(function( event ) {
+$( "#deleteSceneCard" ).click(function( event ) {
 	$( "#dialog-delete-scene" ).dialog( "open" );
   $("#btnTwo").focus();
 	event.preventDefault();
