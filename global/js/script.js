@@ -408,7 +408,7 @@ async function restoreCharScene(id, type) {
   const currentCardID = await getCurrentCardID();
   const project = await getCurrentProject();
   let chklist = ''
-  project.data[type].forEach( (ele) => {
+  project.data.scenes.forEach( (ele) => {
     if (ele.id === currentCardID) {
       chklist = ele.scene_characters
     }

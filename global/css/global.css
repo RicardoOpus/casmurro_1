@@ -847,7 +847,7 @@ fieldset {
   font-size: 2rem;
   background: rgb(18, 18, 20);
   border-color: rgb(18, 18, 20);
-  color: rgb(255, 255, 255);
+  color: #ababab;
   padding: 0px 1em 0px 0.65em;
   border-radius: 5px;
 }
@@ -871,7 +871,7 @@ fieldset {
   font-size: 16px;
   background: rgb(18, 18, 20);
   border-color: rgb(18, 18, 20);
-  color: rgb(255, 255, 255);
+  color: #ababab;
   padding: 0px 1em 0px 0.65em;
   border-radius: 5px;
 }
