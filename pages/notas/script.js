@@ -56,3 +56,41 @@ $( "#dialogNotes" ).dialog({
 
 validateNewCard("noteName", "#okBtn-notes");
 
+async function getNotesCards() {
+  const project = await getCurrentProject();
+  const resultSorted = sortByKey(project.data.notes, 'title');
+  if (resultSorted.length === 0) {
+    return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
+  }
+  resultSorted.forEach( (ele) => {
+    $('#project-list').append(
+      `
+      <ul class="worldList">
+        <li class="worldItens">
+        <a onclick="pageChange('#project-list', 'components/detailNote/page.html', 'components/detailNote/script.js')">
+          <div class="worldName" onclick="setCurrentCard('notes', ${ ele.id })">
+            <div class="contentListWorld">
+              <p class="wordlTitle">${ ele.title }</p>
+              <hr class="cardLineTop">
+              <span> ${ ele.category } </span>
+              <div class="worldCardDivider">
+                <div>
+                  <p class="it">${ ele.content }</p>
+                </div>
+                <div>
+                  <img src="${ !ele.image_card ? '' : ele.image_card }" class="worldListImage"> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+        </li>
+      </ul>
+      `
+    );
+    setContentOpacity();
+    setImageOpacity();
+  })
+};
+
+getNotesCards();
