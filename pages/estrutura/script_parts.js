@@ -1,13 +1,5 @@
 console.log('chamou as partes');
-changeTabColor("estrutura");
 changeInnerTabColor('partsTab');
-
-
-function validadeForm() {
-  const dateField = document.getElementById("structureType").value
-  const date2Field = document.getElementById("structureName").value
-  return dateField && date2Field !== "" ? true : false;
-}
 
 $( "#dialogStructure" ).dialog({
 autoOpen: false,
@@ -24,7 +16,7 @@ buttons: [
         $( this ).dialog( "close" );
         document.getElementById("structureName").value = "";
         document.getElementById("structureType").value = "";
-        pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script.js')
+        pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_parts.js')
       } else {
         alert('Por favor, preencha todas as informações!')
       }

@@ -400,12 +400,15 @@ restoreCharScene("#chars_scene", "characters");
 async function getChapter() {
   const projectData = await getCurrentProject();
   const currentCardID = await getCurrentCardID();
-  const chapters = projectData.data.chapters;
-  chapters.forEach( (ele) => {
-    if (ele.scenes.includes(currentCardID)) {
-      document.getElementById('chap_name').innerHTML = `<p>${ele.title}</p>`
-    }
-  })
+  const chapters = projectData?.data?.chapters; // Verifica se projectData existe e tem a propriedade data e chapters
+  if (Array.isArray(chapters)) { // Verifica se chapters é um array
+    chapters.forEach( (ele) => {
+      if (ele && ele.scenes && ele.scenes.includes(currentCardID)) { // Verifica se ele existe e tem a propriedade scenes
+        document.getElementById('chap_name').innerHTML = `<p>${ele.title}</p>`;
+      }
+    });
+  }
 };
+
 
 getChapter()

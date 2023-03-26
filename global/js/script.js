@@ -429,9 +429,9 @@ async function restoreScenesListInput(id) {
   const project = await getCurrentProject();
   const resultSorted = sortByKey(project.data.scenes, 'position')
   let chklist = ''
-  resultSorted.forEach( (ele) => {
+  project.data.chapters.forEach( (ele) => {
     if (ele.id === currentCardID) {
-      chklist = ele.scene_characters
+      chklist = ele.scenes
     }
   })
   const itensList = resultSorted;
@@ -451,9 +451,9 @@ async function restoreChapListInput(id) {
   const project = await getCurrentProject();
   const resultSorted = sortByKey(project.data.chapters, 'position')
   let chklist = ''
-  resultSorted.forEach( (ele) => {
+  project.data.parts.forEach( (ele) => {
     if (ele.id === currentCardID) {
-      chklist = ele.scene_characters
+      chklist = ele.chapters
     }
   })
   const itensList = resultSorted;
@@ -602,7 +602,7 @@ function getChapterName(chapters, id) {
   if (chapters) {
     for (let i = 0; i < chapters.length; i++) {
       const elem = chapters[i];
-      if (elem.scenes.includes(id)) {
+      if (elem && elem.scenes && elem.scenes.includes(id)) {
         return elem.title;
       }
     }

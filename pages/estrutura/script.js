@@ -1,6 +1,12 @@
-console.log('chamou subplotes');
+console.log('chamou outline');
 changeTabColor("estrutura");
-changeInnerTabColor('subplotsTab');
+// changeInnerTabColor('subplotsTab');
+
+function validadeForm() {
+  const dateField = document.getElementById("structureType").value
+  const date2Field = document.getElementById("structureName").value
+  return dateField && date2Field !== "" ? true : false;
+}
 
 $( "#dialogStructure" ).dialog({
 autoOpen: false,
@@ -50,7 +56,12 @@ function checkStatus(data, status) {
 }
 
 function filterDataById(data, filterIDs) {
-  return data.filter(obj => filterIDs.includes(obj.id));
+  if (Array.isArray(filterIDs)) {
+    return data.filter(obj => filterIDs.includes(obj.id));
+  }
+  else {
+    return [];
+  }
 }
 
 function putScenesInChapters(arrayScenes, idPart, filterChapters) {
@@ -103,7 +114,7 @@ async function getStructureFiltred() {
   const partsSorted = sortByKey(project.data.parts, 'position')
   const chaptersSorted = sortByKey(project.data.chapters, 'position')
   if (chaptersSorted.length === 0) {
-    return $('#outlineContent').append('<p>No momento não existem capítulos.</p><p>Crie capítulos (e adicione cenas) para visualizar a estrutura.</p>')
+    return $('#outlineContent').append('<p>No momento não existem cartões.</p><p>Crie capítulos (e adicione cenas) para visualizar a estrutura.</p>')
   }
   const scenesSorted = sortByKey(project.data.scenes, 'position')
   if (partsSorted[0]?.chapters?.length > 0) {

@@ -77,7 +77,6 @@ $( "#deleteChapterCard" ).click(function( event ) {
 });
 
 restoreChapterCard();
-// restoreCategories('world');
 
 var innerTabDefault = document.querySelector('.innerTabDefault');
 document.querySelectorAll(".target").forEach( ele => ele.remove());

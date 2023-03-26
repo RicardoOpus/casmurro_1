@@ -1,5 +1,4 @@
 console.log("Chamou Estrutura!");
-changeTabColor("estrutura");
 changeInnerTabColor('chaptersTab');
 
 function validadeForm() {
