@@ -5,7 +5,8 @@ var categoriesDefault = {
   characters: ["-- selecione --", "Principais", "Secundários", "-- nenhum --"],
   genders: ["-- selecione --", "Masculino", "Feminino", "N/A"],
   scenes: ["-- selecione --", "-- nenhum --"],
-  timeline: ["-- selecione --", "-- nenhum --"]
+  timeline: ["-- selecione --", "-- nenhum --"],
+  notes: ["-- selecione --", "-- nenhum --", "Ideias", "Pesquisas", "Listas"]
 };
 
 $( "#dialog" ).dialog({

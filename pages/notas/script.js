@@ -11,6 +11,7 @@ async function createNewNote() {
     title: noteName.value,
     content: '',
     category: '',
+    image_card: '',
     id: ID
   };
   db.projects.where('id').equals(pjID).modify( (ele) => {

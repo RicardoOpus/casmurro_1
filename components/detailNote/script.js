@@ -70,4 +70,10 @@ $( "#deleteNoteCard" ).click(function( event ) {
 	event.preventDefault();
 });
 
-restoreNoteCard()
+document.getElementById("btnSaveWall").disabled = true;
+document.getElementById("my-image").addEventListener('input', () => { 
+  document.getElementById("btnSaveWall").disabled = false;
+});
+
+restoreNoteCard();
+restoreCategories('notes');
