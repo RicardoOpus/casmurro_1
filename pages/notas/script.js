@@ -127,6 +127,13 @@ $( "#dialog-link-delcategory-note" ).click(function( event ) {
 });
 validateNewCard("categoryDelNoteName", "#okBtn-delcat-note");
 
+function removeListClass() {
+  const itens = document.querySelectorAll(".selected");
+  for (let i = 0; i < itens.length; i++) {
+    itens[i].classList.remove('selected');
+  }
+};
+
 async function getNotesCards() {
   const project = await getCurrentProject();
   const resultSorted = sortByKey(project.data.notes, 'title');
@@ -134,7 +141,6 @@ async function getNotesCards() {
     return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
   }
   resultSorted.forEach( (ele) => {
-    console.log(ele.category);
     if (ele.category === "Listas") {
       return $('#project-list').append(
         `
@@ -148,7 +154,7 @@ async function getNotesCards() {
                 <span> ${ ele.category } </span>
                 <div class="worldCardDivider">
                   <div>
-                    <p class="it">${ ele.content }</p>
+                    <div class="it">${ ele.content }</div>
                   </div>
                   <div>
                     <img src="${ !ele.image_card ? '' : ele.image_card }" class="worldListImage"> 
@@ -189,6 +195,7 @@ async function getNotesCards() {
     );
     setContentOpacity();
     setImageOpacity();
+    removeListClass();
   })
 };
 
@@ -201,6 +208,33 @@ async function setFilterCategory(filter) {
   };
   resultSorted.forEach( (ele) => {
     if (ele.category === filter) {
+      if (ele.category === "Listas") {
+        return $('#project-list').append(
+          `
+          <ul class="worldList">
+            <li class="worldItens">
+            <a onclick="pageChange('#project-list', 'components/detailList/page.html', 'components/detailList/script.js')">
+              <div class="worldName" onclick="setCurrentCard('notes', ${ ele.id })">
+                <div class="contentListWorld">
+                  <p class="wordlTitle">${ ele.title }</p>
+                  <hr class="cardLineTop">
+                  <span> ${ ele.category } </span>
+                  <div class="worldCardDivider">
+                    <div>
+                      <div class="it">${ ele.content }</div>
+                    </div>
+                    <div>
+                      <img src="${ !ele.image_card ? '' : ele.image_card }" class="worldListImage"> 
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            </li>
+          </ul>
+          `
+        );
+      }
       $('#project-list').append(
         `
         <ul class="worldList">
@@ -233,4 +267,5 @@ async function setFilterCategory(filter) {
 };
 
 getNotesCards();
+
 setCustomTabs('notes');

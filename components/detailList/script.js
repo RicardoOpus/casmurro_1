@@ -112,7 +112,6 @@ function removeSelected() {
 }
 
 function selectTask(event) {
-  console.log('clicou');
   const element = event.target;
   const className = element.classList[0]; 
   if (className === "selected") {

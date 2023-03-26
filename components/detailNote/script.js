@@ -1,5 +1,3 @@
-
-
 async function restoreNoteCard() {
   const currentCardID = await getCurrentCardID();
   const projectData = await getCurrentProject();
