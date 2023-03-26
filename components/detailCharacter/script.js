@@ -169,6 +169,8 @@ $( "#dialog-delete-char" ).dialog({
 		{
 			text: "Ok",
 			click: async function() {
+        await clearDateDeathBirth('date_birth');
+        await clearDateDeathBirth('date_death');
         await deleteCard('characters');
         $( this ).dialog( "close" );
         loadpage('personagens');

@@ -112,7 +112,6 @@ async function getWorldCards() {
   const project = await getCurrentProject();
   const resultSorted = sortByKey(project.data.world, 'title');
   if (resultSorted.length === 0) {
-    console.log('é nada');
     return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
   }
   resultSorted.forEach( (ele) => {
@@ -151,7 +150,6 @@ async function getWorldCardsFiltred(filter) {
   const project = await getCurrentProject();
   const resultSorted = sortByKey(project.data.world, 'title');
   if (resultSorted.length === 0) {
-    console.log('é nada');
     return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
   };
   resultSorted.forEach( (ele) => {
