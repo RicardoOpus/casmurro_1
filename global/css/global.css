@@ -812,6 +812,29 @@ fieldset {
   border: 1px solid #0a62ce5a;
 }
 
+/* Project Notes List page styles ================================================ */
+
+.selected{
+  background-color: #444C56;
+  padding: 5px;
+  border-radius: 12px;
+}
+
+.completed{
+  text-decoration: line-through;
+}
+
+.itemList p {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  font-size: medium;
+  padding: 5px;
+}
+
+.btnSmallList {
+  margin-top: 1rem;
+}
+
 /* Project Edit Infos page styles ================================================ */
 
 .editProjectMain {

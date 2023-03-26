@@ -1,20 +1,34 @@
-<section>
-  <input id="texto-tarefa" type="text" placeholder="Digite uma tarefa...">
-  <button id="criar-tarefa" onclick="newTask()">Criar</button>
-  <ol id="lista-tarefas"></ol>
-  <button id="mover-baixo" onclick="sendDown()">▼</button>
-  <button id="mover-cima" onclick="sendUp()">▲</button>
-  <button id="apaga-tudo" onclick="clearAll()">Limpar Tudo</button>
-  <button id="remover-finalizados" onclick="clearAllDone()">Limpar Finalizados</button>
-  <button id="remover-selecionado" onclick="removeSelected()">Remover Selecionado</button>
-</section>
+<div class="edirCardWorld">
+  <div class="backArrow">
+    <a onclick="pageChange('#dinamic', 'pages/notas/page.html', 'pages/notas/script.js')">❮ voltar</a>
+  </div>
+  <div class="card">
+    <input class="editProjectTitle projectInputForm" id="title">
+    <p class="delete"><span class="ui-icon ui-icon-trash"></span><a id="deleteNoteListCard"> Excluir</a></p>
 
-<style>
-  .selected{
-    background-color: gray;
-  }
+    <div id="imageCardBackgournd">
+      <div>
+        <img src="" id="image_card">
+      </div>
+    </div>
 
-  .completed{
-    text-decoration: line-through;
-  }
-</style>
+    <div>
+        <input id="texto-tarefa" class="cardInputNormal dateFactInputForm" style="margin-top: 15px;" type="text" placeholder="Digite uma tarefa... Clique duas vezes para riscá-la...">
+        <button id="criar-tarefa" class="ui-button ui-corner-all btnSmallList" onclick="newTask()">Adicionar item</button>
+        <button id="mover-baixo" class="ui-button ui-corner-all btnSmallList" onclick="sendDown()">▼</button>
+        <button id="mover-cima" class="ui-button ui-corner-all btnSmallList" onclick="sendUp()">▲</button>
+        <button id="remover-selecionado" class="ui-button ui-corner-all btnSmallList" onclick="removeSelected()">Remover Selecionado</button>
+        <button id="remover-finalizados" class="ui-button ui-corner-all btnSmallList" onclick="clearAllDone()">Limpar Finalizados</button>
+        <button id="apaga-tudo" class="ui-button ui-corner-all btnSmallList" onclick="clearAll()">Limpar Tudo</button>
+        <ol id="lista-tarefas" class="itemList"></ol>
+    </div>
+  
+  </div>
+</div>
+
+<!-- ui-dialog -->
+<div id="dialog-delete-note-list" title="Excluir cartão">
+    <h4>
+      Tem certeza que deseja deletar este cartão?
+    </h4>
+</div>
