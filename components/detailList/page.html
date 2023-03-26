@@ -1,0 +1,20 @@
+<section>
+  <input id="texto-tarefa" type="text" placeholder="Digite uma tarefa...">
+  <button id="criar-tarefa" onclick="newTask()">Criar</button>
+  <ol id="lista-tarefas"></ol>
+  <button id="mover-baixo" onclick="sendDown()">▼</button>
+  <button id="mover-cima" onclick="sendUp()">▲</button>
+  <button id="apaga-tudo" onclick="clearAll()">Limpar Tudo</button>
+  <button id="remover-finalizados" onclick="clearAllDone()">Limpar Finalizados</button>
+  <button id="remover-selecionado" onclick="removeSelected()">Remover Selecionado</button>
+</section>
+
+<style>
+  .selected{
+    background-color: gray;
+  }
+
+  .completed{
+    text-decoration: line-through;
+  }
+</style>

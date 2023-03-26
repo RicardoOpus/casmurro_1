@@ -1,54 +1,47 @@
+<div class="worldNewCardBtn">
+  <button id="dialog-link-category" class="ui-button ui-corner-all worldNewCatBtn"><span class="ui-icon ui-icon-plusthick "></span> Categoria</button>
+  <button id="dialog-link-delcategory" class="ui-button ui-corner-all worldNewCatBtn"><span class="ui-icon ui-icon-trash"></span> </button>
+  <button id="dialog-link-note" class="ui-button ui-corner-all ui-widget"><span class="ui-icon ui-icon-plusthick"></span> Cartão</button>
+</div>
 
-    
-    <div class="containerTimeline">
-      <div class="wrapper">
-        <h1> A day in my 'sleepy' life 😅</h1>
-        <ul class="sessions">
-          <li>
-            <div class="time">09:00 AM</div>
-            <p>How is it already 9:00? Just how??? 🤯🤯</p>
-          </li>
-          <li>
-            <div class="time">09:05 AM</div>
-            <p>Few more minutes of sleep won't do anyone any harm 🤷..</p>
-          </li>
-          <li>
-            <div class="time">09:30 AM</div>
-            <p>Get up 🙄</p>
-          </li>
-          <li>
-            <div class="time">1:00 PM</div>
-            <p>How can I feel sleepy again?😵</p>
-          </li>
-          <li>
-            <div class="time">01:30 PM</div>
-            <p>Lunch time after which sleep just doesn't want to let go of me. 🤝</p>
-          </li>
-          <li>
-            <div class="time">3:30 PM</div>
-            <p>Drink the magical chai, it will ward off sleep they said. 🤷‍</p>
-          </li>
-          <li>
-            <div class="time">4:30 PM </div>
-            <p>The only time I don't feel sleepy cause it's work out time. I mean walking time. 😹</p>
-          </li>
-          <li>
-            <div class="time">07:00 PM </div>
-            <p>Food my tummy needs, sleep my body needs.👿</p>
-          </li>
-          <li>
-            <div class="time">07:30 PM </div>
-            <p>My tummy's happy time 🍝</p>
-          </li>
-          <li>
-            <div class="time">10:00 PM </div>
-            <p>uh oh!!! fuel low, get some snacks but wait should I just take a quick nap?🤓 </p>
-          </li>
-          <li>
-            <div class="time">2:30 PM </div>
-            <p>All hail! The time to sleep has finally arrived.😴😴😴😴😴 </p>
-          </li>
-        </ul>
-      </div>
-    </div> 
-    
+<div class="tab">
+  <div class="innerTabDefault">
+    <button class="innerTabActive" onclick="loadpage('notas')" id="Todos">Todos</button>
+    <button class="innerTabInactive" onclick="loadpage('mundo')" 
+    id="Todos">Ideias</button>
+    <button class="innerTabInactive" onclick="loadpage('mundo')" 
+    id="Todos">Pesquisas</button>
+    <button class="innerTabInactive" onclick="loadpage('mundo')" id="Todos">Listas</button>
+  </div>
+  <div id="project-list" class="listCards">
+  </div>
+</div>
+
+<!-- ui-dialogs -->
+<div id="dialogNotes" title="Novo cartão (Notas)">
+  <div class="welcome">
+    <p>Título: </p>
+    <form id="formNotes">
+      <input type="text" id="noteName" class="welcome text ui-corner-all fullwidth">
+    </form>
+  </div>
+</div>
+
+<!-- <div id="dialog_new_worldCategory" title="Nova categoria (Mundo)">
+  <div class="welcome">
+    <p>Título: </p>
+    <form id="formCat">
+      <input type="text" id="categoryName" class="welcome text ui-corner-all fullwidth">
+    </form>
+  </div>
+</div>
+
+<div id="dialog_delete_worldCategory" title="Excluir categoria (Mundo)">
+  <div class="welcome">
+    <p></p>
+    <form id="formDelCat">
+      <select id="categoryDelName" class="ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget"></select>
+    </form>
+    <p style="font-size: smaller;">Obs: 'Fato histórico' não pode se excluído. Deletar uma categoria não afeta os cartões contidos nela.</p>
+  </div>
+</div> -->
