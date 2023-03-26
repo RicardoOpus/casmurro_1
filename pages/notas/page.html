@@ -6,7 +6,9 @@
 
 <div class="tab">
   <div class="innerTabDefault">
+    <button id="dialog-link-elapsedTime" onclick="createNewNoteList()" class="ui-button ui-corner-all worldNewCatBtn" style="margin-bottom: 5px;">Adicionar lista de tarefas</button>
     <button class="innerTabActive" onclick="loadpage('notas')" id="Todos">Todos</button>
+    <button class="innerTabInactive" onclick="setFilterCategory('Listas', 'Listas')" id="Listas">Listas</button>
   </div>
   <div id="project-list" class="listCards">
   </div>
@@ -22,7 +24,7 @@
   </div>
 </div>
 
-<div id="dialog_new_noteCategory" title="Nova categoria (Mundo)">
+<div id="dialog_new_noteCategory" title="Nova categoria (Notas)">
   <div class="welcome">
     <p>Título: </p>
     <form id="formCat">
@@ -31,12 +33,12 @@
   </div>
 </div>
 
-<div id="dialog_delete_noteCategory" title="Excluir categoria (Mundo)">
+<div id="dialog_delete_noteCategory" title="Excluir categoria (Notas)">
   <div class="welcome">
     <p></p>
     <form id="formDelCat">
       <select id="categoryDelNoteName" class="ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button ui-widget"></select>
     </form>
-    <p style="font-size: smaller;">Obs: 'Fato histórico' não pode se excluído. Deletar uma categoria não afeta os cartões contidos nela.</p>
+    <p style="font-size: smaller;">Obs: Deletar uma categoria não afeta os cartões contidos nela.</p>
   </div>
 </div>

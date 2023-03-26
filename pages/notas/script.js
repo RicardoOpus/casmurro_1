@@ -1,6 +1,10 @@
 console.log("SCRIPT NOTAS");
 changeTabColor("notas");
 
+function categoryReservedName(name) {
+  return name === "Listas" ? true : false 
+}
+
 async function createNewNote() {
   const ID = await idManager('id_notes')
   const currentDate = new Date();
@@ -20,6 +24,29 @@ async function createNewNote() {
   );
   await db.projects.update(pjID,{ last_edit: currentDate,  timestamp: timeStamp });
   return
+};
+
+async function createNewNoteList() {
+  const ID = await idManager('id_notes')
+  const currentDate = new Date();
+  const day = currentDate.getDate();
+  const month = currentDate.getMonth() + 1; 
+  const year = currentDate.getFullYear();
+  const formattedDate = `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year.toString()}`;
+  const timeStamp = Date.now();
+  const pjID = await getCurrentProjectID()
+  const data = {
+    title: `Nova Lista (${formattedDate})`,
+    content: '',
+    category: 'Listas',
+    id: ID
+  };
+  db.projects.where('id').equals(pjID).modify( (ele) => {
+    ele.data.notes.push(data) 
+    }
+  );
+  await db.projects.update(pjID,{ last_edit: currentDate,  timestamp: timeStamp });
+  return pageChange('#dinamic', 'pages/notas/page.html', 'pages/notas/script.js')
 };
 
 $( "#dialogNotes" ).dialog({
@@ -66,6 +93,10 @@ $( "#dialog_new_noteCategory" ).dialog({
       disabled: false,
       click: async function() {
         var cat = document.getElementById("categoryNoteName");
+        const check = categoryReservedName(cat.value);
+        if (check) {
+          return alert('Categoria Listas já existe! Escolha outro nome.')
+        }
         await addNewCategory('notes', cat.value);
         $( this ).dialog( "close" );
         document.getElementById("categoryNoteName").value = "";
@@ -126,6 +157,11 @@ $( "#dialog-link-delcategory-note" ).click(function( event ) {
   event.preventDefault();
 });
 validateNewCard("categoryDelNoteName", "#okBtn-delcat-note");
+
+function setFilterCategory(tab, filterCategory) {
+  changeInnerTabColor(tab);
+  getNotesCardsFilter(filterCategory);
+}
 
 function removeListClass() {
   const itens = document.querySelectorAll(".selected");
@@ -199,7 +235,7 @@ async function getNotesCards() {
   })
 };
 
-async function setFilterCategory(filter) {
+async function getNotesCardsFilter(filter) {
   $('#project-list').empty();
   const project = await getCurrentProject();
   const resultSorted = sortByKey(project.data.notes, 'title');
@@ -267,5 +303,4 @@ async function setFilterCategory(filter) {
 };
 
 getNotesCards();
-
 setCustomTabs('notes');
