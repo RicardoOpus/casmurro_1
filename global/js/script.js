@@ -30,6 +30,15 @@ async function welcome() {
   }
 };
 
+function changeStatusColor() {
+  const statusHtml = document.querySelectorAll(".projectStatus");
+  statusHtml.forEach( (elem) => {
+    const classStatus = elem.innerText;
+    const n = classStatus.split(" ").pop();
+    elem.classList.add(n);
+  })
+}
+
 $( document ).ready(function() {
   welcome();
 });

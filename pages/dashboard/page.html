@@ -15,5 +15,48 @@ data-trigger="hover" id="timeline">Timeline</button>
 <button class="navtrigger ui-button ui-corner-all ui-widget tabInactive" onclick="loadpage('notas')"
 data-trigger="hover" id="notas">Notas</button>
 <div class="innerContent">
-  <div id="dinamic"></div>
+  <div id="dinamic">
+    <section class="card parent">
+      <div class="dashboard-header">
+        <h1 id="project-title-dashboard" class="dashboardTitle"></h1>
+        <div id="project-type-dashboard"></div>
+        <div id="labelRibbon" class="ribbon">
+          <div id="project-status-dashboard" class="projectStatus"></div>
+        </div>
+        <p id="project-resume"></p>
+        <div class="dashboard-divisor"></div>
+      </div>
+      <section>
+        <h2>Cartões</h2>
+        <div class="infoCards"> 
+          <div class="infoCardItens container">
+            <h3>• Personagens</h3>
+            <h2>0</h2>
+          </div>
+          <div id="cardsDashboard_mundo" class="infoCardItens container">
+            <h3>• Mundo</h3>
+            <h2 id="cardsDashboard_mundo_qtd">0</h2>
+          </div>
+          <div class="infoCardItens container">
+            <h3>• Cenas</h3>
+            <h2>0</h2>
+          </div>
+        </div>
+        <div class="infoCards">
+          <div class="infoCardItens container">
+            <h3>• Estrutura</h3>
+            <h2>0</h2>
+          </div>
+          <div class="infoCardItens container">
+            <h3>• Timeline</h3>
+            <h2>0</h2>
+          </div>
+          <div class="infoCardItens container">
+            <h3>• Notas</h3>
+            <h2>0</h2>
+          </div>
+        </div>
+      </section>
+    </section>
+  </div>
 </div>

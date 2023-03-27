@@ -134,7 +134,125 @@ textarea {
   color: #0a62ce;
 }
 
+/* Dashboard page styles ================================================ */
+
+.dashboard-header {
+  text-align: center;
+}
+
+.dashboard-header h1, p {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.dashboardTitle{
+  font-size: 3em;
+}
+
+.dashboard-divisor {
+  margin-top: 15px;
+  border-bottom: 1px solid #313131;
+}
+
+.dashboard-header p {
+  text-align: left;
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 7px;
+  background-color: #121214;
+}
+
+.parent {
+  overflow: hidden; /* required */
+  position: relative; /* required  for demo*/
+}
+
+.ribbon {
+  margin: 0;
+  padding: 0;
+  background: rebeccapurple;
+  padding: 7px;
+  position: absolute;
+  top:0;
+  right:0;
+  transform: translateX(30%) translateY(0%) rotate(45deg);
+  transform-origin: top left;
+}
+
+.ribbon:before,
+.ribbon:after {
+  content: '';
+  position: absolute;
+  top:0;
+  margin: 0 -1px; /* tweak */
+  width: 100%;
+  height: 100%;
+  background: rebeccapurple;
+}
+
+.ribbon:before {
+  right:100%;
+}
+
+.ribbon:after {
+  left:100%;
+}
+
+.infoCards {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-start;
+  color: #ffffff;
+  /* -webkit-text-stroke: 1px rgb(0, 0, 0); */
+  /* text-stroke: 1px rgb(0, 0, 0); */
+}
+
+.infoCards h2 {
+  font-size: 6rem;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  -webkit-text-stroke: 1px #121214;
+}
+
+.infoCards h3 {
+  font-size: xx-large;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  -webkit-text-stroke: 1px #121214;
+}
+
+.infoCardItens {
+  width: 300px;
+  background-color: #121214;
+  padding: 1rem;
+  border-radius: 8px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  transition: 0.25s ease;
+  margin-right: 15px;
+  border: 1px solid #676767;
+}
+
+/* .noInagmesCards {
+  position: relative;
+  background-image: url("../../assets/images/cards2.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-x: 150px;
+} */
+
+.container {
+  /* background-image: url("../../assets/images/person-f.png"), url("../../assets/images/person-m.png"),  url("../../assets/images/person-n.png"), url("../../assets/images/person-f.png"); */
+  background-position: -90%, -10%, 50%, 100%; /* define a posição de cada imagem */
+  background-size: 200px;
+  background-repeat: no-repeat; /* evita que as imagens se repitam */
+}
+
 /* welcome page styles ================================================ */
+
 .welcome {
   text-align: center;
 }
@@ -165,14 +283,11 @@ textarea {
 }
 
 .projectsList {
-  
   display: flex;
   flex-direction: column;
-  /* gap: var(--space-spacingMd); */
   align-items: flex-start;
   justify-content: flex-start;
   list-style-type: none;
-  /* margin-bottom: 0px; */
   padding-inline-start: 0px;
   padding: 0rem 3rem 0rem 3rem;
 }
@@ -180,14 +295,10 @@ textarea {
 .projectsItens {
   min-width: 100%;
   max-width: 100%;
-  /* box-sizing: border-box;
-  border: solid #e1e5eb;
-  border-width: 1px; */
   padding-top: 0.75rem;
 }
 
 .projectsName {
-  /* padding: 1rem; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -294,10 +405,6 @@ textarea {
   background-size: cover; 
   background-position-x: center;
   background-position-y: center;
-  
-  /* filter: blur(8px) brightness(50%); */
-  /* z-index: -1; */
-  
 }
 
 .cardImage{

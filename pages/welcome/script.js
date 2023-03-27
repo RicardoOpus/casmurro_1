@@ -114,16 +114,6 @@ async function listProjects() {
   changeStatusColor()
   return result
 }
-
-function changeStatusColor() {
-  const statusHtml = document.querySelectorAll(".projectStatus");
-  statusHtml.forEach( (elem) => {
-    const classStatus = elem.innerText;
-    const n = classStatus.split(" ").pop();
-    elem.classList.add(n);
-  })
-}
-
 restoreBackground() 
 
 $( document ).ready(function() {
