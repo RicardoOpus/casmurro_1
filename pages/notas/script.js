@@ -299,6 +299,7 @@ async function getNotesCardsFilter(filter) {
     }
     setContentOpacity();
     setImageOpacity();
+    removeListClass();
   })
 };
 

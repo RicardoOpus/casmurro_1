@@ -115,13 +115,15 @@ function selectTask(event) {
   const element = event.target;
   const className = element.classList[0]; 
   if (className === "selected") {
-    return element.classList.remove('selected');
+    element.classList.remove('selected');
+    return saveChecklistContent();
   }
   const mouseClick = document.querySelectorAll('.selected');
   for (let i = 0; i < mouseClick.length; i += 1) {
     mouseClick[i].classList.remove('selected');
   }
   event.target.classList.add('selected');
+  saveChecklistContent();
 }
 
 function taskDone(event2) {
