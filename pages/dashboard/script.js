@@ -68,6 +68,22 @@ function getDashCardInfos(data, idQtd, idImg) {
 
 // =====================================================
 
+function addBackgroundProject(time, placeID) {
+  if (time) {
+    const mainDiv = document.getElementById(placeID);
+    const resultImg = `url('${time}')`
+    mainDiv.style.backgroundImage = resultImg;
+    mainDiv.style.backgroundRepeat = "no-repeat";
+    mainDiv.style.backgroundSize = "cover";
+    mainDiv.style.width = "100%";
+    mainDiv.style.backgroundColor  = "#202024";
+  } else {
+    const mainDiv = document.getElementById(placeID);
+    mainDiv.style.backgroundImage = '';
+  };
+};
+
+
 function addInfosHtml(data) {
   document.getElementById("project-title-dashboard").innerText = data.title
   document.getElementById("project-type-dashboard").innerText = data.literary_genre
@@ -85,17 +101,22 @@ function addInfosHtml(data) {
   getDashCardInfos(data.data.notes, 'cardsDashboard_notes_qtd', 'cardsDashboard_notes');
 
   document.getElementById('totalcards').innerText = totalCards;
+
+  addBackgroundProject(data.image_cover, "Dashboard-content")
 };
 
-async function setBackground() {
-  const projectActual = await db.settings.toArray();
-  const idProject = await projectActual[0].currentproject;
-  const projectData = await db.projects.get(idProject);
-  if (projectData.image_cover) {
-    document.body.style.backgroundImage = `url('${projectData.image_cover}')`;
-  } else {
-    restoreBackground() 
-  }
-};
-setBackground();
+// async function setBackground(placeID) {
+//   const projectActual = await db.settings.toArray();
+//   const idProject = await projectActual[0].currentproject;
+//   const projectData = await db.projects.get(idProject);
+//   if (projectData.image_cover) {
+//     // document.body.style.backgroundImage = `url('${projectData.image_cover}')`;
+//     const mainDiv = document.getElementById(placeID);
+//     mainDiv.style.backgroundImage = `url('${projectData.image_cover}')`;
+//   } else {
+//     restoreBackground() 
+//   }
+// };
+// setBackground("Dashboard-content");
+
 

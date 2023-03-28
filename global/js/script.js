@@ -179,15 +179,11 @@ function resizeImage(imageData) {
     img.onload = () => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
-      // Define as novas dimensões da imagem
       const newWidth = 200;
-      // const ratio = newWidth / img.width;
       const newHeight = 200;
-      // Define o tamanho do canvas e desenha a imagem nele
       canvas.width = newWidth;
       canvas.height = newHeight;
       ctx.drawImage(img, 0, 0, newWidth, newHeight);
-      // Converte o canvas para base64 e resolve a Promise com o resultado
       const resizedImageData = canvas.toDataURL();
       resolve(resizedImageData);
     };

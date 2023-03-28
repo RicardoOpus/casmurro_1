@@ -67,6 +67,26 @@ $( "#dialog-delete-project" ).dialog({
 	]
 });
 
+function applyFiltersToImage(imageURL) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.filter = 'brightness(0.2)';
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height)   
+      const resizedImageData = canvas.toDataURL();
+      resolve(resizedImageData);
+    }
+    img.onerror = () => {
+      reject(new Error('Erro ao carregar a imagem.'));
+    };
+    img.src = imageURL;
+  });
+}
+
 async function saveProjectCover() {
   const projectActual = await db.settings.toArray();
   const idProject = await projectActual[0].currentproject;
@@ -76,7 +96,8 @@ async function saveProjectCover() {
   const reader = new FileReader();
   reader.onloadend = async () => {
     const base64String = reader.result
-    await db.projects.update(projectData.id, {image_cover: base64String})
+    const  imgFinal = await applyFiltersToImage(base64String)
+    await db.projects.update(projectData.id, {image_cover: imgFinal})
   };
   reader.readAsDataURL(file);
   pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js');

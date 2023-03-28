@@ -158,7 +158,7 @@ textarea {
   text-align: left;
   margin-top: 15px;
   padding: 15px;
-  border-radius: 7px;
+  border-radius: 8px;
   background-color: #121214;
 }
 
@@ -267,6 +267,10 @@ textarea {
 
 .zoom:hover {
   transform: scale(1.08);
+}
+
+.sombras {
+box-shadow: inset 0 250px 150px 0px #202024; 
 }
 
 /* welcome page styles ================================================ */
