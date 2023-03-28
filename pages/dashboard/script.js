@@ -4,7 +4,6 @@ async function recoverProjectInfos() {
   const projectActual = await db.settings.toArray();
   const idProject = await projectActual[0].currentproject;
   const projectData = await db.projects.get(idProject);
-  // const title = projectData.title;
   addInfosHtml(projectData)
 };
 recoverProjectInfos();
@@ -24,7 +23,6 @@ function getStatusColor(status) {
 
 function changeLabelColor(color) {
   const colorResult = getStatusColor(color);
-  console.log(colorResult, color);
   const sheet = document.styleSheets[0];
   sheet.insertRule(`#labelRibbon { background-color: ${colorResult}; }`, sheet.cssRules.length);
   sheet.insertRule(`#labelRibbon:before { background-color: ${colorResult}; }`, sheet.cssRules.length);
@@ -32,12 +30,12 @@ function changeLabelColor(color) {
 }
 
 // =====================================================
+var totalCards = 0;
 
 function changeBackgroundImages(images, id) {
   if (!images || images.length === 0) {
     return;
   }
-  // const container = document.querySelector('.container');
   const container = document.getElementById(id);
   let backgroundImageUrls = '';
   for (let i = 0; i < images.length; i++) {
@@ -46,22 +44,29 @@ function changeBackgroundImages(images, id) {
       backgroundImageUrls += ', ';
     }
   }
-  container.style.backgroundImage = backgroundImageUrls;
+  return container.style.backgroundImage = backgroundImageUrls;
 }
 
 function extractImageCards(array) {
   const imageCards = [];
   for (let i = 0; i < array.length; i++) {
-    const { image_card } = array[i];
-    if (image_card) {
-      imageCards.push(image_card);
+    const { image_card_mini } = array[i];
+    if (image_card_mini) {
+      imageCards.push(image_card_mini);
     }
   }
   return imageCards;
 }
 
-// =====================================================
+function getDashCardInfos(data, idQtd, idImg) {
+  const qtdWorld = data.length;
+  totalCards += qtdWorld
+  document.getElementById(idQtd).innerText = qtdWorld;
+  const imgsMini = extractImageCards(data)
+  return changeBackgroundImages(imgsMini, idImg)
+}
 
+// =====================================================
 
 function addInfosHtml(data) {
   document.getElementById("project-title-dashboard").innerText = data.title
@@ -72,21 +77,14 @@ function addInfosHtml(data) {
   changeLabelColor(data.status);
   document.getElementById("project-resume").innerText = data.description;
 
-  const qtdWorld = data.data.world.length;
-  document.getElementById("cardsDashboard_mundo_qtd").innerText = qtdWorld;
-  const imgsWorld = extractImageCards(data.data.world)
-  changeBackgroundImages(imgsWorld, 'cardsDashboard_mundo')
+  getDashCardInfos(data.data.world, 'cardsDashboard_mundo_qtd', 'cardsDashboard_mundo');
+  getDashCardInfos(data.data.characters, 'cardsDashboard_characters_qtd', 'cardsDashboard_characters');
+  getDashCardInfos(data.data.scenes, 'cardsDashboard_scenes_qtd', 'cardsDashboard_scenes');
+  getDashCardInfos(data.data.chapters, 'cardsDashboard_structure_qtd', 'cardsDashboard_structure');
+  getDashCardInfos(data.data.timeline, 'cardsDashboard_timeline_qtd', 'cardsDashboard_timeline');
+  getDashCardInfos(data.data.notes, 'cardsDashboard_notes_qtd', 'cardsDashboard_notes');
 
-
-  $('#dinamic').append(
-    `
-    <h2>${data.title}</h2>
-    <img id="imageid" src="${ !data.image_cover ? 'assets/images/manuscript.jpeg' : data.image_cover }" class="coverImage" width="300">
-    <div>
-    <input type="button" value="Editar" onclick="pageChange('#dinamic', 'components/projects/editProject.html', 'components/projects/script.js')">
-    </div>
-    `
-  )
+  document.getElementById('totalcards').innerText = totalCards;
 };
 
 async function setBackground() {
@@ -100,3 +98,4 @@ async function setBackground() {
   }
 };
 setBackground();
+

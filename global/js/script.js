@@ -173,6 +173,31 @@ async function deleteCard(cardType) {
   });
 };
 
+function resizeImage(imageData) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      // Define as novas dimensões da imagem
+      const newWidth = 200;
+      // const ratio = newWidth / img.width;
+      const newHeight = 200;
+      // Define o tamanho do canvas e desenha a imagem nele
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+      ctx.drawImage(img, 0, 0, newWidth, newHeight);
+      // Converte o canvas para base64 e resolve a Promise com o resultado
+      const resizedImageData = canvas.toDataURL();
+      resolve(resizedImageData);
+    };
+    img.onerror = () => {
+      reject(new Error('Erro ao carregar a imagem.'));
+    };
+    img.src = imageData;
+  });
+}
+
 async function saveCardImage(typeCard, htmlPlace, page, srcipt) {
   const currentID = await getCurrentProjectID();
   const currentCard = await getCurrentCard();
@@ -181,6 +206,10 @@ async function saveCardImage(typeCard, htmlPlace, page, srcipt) {
   const reader = new FileReader();
   reader.onloadend = async () => {
     const base64String = reader.result
+    const resizedImageData = await resizeImage(base64String);
+    await db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data[typeCard][currentCard].image_card_mini = resizedImageData;
+    });
     await db.projects.where('id').equals(currentID).modify( (e) => {
       e.data[typeCard][currentCard].image_card = base64String;
       return pageChange(htmlPlace, page, srcipt);
@@ -198,6 +227,9 @@ async function deleteImageCard(typeCard, htmlPlace, page, srcipt) {
       e.data[typeCard][currentCard].image_card = img;
     });
   } else {
+    await db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data[typeCard][currentCard].image_card_mini = '';
+    });
     await db.projects.where('id').equals(currentID).modify( (e) => {
       e.data[typeCard][currentCard].image_card = '';
     });

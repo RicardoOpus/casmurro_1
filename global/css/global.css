@@ -234,6 +234,7 @@ textarea {
   transition: 0.25s ease;
   margin-right: 15px;
   border: 1px solid #676767;
+  box-shadow: inset 0px 0px 25px 5px #121214;
 }
 
 /* .noInagmesCards {
@@ -249,6 +250,23 @@ textarea {
   background-position: -90%, -10%, 50%, 100%; /* define a posição de cada imagem */
   background-size: 200px;
   background-repeat: no-repeat; /* evita que as imagens se repitam */
+}
+
+.arrowLetf {
+  font-size: 2rem;
+  float: right;
+  text-align: right;
+  margin-top: -30px;
+  margin-bottom: 0px;
+  color: #B4B4B5;
+}
+
+.zoom {
+  transition: transform .2s; 
+}
+
+.zoom:hover {
+  transform: scale(1.08);
 }
 
 /* welcome page styles ================================================ */
@@ -427,16 +445,6 @@ textarea {
   overflow:hidden;
   border-radius: 5px;
 }
-
-/* ---------------------------------------------------------------- */
-
-/* .zoom {
-  transition: transform .2s; 
-}
-
-.zoom:hover {
-  transform: scale(1.08);
-} */
 
 
 /* Characters page styles ================================================ */

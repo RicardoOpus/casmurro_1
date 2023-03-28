@@ -14,9 +14,12 @@ data-trigger="hover" id="estrutura">Estrutura</button>
 data-trigger="hover" id="timeline">Timeline</button>
 <button class="navtrigger ui-button ui-corner-all ui-widget tabInactive" onclick="loadpage('notas')"
 data-trigger="hover" id="notas">Notas</button>
+
 <div class="innerContent">
   <div id="dinamic">
     <section class="card parent">
+      <a class="ui-button ui-corner-all ui-widget" style=" margin-top: 0px; font-size: 1em;" onclick="pageChange('#dinamic', 'components/projects/editProject.html', 'components/projects/script.js')">Editar</a>
+
       <div class="dashboard-header">
         <h1 id="project-title-dashboard" class="dashboardTitle"></h1>
         <div id="project-type-dashboard"></div>
@@ -29,33 +32,44 @@ data-trigger="hover" id="notas">Notas</button>
       <section>
         <h2>Cartões</h2>
         <div class="infoCards"> 
-          <div class="infoCardItens container">
-            <h3>• Personagens</h3>
-            <h2>0</h2>
-          </div>
-          <div id="cardsDashboard_mundo" class="infoCardItens container">
-            <h3>• Mundo</h3>
+          <a id="cardsDashboard_characters" class="infoCardItens container zoom" onclick="loadpage('personagens')">
+            <h3><img src="../../assets/icons/characters.png" alt="characters" > Personagens</h3>
+            <h2 id="cardsDashboard_characters_qtd" >0</h2>
+            <span class="arrowLetf">⧁</span>
+          </a>
+          <a id="cardsDashboard_mundo" class="infoCardItens container zoom" onclick="loadpage('mundo')">
+            <h3><img src="../../assets/icons/world.png" alt="world" > Mundo</h3>
             <h2 id="cardsDashboard_mundo_qtd">0</h2>
-          </div>
-          <div class="infoCardItens container">
-            <h3>• Cenas</h3>
-            <h2>0</h2>
-          </div>
+            <span class="arrowLetf">⧁</span>
+          </a>
+          <a id="cardsDashboard_scenes" class="infoCardItens container zoom" onclick="loadpage('cenas')">
+            <h3><img src="../../assets/icons/scenes.png" alt="scenes" > Cenas</h3>
+            <h2 id="cardsDashboard_scenes_qtd" >0</h2>
+            <span class="arrowLetf">⧁</span>
+          </a>
         </div>
         <div class="infoCards">
-          <div class="infoCardItens container">
-            <h3>• Estrutura</h3>
-            <h2>0</h2>
-          </div>
-          <div class="infoCardItens container">
-            <h3>• Timeline</h3>
-            <h2>0</h2>
-          </div>
-          <div class="infoCardItens container">
-            <h3>• Notas</h3>
-            <h2>0</h2>
-          </div>
+          <a id="cardsDashboard_structure" class="infoCardItens container zoom" onclick="loadpage('estrutura')">
+            <h3><img src="../../assets/icons/structure.png" alt="structure" > Capítulos</h3>
+            <h2 id="cardsDashboard_structure_qtd">0</h2>
+            <span class="arrowLetf">⧁</span>
+          </a>
+          <a id="cardsDashboard_timeline" class="infoCardItens container zoom" onclick="loadpage('timeline')">
+            <h3><img src="../../assets/icons/timeline.png" alt="timeline" > Timeline</h3>
+            <h2 id="cardsDashboard_timeline_qtd">0</h2>
+            <span class="arrowLetf">⧁</span>
+          </a>
+          <a id="cardsDashboard_notes" class="infoCardItens container zoom" onclick="loadpage('notas')">
+            <h3><img src="../../assets/icons/notes.png" alt="notes" > Notas</h3>
+            <h2 id="cardsDashboard_notes_qtd">0</h2>
+            <span class="arrowLetf">⧁</span>
+          </a>
         </div>
+        <h3>Total de cartões <span id="totalcards" style="font-size: 2rem;"></span></h3>
+        <div class="dashboard-divisor"></div>
+      </section>
+      <section>
+        <h2>Ultimos cartões</h2>
       </section>
     </section>
   </div>
