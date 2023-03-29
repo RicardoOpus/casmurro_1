@@ -6,9 +6,7 @@ async function restoreProjectData() {
   const date = convertDateUS(dateConverted);
   Object.keys(projectData).forEach(key => {
     const result = document.getElementById(key);
-    if (key === 'created_at') {
-      return result.value = date;
-    } if (key === 'last_edit') {
+    if (key === 'last_edit') {
       return null
     } if (result) {
       return result.value = projectData[key];

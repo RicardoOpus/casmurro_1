@@ -5,6 +5,9 @@
   <div class="card">
     <input class="editProjectTitle projectInputForm" id="title">
     <p class="delete"><span class="ui-icon ui-icon-trash"></span><a id="deleteProject"> Excluir projeto</a></p>
+    <h3>Subtítlo:</h3>
+    <p class="editProjectSpan" style="margin-top: -15px;">(opcional)</p>
+    <input class="cardInputNormal projectInputResume projectInputForm" id="subtitle" style="height: 20px;">
     <div class="editProjectTable">
       <div class="editProjectBlock">
         <h3>Tipo literário:</h3>
@@ -27,15 +30,19 @@
         </select>
       </div>
       <div class="editProjectBlock">
-        <h3>Data de início:</h3>
-        <input class="cardInputNormal projectInputForm" id="created_at" type="date" timezone="[[timezone]]"> 
+        <h3>Data inicial:</h3>
+        <input class="cardInputNormal projectInputForm" id="startDate" type="date" timezone="[[timezone]]"> 
+        <h3>Data final:</h3>
+        <input class="cardInputNormal projectInputForm" id="finishDate" type="date" timezone="[[timezone]]"> 
+        <label name="showProgress">Exibir progresso em Dashboard?
+          <input type="checkbox" class="projectInputForm" name="showProgress" id="showGoal" value="false" onchange="this.value=this.checked">
+        </label>
       </div>
     </div>
 
     <div>
       <h3>Descrição:</h3>
-      <p class="editProjectSpan">Um resumo sobre o projeto</p>
-      <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="description"></textarea>
+      <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="description" placeholder="Resumo de 1 parágrafo"></textarea>
     </div>
   
   </div>

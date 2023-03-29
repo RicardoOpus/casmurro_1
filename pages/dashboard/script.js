@@ -177,3 +177,28 @@ async function restorelastEditCards() {
   })
 };
 restorelastEditCards()
+
+// const startDate = '2023-01-01';
+// const finishDate = '2023-03-30';
+
+function showProgressBar(startDate, finishDate) {
+  const start = new Date(startDate);
+  const finish = new Date(finishDate);
+  const totalDays = Math.round((finish - start) / (1000 * 60 * 60 * 24)); // total de dias entre as duas datas
+  const remainingDays = Math.round((finish - new Date()) / (1000 * 60 * 60 * 24)); // dias restantes até a data final
+  const progressBar = document.createElement("div");
+  progressBar.classList.add("progress-bar");
+  const progressBarInner = document.createElement("div");
+  progressBarInner.classList.add("progress-bar-inner");
+  progressBarInner.style.width = `${100 - (remainingDays / totalDays) * 100}%`;
+  const progressBarText = document.createElement("div");
+  progressBarText.classList.add("progress-bar-text");
+  progressBarText.innerText = `${remainingDays} dias restantes`;
+  progressBar.appendChild(progressBarInner);
+  progressBar.appendChild(progressBarText);
+  return progressBar;
+}
+
+// var result = showProgressBar(startDate, finishDate);
+
+// console.log(result);
