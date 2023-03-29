@@ -345,10 +345,11 @@ async function createNewTimeline() {
     date: timelineDate.value,
     id: ID
   };
-  db.projects.where('id').equals(pjID).modify( (ele) => {
+  await db.projects.where('id').equals(pjID).modify( (ele) => {
     ele.data.timeline.push(data) 
     }
-  );  
+  );
+  await updateLastEditList('timeline', ID);
   await db.projects.update(pjID,{ last_edit: currentDate,  timestamp: timeStamp });
   return
 };
