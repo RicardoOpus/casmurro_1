@@ -688,6 +688,11 @@ fieldset {
 
 .cardLineTop {
   border: 1px solid #0a62ce5a;
+  /* margin-top: -10px; */
+}
+
+.cardLineTopChar {
+  border: 1px solid #0a62ce5a;
   margin-top: -10px;
 }
 

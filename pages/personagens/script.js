@@ -127,7 +127,7 @@ async function getCharactersCards() {
               </div>
               <div class="charInfos">
                 <p class="wordlTitle"><span style="color:${ ele.color }">🯊 </span>${ ele.title }</p>
-                <hr class="cardLineTop">
+                <hr class="cardLineTopChar">
                 <span> ${ ele.category } ${!ele.age ? '' : ` • ${ele.age} anos`}</span>
                 <div class="worldCardDivider">
                   <div>
@@ -168,7 +168,7 @@ async function getCharactersCardsFiltred(filter) {
                 </div>
                 <div class="charInfos">
                   <p class="wordlTitle"><span style="color:${ ele.color }">🯊 </span>${ ele.title }</p>
-                  <hr class="cardLineTop">
+                  <hr class="cardLineTopChar">
                   <span> ${ ele.category } ${!ele.age ? '' : ` • ${ele.age} anos`}</span>
                   <div class="worldCardDivider">
                     <div>

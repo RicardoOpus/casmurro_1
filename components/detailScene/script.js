@@ -151,34 +151,32 @@ elementsArray.forEach(async function(elem) {
   projectData.data.scenes.forEach( (ele) => {
     if (ele.id === currentCardID) {
       elem.addEventListener("change", async (event) => {
-        lastEditListModify('scenes', currentCardID);
+        await lastEditListModify('scenes', currentCardID);
         const field = elem.id
         if (elem.id === "date") {
           const checkIfisNew = await checkTimelineNewDate(ele.id, 'scene')
           if (checkIfisNew) {
             console.log('existe');
             const positionInArrayTime = projectData.data.timeline.map(function (e) { return e.id; }).indexOf(ele.date);
-            return db.projects.where('id').equals(currentID).modify( (e) => {
+            return await db.projects.where('id').equals(currentID).modify( (e) => {
               e.data.timeline[positionInArrayTime].date = elem.value;
             });
           } else {
             const timelineID = await NewTimelineGeneric(elem.value, ele.id, 'scene');
-            return db.projects.where('id').equals(currentID).modify( (e) => {
+            return await db.projects.where('id').equals(currentID).modify( (e) => {
               e.data.scenes[positionInArray][field] = timelineID;
             });
           }
         } if (elem.id === "time" || elem.id === "weather") {
-          db.projects.where('id').equals(currentID).modify( (e) => {
+          await db.projects.where('id').equals(currentID).modify( (e) => {
             e.data.scenes[positionInArray][field] = elem.value;
           });
         } else {
-          db.projects.where('id').equals(currentID).modify( (e) => {
+          await db.projects.where('id').equals(currentID).modify( (e) => {
             e.data.scenes[positionInArray][field] = elem.value;
           });
         }
       });
-    } else {
-      return null
     }
   })
 });

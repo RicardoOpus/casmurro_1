@@ -33,7 +33,7 @@ elementsArray.forEach(async function(elem) {
       elem.addEventListener("input", async () => {
         await lastEditListModify('notes', currentCardID);
         const field = elem.id
-        db.projects.where('id').equals(currentID).modify( (e) => {
+        await db.projects.where('id').equals(currentID).modify( (e) => {
           e.data.notes[positionInArray][field] = elem.value;
         });
       });

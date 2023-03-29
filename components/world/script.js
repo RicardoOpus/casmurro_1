@@ -48,30 +48,28 @@ elementsArray.forEach(async function(elem) {
   projectData.data.world.forEach( (ele) => {
     if (ele.id === currentCardID) {
       elem.addEventListener("input", async () => {
-        lastEditListModify('world', currentCardID);
+        await lastEditListModify('world', currentCardID);
         const field = elem.id
         if (elem.id === "date") {
           const checkIfisNew = await checkTimelineNewDate(ele.id, 'historical-event')
           if (checkIfisNew) {
             console.log('já existe');
             const positionInArrayTime = projectData.data.timeline.map(function (e) { return e.id; }).indexOf(ele.date);
-            return db.projects.where('id').equals(currentID).modify( (e) => {
+            return await db.projects.where('id').equals(currentID).modify( (e) => {
               e.data.timeline[positionInArrayTime].date = elem.value;
             });
           } else {
             const timelineID = await NewTimelineGeneric(elem.value, ele.id, 'historical-event');
-            return db.projects.where('id').equals(currentID).modify( (e) => {
+            return await db.projects.where('id').equals(currentID).modify( (e) => {
               e.data.world[positionInArray][field] = timelineID;
             });
           }
         } else {
-          db.projects.where('id').equals(currentID).modify( (e) => {
+          await db.projects.where('id').equals(currentID).modify( (e) => {
             e.data.world[positionInArray][field] = elem.value;
           });
         }
       });
-    } else {
-      return null
     }
   })
 });
