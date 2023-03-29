@@ -129,7 +129,7 @@ function returnDomainName(table) {
 async function restorelastEdirCards() {
   const project = await getCurrentProject();
   if (project.recent_edits.length === 0) {
-    return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
+    return $('#lastCards').append("<div><p>No momento não existem cartões</p></div>")
   }
   project.recent_edits.forEach( (ele) => {
     const icon = returnDomainName(ele.table)

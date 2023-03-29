@@ -288,10 +288,13 @@ box-shadow: inset 0 250px 150px 0px #202024;
   margin-top: 10px;
 }
 
-
 .dashboard-divisor2 {
   margin-top: 5px;
   border-bottom: 1px solid #313131;
+}
+
+.divLastCards {
+  width: 100%;
 }
 
 /* welcome page styles ================================================ */
@@ -685,6 +688,7 @@ fieldset {
 
 .cardLineTop {
   border: 1px solid #0a62ce5a;
+  margin-top: -10px;
 }
 
 .worldCardDivider {

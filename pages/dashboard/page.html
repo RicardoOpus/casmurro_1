@@ -30,45 +30,53 @@ data-trigger="hover" id="notas">Notas</button>
         <p id="project-resume"></p>
         <div class="dashboard-divisor"></div>
       </div>
-      <section>
-        <h2>Cartões</h2>
-        <div class="infoCards"> 
-          <a id="cardsDashboard_characters" class="infoCardItens container zoom" onclick="loadpage('personagens')">
-            <h3><img src="../../assets/icons/characters.png" alt="characters" > Personagens</h3>
-            <h2 id="cardsDashboard_characters_qtd" >0</h2>
-            <span class="arrowLetf">⧁</span>
-          </a>
-          <a id="cardsDashboard_mundo" class="infoCardItens container zoom" onclick="loadpage('mundo')">
-            <h3><img src="../../assets/icons/world.png" alt="world" > Mundo</h3>
-            <h2 id="cardsDashboard_mundo_qtd">0</h2>
-            <span class="arrowLetf">⧁</span>
-          </a>
-          <a id="cardsDashboard_scenes" class="infoCardItens container zoom" onclick="loadpage('cenas')">
-            <h3><img src="../../assets/icons/scenes.png" alt="scenes" > Cenas</h3>
-            <h2 id="cardsDashboard_scenes_qtd" >0</h2>
-            <span class="arrowLetf">⧁</span>
-          </a>
+      <section style="display: flex;">
+        <div>
+          <h2>Cartões</h2>
+            <div class="infoCards"> 
+              <a id="cardsDashboard_characters" class="infoCardItens container zoom" onclick="loadpage('personagens')">
+                <h3><img src="../../assets/icons/characters.png" alt="characters" > Personagens</h3>
+                <h2 id="cardsDashboard_characters_qtd" >0</h2>
+                <span class="arrowLetf">⧁</span>
+              </a>
+              <a id="cardsDashboard_mundo" class="infoCardItens container zoom" onclick="loadpage('mundo')">
+                <h3><img src="../../assets/icons/world.png" alt="world" > Mundo</h3>
+                <h2 id="cardsDashboard_mundo_qtd">0</h2>
+                <span class="arrowLetf">⧁</span>
+              </a>
+            </div>
+            <div class="infoCards">
+              <a id="cardsDashboard_scenes" class="infoCardItens container zoom" onclick="loadpage('cenas')">
+                <h3><img src="../../assets/icons/scenes.png" alt="scenes" > Cenas</h3>
+                <h2 id="cardsDashboard_scenes_qtd" >0</h2>
+                <span class="arrowLetf">⧁</span>
+              </a>
+              <a id="cardsDashboard_structure" class="infoCardItens container zoom" onclick="loadpage('estrutura')">
+                <h3><img src="../../assets/icons/structure.png" alt="structure" > Capítulos</h3>
+                <h2 id="cardsDashboard_structure_qtd">0</h2>
+                <span class="arrowLetf">⧁</span>
+              </a>
+            </div>
+            <div class="infoCards">
+              <a id="cardsDashboard_timeline" class="infoCardItens container zoom" onclick="loadpage('timeline')">
+                <h3><img src="../../assets/icons/timeline.png" alt="timeline" > Timeline</h3>
+                <h2 id="cardsDashboard_timeline_qtd">0</h2>
+                <span class="arrowLetf">⧁</span>
+              </a>
+              <a id="cardsDashboard_notes" class="infoCardItens container zoom" onclick="loadpage('notas')">
+                <h3><img src="../../assets/icons/notes.png" alt="notes" > Notas</h3>
+                <h2 id="cardsDashboard_notes_qtd">0</h2>
+                <span class="arrowLetf">⧁</span>
+              </a>
+            </div>
         </div>
-        <div class="infoCards">
-          <a id="cardsDashboard_structure" class="infoCardItens container zoom" onclick="loadpage('estrutura')">
-            <h3><img src="../../assets/icons/structure.png" alt="structure" > Capítulos</h3>
-            <h2 id="cardsDashboard_structure_qtd">0</h2>
-            <span class="arrowLetf">⧁</span>
-          </a>
-          <a id="cardsDashboard_timeline" class="infoCardItens container zoom" onclick="loadpage('timeline')">
-            <h3><img src="../../assets/icons/timeline.png" alt="timeline" > Timeline</h3>
-            <h2 id="cardsDashboard_timeline_qtd">0</h2>
-            <span class="arrowLetf">⧁</span>
-          </a>
-          <a id="cardsDashboard_notes" class="infoCardItens container zoom" onclick="loadpage('notas')">
-            <h3><img src="../../assets/icons/notes.png" alt="notes" > Notas</h3>
-            <h2 id="cardsDashboard_notes_qtd">0</h2>
-            <span class="arrowLetf">⧁</span>
-          </a>
+        <div class="divLastCards">
+          <h2>Últimos cartões</h2>
+          <div id="lastCards"></div>
         </div>
-        <h3>Total de cartões <span id="totalcards" style="font-size: 2rem;"></span></h3>
-        <div class="dashboard-divisor"></div>
       </section>
+      <h3>Total de cartões <span id="totalcards" style="font-size: 2rem;"></span></h3>
+      <div class="dashboard-divisor"></div>
       <section>
         <h2>Ultimos cartões</h2>
         <div id="lastCards"></div>
