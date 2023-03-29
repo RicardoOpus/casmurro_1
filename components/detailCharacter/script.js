@@ -114,6 +114,7 @@ elementsArray.forEach(async function(elem) {
   projectData.data.characters.forEach( (ele) => {
     if (ele.id === currentCardID) {
       elem.addEventListener("change", async (event) => {
+        lastEditListModify('characters', currentCardID);
         const field = elem.id
         if (elem.id === "date_birth") {
           const checkIfisNew = await checkTimelineNewDate(ele.id, 'characters-birth')
@@ -156,8 +157,6 @@ elementsArray.forEach(async function(elem) {
           });
         }
       });
-    } else {
-      return null
     }
   })
 });

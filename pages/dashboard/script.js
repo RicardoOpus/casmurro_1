@@ -126,33 +126,32 @@ function returnDomainName(table) {
   }
 };
 
-async function restorelastEdirCards() {
+async function restorelastEditCards() {
   const project = await getCurrentProject();
   if (project.recent_edits.length === 0) {
     return $('#lastCards').append("<div><p>No momento não existem cartões</p></div>")
   }
-  project.recent_edits.forEach( (ele) => {
+  project.recent_edits.reverse().forEach( (ele, i) => {
     const icon = returnDomainName(ele.table)
     const cardItem = project.data[ele.table].filter( (item) => item.id === ele.id)
-
-  return $('#lastCards').append(
-    `
-    <div style="margin-top: 5px">
-      <div class="imgLastEditItem">
-        <img src=${icon.img}>
-      </div>
-      <div>
-        ${cardItem[0].category? cardItem[0].category : icon.name}
-        <div class="lastEditTitle">
-          <a>
-          ${cardItem[0].title}
-          </a>
+    return $('#lastCards').append(
+      `
+      <div style="margin-top: 5px">
+        <div class="imgLastEditItem">
+          <img src=${icon.img}>
+        </div>
+        <div>
+          ${cardItem[0].category? cardItem[0].category : icon.name}
+          <div class="lastEditTitle">
+            <a>
+            ${cardItem[0].title}
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="dashboard-divisor2"></div>
-    `
-  );
+      <div class="dashboard-divisor2"></div>
+      `
+    );
   })
 };
-restorelastEdirCards()
+restorelastEditCards()

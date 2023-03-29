@@ -167,7 +167,8 @@ async function getCurrentCardID() {
 async function deleteCard(cardType) {
   const currentID = await getCurrentProjectID();
   const currentCard = await getCurrentCard();
-
+  const currentCardID = await getCurrentCardID();
+  await deleteLastEditCards(cardType, currentCardID);
   db.projects.where('id').equals(currentID).modify( (e) => {
     e.data[cardType].splice(currentCard, 1)
   });
@@ -659,5 +660,32 @@ async function updateLastEditList(table, id) {
   return db.projects.where('id').equals(projectID).modify( (e) => {
     e.recent_edits.splice(0, 1);
     e.recent_edits.push(result);
+  })
+};
+
+async function lastEditListModify(table, id) {
+  const project = await getCurrentProject();
+  const projectID = await getCurrentProjectID();
+  const result = { table: table, id: id}
+  const verify = project.recent_edits.some( (item) => item.id === id && item.table === table)
+  if (verify) {
+    const index = project.recent_edits.findIndex(item => item.id === id && item.table === table);
+    return db.projects.where('id').equals(projectID).modify( (e) => {
+      e.recent_edits.splice(index, 1);
+      e.recent_edits.push(result);
+    })
+  }
+  return db.projects.where('id').equals(projectID).modify( (e) => {
+    e.recent_edits.splice(0, 1);
+    e.recent_edits.push(result);
+  })
+}
+
+async function deleteLastEditCards(table, id) {
+  const project = await getCurrentProject();
+  const projectID = await getCurrentProjectID();
+  const index = project.recent_edits.findIndex(item => item.id === id && item.table === table);
+  return db.projects.where('id').equals(projectID).modify( (e) => {
+    e.recent_edits.splice(index, 1);
   })
 };
