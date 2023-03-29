@@ -50,7 +50,7 @@ async function createNewProject() {
   const idNew = await db.projects.add(
     { title: inputName.value,
       status: "novo",
-      cards_qty: 0,
+      recent_edits: [],
       data: data,
       literary_genre: null,
       description: null,

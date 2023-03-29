@@ -213,7 +213,8 @@ async function createNewCharacter() {
   db.projects.where('id').equals(pjID).modify( (ele) => {
     ele.data.characters.push(data) 
     }
-  );  
+  );
+  await updateLastEditList('characters', ID)
   await db.projects.update(pjID,{ last_edit: currentDate,  timestamp: timeStamp });
   return
 };

@@ -80,9 +80,9 @@ function addBackgroundProject(time, placeID) {
   } else {
     const mainDiv = document.getElementById(placeID);
     mainDiv.style.backgroundImage = '';
+    mainDiv.classList.remove('sombras');
   };
 };
-
 
 function addInfosHtml(data) {
   document.getElementById("project-title-dashboard").innerText = data.title
@@ -105,18 +105,54 @@ function addInfosHtml(data) {
   addBackgroundProject(data.image_cover, "Dashboard-content")
 };
 
-// async function setBackground(placeID) {
-//   const projectActual = await db.settings.toArray();
-//   const idProject = await projectActual[0].currentproject;
-//   const projectData = await db.projects.get(idProject);
-//   if (projectData.image_cover) {
-//     // document.body.style.backgroundImage = `url('${projectData.image_cover}')`;
-//     const mainDiv = document.getElementById(placeID);
-//     mainDiv.style.backgroundImage = `url('${projectData.image_cover}')`;
-//   } else {
-//     restoreBackground() 
-//   }
-// };
-// setBackground("Dashboard-content");
+function returnDomainName(table) {
+  switch (table) {
+    case 'characters':
+      return {name: 'Personagem', img: "../../assets/icons/characters.png"}
+    case 'world':
+      return {name: 'Mundo', img: "../../assets/icons/world.png"}
+    case 'scenes':
+      return {name: 'Cena', img: "../../assets/icons/scenes.png"}
+    case 'chapters':
+      return {name: 'Capítulo', img: "../../assets/icons/structure.png"}
+    case 'parts':
+      return {name: 'Parte', img: "../../assets/icons/structure.png"}
+    case 'timeline':
+      return {name: 'Timeline', img: "../../assets/icons/timeline.png"}
+    case 'notes':
+      return {name: 'Notas', img: "../../assets/icons/notes.png"}
+    default:
+      break;
+  }
+};
 
+async function restorelastEdirCards() {
+  const project = await getCurrentProject();
+  if (project.recent_edits.length === 0) {
+    return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
+  }
+  project.recent_edits.forEach( (ele) => {
+    const icon = returnDomainName(ele.table)
+    const cardItem = project.data[ele.table].filter( (item) => item.id === ele.id)
 
+  return $('#lastCards').append(
+    `
+    <div style="margin-top: 5px">
+      <div class="imgLastEditItem">
+        <img src=${icon.img}>
+      </div>
+      <div>
+        ${cardItem[0].category? cardItem[0].category : icon.name}
+        <div class="lastEditTitle">
+          <a>
+          ${cardItem[0].title}
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="dashboard-divisor2"></div>
+    `
+  );
+  })
+};
+restorelastEdirCards()
