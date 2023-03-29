@@ -10,7 +10,7 @@ buttons: [
     id: "okBtn-world",
     disabled: false,
     click: async function() {
-      await createNewTimeline();
+      await createNewWorld();
       $( this ).dialog( "close" );
       document.getElementById("worldName").value = "";
       pageChange('#dinamic', 'pages/mundo/page.html', 'pages/mundo/script.js')
@@ -187,7 +187,7 @@ async function getWorldCardsFiltred(filter) {
   })
 };
 
-async function createNewTimeline() {
+async function createNewWorld() {
   const ID = await idManager('id_world')
   const currentDate = new Date();
   const timeStamp = Date.now();
@@ -204,7 +204,8 @@ async function createNewTimeline() {
   db.projects.where('id').equals(pjID).modify( (ele) => {
     ele.data.world.push(data) 
     }
-  );  
+  ); 
+  await updateLastEditList('world', ID)
   await db.projects.update(pjID,{ last_edit: currentDate,  timestamp: timeStamp });
   return
 };

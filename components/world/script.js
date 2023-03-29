@@ -48,6 +48,7 @@ elementsArray.forEach(async function(elem) {
   projectData.data.world.forEach( (ele) => {
     if (ele.id === currentCardID) {
       elem.addEventListener("input", async () => {
+        lastEditListModify('world', currentCardID);
         const field = elem.id
         if (elem.id === "date") {
           const checkIfisNew = await checkTimelineNewDate(ele.id, 'historical-event')
