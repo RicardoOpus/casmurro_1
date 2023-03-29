@@ -83,10 +83,11 @@ async function createNewStructure() {
     position: 'Z',
     id: ID
   };
-  db.projects.where('id').equals(pjID).modify( (ele) => {
+  await db.projects.where('id').equals(pjID).modify( (ele) => {
     ele.data[structureCat.value].push(data) 
     }
   );
+  await updateLastEditList(structureCat.value, ID);
   await db.projects.update(pjID,{ last_edit: currentDate,  timestamp: timeStamp });
   return
 };

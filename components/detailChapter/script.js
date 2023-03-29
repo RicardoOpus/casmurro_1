@@ -39,6 +39,7 @@ elementsArray.forEach(async function(elem) {
   projectData.data.chapters.forEach( (ele) => {
     if (ele.id === currentCardID) {
       elem.addEventListener("input", async () => {
+        lastEditListModify('chapters', currentCardID);
         const field = elem.id
         db.projects.where('id').equals(currentID).modify( (e) => {
           e.data.chapters[positionInArray][field] = elem.value;
