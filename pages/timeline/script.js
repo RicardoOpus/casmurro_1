@@ -265,7 +265,7 @@ async function getTimeline() {
       prevDate = dateConverted;
       const li = $(`
       <li>
-        <div class="timeline-section">
+        <div class="timeline-section" id='${ ele.id }'>
           <a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `setCurrentCard('timeline', ${ ele.id }), pageChange('#project-list', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
             <div class="timeDate">${ dateConverted }</div>
             <div class="time" style="background: linear-gradient(to right, ${charName.color ? charName.color : '#2D333B'} 0%, #2D333B 85%); color: ${charName.color ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>

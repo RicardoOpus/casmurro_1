@@ -126,6 +126,27 @@ function returnDomainName(table) {
   }
 };
 
+function returnPageName(table) {
+  switch (table) {
+    case 'characters':
+      return {pagename: 'personagens', detailPage: 'detailCharacter'}
+    case 'world':
+      return {pagename: 'mundo', detailPage: 'world'};
+    case 'scenes':
+      return {pagename: 'cenas', detailPage: 'detailScene'};
+    case 'chapters':
+      return {pagename: 'estrutura', detailPage: 'detailChapter'}
+    case 'parts':
+      return {pagename: 'estrutura', detailPage: 'detailPart'}
+    case 'timeline':
+      return {pagename: 'timeline', detailPage: 'detailTimeline'}
+    case 'notes':
+      return {pagename: 'notas', detailPage: 'detailNote'}
+    default:
+      break;
+  }
+};
+
 async function restorelastEditCards() {
   const project = await getCurrentProject();
   if (project.recent_edits.length === 0) {
@@ -133,20 +154,21 @@ async function restorelastEditCards() {
   }
   project.recent_edits.reverse().forEach( (ele, i) => {
     const icon = returnDomainName(ele.table)
+    const page = returnPageName(ele.table)
     const cardItem = project.data[ele.table].filter( (item) => item.id === ele.id)
     return $('#lastCards').append(
       `
       <div style="margin-top: 5px">
         <div class="imgLastEditItem">
-          <img src=${icon.img}>
+          <img src=${icon.img} style='width: 25px;'>
         </div>
         <div>
           ${cardItem[0].category? cardItem[0].category : icon.name}
-          <div class="lastEditTitle">
-            <a>
+          <a class="lastEditTitle" onclick="loadpageDetail('${page.pagename}', '${ele.table === 'parts' ? 'project-list' : ele.id}', '${cardItem[0].category === 'Listas' ? 'detailList' : page.detailPage}')">
+            <div onclick="setCurrentCard('${ ele.table }', ${ ele.id })">
             ${cardItem[0].title}
-            </a>
-          </div>
+            </div>
+          </a>
         </div>
       </div>
       <div class="dashboard-divisor2"></div>

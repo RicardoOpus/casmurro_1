@@ -118,7 +118,7 @@ async function getWorldCards() {
     $('#project-list').append(
       `
       <ul class="worldList">
-        <li class="worldItens">
+        <li class="worldItens" id='${ ele.id }'>
         <a onclick="pageChange('#project-list', 'components/world/page.html', 'components/world/script.js')">
           <div class="worldName" onclick="setCurrentCard('world', ${ ele.id })">
             <div class="contentListWorld">

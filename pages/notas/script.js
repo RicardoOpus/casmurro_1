@@ -183,7 +183,7 @@ async function getNotesCards() {
       return $('#project-list').append(
         `
         <ul class="worldList">
-          <li class="worldItens">
+          <li class="worldItens" id='${ ele.id }'>
           <a onclick="pageChange('#project-list', 'components/detailList/page.html', 'components/detailList/script.js')">
             <div class="worldName" onclick="setCurrentCard('notes', ${ ele.id })">
               <div class="contentListWorld">
@@ -209,7 +209,7 @@ async function getNotesCards() {
     $('#project-list').append(
       `
       <ul class="worldList">
-        <li class="worldItens">
+        <li class="worldItens" id='${ ele.id }'>
         <a onclick="pageChange('#project-list', 'components/detailNote/page.html', 'components/detailNote/script.js')">
           <div class="worldName" onclick="setCurrentCard('notes', ${ ele.id })">
             <div class="contentListWorld">
