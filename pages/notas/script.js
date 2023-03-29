@@ -18,10 +18,11 @@ async function createNewNote() {
     image_card: '',
     id: ID
   };
-  db.projects.where('id').equals(pjID).modify( (ele) => {
+  await db.projects.where('id').equals(pjID).modify( (ele) => {
     ele.data.notes.push(data) 
     }
   );
+  await updateLastEditList('notes', ID);
   await db.projects.update(pjID,{ last_edit: currentDate,  timestamp: timeStamp });
   return
 };
@@ -41,10 +42,11 @@ async function createNewNoteList() {
     category: 'Listas',
     id: ID
   };
-  db.projects.where('id').equals(pjID).modify( (ele) => {
+  await db.projects.where('id').equals(pjID).modify( (ele) => {
     ele.data.notes.push(data) 
     }
   );
+  await updateLastEditList('notes', ID);
   await db.projects.update(pjID,{ last_edit: currentDate,  timestamp: timeStamp });
   return pageChange('#dinamic', 'pages/notas/page.html', 'pages/notas/script.js')
 };

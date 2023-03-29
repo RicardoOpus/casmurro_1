@@ -32,6 +32,7 @@ elementsArray.forEach(async function(elem) {
   projectData.data.notes.forEach( (ele) => {
     if (ele.id === currentCardID) {
       elem.addEventListener("input", async () => {
+        await lastEditListModify('notes', currentCardID);
         const field = elem.id
         db.projects.where('id').equals(currentID).modify( (e) => {
           e.data.notes[positionInArray][field] = elem.value;
@@ -44,12 +45,14 @@ elementsArray.forEach(async function(elem) {
 var selectItem = document.getElementById('lista-tarefas');
 
 async function saveChecklistContent() {
+  const currentCardID = await getCurrentCardID();
   const list = document.querySelector('ol').innerHTML;
   const currentID = await getCurrentProjectID();
   const positionInArray = await getCurrentCard();
-  db.projects.where('id').equals(currentID).modify( (e) => {
+  await db.projects.where('id').equals(currentID).modify( (e) => {
     e.data.notes[positionInArray].content = list;
   });
+  await lastEditListModify('notes', currentCardID);
 }
 
 function newTask() {
