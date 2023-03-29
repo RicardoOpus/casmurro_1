@@ -168,10 +168,11 @@ async function createNewScene() {
     place_id: '',
     id: ID
   };
-  db.projects.where('id').equals(pjID).modify( (ele) => {
+  await db.projects.where('id').equals(pjID).modify( (ele) => {
     ele.data.scenes.push(data) 
     }
-  );  
+  );
+  await updateLastEditList('scenes', ID);
   await db.projects.update(pjID,{ last_edit: currentDate,  timestamp: timeStamp });
   return
 };

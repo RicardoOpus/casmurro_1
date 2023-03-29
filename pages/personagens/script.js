@@ -214,7 +214,7 @@ async function createNewCharacter() {
     ele.data.characters.push(data) 
     }
   );
-  await updateLastEditList('characters', ID)
+  await updateLastEditList('characters', ID);
   await db.projects.update(pjID,{ last_edit: currentDate,  timestamp: timeStamp });
   return
 };
