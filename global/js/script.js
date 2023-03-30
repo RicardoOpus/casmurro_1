@@ -122,10 +122,12 @@ function convertDateUS(dateUS) {
 }
 
 function convertDatePT_BR(dateUS) {
-  const date = dateUS;
-  const [year, month, day] = date.split('-');
-  const dateBR = [day, month, year].join('/');;
-  return dateBR;
+  if (dateUS) {
+    const date = dateUS;
+    const [year, month, day] = date.split('-');
+    const dateBR = [day, month, year].join('/');;
+    return dateBR
+  };
 }
 
 function restoreBackground() {
