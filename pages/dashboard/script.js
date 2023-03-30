@@ -84,6 +84,59 @@ function addBackgroundProject(time, placeID) {
   };
 };
 
+// function diasDecorridos(data) {
+//   const hoje = new Date();
+//   const dataInicio = new Date(data);
+//   const diffTime = Math.abs(hoje - dataInicio);
+//   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+//   return { remain: `${diffDays} dias decorridos` };
+// }
+
+function diasDecorridos(data) {
+  const hoje = new Date();
+  const dataInicio = new Date(data);
+  const diffTime = dataInicio - hoje;
+  
+  if (diffTime > 0) {
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return { remain: `faltam ${diffDays} dias para o início` };
+  } else {
+    const diffDays = Math.ceil(Math.abs(diffTime) / (1000 * 60 * 60 * 24));
+    return { remain: `${diffDays} dias decorridos` };
+  }
+}
+
+function calcularProgresso(startDate, finishDate) {
+  if (!startDate && !finishDate) {
+    return { remain: `sem dadas` }
+  }
+  if (!finishDate) {
+    return diasDecorridos(startDate);
+  }
+  const ONE_DAY_IN_MS = 86400000; // quantidade de milissegundos em um dia
+  const startDateMs = new Date(startDate).getTime();
+  const finishDateMs = new Date(finishDate).getTime();
+  const totalDurationMs = finishDateMs - startDateMs;
+  const elapsedMs = Date.now() - startDateMs;
+  const percentageElapsed = (elapsedMs / totalDurationMs) * 100;
+  const percentageElapsedRounded = Math.round(percentageElapsed * 100) / 100;
+  const daysRemaining = Math.ceil((finishDateMs - Date.now()) / ONE_DAY_IN_MS);
+  console.log(percentageElapsedRounded, finishDate);
+  let finalRemain = '';
+  if (daysRemaining <= 0) {
+    finalRemain = 'Prazo encerrado'
+  } else if (daysRemaining === 1) {
+    finalRemain = 'Último dia'
+  } else {
+    finalRemain = daysRemaining + ' dias restantes'
+  }
+  return {
+    porcent: percentageElapsedRounded + '%',
+    remain: finalRemain
+  };
+};
+
+
 function addInfosHtml(data) {
   document.getElementById("project-title-dashboard").innerText = data.title
   document.getElementById("project-subtitle").innerHTML = `<h2>${ data.subtitle }</h2>` 
@@ -94,6 +147,16 @@ function addInfosHtml(data) {
   label.style.fontSize = '1rem';
   changeLabelColor(data.status);
   document.getElementById("project-resume").innerText = data.description;
+
+  // Progressbar section
+  data.deadline? document.getElementById("sectionDeadline").style.display = 'block': '';
+  const resultTime = calcularProgresso(data.startDate, data.finishDate)
+  const startDateBR = convertDatePT_BR(data.startDate)
+  document.getElementById('startDate').innerText = data.startDate ? startDateBR : 'sem dada';
+  const finishDateBR = convertDatePT_BR(data.finishDate)
+  document.getElementById('finishDate').innerText = data.finishDate ? finishDateBR : 'sem prazo';
+  document.getElementById('daysRemaining').innerText = resultTime.remain;
+  document.getElementById('progressBarColor').style.width = resultTime.porcent;
 
   getDashCardInfos(data.data.world, 'cardsDashboard_mundo_qtd', 'cardsDashboard_mundo');
   getDashCardInfos(data.data.characters, 'cardsDashboard_characters_qtd', 'cardsDashboard_characters');
@@ -180,26 +243,11 @@ async function restorelastEditCards() {
 };
 restorelastEditCards()
 
-// const startDate = '2023-01-01';
-// const finishDate = '2023-03-30';
+// var startDate = '2023-01-01';
+// var finishDate = '2023-03-30';
 
-function showProgressBar(startDate, finishDate) {
-  const start = new Date(startDate);
-  const finish = new Date(finishDate);
-  const totalDays = Math.round((finish - start) / (1000 * 60 * 60 * 24)); // total de dias entre as duas datas
-  const remainingDays = Math.round((finish - new Date()) / (1000 * 60 * 60 * 24)); // dias restantes até a data final
-  const progressBar = document.createElement("div");
-  progressBar.classList.add("progress-bar");
-  const progressBarInner = document.createElement("div");
-  progressBarInner.classList.add("progress-bar-inner");
-  progressBarInner.style.width = `${100 - (remainingDays / totalDays) * 100}%`;
-  const progressBarText = document.createElement("div");
-  progressBarText.classList.add("progress-bar-text");
-  progressBarText.innerText = `${remainingDays} dias restantes`;
-  progressBar.appendChild(progressBarInner);
-  progressBar.appendChild(progressBarText);
-  return progressBar;
-}
+
+
 
 // var result = showProgressBar(startDate, finishDate);
 
