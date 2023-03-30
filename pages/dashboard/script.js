@@ -136,7 +136,6 @@ function calcularProgresso(startDate, finishDate) {
   };
 };
 
-
 function addInfosHtml(data) {
   document.getElementById("project-title-dashboard").innerText = data.title
   document.getElementById("project-subtitle").innerHTML = `<h2>${ data.subtitle }</h2>` 
@@ -243,12 +242,368 @@ async function restorelastEditCards() {
 };
 restorelastEditCards()
 
-// var startDate = '2023-01-01';
-// var finishDate = '2023-03-30';
+// daqui para baixo mandar para script global:
+
+function salvarComoJSON(objeto, nomeArquivo) {
+  const texto = JSON.stringify(objeto);
+  const data = new Blob([texto], { type: 'application/json' });
+  const url = window.URL.createObjectURL(data);
+  const link = document.createElement('a');
+  link.setAttribute('href', url);
+  link.setAttribute('download', nomeArquivo);
+  link.click();
+}
+
+async function exportProject() {
+  const project = await getCurrentProject();
+  salvarComoJSON(project, 'meu_projeto')
+}
+
+// =====================================
+
+function getResume() {
+  return `
+  ██████╗ ███████╗███████╗██╗   ██╗███╗   ███╗ ██████╗
+  ██╔══██╗██╔════╝██╔════╝██║   ██║████╗ ████║██╔═══██╗
+  ██████╔╝█████╗  ███████╗██║   ██║██╔████╔██║██║   ██║
+  ██╔══██╗██╔══╝  ╚════██║██║   ██║██║╚██╔╝██║██║   ██║
+  ██║  ██║███████╗███████║╚██████╔╝██║ ╚═╝ ██║╚██████╔╝
+  ╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝ ╚═╝     ╚═╝ ╚═════╝
+
+`;
+};
+
+function getPersonagens() {
+  return `
+  ██████╗ ███████╗██████╗ ███████╗ ██████╗ ███╗   ██╗ █████╗  ██████╗ ███████╗███╗   ██╗███████╗
+  ██╔══██╗██╔════╝██╔══██╗██╔════╝██╔═══██╗████╗  ██║██╔══██╗██╔════╝ ██╔════╝████╗  ██║██╔════╝
+  ██████╔╝█████╗  ██████╔╝███████╗██║   ██║██╔██╗ ██║███████║██║  ███╗█████╗  ██╔██╗ ██║███████╗
+  ██╔═══╝ ██╔══╝  ██╔══██╗╚════██║██║   ██║██║╚██╗██║██╔══██║██║   ██║██╔══╝  ██║╚██╗██║╚════██║
+  ██║     ███████╗██║  ██║███████║╚██████╔╝██║ ╚████║██║  ██║╚██████╔╝███████╗██║ ╚████║███████║
+  ╚═╝     ╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚══════╝
+
+`
+}
+
+function getMundo() {
+  return `
+  ███╗   ███╗██╗   ██╗███╗   ██╗██████╗  ██████╗ 
+  ████╗ ████║██║   ██║████╗  ██║██╔══██╗██╔═══██╗
+  ██╔████╔██║██║   ██║██╔██╗ ██║██║  ██║██║   ██║
+  ██║╚██╔╝██║██║   ██║██║╚██╗██║██║  ██║██║   ██║
+  ██║ ╚═╝ ██║╚██████╔╝██║ ╚████║██████╔╝╚██████╔╝
+  ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═════╝  ╚═════╝ 
+
+`
+}
+
+function getCenas() {
+  return `
+  ██████╗███████╗███╗   ██╗ █████╗ ███████╗
+  ██╔════╝██╔════╝████╗  ██║██╔══██╗██╔════╝
+  ██║     █████╗  ██╔██╗ ██║███████║███████╗
+  ██║     ██╔══╝  ██║╚██╗██║██╔══██║╚════██║
+  ╚██████╗███████╗██║ ╚████║██║  ██║███████║
+   ╚═════╝╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝  
+
+`
+}
+
+function getTimeline() {
+  return `
+  ████████╗██╗███╗   ███╗███████╗██╗     ██╗███╗   ██╗███████╗
+  ╚══██╔══╝██║████╗ ████║██╔════╝██║     ██║████╗  ██║██╔════╝
+     ██║   ██║██╔████╔██║█████╗  ██║     ██║██╔██╗ ██║█████╗  
+     ██║   ██║██║╚██╔╝██║██╔══╝  ██║     ██║██║╚██╗██║██╔══╝  
+     ██║   ██║██║ ╚═╝ ██║███████╗███████╗██║██║ ╚████║███████╗
+     ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝
+
+`
+}
+
+function getTextChar(project) {
+  const personagnes = project.data.characters;
+  const propriedades = ['title', 'category', 'age', 'gender', 'ocupation', 'extra_1', 'extra_1_1', 'extra_2', 'extra_2_1', 'extra_2_2', 'extra_3', 'extra_3_1', 'content'];
+  let texto = '';
+  for (let index = 0; index < personagnes.length; index++) {
+    const element = personagnes[index];
+    for (let i = 0; i < propriedades.length; i++) {
+      const propriedade = propriedades[i];
+      if (element[propriedade]) {
+        let nomePropriedade;
+        switch (propriedade) {
+          case 'title':
+            nomePropriedade = 'Nome';
+            break;
+          case 'category':
+            nomePropriedade = 'Categoria';
+            break;
+          case 'age':
+            nomePropriedade = 'Idade';
+            break;
+          case 'gender':
+            nomePropriedade = 'Gênero';
+            break;
+          case 'ocupation':
+            nomePropriedade = 'Ocupação';
+            break;
+          case 'content':
+            nomePropriedade = 'Conteúdo';
+            break;
+          case 'extra_1':
+            nomePropriedade = 'Características físicas';
+            break;
+          case 'extra_1_1':
+            nomePropriedade = 'Características psicologias';
+            break;
+          case 'extra_2':
+            nomePropriedade = 'Motivação';
+            break;
+          case 'extra_2_1':
+            nomePropriedade = 'Conflito';
+            break;
+          case 'extra_2_2':
+            nomePropriedade = 'Transformação';
+            break;
+          case 'extra_3':
+            nomePropriedade = 'Dualidade - Interior';
+            break;
+          case 'extra_3_1':
+            nomePropriedade = 'Dualidade - Exterior';
+            break;
+          default:
+            nomePropriedade = '';
+            break;
+        }
+        texto += `${nomePropriedade}: ${element[propriedade]}\n`;
+      }
+    }
+    texto += '\n-----------------------------------------------------\n';
+  }
+  return texto;
+}
+
+function getTextWorld(project) {
+  const personagnes = project.data.world;
+  const propriedades = ['title', 'category', 'date', 'content'];
+  let texto = '';
+  for (let index = 0; index < personagnes.length; index++) {
+    const element = personagnes[index];
+    for (let i = 0; i < propriedades.length; i++) {
+      const propriedade = propriedades[i];
+      if (element[propriedade]) {
+        let nomePropriedade;
+        switch (propriedade) {
+          case 'title':
+            nomePropriedade = 'Título';
+            break;
+          case 'category':
+            nomePropriedade = 'Categoria';
+            break;
+          case 'date':
+            nomePropriedade = 'Data';
+            break;
+          case 'content':
+            nomePropriedade = 'Conteúdo';
+            break;
+          default:
+            nomePropriedade = '';
+            break;
+        }
+        texto += `${nomePropriedade}: ${element[propriedade]}\n`;
+      }
+    }
+    texto += '\n-----------------------------------------------------\n';
+  }
+  return texto;
+}
+
+function getTextScenes(project) {
+  const personagnes = project.data.scenes;
+  const propriedades = ['title', 'time', 'status', 'weather', 'content', 'extra_1', 'extra_1-1','extra_1-2','extra_1-3','extra_2','extra_2-1','extra_3', 'extra_3-1', 'extra_3-2', 'content_full'];
+  let texto = '';
+  for (let index = 0; index < personagnes.length; index++) {
+    const element = personagnes[index];
+    for (let i = 0; i < propriedades.length; i++) {
+      const propriedade = propriedades[i];
+      if (element[propriedade]) {
+        let nomePropriedade;
+        switch (propriedade) {
+          case 'title':
+            nomePropriedade = 'Título';
+            break;
+          case 'time':
+            nomePropriedade = 'Período';
+            break;
+          case 'status':
+            nomePropriedade = 'Status';
+            break;
+          case 'weather':
+            nomePropriedade = 'Condições climáticas';
+            break;
+          case 'content':
+            nomePropriedade = 'Conteúdo';
+            break;
+          case 'extra_1':
+            nomePropriedade = 'Abertura';
+            break;
+          case 'extra_1-1':
+            nomePropriedade = 'Final';
+            break;
+          case 'extra_1-2':
+            nomePropriedade = 'Pico emocional';
+            break;
+          case 'extra_1-3':
+            nomePropriedade = 'Personagens e agendas';
+            break;
+          case 'extra_2':
+            nomePropriedade = 'Detalhes e realismo';
+            break;
+          case 'extra_2-1':
+            nomePropriedade = 'Interação com o ambiente';
+            break;
+          case 'extra_3':
+            nomePropriedade = 'Revela/esconde';
+            break;
+          case 'extra_3-1':
+            nomePropriedade = 'O leitor deve deduzir';
+            break;
+          case 'extra_3-2':
+            nomePropriedade = 'Símbolos';
+            break;
+          case 'content_full':
+            nomePropriedade = 'Descrição completa';
+            break;
+          default:
+            nomePropriedade = '';
+            break;
+        }
+        texto += `${nomePropriedade}: ${element[propriedade]}\n`;
+      }
+    }
+    texto += '\n-----------------------------------------------------\n';
+  }
+  return texto;
+}
+
+function getTextTimeline(project) {
+  const personagnes = sortByDate(project.data.timeline);
+  const propriedades = ['date', 'title', 'elementType', 'elementID', 'content'];
+  let texto = '';
+  for (let index = 0; index < personagnes.length; index++) {
+    const element = personagnes[index];
+    for (let i = 0; i < propriedades.length; i++) {
+      const propriedade = propriedades[i];
+      if (element[propriedade]) {
+        let nomePropriedade;
+        switch (propriedade) {
+          case 'date':
+            nomePropriedade = 'Data';
+            break;
+          case 'title':
+            nomePropriedade = 'Título';
+            break;
+          case 'elementType':
+            nomePropriedade = 'Tipo de evento';
+            break;
+          case 'elementID':
+            nomePropriedade = 'Nome da pessoa';
+            break;
+          case 'content':
+            nomePropriedade = 'Conteúdo';
+            break;
+          default:
+            nomePropriedade = '';
+            break;
+        }
+        if (element[propriedade] === 'historical-event') {
+          texto += `Fato histórcio, consulte Mundo.`
+        } else if (propriedade === 'elementID') {
+          const result = project.data.characters.filter((ele) => ele.id === element[propriedade])
+          texto += `${result[0].title}\n`;
+        } else if (element[propriedade] === 'characters-birth'){
+          texto += `Nasce personagem: `;
+        } else if (element[propriedade] === 'characters-death'){
+          texto += `Morre personagem: `;
+        } else {
+          texto += `${nomePropriedade}: ${element[propriedade]}\n`;
+        }
+      }
+    }
+    texto += '\n-----------------------------------------------------\n';
+  }
+  return texto;
+}
+
+
+function gerarArquivoTxt(objeto, nomeArquivo) {
+  let texto = '';
+  for (let chave in objeto) {
+    if (typeof objeto[chave] !== 'object') {
+      if (chave === 'title') {
+        texto += `Título: ${objeto[chave]}\n\n`;
+      } else if (chave === 'subtitle') {
+        texto += `Subtítulo: ${objeto[chave]}\n\n`;
+      } else if (chave === 'status') {
+        texto += `Status: ${objeto[chave]}\n\n`;
+      } else if (chave === 'literary_genre') {
+        texto += `Tipo literário: ${objeto[chave]}\n\n`;
+      } else if (chave === 'description') {
+        texto += `Resumo: ${objeto[chave]}\n\n`;
+      } else if (chave === 'startDate') {
+        texto += `Data inicial: ${objeto[chave]}\n`;
+      } else if (chave === 'finishDate') {
+        texto += `Data final: ${objeto[chave]}\n\n`;
+      } else {
+        texto += `${objeto[chave]}\n`;
+      }
+    } 
+  }
+  basic = getResume() + texto + getPersonagens();
+  basicChars = basic + getTextChar(objeto);
+  WorldChars = basicChars +  getMundo() + getTextWorld(objeto);
+  ScenesWorld = WorldChars +  getCenas() + getTextScenes(objeto);
+  TimelineScenes = ScenesWorld + getTimeline() + getTextTimeline(objeto)
+
+
+  const data = new Blob([TimelineScenes], { type: 'text/plain' });
+  const url = window.URL.createObjectURL(data);
+  const link = document.createElement('a');
+  link.setAttribute('href', url);
+  link.setAttribute('download', nomeArquivo);
+  link.click();
+}
+
+
+function clearData1(project) {
+  delete project.created_at;
+  delete project.id;
+  delete project.id_characters;
+  delete project.id_notes;
+  delete project.id_scenes;
+  delete project.id_structure;
+  delete project.id_timeline;
+  delete project.id_world;
+  delete project.image_cover;
+  delete project.last_edit;
+  delete project.recent_edits;
+  delete project.settings;
+  delete project.showSubtitle;
+  delete project.timestamp;
+  // delete project.data;
+  return project
+}
+
+
+async function exportProjectText() {
+  const project = await getCurrentProject();
+  const genre = project.literary_genre ? `(${project.literary_genre})` : ''
+  const name = project.title + ' ' + genre + ' - Projeto Casmurro';
+  const basicInfos = clearData1(project);
+  gerarArquivoTxt(basicInfos, name)
+}
 
 
 
 
-// var result = showProgressBar(startDate, finishDate);
 
-// console.log(result);
