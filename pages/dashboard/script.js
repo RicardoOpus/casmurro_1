@@ -347,7 +347,7 @@ function getNotas() {
 
 function getTextChar(project) {
   const personagnes = sortByKey(project.data.characters, 'title')
-  const propriedades = ['title', 'category', 'age', 'gender', 'ocupation', 'extra_1', 'extra_1_1', 'extra_2', 'extra_2_1', 'extra_2_2', 'extra_3', 'extra_3_1', 'content'];
+  const propriedades = ['title', 'category', 'age', 'gender', 'ocupation', 'date_birth', 'date_death', 'extra_1', 'extra_1_1', 'extra_2', 'extra_2_1', 'extra_2_2', 'extra_3', 'extra_3_1', 'content'];
   let texto = '';
   for (let index = 0; index < personagnes.length; index++) {
     const element = personagnes[index];
@@ -370,6 +370,12 @@ function getTextChar(project) {
             break;
           case 'ocupation':
             nomePropriedade = 'Ocupação';
+            break;
+          case 'date_birth':
+            nomePropriedade = 'Data de nascimento';
+            break;
+          case 'date_death':
+            nomePropriedade = 'Data da morte';
             break;
           case 'content':
             nomePropriedade = 'Conteúdo';
@@ -398,8 +404,15 @@ function getTextChar(project) {
           default:
             nomePropriedade = '';
             break;
+        } if (propriedade === 'date_birth') {
+          const result = project.data.timeline.filter((ele) => ele.id === element[propriedade]);
+          texto += `${nomePropriedade}: ${result[0].date}\n`;
+        } else if (propriedade === 'date_death') {
+          const result = project.data.timeline.filter((ele) => ele.id === element[propriedade]);
+          texto += `${nomePropriedade}: ${result[0].date}\n`;
+        } else {
+          texto += `${nomePropriedade}: ${element[propriedade]}\n`;
         }
-        texto += `${nomePropriedade}: ${element[propriedade]}\n`;
       }
     }
     texto += '\n-----------------------------------------------------\n';
@@ -433,8 +446,12 @@ function getTextWorld(project) {
           default:
             nomePropriedade = '';
             break;
+        } if (propriedade === 'date') {
+          const result = project.data.timeline.filter((ele) => ele.id === element[propriedade]);
+          texto += `${nomePropriedade}: ${result[0].date}\n`;
+        } else {
+          texto += `${nomePropriedade}: ${element[propriedade]}\n`;
         }
-        texto += `${nomePropriedade}: ${element[propriedade]}\n`;
       }
     }
     texto += '\n-----------------------------------------------------\n';
@@ -444,7 +461,7 @@ function getTextWorld(project) {
 
 function getTextScenes(project) {
   const personagnes = sortByKey(project.data.scenes, 'position')
-  const propriedades = ['title', 'time', 'status', 'weather', 'content', 'extra_1', 'extra_1-1','extra_1-2','extra_1-3','extra_2','extra_2-1','extra_3', 'extra_3-1', 'extra_3-2', 'content_full'];
+  const propriedades = ['title', 'pov_id', 'status', 'place_id','time', 'date', 'weather', 'content', 'extra_1', 'extra_1-1','extra_1-2','extra_1-3','extra_2','extra_2-1','extra_3', 'extra_3-1', 'extra_3-2', 'content_full'];
   let texto = '';
   for (let index = 0; index < personagnes.length; index++) {
     const element = personagnes[index];
@@ -456,11 +473,20 @@ function getTextScenes(project) {
           case 'title':
             nomePropriedade = 'Título';
             break;
+          case 'pov_id':
+            nomePropriedade = 'POV';
+            break;
+          case 'place_id':
+            nomePropriedade = 'Local';
+            break;
           case 'time':
             nomePropriedade = 'Período';
             break;
           case 'status':
             nomePropriedade = 'Status';
+            break;
+          case 'date':
+            nomePropriedade = 'Data';
             break;
           case 'weather':
             nomePropriedade = 'Condições climáticas';
@@ -501,8 +527,18 @@ function getTextScenes(project) {
           default:
             nomePropriedade = '';
             break;
+        } if (propriedade === 'pov_id') {
+          const result = project.data.characters.filter((ele) => ele.id === Number(element[propriedade]));
+          texto += `POV: ${result[0].title}\n`;
+        } else if (propriedade === 'place_id') {
+          const result = project.data.world.filter((ele) => ele.id === Number(element[propriedade]));
+          texto += `Local: ${result[0].title}\n`;
+        } else if (propriedade === 'date') {
+          const result = project.data.timeline.filter((ele) => ele.id === element[propriedade]);
+          texto += `${nomePropriedade}: ${result[0].date}\n`;
+        } else {
+          texto += `${nomePropriedade}: ${element[propriedade]}\n`;
         }
-        texto += `${nomePropriedade}: ${element[propriedade]}\n`;
       }
     }
     texto += '\n-----------------------------------------------------\n';
