@@ -51,15 +51,14 @@ elementsArray.forEach(async function(elem) {
         await lastEditListModify('world', currentCardID);
         const field = elem.id
         if (elem.id === "date") {
-          const checkIfisNew = await checkTimelineNewDate(ele.id, 'historical-event')
+          const checkIfisNew = await checkTimelineNewDate(ele.id, 'historical-event', 'historicID')
           if (checkIfisNew) {
-            console.log('já existe');
             const positionInArrayTime = projectData.data.timeline.map(function (e) { return e.id; }).indexOf(ele.date);
             return await db.projects.where('id').equals(currentID).modify( (e) => {
               e.data.timeline[positionInArrayTime].date = elem.value;
             });
           } else {
-            const timelineID = await NewTimelineGeneric(elem.value, ele.id, 'historical-event');
+            const timelineID = await NewTimelineGenericWorld(elem.value, ele.id, 'historical-event');
             return await db.projects.where('id').equals(currentID).modify( (e) => {
               e.data.world[positionInArray][field] = timelineID;
             });

@@ -253,7 +253,8 @@ async function getTimeline() {
     const ele = resultSorted[i];
     const dateConverted = convertDatePT_BR(ele.date);
     const symbolTitle = handleTitle(ele.elementType);
-    const charName = await getElementTitle(ele.elementType, ele.elementID);
+    const identfyType =  ele.elementID || ele.historicID || ele.sceneID;
+    const charName = await getElementTitle(ele.elementType, identfyType);
     if (dateConverted === prevDate) {
       prevLi.find('p').append(`
       <a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `setCurrentCard('timeline', ${ ele.id }), pageChange('#project-list', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">

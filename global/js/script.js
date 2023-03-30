@@ -657,6 +657,8 @@ async function NewTimelineGeneric(date, idCharcter, type) {
     title: '',
     elementType: type,
     elementID: idCharcter,
+    historicID: '',
+    sceneID: '',
     content: '',
     date: date,
     id: ID
@@ -670,10 +672,64 @@ async function NewTimelineGeneric(date, idCharcter, type) {
   return result
 };
 
-async function checkTimelineNewDate(elementID, typeDate) {
+async function NewTimelineGenericWorld(date, historicID, type) {
+  const ID = await idManager('id_timeline');
+  const pjID = await getCurrentProjectID();
+  let result = ''
+  const data = {
+    title: '',
+    elementType: type,
+    elementID: '',
+    historicID: historicID,
+    sceneID: '',
+    content: '',
+    date: date,
+    id: ID
+  };
+  await db.projects.where('id').equals(pjID).modify( (ele) => {
+    ele.data.timeline.push(data)
+    }
+  ).then( () => {
+    result = data.id
+  });
+  return result
+};
+
+async function NewTimelineGenericScene(date, sceneID, type) {
+  const ID = await idManager('id_timeline');
+  const pjID = await getCurrentProjectID();
+  let result = ''
+  const data = {
+    title: '',
+    elementType: type,
+    elementID: '',
+    historicID: '',
+    sceneID: sceneID,
+    content: '',
+    date: date,
+    id: ID
+  };
+  await db.projects.where('id').equals(pjID).modify( (ele) => {
+    ele.data.timeline.push(data)
+    }
+  ).then( () => {
+    result = data.id
+  });
+  return result
+};
+// =========== backup
+// async function checkTimelineNewDate(elementID, typeDate) {
+//   const projectData = await getCurrentProject();
+//   const resultado = projectData.data.timeline.filter((item) => {
+//     return item.elementType === typeDate && item.elementID === elementID;
+//   });
+//   return resultado.length > 0;
+// }
+
+async function checkTimelineNewDate(elementID, typeDate, type) {
   const projectData = await getCurrentProject();
   const resultado = projectData.data.timeline.filter((item) => {
-    return item.elementType === typeDate && item.elementID === elementID;
+    return item.elementType === typeDate && item[type] === elementID;
   });
   return resultado.length > 0;
 }

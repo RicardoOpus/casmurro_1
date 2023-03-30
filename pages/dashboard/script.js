@@ -309,6 +309,18 @@ function getCenas() {
 `
 }
 
+function getStructure() {
+  return `
+  ███████╗███████╗████████╗██████╗ ██╗   ██╗████████╗██╗   ██╗██████╗  █████╗ 
+  ██╔════╝██╔════╝╚══██╔══╝██╔══██╗██║   ██║╚══██╔══╝██║   ██║██╔══██╗██╔══██╗
+  █████╗  ███████╗   ██║   ██████╔╝██║   ██║   ██║   ██║   ██║██████╔╝███████║
+  ██╔══╝  ╚════██║   ██║   ██╔══██╗██║   ██║   ██║   ██║   ██║██╔══██╗██╔══██║
+  ███████╗███████║   ██║   ██║  ██║╚██████╔╝   ██║   ╚██████╔╝██║  ██║██║  ██║
+  ╚══════╝╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+
+`
+}
+
 function getTimeline() {
   return `
   ████████╗██╗███╗   ███╗███████╗██╗     ██╗███╗   ██╗███████╗
@@ -317,6 +329,18 @@ function getTimeline() {
      ██║   ██║██║╚██╔╝██║██╔══╝  ██║     ██║██║╚██╗██║██╔══╝  
      ██║   ██║██║ ╚═╝ ██║███████╗███████╗██║██║ ╚████║███████╗
      ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝
+
+`
+}
+
+function getNotas() {
+  return `
+  ███╗   ██╗ ██████╗ ████████╗ █████╗ ███████╗
+  ████╗  ██║██╔═══██╗╚══██╔══╝██╔══██╗██╔════╝
+  ██╔██╗ ██║██║   ██║   ██║   ███████║███████╗
+  ██║╚██╗██║██║   ██║   ██║   ██╔══██║╚════██║
+  ██║ ╚████║╚██████╔╝   ██║   ██║  ██║███████║
+  ╚═╝  ╚═══╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝╚══════╝
 
 `
 }
@@ -486,9 +510,76 @@ function getTextScenes(project) {
   return texto;
 }
 
+function getTextParts(project) {
+  const personagnes = project.data.parts;
+  const propriedades = ['title', 'content', 'content_full'];
+  let texto = '';
+  texto += '\n__________________ Partes __________________\n'
+  for (let index = 0; index < personagnes.length; index++) {
+    const element = personagnes[index];
+    for (let i = 0; i < propriedades.length; i++) {
+      const propriedade = propriedades[i];
+      if (element[propriedade]) {
+        let nomePropriedade;
+        switch (propriedade) {
+          case 'title':
+            nomePropriedade = 'Título';
+            break;
+          case 'content':
+            nomePropriedade = 'Resumo';
+            break;
+          case 'content_full':
+            nomePropriedade = 'Conteúdo';
+            break;
+          default:
+            nomePropriedade = '';
+            break;
+        }
+        texto += `${nomePropriedade}: ${element[propriedade]}\n`;
+      }
+    }
+    texto += '\n-----------------------------------------------------\n';
+  }
+
+  return texto;
+}
+
+function getTextChapters(project) {
+  const personagnes = project.data.chapters;
+  const propriedades = ['title', 'content', 'content_full'];
+  let texto = '';
+  texto += '\n__________________ Capítulos __________________\n';
+  for (let index = 0; index < personagnes.length; index++) {
+    const element = personagnes[index];
+    for (let i = 0; i < propriedades.length; i++) {
+      const propriedade = propriedades[i];
+      if (element[propriedade]) {
+        let nomePropriedade;
+        switch (propriedade) {
+          case 'title':
+            nomePropriedade = 'Título';
+            break;
+          case 'content':
+            nomePropriedade = 'Resumo';
+            break;
+          case 'content_full':
+            nomePropriedade = 'Conteúdo';
+            break;
+          default:
+            nomePropriedade = '';
+            break;
+        }
+        texto += `${nomePropriedade}: ${element[propriedade]}\n`;
+      }
+    }
+    texto += '\n-----------------------------------------------------\n';
+  }
+  return texto;
+}
+
 function getTextTimeline(project) {
   const personagnes = sortByDate(project.data.timeline);
-  const propriedades = ['date', 'title', 'elementType', 'elementID', 'content'];
+  const propriedades = ['date', 'title', 'elementType', 'elementID', 'historicID', 'sceneID', 'content'];
   let texto = '';
   for (let index = 0; index < personagnes.length; index++) {
     const element = personagnes[index];
@@ -509,6 +600,12 @@ function getTextTimeline(project) {
           case 'elementID':
             nomePropriedade = 'Nome da pessoa';
             break;
+          case 'historicID':
+            nomePropriedade = 'Fato histórico';
+            break;
+          case 'sceneID':
+            nomePropriedade = 'Cena';
+            break;
           case 'content':
             nomePropriedade = 'Conteúdo';
             break;
@@ -516,8 +613,12 @@ function getTextTimeline(project) {
             nomePropriedade = '';
             break;
         }
-        if (element[propriedade] === 'historical-event') {
-          texto += `Fato histórcio, consulte Mundo.`
+        if (propriedade === 'historicID') {
+          const result = project.data.world.filter((ele) => ele.id === element[propriedade])
+          texto += `${result[0].title}\n`;
+        } else if (propriedade === 'sceneID') {
+          const result = project.data.scenes.filter((ele) => ele.id === element[propriedade])
+          texto += `${result[0].title}\n`;
         } else if (propriedade === 'elementID') {
           const result = project.data.characters.filter((ele) => ele.id === element[propriedade])
           texto += `${result[0].title}\n`;
@@ -525,9 +626,49 @@ function getTextTimeline(project) {
           texto += `Nasce personagem: `;
         } else if (element[propriedade] === 'characters-death'){
           texto += `Morre personagem: `;
+        } else if (element[propriedade] === 'historical-event'){
+          texto += `Fato histórico: `;
+        } else if (element[propriedade] === 'scene'){
+          texto += `Cena: `;
         } else {
           texto += `${nomePropriedade}: ${element[propriedade]}\n`;
         }
+      }
+    }
+    texto += '\n-----------------------------------------------------\n';
+  }
+  return texto;
+}
+
+function getTextNotes(project) {
+  const personagnes = project.data.notes;
+  const propriedades = ['title', 'category', 'content'];
+  let texto = '';
+  for (let index = 0; index < personagnes.length; index++) {
+    const element = personagnes[index];
+    for (let i = 0; i < propriedades.length; i++) {
+      const propriedade = propriedades[i];
+      if (element[propriedade]) {
+        let nomePropriedade;
+        switch (propriedade) {
+          case 'title':
+            nomePropriedade = 'Título';
+            break;
+          case 'category':
+            nomePropriedade = 'Categoria';
+            break;
+          case 'content':
+            nomePropriedade = 'Conteúdo';
+            break;
+          default:
+            nomePropriedade = '';
+            break;
+        }
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = element[propriedade];
+          const plainText = tempDiv.innerText;
+          texto += `${nomePropriedade}: ${plainText}\n`;
+        // texto += `${nomePropriedade}: ${element[propriedade]}\n`;
       }
     }
     texto += '\n-----------------------------------------------------\n';
@@ -563,10 +704,11 @@ function gerarArquivoTxt(objeto, nomeArquivo) {
   basicChars = basic + getTextChar(objeto);
   WorldChars = basicChars +  getMundo() + getTextWorld(objeto);
   ScenesWorld = WorldChars +  getCenas() + getTextScenes(objeto);
-  TimelineScenes = ScenesWorld + getTimeline() + getTextTimeline(objeto)
+  StructureScenes = ScenesWorld + getStructure() + getTextParts(objeto) + getTextChapters(objeto);
+  TimelineStructure = StructureScenes + getTimeline() + getTextTimeline(objeto);
+  NotesAndFinish = TimelineStructure + getNotas() + getTextNotes(objeto)
 
-
-  const data = new Blob([TimelineScenes], { type: 'text/plain' });
+  const data = new Blob([NotesAndFinish], { type: 'text/plain' });
   const url = window.URL.createObjectURL(data);
   const link = document.createElement('a');
   link.setAttribute('href', url);
