@@ -346,7 +346,7 @@ function getNotas() {
 }
 
 function getTextChar(project) {
-  const personagnes = project.data.characters;
+  const personagnes = sortByKey(project.data.characters, 'title')
   const propriedades = ['title', 'category', 'age', 'gender', 'ocupation', 'extra_1', 'extra_1_1', 'extra_2', 'extra_2_1', 'extra_2_2', 'extra_3', 'extra_3_1', 'content'];
   let texto = '';
   for (let index = 0; index < personagnes.length; index++) {
@@ -408,7 +408,7 @@ function getTextChar(project) {
 }
 
 function getTextWorld(project) {
-  const personagnes = project.data.world;
+  const personagnes = sortByKey(project.data.world, 'title');
   const propriedades = ['title', 'category', 'date', 'content'];
   let texto = '';
   for (let index = 0; index < personagnes.length; index++) {
@@ -443,7 +443,7 @@ function getTextWorld(project) {
 }
 
 function getTextScenes(project) {
-  const personagnes = project.data.scenes;
+  const personagnes = sortByKey(project.data.scenes, 'position')
   const propriedades = ['title', 'time', 'status', 'weather', 'content', 'extra_1', 'extra_1-1','extra_1-2','extra_1-3','extra_2','extra_2-1','extra_3', 'extra_3-1', 'extra_3-2', 'content_full'];
   let texto = '';
   for (let index = 0; index < personagnes.length; index++) {
@@ -511,7 +511,7 @@ function getTextScenes(project) {
 }
 
 function getTextParts(project) {
-  const personagnes = project.data.parts;
+  const personagnes = sortByKey(project.data.parts, 'position');
   const propriedades = ['title', 'content', 'content_full'];
   let texto = '';
   texto += '\n__________________ Partes __________________\n'
@@ -545,7 +545,7 @@ function getTextParts(project) {
 }
 
 function getTextChapters(project) {
-  const personagnes = project.data.chapters;
+  const personagnes = sortByKey(project.data.chapters, 'position');
   const propriedades = ['title', 'content', 'content_full'];
   let texto = '';
   texto += '\n__________________ Capítulos __________________\n';
@@ -641,7 +641,7 @@ function getTextTimeline(project) {
 }
 
 function getTextNotes(project) {
-  const personagnes = project.data.notes;
+  const personagnes = sortByKey(project.data.notes, 'title');
   const propriedades = ['title', 'category', 'content'];
   let texto = '';
   for (let index = 0; index < personagnes.length; index++) {
