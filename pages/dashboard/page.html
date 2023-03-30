@@ -17,11 +17,14 @@ data-trigger="hover" id="notas">Notas</button>
 
 <div class="innerContent">
   <div id="dinamic">
+    
     <section class="card parent sombras" id="Dashboard-content">
       <a class="ui-button ui-corner-all ui-widget" style=" margin-top: 0px; font-size: 1em;" onclick="pageChange('#dinamic', 'components/projects/editProject.html', 'components/projects/script.js')">Editar</a>
 
       <div class="dashboard-header">
         <h1 id="project-title-dashboard" class="dashboardTitle"></h1>
+        <div id="project-subtitle" style="margin-top: -20px; margin-bottom: -15px; display: none;">
+        </div>
         <div id="project-type-dashboard" style=" margin-bottom: 0px;
         margin-top: 0px;"></div>
         <div id="labelRibbon" class="ribbon">

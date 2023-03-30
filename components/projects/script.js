@@ -8,10 +8,19 @@ async function restoreProjectData() {
     const result = document.getElementById(key);
     if (key === 'last_edit') {
       return null
+    } if (key === 'deadline' && projectData[key] ) {
+      const deadLineChk = document.getElementById('deadline');
+      deadLineChk.checked = true;
+    }  if (key === 'showSubtitle' && projectData[key] ) {
+      const subtitleChk = document.getElementById('showSubtitle');
+      const subtitleDiv = document.getElementById('subtitleDiv');
+      subtitleDiv.style.display = 'block';
+      subtitleChk.checked = true;
     } if (result) {
       return result.value = projectData[key];
     } 
   })
+  resumeHeight("description")
 }
 restoreProjectData()
 
@@ -119,4 +128,36 @@ $( "#deleteProject" ).click(function( event ) {
 document.getElementById("btnSaveWall").disabled = true;
 document.getElementById("my-image").addEventListener('input', () => { 
   document.getElementById("btnSaveWall").disabled = false;
+});
+
+var deadLineChk = document.getElementById('deadline');
+deadLineChk.addEventListener('change', async function() {
+  const currentID = await getCurrentProjectID();
+  if (this.checked) {
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.deadline = true;
+    });
+  } else {
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.deadline = false;
+    });
+  }
+});
+
+var subtitleChk = document.getElementById('showSubtitle');
+var subtitleDiv = document.getElementById('subtitleDiv');
+subtitleChk.addEventListener('change', async function() {
+  const currentID = await getCurrentProjectID();
+  if (this.checked) {
+    subtitleDiv.style.display = 'block';
+    subtitleDiv.scrollIntoView({behavior: 'smooth'})
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.showSubtitle = true;
+    });
+  } else {
+    subtitleDiv.style.display = 'none';
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.showSubtitle = false;
+    });
+  }
 });

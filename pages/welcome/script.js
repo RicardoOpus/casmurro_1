@@ -49,6 +49,7 @@ async function createNewProject() {
   const data = { world: [], characters: [], scenes: [], timeline: [], chapters: [], parts: [], notes: [] };
   const idNew = await db.projects.add(
     { title: inputName.value,
+      subtitle: '',
       status: "novo",
       recent_edits: [],
       data: data,

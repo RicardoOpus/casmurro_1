@@ -86,6 +86,8 @@ function addBackgroundProject(time, placeID) {
 
 function addInfosHtml(data) {
   document.getElementById("project-title-dashboard").innerText = data.title
+  document.getElementById("project-subtitle").innerHTML = `<h2>${ data.subtitle }</h2>` 
+  data.showSubtitle? document.getElementById("project-subtitle").style.display = 'block': '';
   document.getElementById("project-type-dashboard").innerText = data.literary_genre
   const label = document.getElementById("project-status-dashboard");
   label.innerText = data.status;
