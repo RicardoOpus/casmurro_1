@@ -5,7 +5,7 @@ async function recoverProjectInfos() {
   const projectActual = await db.settings.toArray();
   const idProject = await projectActual[0].currentproject;
   const projectData = await db.projects.get(idProject);
-  addInfosHtml(projectData)
+  addInfosHtml(projectData);
 };
 recoverProjectInfos();
 
@@ -85,19 +85,10 @@ function addBackgroundProject(time, placeID) {
   };
 };
 
-// function diasDecorridos(data) {
-//   const hoje = new Date();
-//   const dataInicio = new Date(data);
-//   const diffTime = Math.abs(hoje - dataInicio);
-//   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-//   return { remain: `${diffDays} dias decorridos` };
-// }
-
 function diasDecorridos(data) {
   const hoje = new Date();
   const dataInicio = new Date(data);
   const diffTime = dataInicio - hoje;
-  
   if (diffTime > 0) {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return { remain: `faltam ${diffDays} dias para o início` };
@@ -122,7 +113,6 @@ function calcularProgresso(startDate, finishDate) {
   const percentageElapsed = (elapsedMs / totalDurationMs) * 100;
   const percentageElapsedRounded = Math.round(percentageElapsed * 100) / 100;
   const daysRemaining = Math.ceil((finishDateMs - Date.now()) / ONE_DAY_IN_MS);
-  console.log(percentageElapsedRounded, finishDate);
   let finalRemain = '';
   if (daysRemaining <= 0) {
     finalRemain = 'Prazo encerrado'

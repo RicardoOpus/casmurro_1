@@ -457,7 +457,6 @@ function getTextNotes(project) {
           tempDiv.innerHTML = element[propriedade];
           const plainText = tempDiv.innerText;
           texto += `${nomePropriedade}: ${plainText}\n`;
-        // texto += `${nomePropriedade}: ${element[propriedade]}\n`;
       }
     }
     texto += '\n-----------------------------------------------------\n';
@@ -483,8 +482,6 @@ function gerarArquivoTxt(objeto, nomeArquivo) {
         texto += `Data inicial: ${objeto[chave]}\n`;
       } else if (chave === 'finishDate') {
         texto += `Data final: ${objeto[chave]}\n\n`;
-      } else {
-        texto += `${objeto[chave]}\n`;
       }
     } 
   }
@@ -520,14 +517,66 @@ function clearData1(project) {
   delete project.settings;
   delete project.showSubtitle;
   delete project.timestamp;
-  // delete project.data;
+  delete project.lastBackup;
   return project
 }
 
-async function exportProjectText() {
-  const project = await getCurrentProject();
-  const genre = project.literary_genre ? `(${project.literary_genre})` : ''
-  const name = project.title + ' ' + genre + ' - Projeto Casmurro';
-  const basicInfos = clearData1(project);
-  gerarArquivoTxt(basicInfos, name)
+function getCurrentDateString() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+  const pad = (num) => (num < 10 ? "0" + num : num);
+  return `${year}-${pad(month)}-${pad(day)}-${pad(hours)}-${pad(minutes)}-${pad(seconds)}`;
 }
+
+function sanitizeFilename(filename) {
+  const forbiddenChars = /[\\/:"*?<>.|]/g;
+  return filename.replace(forbiddenChars, " ");
+}
+
+async function updateTimeBackup() {
+  const currentID = await getCurrentProjectID();
+  const now = new Date();
+  return await db.projects.where('id').equals(currentID).modify( (e) => {
+    e.lastBackup = now;
+  });
+};
+
+async function exportProjectText() {
+  const project = await getCurrentProject();  
+  const detatime = getCurrentDateString();
+  const nameReult = sanitizeFilename(project.title)
+  const name = nameReult + ' ' + detatime;
+  const basicInfos = clearData1(project);
+  document.getElementById('backup').innerHTML = '';
+  updateTimeBackup();
+  gerarArquivoTxt(basicInfos, name);
+}
+
+async function calcularTempoPassado() {
+  console.log('calcularTempoPassado');
+  const divBackup = document.getElementById('backup');
+  const project = await getCurrentProject();  
+  const desde = project.lastBackup;
+  const agora = new Date();
+  const diferenca = agora - desde;
+  const msEmUmDia = 86400000;
+  const dias = Math.floor(diferenca / msEmUmDia);
+  const horas = Math.floor((diferenca % msEmUmDia) / 3600000);
+  if (horas < 2) {
+    return divBackup.innerText = '';
+  } else {
+    return  divBackup.innerText = `${dias === 0 ? '' : dias + ' dias e '} ${horas} horas desde o último backup`;
+  }
+}
+calcularTempoPassado()
+
+function chamarFuncaoCadaMinuto() {
+  setInterval(calcularTempoPassado, 900000); // 60000 ms = 1 minuto
+}
+
+chamarFuncaoCadaMinuto();

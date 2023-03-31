@@ -1,0 +1,1 @@
+changeTabColor('informacoes');

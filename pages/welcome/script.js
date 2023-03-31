@@ -65,6 +65,7 @@ async function createNewProject() {
       id_timeline: 0,
       id_structure: 0,
       id_notes: 0,
+      lastBackup: '',
       settings: categoriesDefault
     }).then();
   const updadeCurrent = await db.settings.update(1,{ currentproject: idNew });
@@ -85,9 +86,21 @@ async function setProjectAtual(id) {
   return result;
 }
 
+function getQtyCards(data) {
+  const totalchar = data.characters.length;
+  const totalworld = data.world.length;
+  const totalscenes = data.scenes.length;
+  const totalchapters = data.chapters.length;
+  const totaltimeline = data.timeline.length;
+  const totalnotes = data.notes.length;
+  const result = totalchar + totalworld + totalscenes + totalchapters + totaltimeline + totalnotes;
+  return result;
+}
+
 async function listProjects() {
   const result = await db.projects.orderBy('timestamp').desc();
   await result.each(function (project) {
+      const qtyCards = getQtyCards(project.data)
       const dateEdit = convertDateBR(project.last_edit);
       const timeEdit = convertToTime(project.last_edit);
       $('#project-list').append(
@@ -103,7 +116,7 @@ async function listProjects() {
               <span class="projectStatus"> ${ project.status } </span>
               <div>${ !project.literary_genre ? '' : project.literary_genre }</div>
               <div class="cards">
-                <p class="projectTitle"><strong>${ project.cards_qty }</strong></p>
+                <p class="projectTitle"><strong>${ qtyCards }</strong></p>
                 <p class="projectCreated">Cartões</p>  
               </div>
           </a>
