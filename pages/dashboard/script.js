@@ -1,4 +1,5 @@
 console.log('chamou dashboard');
+document.getElementById('main-header').style.display = 'block';
 
 async function recoverProjectInfos() {
   const projectActual = await db.settings.toArray();

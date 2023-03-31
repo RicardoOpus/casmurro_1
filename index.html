@@ -12,7 +12,7 @@
   <link rel="manifest" href="manifest.webmanifest">
 </head>
 <body>
-  <div id="install-alert" class="add-button" role="alert">
+  <div id="install-alert" class="add-button" role="alert" style="display: none;">
     Instale este aplicativo para usá-lo offline!
     <button id="install-button" class="ui-button ui-corner">Instalar</button>
     <button id="close-button" class="closeX" type="button" >
@@ -20,6 +20,19 @@
     </button>
   </div>
 
+  <div id="main-header" class="header">
+    <a href="#default" class="logo" style="cursor: default;">
+      <img src="../../assets/icons/casmurro-logo-1.png" alt="logo Casmurro" width="170px">
+    </a>
+    <a style="margin-top: 7px;" onclick="loadpage('welcome')">
+      Projetos
+    </a>
+    <div class="header-right">
+      5 dias desde o último backup!
+      <button onclick="exportProjectText()">Fazer backup</button>
+    </div>
+  </div>
+  
   <div class="mainContent">
     <div class="dinamicPage" id="dinamicPage"></div>
     

@@ -122,3 +122,5 @@ $( document ).ready(function() {
   validateNewCard("projectName", "#okBtn");
   disableNavBar();
 });
+
+document.getElementById('main-header').style.display = 'none';
