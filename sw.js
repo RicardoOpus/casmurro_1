@@ -60,7 +60,7 @@ const precacheResources = [
   './assets/css/jquery-ui.js',
   './assets/fonts/Courier_Prime.ttf',
   './assets/fonts/texgyretermes-regular.otf',
-  './assets/icons/assis.png',
+  './assets/icons/favicon.png',
   './assets/images/arabesque4.png',
   './assets/images/cards3.png',
   './assets/images/manuscript.jpeg',
