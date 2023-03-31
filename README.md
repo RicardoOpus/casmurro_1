@@ -7,4 +7,4 @@ Com o objetivo de tornar o processo de criação mais organizado e prazeroso, o 
 
 Sinta-se livre para explorar as ferramentas e recursos oferecidos pelo Casmurro. Esperamos que possa ser uma ferramenta valiosa para todos os escritores, independentemente do nível de experiência.
 
-![Tela Casmurro](assets/images/tela-casmurro.png)
+![Tela Casmurro](assets/images/tela-casmurro1.png)
