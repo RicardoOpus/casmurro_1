@@ -1,20 +1,5 @@
 console.log('chamou export script');
 
-function salvarComoJSON(objeto, nomeArquivo) {
-  const texto = JSON.stringify(objeto);
-  const data = new Blob([texto], { type: 'application/json' });
-  const url = window.URL.createObjectURL(data);
-  const link = document.createElement('a');
-  link.setAttribute('href', url);
-  link.setAttribute('download', nomeArquivo);
-  link.click();
-}
-
-async function exportProject() {
-  const project = await getCurrentProject();
-  salvarComoJSON(project, 'meu_projeto')
-}
-
 function getResume() {
   return `
                   ╔═════════════════════╗
@@ -536,9 +521,31 @@ async function exportProjectText() {
   const nameReult = sanitizeFilename(project.title)
   const name = nameReult + ' ' + detatime.toFileName;
   const basicInfos = clearData1(project);
+  const modal = document.getElementById("myModal");
   document.getElementById('backup').innerHTML = '';
   updateTimeBackup();
   gerarArquivoTxt(basicInfos, name, detatime);
+  return modal.style.display = "none";
+}
+
+function salvarComoJSON(objeto, nomeArquivo) {
+  const texto = JSON.stringify(objeto);
+  const data = new Blob([texto], { type: 'application/json' });
+  const url = window.URL.createObjectURL(data);
+  const link = document.createElement('a');
+  link.setAttribute('href', url);
+  link.setAttribute('download', nomeArquivo);
+  link.click();
+}
+
+async function exportProject() {
+  const project = await getCurrentProject();
+  const detatime = getCurrentDateString();
+  const nameReult = sanitizeFilename(project.title);
+  const name = nameReult + ' ' + detatime.toFileName;
+  const modal = document.getElementById("myModal");
+  salvarComoJSON(project, name)
+  return modal.style.display = "none";
 }
 
 async function calcularTempoPassado() {
