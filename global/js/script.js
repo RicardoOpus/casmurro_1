@@ -1,3 +1,4 @@
+console.log('chamou script geral');
 function myLoadScript(url) {
   var js_script = document.createElement('script');
   js_script.type = "text/javascript";
@@ -12,49 +13,11 @@ function pageChange(place, page, script) {
   });
 }
 
-function blink(target) {
-  let intervalId;
-  let count = 0;
-  intervalId = setInterval(() => {
-    if (count % 2 === 0) {
-      target.style.border = 'solid 1px transparent';
-      // target.style.boxShadow = '0px 0px 25px 5px #0a62ce'
-    } else {
-      target.style.border = "solid 1px #0a62ce";
-      // target.style.boxShadow = '0px 0px 25px 5px transparent'
-    }
-    count++;
-    if (count > 5) {
-      clearInterval(intervalId);
-    }
-  }, 500);
-}
-
-async function loadpageAndScroll(pagename, id) {
-  $("#dinamic").load("pages/" + pagename + "/page.html", function () {
-    myLoadScript("pages/" + pagename + "/script.js");
-  });
-
-  if (id) {
-    let target;
-    while (!target) {
-      target = document.getElementById(id);
-      if (!target) {
-        await new Promise(resolve => setTimeout(resolve, 500));
-      }
-    }
-    target.scrollIntoView({ behavior: 'smooth' });
-    blink(target)
-  }
-};
-
-
 async function loadpage(pagename) {
   $("#dinamic").load("pages/" + pagename + "/page.html", function () {
     myLoadScript("pages/" + pagename + "/script.js");
   });
 };
-
 
 async function loadpageDetail(pagename, id, detailPage) {
   console.log(pagename, id, detailPage);
@@ -65,7 +28,6 @@ async function loadpageDetail(pagename, id, detailPage) {
     let target;
     while (!target) {
       target = document.getElementById(id);
-      console.log(target);
       if (!target) {
         await new Promise(resolve => setTimeout(resolve, 50));
       }
@@ -74,12 +36,11 @@ async function loadpageDetail(pagename, id, detailPage) {
   }
 };
 
-
 async function welcome() {
   const projectActual = await db.settings.toArray();
-  if (projectActual.length === 0) {
-    hasSettings();
+  if (projectActual[0]?.currentproject === 0 || !projectActual.length ) {
     $("#dinamicPage").load("pages/welcome/page.html", function () {
+      hasSettings();
       myLoadScript("pages/welcome/script.js");
     });
   } else {

@@ -1,4 +1,4 @@
-
+console.log('chamou export script');
 function salvarComoJSON(objeto, nomeArquivo) {
   const texto = JSON.stringify(objeto);
   const data = new Blob([texto], { type: 'application/json' });
@@ -16,85 +16,64 @@ async function exportProject() {
 
 function getResume() {
   return `
-  ██████╗ ███████╗███████╗██╗   ██╗███╗   ███╗ ██████╗
-  ██╔══██╗██╔════╝██╔════╝██║   ██║████╗ ████║██╔═══██╗
-  ██████╔╝█████╗  ███████╗██║   ██║██╔████╔██║██║   ██║
-  ██╔══██╗██╔══╝  ╚════██║██║   ██║██║╚██╔╝██║██║   ██║
-  ██║  ██║███████╗███████║╚██████╔╝██║ ╚═╝ ██║╚██████╔╝
-  ╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝ ╚═╝     ╚═╝ ╚═════╝
+                  ╔═════════════════════╗
+▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒░║  RESUMO DO PROJETO  ║░▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓
+                  ╚═════════════════════╝
 
 `;
 };
 
 function getPersonagens() {
   return `
-  ██████╗ ███████╗██████╗ ███████╗ ██████╗ ███╗   ██╗ █████╗  ██████╗ ███████╗███╗   ██╗███████╗
-  ██╔══██╗██╔════╝██╔══██╗██╔════╝██╔═══██╗████╗  ██║██╔══██╗██╔════╝ ██╔════╝████╗  ██║██╔════╝
-  ██████╔╝█████╗  ██████╔╝███████╗██║   ██║██╔██╗ ██║███████║██║  ███╗█████╗  ██╔██╗ ██║███████╗
-  ██╔═══╝ ██╔══╝  ██╔══██╗╚════██║██║   ██║██║╚██╗██║██╔══██║██║   ██║██╔══╝  ██║╚██╗██║╚════██║
-  ██║     ███████╗██║  ██║███████║╚██████╔╝██║ ╚████║██║  ██║╚██████╔╝███████╗██║ ╚████║███████║
-  ╚═╝     ╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚══════╝
+                  ╔════════════════════════╗
+▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒░║      PERSONAGENS       ║░▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓
+                  ╚════════════════════════╝
 
 `
 }
 
 function getMundo() {
   return `
-  ███╗   ███╗██╗   ██╗███╗   ██╗██████╗  ██████╗ 
-  ████╗ ████║██║   ██║████╗  ██║██╔══██╗██╔═══██╗
-  ██╔████╔██║██║   ██║██╔██╗ ██║██║  ██║██║   ██║
-  ██║╚██╔╝██║██║   ██║██║╚██╗██║██║  ██║██║   ██║
-  ██║ ╚═╝ ██║╚██████╔╝██║ ╚████║██████╔╝╚██████╔╝
-  ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═════╝  ╚═════╝ 
+                  ╔════════════════════════╗
+▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒░║         MUNDO          ║░▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓
+                  ╚════════════════════════╝
 
 `
 }
 
 function getCenas() {
   return `
-  ██████╗███████╗███╗   ██╗ █████╗ ███████╗
-  ██╔════╝██╔════╝████╗  ██║██╔══██╗██╔════╝
-  ██║     █████╗  ██╔██╗ ██║███████║███████╗
-  ██║     ██╔══╝  ██║╚██╗██║██╔══██║╚════██║
-  ╚██████╗███████╗██║ ╚████║██║  ██║███████║
-   ╚═════╝╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝  
+                  ╔════════════════════════╗
+▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒░║         CENAS          ║░▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓
+                  ╚════════════════════════╝
 
 `
 }
 
 function getStructure() {
   return `
-  ███████╗███████╗████████╗██████╗ ██╗   ██╗████████╗██╗   ██╗██████╗  █████╗ 
-  ██╔════╝██╔════╝╚══██╔══╝██╔══██╗██║   ██║╚══██╔══╝██║   ██║██╔══██╗██╔══██╗
-  █████╗  ███████╗   ██║   ██████╔╝██║   ██║   ██║   ██║   ██║██████╔╝███████║
-  ██╔══╝  ╚════██║   ██║   ██╔══██╗██║   ██║   ██║   ██║   ██║██╔══██╗██╔══██║
-  ███████╗███████║   ██║   ██║  ██║╚██████╔╝   ██║   ╚██████╔╝██║  ██║██║  ██║
-  ╚══════╝╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+                  ╔════════════════════════╗
+▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒░║       ESTRUTURA        ║░▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓
+                  ╚════════════════════════╝
 
 `
 }
 
 function getTimeline() {
   return `
-  ████████╗██╗███╗   ███╗███████╗██╗     ██╗███╗   ██╗███████╗
-  ╚══██╔══╝██║████╗ ████║██╔════╝██║     ██║████╗  ██║██╔════╝
-     ██║   ██║██╔████╔██║█████╗  ██║     ██║██╔██╗ ██║█████╗  
-     ██║   ██║██║╚██╔╝██║██╔══╝  ██║     ██║██║╚██╗██║██╔══╝  
-     ██║   ██║██║ ╚═╝ ██║███████╗███████╗██║██║ ╚████║███████╗
-     ╚═╝   ╚═╝╚═╝     ╚═╝╚══════╝╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝
+                  ╔════════════════════════╗
+▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒░║        TIMELINE        ║░▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓
+                  ╚════════════════════════╝
 
 `
 }
 
 function getNotas() {
   return `
-  ███╗   ██╗ ██████╗ ████████╗ █████╗ ███████╗
-  ████╗  ██║██╔═══██╗╚══██╔══╝██╔══██╗██╔════╝
-  ██╔██╗ ██║██║   ██║   ██║   ███████║███████╗
-  ██║╚██╗██║██║   ██║   ██║   ██╔══██║╚════██║
-  ██║ ╚████║╚██████╔╝   ██║   ██║  ██║███████║
-  ╚═╝  ╚═══╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝╚══════╝
-
+                  ╔════════════════════════╗
+▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒░║         NOTAS          ║░▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓
+                  ╚════════════════════════╝
+  
 `
 }
 
@@ -464,7 +443,7 @@ function getTextNotes(project) {
   return texto;
 }
 
-function gerarArquivoTxt(objeto, nomeArquivo) {
+function gerarArquivoTxt(objeto, nomeArquivo, databackup) {
   let texto = '';
   for (let chave in objeto) {
     if (typeof objeto[chave] !== 'object') {
@@ -485,7 +464,8 @@ function gerarArquivoTxt(objeto, nomeArquivo) {
       }
     } 
   }
-  basic = getResume() + texto + getPersonagens();
+
+  basic = databackup.toBackup + getResume() + texto + getPersonagens();
   basicChars = basic + getTextChar(objeto);
   WorldChars = basicChars +  getMundo() + getTextWorld(objeto);
   ScenesWorld = WorldChars +  getCenas() + getTextScenes(objeto);
@@ -530,7 +510,10 @@ function getCurrentDateString() {
   const minutes = now.getMinutes();
   const seconds = now.getSeconds();
   const pad = (num) => (num < 10 ? "0" + num : num);
-  return `${year}-${pad(month)}-${pad(day)}-${pad(hours)}-${pad(minutes)}-${pad(seconds)}`;
+  return {
+    toFileName: `${year}-${pad(month)}-${pad(day)}-${pad(hours)}-${pad(minutes)}-${pad(seconds)}`,
+    toBackup: `\n\nEste backup foi criado em ${pad(day)}/${pad(month)}/${year} às ${pad(hours)}:${pad(minutes)}:${pad(seconds)}\n`
+  }
 }
 
 function sanitizeFilename(filename) {
@@ -550,23 +533,26 @@ async function exportProjectText() {
   const project = await getCurrentProject();  
   const detatime = getCurrentDateString();
   const nameReult = sanitizeFilename(project.title)
-  const name = nameReult + ' ' + detatime;
+  const name = nameReult + ' ' + detatime.toFileName;
   const basicInfos = clearData1(project);
   document.getElementById('backup').innerHTML = '';
   updateTimeBackup();
-  gerarArquivoTxt(basicInfos, name);
+  gerarArquivoTxt(basicInfos, name, detatime);
 }
 
 async function calcularTempoPassado() {
   console.log('calcularTempoPassado');
   const divBackup = document.getElementById('backup');
   const project = await getCurrentProject();  
-  const desde = project.lastBackup;
+  const desde = project?.lastBackup;
   const agora = new Date();
   const diferenca = agora - desde;
   const msEmUmDia = 86400000;
   const dias = Math.floor(diferenca / msEmUmDia);
   const horas = Math.floor((diferenca % msEmUmDia) / 3600000);
+  if (!desde) {
+    return  divBackup.innerText = `Salve as informações do seu projeto`;
+  }
   if (horas < 2) {
     return divBackup.innerText = '';
   } else {

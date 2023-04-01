@@ -49,6 +49,7 @@ elementsArray.forEach(async function(elem) {
 async function deleteProject() {
   const project = await db.settings.get(1);
   const projectID = project.currentproject;
+  await db.settings.where({id: 1}).modify({currentproject: 0}) 
   return await db.projects.delete(projectID);
 }
 
