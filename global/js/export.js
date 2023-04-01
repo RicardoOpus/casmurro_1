@@ -36,7 +36,7 @@ function getCenas() {
 `
 }
 
-function getStructure() {
+function getEstrutura() {
   return `
                   ╔════════════════════════╗
 ▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒░║       ESTRUTURA        ║░▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓
@@ -45,7 +45,7 @@ function getStructure() {
 `
 }
 
-function getTimeline() {
+function getTimelineLabel() {
   return `
                   ╔════════════════════════╗
 ▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒░║        TIMELINE        ║░▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓
@@ -455,8 +455,8 @@ function gerarArquivoTxt(objeto, nomeArquivo, databackup) {
   basicChars = basic + getTextChar(objeto);
   WorldChars = basicChars +  getMundo() + getTextWorld(objeto);
   ScenesWorld = WorldChars +  getCenas() + getTextScenes(objeto);
-  StructureScenes = ScenesWorld + getStructure() + getTextParts(objeto) + getTextChapters(objeto);
-  TimelineStructure = StructureScenes + getTimeline() + getTextTimeline(objeto);
+  StructureScenes = ScenesWorld + getEstrutura() + getTextParts(objeto) + getTextChapters(objeto);
+  TimelineStructure = StructureScenes + getTimelineLabel() + getTextTimeline(objeto);
   NotesAndFinish = TimelineStructure + getNotas() + getTextNotes(objeto)
 
   const data = new Blob([NotesAndFinish], { type: 'text/plain' });
