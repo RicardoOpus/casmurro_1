@@ -32,11 +32,41 @@ $( "#dialog" ).dialog({
 		}
 	]
 });
-
 // Link to open the dialog
 $( "#dialog-link" ).click(function( event ) {
 	$( "#dialog" ).dialog( "open" );
   $( "#okBtn" ).addClass( "ui-button-disabled ui-state-disabled" );
+  $( ".ui-icon-closethick" ).click(function( event ) {
+    document.getElementById("projectName").value = "";
+  })
+});
+
+$( "#dialog-import" ).dialog({
+	autoOpen: false,
+	width: 600,
+	buttons: [
+		{
+			text: "Ok",
+      id: "okBtnImport",
+      disabled: false,
+			click: async function() {
+        await importNewProject();
+        $( this ).dialog( "close" );
+        pageChange('#dinamicPage', 'pages/welcome/page.html', 'pages/welcome/script.js')
+			}
+		},
+		{
+			text: "Cancel",
+			click: function() {
+				$( this ).dialog( "close" );
+			}
+		}
+	]
+});
+// Link to open the dialog
+$( "#dialog-link-import" ).click(function( event ) {
+	$( "#dialog-import" ).dialog( "open" );
+  $( "#okBtnImport" ).addClass( "ui-button-disabled ui-state-disabled" );
   $( ".ui-icon-closethick" ).click(function( event ) {
     document.getElementById("projectName").value = "";
   })
@@ -72,6 +102,47 @@ async function createNewProject() {
   inputName.value = '';
   return updadeCurrent;
 };
+
+function handleInputFile() {
+  const filename = document.getElementById('file-input-import');
+  if (!filename.value.endsWith(".json")) {
+    return alert("Selecione apenas arquivos terminados em '.json'!")
+  };
+  const file = filename.files[0]
+  const reader = new FileReader();
+  reader.readAsText(file);
+  return new Promise((resolve, reject) => {
+    reader.onload = () => {
+      try {
+        const json = JSON.parse(reader.result);
+        resolve(json);
+      } catch (error) {
+        reject(error);
+      }
+    };
+    reader.onerror = () => {
+      reject(reader.error);
+    };
+  });
+};
+
+function hasRequiredKeys(obj) {
+  return ("title" in obj) && ("id" in obj) && ("data" in obj);
+}
+
+async function importNewProject() {
+  const projectObj = await handleInputFile();
+  const hasKeys = hasRequiredKeys(projectObj);
+  if (!hasKeys) {
+    return alert('Objeto não compatível')
+  }
+  const currentDate = new Date();
+  delete projectObj.id
+  projectObj.lastBackup = ''
+  projectObj.last_edit = currentDate;
+  projectObj.created_at = currentDate;
+  await db.projects.add(projectObj)
+}
 
 function disableNavBar() {
   const navBarButtons = document.querySelectorAll(".navtrigger");
@@ -133,6 +204,7 @@ restoreBackground()
 $( document ).ready(function() {
   listProjects();
   validateNewCard("projectName", "#okBtn");
+  validateNewCard("file-input-import", "#okBtnImport");
   disableNavBar();
 });
 

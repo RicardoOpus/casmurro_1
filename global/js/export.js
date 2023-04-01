@@ -1,4 +1,5 @@
 console.log('chamou export script');
+
 function salvarComoJSON(objeto, nomeArquivo) {
   const texto = JSON.stringify(objeto);
   const data = new Blob([texto], { type: 'application/json' });

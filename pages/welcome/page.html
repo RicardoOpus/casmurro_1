@@ -3,10 +3,12 @@
     <img src="../../assets/icons/casmurro-logo-clear.png" alt="logo Casmurro" width="500px">
   </h1>
   <h3 class="welcome app-subtitle" >Um bom começo para sua história</h3>
-
+  
   <div class="welcome newProjetcBtn">
-    <button id="dialog-link" class="ui-button ui-corner-all ui-widget"><span class="ui-icon ui-icon-plusthick"></span> Novo Projeto</button>
+    <button id="dialog-link" class="ui-button ui-corner-all ui-widget"><span class="ui-icon ui-icon-plusthick"></span> Novo Projeto</button><br>
+    <button id="dialog-link-import" class="ui-button ui-corner-all ui-widget" style="font-size: small; background-color: transparent; margin-top: 5px;"><span class="ui-icon ui-icon-arrowthickstop-1-s"></span> Importar</button>
   </div>
+  
   <div id="project-list"></div>
 
   
@@ -21,5 +23,14 @@
       <h6>
         Ao adicionar um novo projeto, você concorda que esta ciente dos termos de uso.
       </h6>
+  </div>
+
+  <div id="dialog-import" title="Impotar projeto">
+    <div class="welcome">
+      <p>Selecione o arquivo: </p>
+      <form id="formWeImport">
+        <input type="file" id="file-input-import" class="inputFile ui-corner-all ui-widget" style="cursor: pointer;">
+      </form>
+    </div>
   </div>
 </div>
