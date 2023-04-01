@@ -725,18 +725,20 @@ function getChapterName(chapters, id) {
 async function updateLastEditList(table, id) {
   const project = await getCurrentProject();
   const projectID = await getCurrentProjectID();
-  const numbersOfRecents = 10
-  const result = { table: table, id: id}
-  if (project.recent_edits.length < numbersOfRecents) {
-    return db.projects.where('id').equals(projectID).modify( (e) => {
-      e.recent_edits.push(result);
-    })
+  const numbersOfRecents = 10;
+  const result = { table, id };
+  const recentEdits = project.recent_edits.filter(
+    (item) => item.table !== table || item.id !== id
+  );
+  if (recentEdits.length < numbersOfRecents) {
+    return db.projects.where('id').equals(projectID).modify((e) => {
+      e.recent_edits = [...recentEdits, result];
+    });
   }
-  return db.projects.where('id').equals(projectID).modify( (e) => {
-    e.recent_edits.splice(0, 1);
-    e.recent_edits.push(result);
-  })
-};
+  return db.projects.where('id').equals(projectID).modify((e) => {
+    e.recent_edits = [...recentEdits.slice(1), result];
+  });
+}
 
 async function lastEditListModify(table, id) {
   const project = await getCurrentProject();
