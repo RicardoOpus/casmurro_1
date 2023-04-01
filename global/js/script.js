@@ -20,7 +20,6 @@ async function loadpage(pagename) {
 };
 
 async function loadpageDetail(pagename, id, detailPage) {
-  console.log(pagename, id, detailPage);
   $("#dinamic").load("pages/" + pagename + "/page.html", function () {
     myLoadScript("pages/" + pagename + "/script.js");
   });

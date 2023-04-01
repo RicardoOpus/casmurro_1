@@ -1,4 +1,4 @@
-console.log("Chamou Mundo!");
+console.log("Chamou Mundo!")
 changeTabColor("mundo");
 
 $( "#dialogWorld" ).dialog({
@@ -206,8 +206,7 @@ async function createNewWorld() {
     }
   ); 
   await updateLastEditList('world', ID)
-  await db.projects.update(pjID,{ last_edit: currentDate,  timestamp: timeStamp });
-  return
+  return db.projects.update(pjID,{ last_edit: currentDate,  timestamp: timeStamp });
 };
 
 setCustomTabs('world');
