@@ -139,4 +139,4 @@ $( "#btn-addSceneToChap" ).click(function( event ) {
 	event.preventDefault();
 });
 
-restoreScenesListInput("#scenesToChapter", "scenes");
+restoreScenesListInput("#scenesToChapter");

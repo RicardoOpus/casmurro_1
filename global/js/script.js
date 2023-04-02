@@ -484,7 +484,9 @@ async function restoreCharScene(id, type) {
 async function restoreScenesListInput(id) {
   const currentCardID = await getCurrentCardID();
   const project = await getCurrentProject();
-  const resultSorted = sortByKey(project.data.scenes, 'position')
+  const resultSorted = sortByKey(project.data.scenes, 'position');
+  const allchapters = project.data.chapters;
+  const filtredChaptes = allchapters.filter(chapter => chapter.id !== currentCardID);
   let chklist = ''
   project.data.chapters.forEach( (ele) => {
     if (ele.id === currentCardID) {
@@ -494,11 +496,17 @@ async function restoreScenesListInput(id) {
   const itensList = resultSorted;
   $(id).empty();
   $.each(itensList, function(i, value) {
-    const checkbox = $(`<input id='${value.id + value.title}' type='checkbox' name='${value.position}'></input><label for='${value.id + value.title}'></label><br>`).val(value.id).html(value.title);
-    if (chklist?.includes(Number(value.id))) {
-      checkbox.prop('checked', true);
+    const isScenePresent = filtredChaptes.some(chapter => chapter.scenes.includes(value.id));;
+    if (isScenePresent) {
+      const checkbox = $(`<input type='checkbox' disabled></input><label style='text-decoration: line-through'></label><br>`).html(value.title);
+      $(id).append(checkbox);
+    } else {
+      const checkbox = $(`<input id='${value.id + value.title}' type='checkbox' name='${value.position}'></input><label style='color: white' for='${value.id + value.title}'></label><br>`).val(value.id).html(value.title);
+        if (chklist?.includes(Number(value.id))) {
+          checkbox.prop('checked', true);
+        }
+      $(id).append(checkbox);
     }
-    $(id).append(checkbox);
   })
 };
 
@@ -506,7 +514,9 @@ async function restoreScenesListInput(id) {
 async function restoreChapListInput(id) {
   const currentCardID = await getCurrentCardID();
   const project = await getCurrentProject();
-  const resultSorted = sortByKey(project.data.chapters, 'position')
+  const resultSorted = sortByKey(project.data.chapters, 'position');
+  const allParts = project.data.parts;
+  const filtredParts = allParts.filter(part => part.id !== currentCardID);
   let chklist = ''
   project.data.parts.forEach( (ele) => {
     if (ele.id === currentCardID) {
@@ -516,11 +526,17 @@ async function restoreChapListInput(id) {
   const itensList = resultSorted;
   $(id).empty();
   $.each(itensList, function(i, value) {
-    const checkbox = $(`<input id='${value.id + value.title}' type='checkbox' name='${value.position}'></input><label for='${value.id + value.title}'></label><br>`).val(value.id).html(value.title);
-    if (chklist?.includes(Number(value.id))) {
-      checkbox.prop('checked', true);
+    const isChapterPresent = filtredParts.some(part => part.chapters.includes(value.id));;
+    if (isChapterPresent) {
+      const checkbox = $(`<input type='checkbox' disabled></input><label style='text-decoration: line-through'></label><br>`).html(value.title);
+      $(id).append(checkbox);
+    } else {
+      const checkbox = $(`<input id='${value.id + value.title}' type='checkbox' name='${value.position}'  style='color: white'></input><label for='${value.id + value.title}'></label><br>`).val(value.id).html(value.title);
+      if (chklist?.includes(Number(value.id))) {
+        checkbox.prop('checked', true);
+      }
+      $(id).append(checkbox);
     }
-    $(id).append(checkbox);
   })
 };
 
