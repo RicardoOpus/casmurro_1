@@ -300,9 +300,9 @@ function getTextParts(project) {
 
 function getTextChapters(project) {
   const personagnes = sortByKey(project.data.chapters, 'position');
-  const propriedades = ['title', 'content', 'content_full'];
+  const propriedades = ['title', 'content', 'content_full', 'scenes'];
   let texto = '';
-  texto += '\n__________________ Capítulos __________________\n';
+  texto += '\n══════════════════ Capítulos ══════════════════\n\n';
   for (let index = 0; index < personagnes.length; index++) {
     const element = personagnes[index];
     for (let i = 0; i < propriedades.length; i++) {
@@ -322,8 +322,18 @@ function getTextChapters(project) {
           default:
             nomePropriedade = '';
             break;
+        } if (propriedade === 'scenes') {
+          let scenesName = '\n'
+          console.log(element[propriedade]);
+          element[propriedade].forEach(e => {
+            const result = project.data.scenes.filter((ele) => ele.id === e);
+            scenesName += `${result[0].title}\n`
+            console.log(scenesName);
+          });
+          texto += scenesName;
+        } else {
+          texto += `${nomePropriedade}: ${element[propriedade]}\n`;
         }
-        texto += `${nomePropriedade}: ${element[propriedade]}\n`;
       }
     }
     texto += '\n-----------------------------------------------------\n';
