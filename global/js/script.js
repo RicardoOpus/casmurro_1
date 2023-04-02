@@ -473,7 +473,7 @@ async function restoreCharScene(id, type) {
   const itensList = project.data[type];
   $(id).empty();
   $.each(itensList, function(i, value) {
-    const checkbox = $("<input type='checkbox'></input><label></label><br>").val(value.id).html(value.title);
+    const checkbox = $(`<input id='${value.id}' type='checkbox'><label for='${value.id}'></label><br>`).val(value.id).html(value.title);
     if (chklist?.includes(Number(value.id))) {
       checkbox.prop('checked', true);
     }
@@ -494,7 +494,7 @@ async function restoreScenesListInput(id) {
   const itensList = resultSorted;
   $(id).empty();
   $.each(itensList, function(i, value) {
-    const checkbox = $(`<input type='checkbox' name='${value.position}'></input><label></label><br>`).val(value.id).html(value.title);
+    const checkbox = $(`<input id='${value.id + value.title}' type='checkbox' name='${value.position}'></input><label for='${value.id + value.title}'></label><br>`).val(value.id).html(value.title);
     if (chklist?.includes(Number(value.id))) {
       checkbox.prop('checked', true);
     }
@@ -516,7 +516,7 @@ async function restoreChapListInput(id) {
   const itensList = resultSorted;
   $(id).empty();
   $.each(itensList, function(i, value) {
-    const checkbox = $(`<input type='checkbox' name='${value.position}'></input><label></label><br>`).val(value.id).html(value.title);
+    const checkbox = $(`<input id='${value.id + value.title}' type='checkbox' name='${value.position}'></input><label for='${value.id + value.title}'></label><br>`).val(value.id).html(value.title);
     if (chklist?.includes(Number(value.id))) {
       checkbox.prop('checked', true);
     }
