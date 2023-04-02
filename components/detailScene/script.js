@@ -156,7 +156,9 @@ elementsArray.forEach(async function(elem) {
         if (elem.id === "date") {
           const checkIfisNew = await checkTimelineNewDate(ele.id, 'scene', 'sceneID')
           if (checkIfisNew) {
-            const positionInArrayTime = projectData.data.timeline.map(function (e) { return e.id; }).indexOf(ele.date);
+            const projectDataActual = await getCurrentProject();
+            const actualIDdate = projectDataActual.data.scenes[positionInArray].date;
+            const positionInArrayTime = projectDataActual.data.timeline.map(function (e) { return e.id; }).indexOf(actualIDdate);
             return await db.projects.where('id').equals(currentID).modify( (e) => {
               e.data.timeline[positionInArrayTime].date = elem.value;
             });
