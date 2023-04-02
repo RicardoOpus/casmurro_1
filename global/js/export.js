@@ -544,12 +544,13 @@ async function exportProject() {
   const nameReult = sanitizeFilename(project.title);
   const name = nameReult + ' ' + detatime.toFileName;
   const modal = document.getElementById("myModal");
+  document.getElementById('backup').innerHTML = '';
   salvarComoJSON(project, name)
+  updateTimeBackup();
   return modal.style.display = "none";
 }
 
 async function calcularTempoPassado() {
-  console.log('calcularTempoPassado');
   const divBackup = document.getElementById('backup');
   const project = await getCurrentProject();  
   const desde = project?.lastBackup;
@@ -567,7 +568,6 @@ async function calcularTempoPassado() {
     return  divBackup.innerText = `${dias === 0 ? '' : dias + ' dias e '} ${horas} horas desde o último backup`;
   }
 }
-calcularTempoPassado()
 
 function chamarFuncaoCadaMinuto() {
   setInterval(calcularTempoPassado, 900000); // 60000 ms = 1 minuto

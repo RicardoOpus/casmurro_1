@@ -231,4 +231,5 @@ async function restorelastEditCards() {
     );
   })
 };
-restorelastEditCards()
+restorelastEditCards();
+calcularTempoPassado();
