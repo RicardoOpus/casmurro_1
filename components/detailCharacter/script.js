@@ -132,9 +132,11 @@ elementsArray.forEach(async function(elem) {
             });
           }
         } if (elem.id === "date_death") {
-          const checkIfisNew = await checkTimelineNewDate(ele.id, 'characters-death')
+          const checkIfisNew = await checkTimelineNewDate(ele.id, 'characters-death', 'elementID')
           if (checkIfisNew) {
-            const positionInArrayTime = projectData.data.timeline.map(function (e) { return e.id; }).indexOf(ele.date_death);
+            const projectDataActual = await getCurrentProject();
+            const actualIDdateDeath = projectDataActual.data.characters[positionInArray].date_death;
+            const positionInArrayTime = projectDataActual.data.timeline.map(function (e) { return e.id; }).indexOf(actualIDdateDeath);
             return db.projects.where('id').equals(currentID).modify( (e) => {
               e.data.timeline[positionInArrayTime].date = elem.value;
             });
