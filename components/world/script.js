@@ -53,7 +53,9 @@ elementsArray.forEach(async function(elem) {
         if (elem.id === "date") {
           const checkIfisNew = await checkTimelineNewDate(ele.id, 'historical-event', 'historicID')
           if (checkIfisNew) {
-            const positionInArrayTime = projectData.data.timeline.map(function (e) { return e.id; }).indexOf(ele.date);
+            const projectDataActual = await getCurrentProject();
+            const actualIDdateFact = projectDataActual.data.world[positionInArray].date;
+            const positionInArrayTime = projectDataActual.data.timeline.map(function (e) { return e.id; }).indexOf(actualIDdateFact);
             return await db.projects.where('id').equals(currentID).modify( (e) => {
               e.data.timeline[positionInArrayTime].date = elem.value;
             });
