@@ -64,7 +64,7 @@ $( "#dialog_new_timelineCategory" ).dialog({
   buttons: [
     {
       text: "Ok",
-      id: "okBtn-cat",
+      id: "okBtn-cat-time",
       disabled: false,
       click: async function() {
         var filterChar = document.getElementById("catCharacterName");
@@ -85,7 +85,7 @@ $( "#dialog_new_timelineCategory" ).dialog({
 // Link to open the dialog Category
 $( "#dialog-link-character-filter" ).click(function( event ) {
   $( "#dialog_new_timelineCategory" ).dialog( "open" );
-  $( "#okBtn-cat" ).addClass( "ui-button-disabled ui-state-disabled" );
+  $( "#okBtn-cat-time" ).addClass( "ui-button-disabled ui-state-disabled" );
   $( ".ui-icon-closethick" ).click(function( event ) {
     document.getElementById("catCharacterName").value = "";
     })
@@ -358,7 +358,7 @@ async function createNewTimeline() {
 setCustomTimelineTabs('timeline');
 getTimeline();
 validateNewCard("timelineName", "#okBtn-timeline");
-validateNewCard("catCharacterName", "#okBtn-cat");
+validateNewCard("catCharacterName", "#okBtn-cat-time");
 validateNewCard("categoryDeltimelineName", "#okBtn-delcatTimeline");
 
 function reduceString(str) {
