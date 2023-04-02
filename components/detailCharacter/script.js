@@ -117,9 +117,11 @@ elementsArray.forEach(async function(elem) {
         lastEditListModify('characters', currentCardID);
         const field = elem.id
         if (elem.id === "date_birth") {
-          const checkIfisNew = await checkTimelineNewDate(ele.id, 'characters-birth')
+          const checkIfisNew = await checkTimelineNewDate(ele.id, 'characters-birth', 'elementID')
           if (checkIfisNew) {
-            const positionInArrayTime = projectData.data.timeline.map(function (e) { return e.id; }).indexOf(ele.date_birth);
+            const projectDataActual = await getCurrentProject();
+            const actualIDdateBirth = projectDataActual.data.characters[positionInArray].date_birth;
+            const positionInArrayTime = projectDataActual.data.timeline.map(function (e) { return e.id; }).indexOf(actualIDdateBirth);
             return db.projects.where('id').equals(currentID).modify( (e) => {
               e.data.timeline[positionInArrayTime].date = elem.value;
             });

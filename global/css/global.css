@@ -714,8 +714,6 @@ input[type="color"]::-webkit-color-swatch {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  /* justify-content: space-between; */
-  /* height: 100vh; */
   flex-wrap: wrap;
   margin: 15px 0px 5px 15px;
 }
@@ -724,7 +722,6 @@ input[type="color"]::-webkit-color-swatch {
   width: 320px;
   display: flex;
   flex-direction: column;
-  /* gap: var(--space-spacingMd); */
   align-items: center;
   justify-content: space-between;
   list-style-type: none;
