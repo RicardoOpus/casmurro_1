@@ -133,7 +133,7 @@ function getTextChar(project) {
         }
       }
     }
-    texto += '\n-----------------------------------------------------\n';
+    texto += '\n──────────────────────────────────────────────────────────────\n';
   }
   return texto;
 }
@@ -172,7 +172,7 @@ function getTextWorld(project) {
         }
       }
     }
-    texto += '\n-----------------------------------------------------\n';
+    texto += '\n──────────────────────────────────────────────────────────────\n';
   }
   return texto;
 }
@@ -259,7 +259,7 @@ function getTextScenes(project) {
         }
       }
     }
-    texto += '\n-----------------------------------------------------\n';
+    texto += '\n──────────────────────────────────────────────────────────────\n';
   }
   return texto;
 }
@@ -268,7 +268,7 @@ function getTextParts(project) {
   const personagnes = sortByKey(project.data.parts, 'position');
   const propriedades = ['title', 'content', 'content_full', 'chapters'];
   let texto = '';
-  texto += '\n══════════════════ Partes ══════════════════\n'
+  texto += '\═══════════════════════════ Partes ═══════════════════════════\n'
   for (let index = 0; index < personagnes.length; index++) {
     const element = personagnes[index];
     for (let i = 0; i < propriedades.length; i++) {
@@ -300,7 +300,7 @@ function getTextParts(project) {
         }
       }
     }
-    texto += '\n-----------------------------------------------------\n';
+    texto += '\n──────────────────────────────────────────────────────────────\n';
   }
 
   return texto;
@@ -310,7 +310,7 @@ function getTextChapters(project) {
   const personagnes = sortByKey(project.data.chapters, 'position');
   const propriedades = ['title', 'content', 'content_full', 'scenes'];
   let texto = '';
-  texto += '\n══════════════════ Capítulos ══════════════════\n\n';
+  texto += '\═══════════════════════════ Capítulos ════════════════════════\n\n';
   for (let index = 0; index < personagnes.length; index++) {
     const element = personagnes[index];
     for (let i = 0; i < propriedades.length; i++) {
@@ -342,7 +342,7 @@ function getTextChapters(project) {
         }
       }
     }
-    texto += '\n-----------------------------------------------------\n';
+    texto += '\n──────────────────────────────────────────────────────────────\n';
   }
   return texto;
 }
@@ -405,7 +405,7 @@ function getTextTimeline(project) {
         }
       }
     }
-    texto += '\n-----------------------------------------------------\n';
+    texto += '\n──────────────────────────────────────────────────────────────\n';
   }
   return texto;
 }
@@ -440,7 +440,7 @@ function getTextNotes(project) {
           texto += `${nomePropriedade}: ${plainText}\n`;
       }
     }
-    texto += '\n-----------------------------------------------------\n';
+    texto += '\n──────────────────────────────────────────────────────────────\n';
   }
   return texto;
 }
