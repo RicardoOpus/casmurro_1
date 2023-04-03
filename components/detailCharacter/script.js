@@ -160,6 +160,7 @@ elementsArray.forEach(async function(elem) {
             e.data.characters[positionInArray][field] = elem.value;
           });
         }
+        updateLastEdit(currentID);
       });
     }
   })

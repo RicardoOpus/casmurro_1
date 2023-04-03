@@ -147,11 +147,10 @@ async function setCurrentCard(card, id) {
   return
 };
 
-// async function getCurrentCard() {
-//   const cardActual = await db.settings.toArray();
-//   const idProject = cardActual[0].currentCard;
-//   return idProject;
-// };
+async function updateLastEdit(projectID) {
+  const now = new Date();
+  return await db.projects.where('id').equals(projectID).modify({last_edit: now}) 
+};
 
 async function getCurrentScene(id_param) {
   const currentID = await getCurrentProjectID();

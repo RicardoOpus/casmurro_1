@@ -44,6 +44,7 @@ elementsArray.forEach(async function(elem) {
         await db.projects.where('id').equals(currentID).modify( (e) => {
           e.data.chapters[positionInArray][field] = elem.value;
         });
+        updateLastEdit(currentID);
       });
     }
   })

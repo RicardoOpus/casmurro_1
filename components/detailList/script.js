@@ -37,6 +37,7 @@ elementsArray.forEach(async function(elem) {
         await db.projects.where('id').equals(currentID).modify( (e) => {
           e.data.notes[positionInArray][field] = elem.value;
         });
+        updateLastEdit(currentID);
       });
     }
   })
@@ -53,6 +54,7 @@ async function saveChecklistContent() {
     e.data.notes[positionInArray].content = list;
   });
   await lastEditListModify('notes', currentCardID);
+  updateLastEdit(currentID);
 }
 
 function newTask() {

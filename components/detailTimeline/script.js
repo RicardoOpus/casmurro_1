@@ -33,6 +33,7 @@ elementsArray.forEach(async function(elem) {
         await db.projects.where('id').equals(currentID).modify( (e) => {
           e.data.timeline[positionInArray][field] = elem.value;
         });
+        updateLastEdit(currentID);
       });
     } else {
       return null

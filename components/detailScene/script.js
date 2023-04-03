@@ -177,6 +177,7 @@ elementsArray.forEach(async function(elem) {
             e.data.scenes[positionInArray][field] = elem.value;
           });
         }
+        updateLastEdit(currentID);
       });
     }
   })

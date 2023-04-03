@@ -70,6 +70,7 @@ elementsArray.forEach(async function(elem) {
             e.data.world[positionInArray][field] = elem.value;
           });
         }
+        updateLastEdit(currentID);
       });
     }
   })
