@@ -84,7 +84,7 @@
     function getBasicInfos() {
       const maintitle = document.getElementById('title');
       const mainDiv = document.getElementById('content-print');
-      const propriedades = ['title', 'subtitle', 'status', 'literary_genre', 'startDate', 'finishDate', 'description'];
+      const propriedades = ['title', 'subtitle', 'status', 'author', 'literary_genre', 'startDate', 'finishDate', 'description'];
       for (let i = 0; i < propriedades.length; i++) {
       const propriedade = propriedades[i];
       const valor = project[propriedade];
@@ -93,6 +93,8 @@
             maintitle.innerHTML += `<h1>${valor}</h1>`;
           } else if (propriedade === 'subtitle') {
             maintitle.innerHTML += `<h2 style='margin-top:0px'>${valor}</h2>`;
+          } else if (propriedade === 'author') {
+            maintitle.innerHTML += `<p style='margin-top:0px'>por ${valor}</p>`;
           } else if (propriedade === 'status') {
             mainDiv.innerHTML += `<p><b>Status:</b> ${valor}</p>`;
           } else if (propriedade === 'description') {
@@ -541,9 +543,9 @@
     getChapters();
     getTimeline();
     getNotes();
-    // window.print();
+    window.print();
     window.onload = function() {
-      // window.print();
+      window.print();
     };
   }
 

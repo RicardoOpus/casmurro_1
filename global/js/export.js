@@ -461,6 +461,8 @@ function gerarArquivoTxt(objeto, nomeArquivo, databackup) {
         texto += `Título: ${objeto[chave]}\n\n`;
       } else if (chave === 'subtitle') {
         texto += `Subtítulo: ${objeto[chave]}\n\n`;
+      } else if (chave === 'author') {
+        texto += `Autor: ${objeto[chave]}\n\n`;
       } else if (chave === 'status') {
         texto += `Status: ${objeto[chave]}\n\n`;
       } else if (chave === 'literary_genre') {
