@@ -578,10 +578,12 @@ async function calcularTempoPassado() {
   if (!desde) {
     return  divBackup.innerText = `Salve as informações do seu projeto`;
   }
-  if (horas < 2) {
+  if (horas < 2 && dias < 1) {
     return divBackup.innerText = '';
+  } else if (dias === 1){
+    return divBackup.innerText = `${dias} dia e ${horas } hrs desde o último backup`;
   } else {
-    return  divBackup.innerText = `${dias === 0 ? '' : dias + ' dias e '} ${horas} horas desde o último backup`;
+    return divBackup.innerText = `${dias === 0 ? '' : dias + ' dias e '} ${horas} hrs desde o último backup`;
   }
 }
 
