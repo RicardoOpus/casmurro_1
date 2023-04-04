@@ -179,7 +179,7 @@ function getTextWorld(project) {
 
 function getTextScenes(project) {
   const personagnes = sortByKey(project.data.scenes, 'position')
-  const propriedades = ['title', 'pov_id', 'status', 'place_id','time', 'date', 'weather', 'content', 'extra_1', 'extra_1-1','extra_1-2','extra_1-3','extra_2','extra_2-1','extra_3', 'extra_3-1', 'extra_3-2', 'content_full'];
+  const propriedades = ['title', 'pov_id', 'status', 'place_id','time', 'date', 'weather', 'scene_characters', 'content', 'extra_1', 'extra_1-1','extra_1-2','extra_1-3','extra_2','extra_2-1','extra_3', 'extra_3-1', 'extra_3-2', 'content_full'];
   let texto = '';
   for (let index = 0; index < personagnes.length; index++) {
     const element = personagnes[index];
@@ -254,6 +254,14 @@ function getTextScenes(project) {
         } else if (propriedade === 'date') {
           const result = project.data.timeline.filter((ele) => ele.id === element[propriedade]);
           texto += `${nomePropriedade}: ${result[0].date}\n`;
+        } else if (propriedade === 'scene_characters') {
+          texto += `Personagens em cena: `;
+          const list = element[propriedade];
+          for (let i = 0; i < list.length; i++ ) {
+            const result = project.data.characters.filter((ele) => ele.id === Number(list[i]));
+            texto += `${result[0].title} - `;
+          };
+          texto += `\n`;
         } else {
           texto += `${nomePropriedade}: ${element[propriedade]}\n`;
         }

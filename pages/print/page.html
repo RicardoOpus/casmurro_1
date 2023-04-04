@@ -1,0 +1,551 @@
+<style>
+  body {
+    margin: 2em;
+  }
+
+  h1 {
+    margin-bottom: 0px;
+  }
+
+  h2 {
+    margin-bottom: 0px;
+  }
+
+  p {
+    margin: 0px 15px;
+    line-height: 1.2;
+  }
+
+  li {
+    margin-left: 2em;
+  }
+  .title {
+    text-align: center;
+  }
+
+  .content {
+    text-indent: 2rem;
+    margin-top: 7px;
+  }
+
+  .completed{
+  text-decoration: line-through;
+  }
+
+</style>
+<p id="date-print" style="text-align: right;"></p>
+<div id="title" class="title"></div>
+<hr>
+<div id="content-print"></div>
+<div id="content-chars"></div>
+<div id="content-world"></div>
+<div id="content-scenes"></div>
+<div id="content-parts"></div>
+<div id="content-chapters"></div>
+<div id="content-timeline"></div>
+<div id="content-notes"></div>
+
+<script>
+  function getCurrentDateString() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+  const pad = (num) => (num < 10 ? "0" + num : num);
+  return {
+    toFileName: `${year}-${pad(month)}-${pad(day)}-${pad(hours)}-${pad(minutes)}-${pad(seconds)}`,
+    toBackup: `\n\n ${pad(day)}/${pad(month)}/${year} - ${pad(hours)}:${pad(minutes)}:${pad(seconds)}\n`
+  }
+}
+  function sortByKey(array, key) {
+  return array.sort(function(a, b) {
+      var x = a[key]; var y = b[key];
+      return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+  }
+
+  function sortByDate(array) {
+  return array.sort(function(a, b) {
+    let dateA = new Date(a.date);
+    let dateB = new Date(b.date);
+    return dateA - dateB;
+    });
+  }
+  async function main() {
+    const project = JSON.parse(localStorage.getItem('meuObjeto'));
+    const date = getCurrentDateString()
+    document.getElementById('date-print').innerHTML = date.toBackup;
+
+
+    
+    function getBasicInfos() {
+      const maintitle = document.getElementById('title');
+      const mainDiv = document.getElementById('content-print');
+      const propriedades = ['title', 'subtitle', 'status', 'literary_genre', 'startDate', 'finishDate', 'description'];
+      for (let i = 0; i < propriedades.length; i++) {
+      const propriedade = propriedades[i];
+      const valor = project[propriedade];
+        if (typeof valor !== 'object' && valor !== '') {
+          if (propriedade === 'title') {
+            maintitle.innerHTML += `<h1>${valor}</h1>`;
+          } else if (propriedade === 'subtitle') {
+            maintitle.innerHTML += `<h2 style='margin-top:0px'>${valor}</h2>`;
+          } else if (propriedade === 'status') {
+            mainDiv.innerHTML += `<p><b>Status:</b> ${valor}</p>`;
+          } else if (propriedade === 'description') {
+            mainDiv.innerHTML += `<p class='content'>${valor}</p>`;
+          } else if (propriedade === 'startDate') {
+            mainDiv.innerHTML += `<p><b>Data inícial:</b> ${valor}</p>`;
+          } else if (propriedade === 'finishDate') {
+            mainDiv.innerHTML += `<p><b>Data final:</b> ${valor}</p>`;
+          } else if (propriedade === 'literary_genre') {
+            mainDiv.innerHTML += `<p><b>Tipo literário:</b> ${valor}</p>`;
+          } else {
+            mainDiv.innerHTML += `<p>${propriedade}: ${valor}</p>`;
+          }
+        }
+      };
+    };
+
+    function getCharacters() {
+      const personagnes = sortByKey(project.data.characters, 'title');
+      const mainDiv = document.getElementById('content-chars');
+      mainDiv.innerHTML += `<h1>Persongens</h1><hr>`;
+      const propriedades = ['title', 'category', 'age', 'gender', 'ocupation', 'date_birth', 'date_death', 'extra_1', 'extra_1_1', 'extra_2', 'extra_2_1', 'extra_2_2', 'extra_3', 'extra_3_1', 'content'];
+      let texto = '';
+      for (let index = 0; index < personagnes.length; index++) {
+        const element = personagnes[index];
+        for (let i = 0; i < propriedades.length; i++) {
+          const propriedade = propriedades[i];
+          if (element[propriedade]) {
+            let nomePropriedade;
+            switch (propriedade) {
+              case 'title':
+                nomePropriedade = 'Nome';
+                break;
+              case 'category':
+                nomePropriedade = 'Categoria';
+                break;
+              case 'age':
+                nomePropriedade = 'Idade';
+                break;
+              case 'gender':
+                nomePropriedade = 'Gênero';
+                break;
+              case 'ocupation':
+                nomePropriedade = 'Ocupação';
+                break;
+              case 'date_birth':
+                nomePropriedade = 'Data de nascimento';
+                break;
+              case 'date_death':
+                nomePropriedade = 'Data da morte';
+                break;
+              case 'content':
+                nomePropriedade = 'Conteúdo';
+                break;
+              case 'extra_1':
+                nomePropriedade = 'Características físicas';
+                break;
+              case 'extra_1_1':
+                nomePropriedade = 'Características psicologias';
+                break;
+              case 'extra_2':
+                nomePropriedade = 'Motivação';
+                break;
+              case 'extra_2_1':
+                nomePropriedade = 'Conflito';
+                break;
+              case 'extra_2_2':
+                nomePropriedade = 'Transformação';
+                break;
+              case 'extra_3':
+                nomePropriedade = 'Dualidade - Interior';
+                break;
+              case 'extra_3_1':
+                nomePropriedade = 'Dualidade - Exterior';
+                break;
+              default:
+                nomePropriedade = '';
+                break;
+            } if (propriedade === 'title') {
+              mainDiv.innerHTML += `<h2>${element[propriedade]}</h2>`;
+            } else if (propriedade === 'date_birth') {
+              const result = project.data.timeline.filter((ele) => ele.id === element[propriedade]);
+              mainDiv.innerHTML += `<p><b>${nomePropriedade}:</b><br> ${result[0].date}</p>`;
+            } else if (propriedade === 'date_death') {
+              const result = project.data.timeline.filter((ele) => ele.id === element[propriedade]);
+              mainDiv.innerHTML += `<p><b>${nomePropriedade}:</b><br> ${result[0].date}</p>`;
+            } else if (propriedade === 'content') {
+              const text = element[propriedade].replace(/\n\n/g, "</p><p class='content'>");
+              texto = "<p>" + texto + "</p>";
+              mainDiv.innerHTML += `<p class='content'>${text}</p>`;
+            } else {
+              mainDiv.innerHTML += `<p><b>${nomePropriedade}</b>:<br> ${element[propriedade]}</p>`;
+            }
+          }
+        }
+      }
+    };
+
+  function getWorld() {
+    const personagnes = sortByKey(project.data.world, 'title');
+    const mainDiv = document.getElementById('content-world');
+    mainDiv.innerHTML += `<h1>Mundo</h1><hr>`;
+    const propriedades = ['title', 'category', 'date', 'content'];
+    let texto = '';
+    for (let index = 0; index < personagnes.length; index++) {
+      const element = personagnes[index];
+      for (let i = 0; i < propriedades.length; i++) {
+        const propriedade = propriedades[i];
+        if (element[propriedade]) {
+          let nomePropriedade;
+          switch (propriedade) {
+            case 'title':
+              nomePropriedade = 'Título';
+              break;
+            case 'category':
+              nomePropriedade = 'Categoria';
+              break;
+            case 'date':
+              nomePropriedade = 'Data';
+              break;
+            case 'content':
+              nomePropriedade = 'Conteúdo';
+              break;
+            default:
+              nomePropriedade = '';
+              break;
+          } if (propriedade === 'title') {
+              mainDiv.innerHTML += `<h2>${element[propriedade]}</h2>`;
+          } else if (propriedade === 'date') {
+            const result = project.data.timeline.filter((ele) => ele.id === element[propriedade]);
+            mainDiv.innerHTML += `<p><b>${nomePropriedade}:</b><br> ${result[0].date}</p>`;
+          } else if (propriedade === 'content') {
+            const text = element[propriedade].replace(/\n\n/g, "</p><p class='content'>");
+            texto = "<p>" + texto + "</p>";
+            mainDiv.innerHTML += `<p class='content'>${text}</p>`;
+          } else {
+            mainDiv.innerHTML += `<p><b>${nomePropriedade}</b>:<br> ${element[propriedade]}</p>`;
+          }
+        }
+      }
+    }
+  }
+
+  function getScenes() {
+  const personagnes = sortByKey(project.data.scenes, 'position');
+  const mainDiv = document.getElementById('content-scenes');
+  mainDiv.innerHTML += `<h1>Cenas</h1><hr>`;
+  const propriedades = ['title', 'pov_id', 'status', 'place_id','time', 'date', 'weather', 'scene_characters', 'content', 'extra_1', 'extra_1-1','extra_1-2','extra_1-3','extra_2','extra_2-1','extra_3', 'extra_3-1', 'extra_3-2', 'content_full'];
+  let texto = '';
+    for (let index = 0; index < personagnes.length; index++) {
+      const element = personagnes[index];
+      for (let i = 0; i < propriedades.length; i++) {
+        const propriedade = propriedades[i];
+        if (element[propriedade]) {
+          let nomePropriedade;
+          switch (propriedade) {
+            case 'title':
+              nomePropriedade = 'Título';
+              break;
+            case 'pov_id':
+              nomePropriedade = 'POV';
+              break;
+            case 'place_id':
+              nomePropriedade = 'Local';
+              break;
+            case 'time':
+              nomePropriedade = 'Período';
+              break;
+            case 'status':
+              nomePropriedade = 'Status';
+              break;
+            case 'date':
+              nomePropriedade = 'Data';
+              break;
+            case 'weather':
+              nomePropriedade = 'Condições climáticas';
+              break;
+            case 'content':
+              nomePropriedade = 'Resmumo';
+              break;
+            case 'extra_1':
+              nomePropriedade = 'Abertura';
+              break;
+            case 'extra_1-1':
+              nomePropriedade = 'Final';
+              break;
+            case 'extra_1-2':
+              nomePropriedade = 'Pico emocional';
+              break;
+            case 'extra_1-3':
+              nomePropriedade = 'Personagens e agendas';
+              break;
+            case 'extra_2':
+              nomePropriedade = 'Detalhes e realismo';
+              break;
+            case 'extra_2-1':
+              nomePropriedade = 'Interação com o ambiente';
+              break;
+            case 'extra_3':
+              nomePropriedade = 'Revela/esconde';
+              break;
+            case 'extra_3-1':
+              nomePropriedade = 'O leitor deve deduzir';
+              break;
+            case 'extra_3-2':
+              nomePropriedade = 'Símbolos';
+              break;
+            case 'content_full':
+              nomePropriedade = 'Descrição completa';
+              break;
+            default:
+              nomePropriedade = '';
+              break;
+          } if (propriedade === 'title') {
+            mainDiv.innerHTML += `<h2>${element[propriedade]}</h2>`;
+          } else if (propriedade === 'pov_id') {
+            const result = project.data.characters.filter((ele) => ele.id === Number(element[propriedade]));
+            mainDiv.innerHTML += `<p><b>POV:</b><br> ${result[0].title}</p>`;
+          } else if (propriedade === 'place_id') {
+            const result = project.data.world.filter((ele) => ele.id === Number(element[propriedade]));
+            mainDiv.innerHTML += `<p><b>Local:</b><br> ${result[0].title}</p>`;
+          } else if (propriedade === 'date') {
+            const result = project.data.timeline.filter((ele) => ele.id === element[propriedade]);
+            mainDiv.innerHTML += `<p><b>Data:</b><br>  ${result[0].date}</p>`;
+          } else if (propriedade === 'content_full') {
+            const text = element[propriedade].replace(/\n\n/g, "</p><p class='content'>");
+            texto = "<p>" + texto + "</p>";
+            mainDiv.innerHTML += `<p class='content'>${text}</p>`;
+          } else if (propriedade === 'scene_characters') {
+            mainDiv.innerHTML += `<p><b>Personagens em cena: </b></p>`;
+            const list = element[propriedade];
+            for (let i = 0; i < list.length; i++ ) {
+              const result = project.data.characters.filter((ele) => ele.id === Number(list[i]));
+              mainDiv.innerHTML += `<li>${result[0].title}</li>`;
+            };
+          } else {
+            mainDiv.innerHTML += `<p><b>${nomePropriedade}</b>:<br> ${element[propriedade]}</p>`;
+          }
+        }
+      }
+    }
+  }
+
+  function getParts() {
+    const personagnes = sortByKey(project.data.parts, 'position');
+    const mainDiv = document.getElementById('content-parts');
+    mainDiv.innerHTML += `<h1>Partes</h1><hr>`;
+    const propriedades = ['title', 'content', 'content_full', 'chapters'];
+    let texto = '';
+    for (let index = 0; index < personagnes.length; index++) {
+      const element = personagnes[index];
+      for (let i = 0; i < propriedades.length; i++) {
+        const propriedade = propriedades[i];
+        if (element[propriedade]) {
+          let nomePropriedade;
+          switch (propriedade) {
+            case 'title':
+              nomePropriedade = 'Título';
+              break;
+            case 'content':
+              nomePropriedade = 'Resumo';
+              break;
+            case 'content_full':
+              nomePropriedade = 'Conteúdo';
+              break;
+            default:
+              nomePropriedade = '';
+              break;
+          } if (propriedade === 'title') {
+            mainDiv.innerHTML += `<h2>${element[propriedade]}</h2>`;
+          } else if (propriedade === 'chapters') {
+            mainDiv.innerHTML += `<p><b>Capítulos: </b></p>`;
+            element[propriedade].forEach(e => {
+              const result = project.data.chapters.filter((ele) => ele.id === e);
+              mainDiv.innerHTML += `<li>${result[0].title}</li>`;
+            });
+          } else if (propriedade === 'content_full') {
+            const text = element[propriedade].replace(/\n\n/g, "</p><p class='content'>");
+            texto = "<p>" + texto + "</p>";
+            mainDiv.innerHTML += `<p class='content'>${text}</p>`;
+          } else {
+            mainDiv.innerHTML += `<p><b>${nomePropriedade}</b>:<br> ${element[propriedade]}</p>`;
+          }
+        }
+      }
+    }
+  }
+
+  function getChapters() {
+    const personagnes = sortByKey(project.data.chapters, 'position');
+    const mainDiv = document.getElementById('content-chapters');
+    mainDiv.innerHTML += `<h1>Capítulos</h1><hr>`;
+    const propriedades = ['title', 'content', 'content_full', 'scenes'];
+    let texto = '';
+    for (let index = 0; index < personagnes.length; index++) {
+      const element = personagnes[index];
+      for (let i = 0; i < propriedades.length; i++) {
+        const propriedade = propriedades[i];
+        if (element[propriedade]) {
+          let nomePropriedade;
+          switch (propriedade) {
+            case 'title':
+              nomePropriedade = 'Título';
+              break;
+            case 'content':
+              nomePropriedade = 'Resumo';
+              break;
+            case 'content_full':
+              nomePropriedade = 'Conteúdo';
+              break;
+            default:
+              nomePropriedade = '';
+              break;
+          } if (propriedade === 'title') {
+            mainDiv.innerHTML += `<h2>${element[propriedade]}</h2>`;
+          } else if (propriedade === 'scenes') {
+            mainDiv.innerHTML += `<p><b>Cenas: </b></p>`;
+            element[propriedade].forEach(e => {
+              const result = project.data.scenes.filter((ele) => ele.id === e);
+              mainDiv.innerHTML += `<li>${result[0].title}</li>`;
+            });
+          } else if (propriedade === 'content_full') {
+            const text = element[propriedade].replace(/\n\n/g, "</p><p class='content'>");
+            texto = "<p>" + texto + "</p>";
+            mainDiv.innerHTML += `<p class='content'>${text}</p>`;
+          } else {
+            mainDiv.innerHTML += `<p><b>${nomePropriedade}</b>:<br> ${element[propriedade]}</p>`;
+          }
+        }
+      }
+    }
+  }
+
+  function getTimeline() {
+    const personagnes = sortByDate(project.data.timeline);
+    const mainDiv = document.getElementById('content-timeline');
+    mainDiv.innerHTML += `<h1>Timeline</h1><hr>`;
+    const propriedades = ['date', 'title', 'elementType', 'elementID', 'historicID', 'sceneID', 'content'];
+    let texto = '';
+    for (let index = 0; index < personagnes.length; index++) {
+      const element = personagnes[index];
+      for (let i = 0; i < propriedades.length; i++) {
+        const propriedade = propriedades[i];
+        if (element[propriedade]) {
+          let nomePropriedade;
+          switch (propriedade) {
+            case 'date':
+              nomePropriedade = 'Data';
+              break;
+            case 'title':
+              nomePropriedade = 'Título';
+              break;
+            case 'elementType':
+              nomePropriedade = 'Tipo de evento';
+              break;
+            case 'elementID':
+              nomePropriedade = 'Nome da pessoa';
+              break;
+            case 'historicID':
+              nomePropriedade = 'Fato histórico';
+              break;
+            case 'sceneID':
+              nomePropriedade = 'Cena';
+              break;
+            case 'content':
+              nomePropriedade = 'Conteúdo';
+              break;
+            default:
+              nomePropriedade = '';
+              break;
+          } if (propriedade === 'historicID') {
+            const result = project.data.world.filter((ele) => ele.id === element[propriedade])
+            texto += `<span>${result[0].title}</span>`;
+          } else if (propriedade === 'sceneID') {
+            const result = project.data.scenes.filter((ele) => ele.id === element[propriedade])
+            texto += `<span>${result[0].title}</span>`;
+          } else if (propriedade === 'elementID') {
+            const result = project.data.characters.filter((ele) => ele.id === element[propriedade])
+            texto += `<span>${result[0].title}</span>`;
+          } else if (element[propriedade] === 'characters-birth'){
+            texto += `<p style="margin-left: 5em">Nasce personagem: `;
+          } else if (element[propriedade] === 'characters-death'){
+            texto += `<p style="margin-left: 5em">Morre personagem: `;
+          } else if (element[propriedade] === 'historical-event'){
+            texto += `<p style="margin-left: 5em">Fato histórico: `;
+          } else if (element[propriedade] === 'scene'){
+            texto += `<p style="margin-left: 5em">Cena: `;
+          } else if (propriedade === 'title'){
+            texto += `<p style="margin-left: 5em">${element[propriedade]} `;
+          } else if (propriedade === 'content'){
+            texto += `<p style="margin-left: 6em">${element[propriedade]} `;
+          } else {
+            texto += `<li>${element[propriedade]}</li>`;
+          }
+        }
+      }
+    }
+    mainDiv.innerHTML += texto;
+  }
+
+
+  function getNotes() {
+  const personagnes = sortByKey(project.data.notes, 'title');
+  const mainDiv = document.getElementById('content-notes');
+    mainDiv.innerHTML += `<h1>Notas</h1><hr>`;
+  const propriedades = ['title', 'category', 'content'];
+  let texto = '';
+    for (let index = 0; index < personagnes.length; index++) {
+      const element = personagnes[index];
+      for (let i = 0; i < propriedades.length; i++) {
+        const propriedade = propriedades[i];
+        if (element[propriedade]) {
+          let nomePropriedade;
+          switch (propriedade) {
+            case 'title':
+              nomePropriedade = 'Título';
+              break;
+            case 'category':
+              nomePropriedade = 'Categoria';
+              break;
+            case 'content':
+              nomePropriedade = 'Conteúdo';
+              break;
+            default:
+              nomePropriedade = '';
+              break;
+          } if (propriedade === 'title') {
+            mainDiv.innerHTML += `<h2>${element[propriedade]}</h2>`;
+          } else if (propriedade === 'content') {
+            const text = element[propriedade].replace(/\n\n/g, "</p><p class='content'>");
+            texto = "<p>" + texto + "</p>";
+            mainDiv.innerHTML += `<p class='content'>${text}</p>`;
+          }   else {
+            mainDiv.innerHTML += `<p><b>${nomePropriedade}</b>:<br> ${element[propriedade]}</p>`;
+          }
+        }
+      }
+    }
+  };
+
+    getBasicInfos();
+    getCharacters();
+    getWorld();
+    getScenes();
+    getParts();
+    getChapters();
+    getTimeline();
+    getNotes();
+    // window.print();
+    window.onload = function() {
+      // window.print();
+    };
+  }
+
+  main();
+</script>

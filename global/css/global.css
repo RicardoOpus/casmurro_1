@@ -125,7 +125,7 @@ footer {
 .backupModal {
   padding: 10px;
   font-size: large;
-  margin: 0px 25px;
+  margin: 7px 0px;
 }
 
 .json {
@@ -134,6 +134,10 @@ footer {
 
 .txt {
   background: linear-gradient(0deg, rgb(32, 32, 36) 0%, rgb(4, 37, 60) 100%);
+}
+
+.print {
+  background: linear-gradient(0deg, rgb(32, 32, 36) 0%, rgb(60, 4, 4) 100%);
 }
 /* ============================================= */
 
