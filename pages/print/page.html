@@ -23,13 +23,40 @@
     text-align: center;
   }
 
-  .content {
+.content {
     text-indent: 2rem;
     margin-top: 7px;
   }
 
   .completed{
   text-decoration: line-through;
+  }
+
+  .imageProject {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    float: left;
+    margin-right: 15px;
+  }
+
+  .imageChar {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    float: left;
+    margin-right: 15px;
+    margin-top: 15px;
+  }
+
+  .image {
+    width: 400px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    float: left;
+    margin-right: 15px;
   }
 
 </style>
@@ -84,7 +111,7 @@
     function getBasicInfos() {
       const maintitle = document.getElementById('title');
       const mainDiv = document.getElementById('content-print');
-      const propriedades = ['title', 'subtitle', 'status', 'author', 'literary_genre', 'startDate', 'finishDate', 'description'];
+      const propriedades = ['title', 'subtitle', 'image_cover', 'status', 'author', 'literary_genre', 'startDate', 'finishDate', 'description'];
       for (let i = 0; i < propriedades.length; i++) {
       const propriedade = propriedades[i];
       const valor = project[propriedade];
@@ -105,6 +132,8 @@
             mainDiv.innerHTML += `<p><b>Data final:</b> ${valor}</p>`;
           } else if (propriedade === 'literary_genre') {
             mainDiv.innerHTML += `<p><b>Tipo literário:</b> ${valor}</p>`;
+          } else if (propriedade === 'image_cover') {
+              mainDiv.innerHTML += `<img src='${valor}' class='imageProject'></img>`;
           } else {
             mainDiv.innerHTML += `<p>${propriedade}: ${valor}</p>`;
           }
@@ -116,7 +145,7 @@
       const personagnes = sortByKey(project.data.characters, 'title');
       const mainDiv = document.getElementById('content-chars');
       mainDiv.innerHTML += `<h1>Persongens</h1><hr>`;
-      const propriedades = ['title', 'category', 'age', 'gender', 'ocupation', 'date_birth', 'date_death', 'extra_1', 'extra_1_1', 'extra_2', 'extra_2_1', 'extra_2_2', 'extra_3', 'extra_3_1', 'content'];
+      const propriedades = ['image_card', 'title', 'category', 'age', 'gender', 'ocupation', 'date_birth', 'date_death', 'extra_1', 'extra_1_1', 'extra_2', 'extra_2_1', 'extra_2_2', 'extra_3', 'extra_3_1', 'content'];
       let texto = '';
       for (let index = 0; index < personagnes.length; index++) {
         const element = personagnes[index];
@@ -185,6 +214,8 @@
               const text = element[propriedade].replace(/\n\n/g, "</p><p class='content'>");
               texto = "<p>" + texto + "</p>";
               mainDiv.innerHTML += `<p class='content'>${text}</p>`;
+            } else if (propriedade === 'image_card') {
+              mainDiv.innerHTML += `<img src='${element[propriedade]}' class='imageChar'></img>`;
             } else {
               mainDiv.innerHTML += `<p><b>${nomePropriedade}</b>:<br> ${element[propriedade]}</p>`;
             }
@@ -197,7 +228,7 @@
     const personagnes = sortByKey(project.data.world, 'title');
     const mainDiv = document.getElementById('content-world');
     mainDiv.innerHTML += `<h1>Mundo</h1><hr>`;
-    const propriedades = ['title', 'category', 'date', 'content'];
+    const propriedades = ['title', 'image_card', 'category', 'date', 'content'];
     let texto = '';
     for (let index = 0; index < personagnes.length; index++) {
       const element = personagnes[index];
@@ -230,6 +261,8 @@
             const text = element[propriedade].replace(/\n\n/g, "</p><p class='content'>");
             texto = "<p>" + texto + "</p>";
             mainDiv.innerHTML += `<p class='content'>${text}</p>`;
+          } else if (propriedade === 'image_card') {
+              mainDiv.innerHTML += `<img src='${element[propriedade]}' class='image'></img>`;
           } else {
             mainDiv.innerHTML += `<p><b>${nomePropriedade}</b>:<br> ${element[propriedade]}</p>`;
           }
@@ -500,7 +533,7 @@
   const personagnes = sortByKey(project.data.notes, 'title');
   const mainDiv = document.getElementById('content-notes');
     mainDiv.innerHTML += `<h1>Notas</h1><hr>`;
-  const propriedades = ['title', 'category', 'content'];
+  const propriedades = ['title', 'image_card', 'category', 'content'];
   let texto = '';
     for (let index = 0; index < personagnes.length; index++) {
       const element = personagnes[index];
@@ -527,7 +560,9 @@
             const text = element[propriedade].replace(/\n\n/g, "</p><p class='content'>");
             texto = "<p>" + texto + "</p>";
             mainDiv.innerHTML += `<p class='content'>${text}</p>`;
-          }   else {
+          } else if (propriedade === 'image_card') {
+              mainDiv.innerHTML += `<img src='${element[propriedade]}' class='image'></img>`;
+          } else {
             mainDiv.innerHTML += `<p><b>${nomePropriedade}</b>:<br> ${element[propriedade]}</p>`;
           }
         }

@@ -123,7 +123,6 @@ function checkElement(element) {
     element.extra_1 && element.extra_1 !== "" &&
     element.extra_1_1 && element.extra_1_1 !== ""
   ) {
-    console.log(element.extra_1, element.extra_1_1, '<==== elemntos 2');
     classes += "circle2 ";
   } if (
     element.extra_2 && element.extra_2 !== "" &&
