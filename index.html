@@ -64,9 +64,8 @@
   <link rel="stylesheet" href="global/css/global.css" />
 
   <script>
-    async function prepareToPrint(parms) {
-      const projectData = await getCurrentProject();
-      localStorage.setItem('meuObjeto', JSON.stringify(projectData));
+    async function prepareToPrint() {
+      updateTimeBackup();
       window.open('pages/print/page.html', '_blank');
     }
 

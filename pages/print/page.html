@@ -72,7 +72,14 @@
 <div id="content-timeline"></div>
 <div id="content-notes"></div>
 
-<script>
+<script src="../../assets/js/dixie.js"></script>
+
+<script type="module">
+
+  import '/global/js/dataManager.js';
+
+  const db = window.myDb;
+
   function getCurrentDateString() {
   const now = new Date();
   const year = now.getFullYear();
@@ -93,7 +100,19 @@
       return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
   }
+  
+  async function getCurrentProjectID() {
+    const projectActual = await db.settings.toArray();
+    const idProject = projectActual[0].currentproject;
+    return idProject;
+  };
 
+  async function getCurrentProject() {
+    const currentID = await getCurrentProjectID();
+    const project = await db.projects.get(currentID);
+    return project;
+  }
+  
   function sortByDate(array) {
   return array.sort(function(a, b) {
     let dateA = new Date(a.date);
@@ -101,17 +120,16 @@
     return dateA - dateB;
     });
   }
+  
   async function main() {
-    const project = JSON.parse(localStorage.getItem('meuObjeto'));
+    const project = await getCurrentProject()
     const date = getCurrentDateString()
     document.getElementById('date-print').innerHTML = date.toBackup;
 
-
-    
     function getBasicInfos() {
       const maintitle = document.getElementById('title');
       const mainDiv = document.getElementById('content-print');
-      const propriedades = ['title', 'subtitle', 'image_cover', 'status', 'author', 'literary_genre', 'startDate', 'finishDate', 'description'];
+      const propriedades = ['title', 'subtitle', 'image_project', 'status', 'author', 'literary_genre', 'startDate', 'finishDate', 'description'];
       for (let i = 0; i < propriedades.length; i++) {
       const propriedade = propriedades[i];
       const valor = project[propriedade];
@@ -132,7 +150,7 @@
             mainDiv.innerHTML += `<p><b>Data final:</b> ${valor}</p>`;
           } else if (propriedade === 'literary_genre') {
             mainDiv.innerHTML += `<p><b>Tipo literário:</b> ${valor}</p>`;
-          } else if (propriedade === 'image_cover') {
+          } else if (propriedade === 'image_project') {
               mainDiv.innerHTML += `<img src='${valor}' class='imageProject'></img>`;
           } else {
             mainDiv.innerHTML += `<p>${propriedade}: ${valor}</p>`;
@@ -584,5 +602,5 @@
     };
   }
 
-  main();
+  await main();
 </script>

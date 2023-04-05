@@ -104,8 +104,9 @@ async function saveProjectCover() {
   const reader = new FileReader();
   reader.onloadend = async () => {
     const base64String = reader.result
-    const  imgFinal = await applyFiltersToImage(base64String)
-    await db.projects.update(projectData.id, {image_cover: imgFinal})
+    const  imgFinal = await applyFiltersToImage(base64String);
+    await db.projects.update(projectData.id, {image_cover: imgFinal});
+    await db.projects.update(projectData.id, {image_project: base64String})
   };
   reader.readAsDataURL(file);
   pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js');
@@ -115,7 +116,8 @@ async function restoreProjectCover() {
   const projectActual = await db.settings.toArray();
   const idProject = await projectActual[0].currentproject;
   const projectData = await db.projects.get(idProject);
-  await db.projects.update(projectData.id, {image_cover: null})
+  await db.projects.update(projectData.id, {image_cover: null});
+  await db.projects.update(projectData.id, {image_project: null})
   pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js');
 };
 

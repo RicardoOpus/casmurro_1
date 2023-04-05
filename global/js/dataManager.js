@@ -4,6 +4,8 @@ db.version(1).stores({
   settings: "++id,currentproject"
 });
 
+window.myDb = db;
+
 async function hasSettings() {
   const projectActual = await db.settings.toArray();
   if (!projectActual[0]) {
