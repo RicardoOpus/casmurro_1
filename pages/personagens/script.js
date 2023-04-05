@@ -108,6 +108,38 @@ function setFilterCategory(tab, filterCategory) {
   getCharactersCardsFiltred(filterCategory);
 }
 
+function checkElement(element) {
+  let classes = 'circle ';
+  if (
+    element.category !== "" && 
+    element.gender !== "" &&
+    element.date_birth !== "" &&
+    element.age !== "" &&
+    element.ocupation !== "" &&
+    element.content !== ""
+  ) {
+    classes += "circle1 ";
+  } if (
+    element.extra_1 && element.extra_1 !== "" &&
+    element.extra_1_1 && element.extra_1_1 !== ""
+  ) {
+    console.log(element.extra_1, element.extra_1_1, '<==== elemntos 2');
+    classes += "circle2 ";
+  } if (
+    element.extra_2 && element.extra_2 !== "" &&
+    element.extra_2_1 && element.extra_2_1 !== "" &&
+    element.extra_2_2 && element.extra_2_2 !== ""
+  ) {
+    classes += "circle3 ";
+  } if (
+    element.extra_3 && element.extra_3 !== "" &&
+    element.extra_3_1 && element.extra_3_1 !== ""
+  ) {
+    classes += "circle4 ";
+  }
+  return classes;
+};
+
 async function getCharactersCards() {
   const project = await getCurrentProject();
   const resultSorted = sortByKey(project.data.characters, 'title');
@@ -122,7 +154,8 @@ async function getCharactersCards() {
         <a onclick="pageChange('#project-list', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')">
           <div class="worldName" onclick="setCurrentCard('characters', ${ ele.id })">
             <div class="contentListChar">
-              <div>
+          <div class="${checkElement(ele)}"></div>
+            <div style='z-index: 1; margin-top: 5px;margin-left: 5px'>
                 <img src="${ !ele.image_card ? '' : ele.image_card }" class="charListImage"> 
               </div>
               <div class="charInfos">
@@ -224,3 +257,19 @@ getCharactersCards();
 validateNewCard("characterName", "#okBtn-character");
 validateNewCard("categoryCharName", "#okBtn-cat");
 validateNewCard("categoryDelName-char", "#okBtn-delcat");
+
+var element = { 
+category: "Principais",
+gender: "Masculino",
+date_birth: 26,
+age: "33",
+ocupation: "Hobbit, ex-proprietário do Bolsão",
+content: "Frodo .",
+extra_1: "Pequeno.",
+extra_1_1: "Pequeno em estatura",
+extra_2: " Cumprir a tarefa",
+extra_2_1: "Frodo é constantemente",
+extra_2_2: "Frodo é profundamente.",
+extra_3: "Frodo lida com a dualidade.",
+extra_3_1: "Frodo lida com a dualidade.",
+}
