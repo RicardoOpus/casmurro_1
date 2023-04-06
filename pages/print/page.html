@@ -55,7 +55,7 @@
     height: 200px;
     object-fit: cover;
     border-radius: 5px;
-    float: left;
+    /* float: left; */
     margin-right: 15px;
   }
 
@@ -550,7 +550,7 @@
   const personagnes = sortByKey(project.data.notes, 'title');
   const mainDiv = document.getElementById('content-notes');
     mainDiv.innerHTML += `<h1>Notas</h1><hr>`;
-  const propriedades = ['title', 'image_card', 'category', 'content'];
+  const propriedades = ['title', 'image_card', 'category', 'links', 'content'];
   let texto = '';
     for (let index = 0; index < personagnes.length; index++) {
       const element = personagnes[index];
@@ -578,7 +578,11 @@
             texto = "<p>" + texto + "</p>";
             mainDiv.innerHTML += `<p class='content'>${text}</p>`;
           } else if (propriedade === 'image_card') {
-              mainDiv.innerHTML += `<img src='${element[propriedade]}' class='image'></img>`;
+            mainDiv.innerHTML += `<img src='${element[propriedade]}' class='image'></img>`;
+          } else if (propriedade === 'links') {
+            element[propriedade].forEach( (e) => {
+              mainDiv.innerHTML += `<li>${e.title}:<p> ${e.address}</p></li>`
+            })
           } else {
             mainDiv.innerHTML += `<p><b>${nomePropriedade}</b>:<br> ${element[propriedade]}</p>`;
           }
@@ -595,9 +599,9 @@
     getChapters();
     getTimeline();
     getNotes();
-    window.print();
+    // window.print();
     window.onload = function() {
-      window.print();
+      // window.print();
     };
   }
 

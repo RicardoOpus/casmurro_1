@@ -13,11 +13,22 @@ function pageChange(place, page, script) {
   });
 }
 
+// async function loadpage(pagename) {
+//   $("#dinamic").load("pages/" + pagename + "/page.html", function () {
+//     myLoadScript("pages/" + pagename + "/script.js");
+//   });
+// };
+
 async function loadpage(pagename) {
-  $("#dinamic").load("pages/" + pagename + "/page.html", function () {
-    myLoadScript("pages/" + pagename + "/script.js");
-  });
-};
+  const response = await fetch(`pages/${pagename}/page.html`);
+  const html = await response.text();
+  const dynamic = document.getElementById("dinamic");
+  dynamic.innerHTML = html;
+
+  const script = document.createElement("script");
+  script.src = `pages/${pagename}/script.js`;
+  dynamic.appendChild(script);
+}
 
 async function loadpageDetail(pagename, id, detailPage) {
   $("#dinamic").load("pages/" + pagename + "/page.html", function () {
