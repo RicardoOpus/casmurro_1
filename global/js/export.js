@@ -420,7 +420,7 @@ function getTextTimeline(project) {
 
 function getTextNotes(project) {
   const personagnes = sortByKey(project.data.notes, 'title');
-  const propriedades = ['title', 'category', 'content'];
+  const propriedades = ['title', 'category', 'links', 'content'];
   let texto = '';
   for (let index = 0; index < personagnes.length; index++) {
     const element = personagnes[index];
@@ -441,11 +441,16 @@ function getTextNotes(project) {
           default:
             nomePropriedade = '';
             break;
-        }
+        } if (propriedade === 'links') {
+          element[propriedade].forEach( (e) => {
+            texto += `${e.title}:\n${e.address}\n`
+          })
+        } else {
           const tempDiv = document.createElement('div');
           tempDiv.innerHTML = element[propriedade];
           const plainText = tempDiv.innerText;
           texto += `${nomePropriedade}: ${plainText}\n`;
+        }
       }
     }
     texto += '\n──────────────────────────────────────────────────────────────\n';
