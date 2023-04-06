@@ -19,6 +19,7 @@
         </select>
       </div>
     </div>
+    <div id="links" class="linksList"></div>
     <div>
       <h3>Conteúdo:</h3>
       <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content" oninput="auto_grow(this)"></textarea>
@@ -41,3 +42,16 @@
       Tem certeza que deseja deletar este cartão?
     </h4>
 </div>
+
+<div id="myModalLink-notes" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div style="text-align: center;">
+      <h3>Título</h3>
+      <input id="link_title" class="cardInputNormal dateFactInputForm" type="text" placeholder="título do link">
+      <h3>Endereço externo:</h3>
+      <input id="link_address" class="cardInputNormal dateFactInputForm" type="text" placeholder="https://endereco...">
+      <br>
+      <button onclick="saveLink()" class="ui-button ui-corner-all backupModal">Adicionar</button>
+  </div>
+</div> 

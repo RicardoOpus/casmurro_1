@@ -16,6 +16,7 @@ async function createNewNote() {
     content: '',
     category: '',
     image_card: '',
+    links: [],
     id: ID
   };
   await db.projects.where('id').equals(pjID).modify( (ele) => {
@@ -172,13 +173,23 @@ function removeListClass() {
   }
 };
 
+function createLinksCards(links, divID) {
+  const linksDiv = document.getElementById(divID);
+  links.forEach( (link, i) => {
+    const anchor = document.createElement('a');
+
+    anchor.innerHTML = `<p style='margin-bottom: 10px'><a href='${link.address}' target="_blank">  ${link.title} <a/></p>`
+    linksDiv.appendChild(anchor);
+  });
+}
+
 async function getNotesCards() {
   const project = await getCurrentProject();
   const resultSorted = sortByKey(project.data.notes, 'title');
   if (resultSorted.length === 0) {
     return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
   }
-  resultSorted.forEach( (ele) => {
+  resultSorted.forEach( (ele, i) => {
     if (ele.category === "Listas") {
       return $('#project-list').append(
         `
@@ -194,8 +205,34 @@ async function getNotesCards() {
                   <div>
                     <div class="it">${ ele.content }</div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </a>
+          </li>
+        </ul>
+        `
+      );
+    } if (ele.links?.length > 0) {
+      $('#project-list').append(
+        `
+        <ul class="worldList">
+          <li class="worldItens" id='${ ele.id }'>
+          <a onclick="pageChange('#project-list', 'components/detailNote/page.html', 'components/detailNote/script.js')">
+            <div class="worldName" onclick="setCurrentCard('notes', ${ ele.id })">
+              <div class="contentListWorld">
+                <p class="wordlTitle">${ ele.title }</p></a>
+                <hr class="cardLineTop">
+                <span> ${ ele.category } </span>
+                <div class="worldCardDivider">
+                <div>
+
+                    <div id='links+${i}' class='linksList'></div>
+                <a onclick="pageChange('#project-list', 'components/detailNote/page.html', 'components/detailNote/script.js')">
+                    <p class="it">${ ele.content }</p>
+                  </div>
                   <div>
-                    <img src="${ !ele.image_card ? '' : ele.image_card }" class="worldListImage"> 
+                    ${ !ele.image_card ? '' : `<img src='${ele.image_card}'class="linkImage"></img>` }
                   </div>
                 </div>
               </div>
@@ -205,8 +242,8 @@ async function getNotesCards() {
         </ul>
         `
       );
-    }
-    $('#project-list').append(
+      return createLinksCards(ele.links, `links+${i}`)
+    } $('#project-list').append(
       `
       <ul class="worldList">
         <li class="worldItens" id='${ ele.id }'>
@@ -221,7 +258,7 @@ async function getNotesCards() {
                   <p class="it">${ ele.content }</p>
                 </div>
                 <div>
-                  <img src="${ !ele.image_card ? '' : ele.image_card }" class="worldListImage"> 
+                  ${ !ele.image_card ? '' : `<img src='${ele.image_card}'class="linkImage"></img>` }
                 </div>
               </div>
             </div>
@@ -232,7 +269,6 @@ async function getNotesCards() {
       `
     );
     setContentOpacity();
-    setImageOpacity();
     removeListClass();
   })
 };
@@ -244,13 +280,13 @@ async function getNotesCardsFilter(filter) {
   if (resultSorted.length === 0) {
     return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
   };
-  resultSorted.forEach( (ele) => {
+  resultSorted.forEach( (ele, i) => {
     if (ele.category === filter) {
       if (ele.category === "Listas") {
         return $('#project-list').append(
           `
           <ul class="worldList">
-            <li class="worldItens">
+            <li class="worldItens" id='${ ele.id }'>
             <a onclick="pageChange('#project-list', 'components/detailList/page.html', 'components/detailList/script.js')">
               <div class="worldName" onclick="setCurrentCard('notes', ${ ele.id })">
                 <div class="contentListWorld">
@@ -261,8 +297,34 @@ async function getNotesCardsFilter(filter) {
                     <div>
                       <div class="it">${ ele.content }</div>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            </li>
+          </ul>
+          `
+        );
+      } if (ele.links?.length > 0) {
+        $('#project-list').append(
+          `
+          <ul class="worldList">
+            <li class="worldItens" id='${ ele.id }'>
+            <a onclick="pageChange('#project-list', 'components/detailNote/page.html', 'components/detailNote/script.js')">
+              <div class="worldName" onclick="setCurrentCard('notes', ${ ele.id })">
+                <div class="contentListWorld">
+                  <p class="wordlTitle">${ ele.title }</p></a>
+                  <hr class="cardLineTop">
+                  <span> ${ ele.category } </span>
+                  <div class="worldCardDivider">
+                  <div>
+  
+                      <div id='links+${i}' class='linksList'></div>
+                  <a onclick="pageChange('#project-list', 'components/detailNote/page.html', 'components/detailNote/script.js')">
+                      <p class="it">${ ele.content }</p>
+                    </div>
                     <div>
-                      <img src="${ !ele.image_card ? '' : ele.image_card }" class="worldListImage"> 
+                      ${ !ele.image_card ? '' : `<img src='${ele.image_card}'class="linkImage"></img>` }
                     </div>
                   </div>
                 </div>
@@ -272,11 +334,11 @@ async function getNotesCardsFilter(filter) {
           </ul>
           `
         );
-      }
-      $('#project-list').append(
+        return createLinksCards(ele.links, `links+${i}`)
+      } $('#project-list').append(
         `
         <ul class="worldList">
-          <li class="worldItens">
+          <li class="worldItens" id='${ ele.id }'>
           <a onclick="pageChange('#project-list', 'components/detailNote/page.html', 'components/detailNote/script.js')">
             <div class="worldName" onclick="setCurrentCard('notes', ${ ele.id })">
               <div class="contentListWorld">
@@ -288,7 +350,7 @@ async function getNotesCardsFilter(filter) {
                     <p class="it">${ ele.content }</p>
                   </div>
                   <div>
-                    <img src="${ !ele.image_card ? '' : ele.image_card }" class="worldListImage"> 
+                    ${ !ele.image_card ? '' : `<img src='${ele.image_card}'class="linkImage"></img>` }
                   </div>
                 </div>
               </div>
@@ -300,7 +362,6 @@ async function getNotesCardsFilter(filter) {
       );
     }
     setContentOpacity();
-    setImageOpacity();
     removeListClass();
   })
 };

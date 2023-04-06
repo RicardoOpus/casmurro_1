@@ -108,11 +108,16 @@ footer {
   border-radius: 6px;
 }
 
+.modal-content h3 {
+  margin-bottom: 5px;
+}
+
 .close {
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
+  margin-top: -15px;
 }
 
 .close:hover,
@@ -1105,10 +1110,36 @@ fieldset {
 }
 
 .chapterLine{
-  margin-bottom: 0px;
-  margin-top: 1px;
+  /* margin-bottom: 0px; */
+  /* margin-top: 1px; */
   /* border: 1px solid #4444445a; */
-  border: 1px solid #0a62ce5a;
+  /* border: 1px solid #0a62ce5a; */
+}
+
+/* Notes styles ================================================ */
+
+.linksList {
+  margin: 15px;
+}
+
+.linksList p {
+  margin: 0px 0px;
+}
+
+.linksList a {
+  font-size: large;
+  color: #0a62ce;
+  text-decoration: none;
+}
+
+.xlink {
+  color: #898989;
+  font-size: x-large;
+  font-weight: bolder;
+}
+
+.xlink:hover {
+  color: red;
 }
 
 /* Project Notes List page styles ================================================ */
@@ -1245,6 +1276,21 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   margin-top: 1rem;
   margin-right: 1rem;
 }
+
+.linkImage {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+  /* margin-top: 16px; */
+}
+
+/* .worldListImage {
+  width: 300px;
+  object-fit: cover;
+  margin-top: 16px;
+  border-radius: 10px;
+} */
 
 /* ========================================================================= */
 
