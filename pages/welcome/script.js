@@ -179,7 +179,7 @@ async function listProjects() {
         <ul class="projectsList">
           <li class="projectsItens zoom">
           <a class="projectsName" onclick="setProjectAtual(${ project.id })">
-          <img src="${ !project.image_cover ? 'assets/images/manuscript.jpeg' : project.image_cover }" class="coverImage"> 
+          <img src="${ !project.image_project ? 'assets/images/manuscript.jpeg' : project.image_project }" class="coverImage"> 
               <div>
                 <p class="projectTitle">${ project.title }</p>
                 <p class="projectCreated"><span class="ui-icon ui-icon-calendar"></span>Modificado em: <strong>${ dateEdit }</strong> | <strong>${ timeEdit }</strong></p>
