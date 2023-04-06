@@ -191,11 +191,12 @@ async function getCharactersCardsFiltred(filter) {
       $('#project-list').append(
         `
         <ul class="worldList">
-          <li class="worldItens">
+          <li class="worldItens" id='${ ele.id }'>
           <a onclick="pageChange('#project-list', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')">
             <div class="worldName" onclick="setCurrentCard('characters', ${ ele.id })">
               <div class="contentListChar">
-                <div>
+            <div class="${checkElement(ele)}"></div>
+              <div style='z-index: 1; margin-top: 5px;margin-left: 5px'>
                   <img src="${ !ele.image_card ? '' : ele.image_card }" class="charListImage"> 
                 </div>
                 <div class="charInfos">
