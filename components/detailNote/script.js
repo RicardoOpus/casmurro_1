@@ -12,7 +12,7 @@ function createLinks(links) {
   links.forEach( (link, i) => {
     const anchor = document.createElement('a');
 
-    anchor.innerHTML = `<p id="${i}"><span class="xlink" onclick="deleteLink(${i})">&times;</span><a href='${link.address}' target="_blank"> ${link.title}<a/></p>`
+    anchor.innerHTML = `<p id="${i}"><span class="xlink" onclick="deleteLink(${i})">&times;</span><a href='${link.address}' target="_blank"> ${link.title}🡽<a/></p>`
     linksDiv.appendChild(anchor);
   });
 }
@@ -156,10 +156,12 @@ async function saveLink() {
   modalLinks.style.display = "none";
   const verifyURLmidia = isURLmusic(address)
   if (verifyURLmidia) {
-    const imageCover = await getCoverFromFecth(address)
-    await db.projects.where('id').equals(currentID).modify( (e) => {
-      e.data.notes[positionInArray].image_card = imageCover;
-    });
+    const imageCover = await getCoverFromFecth(address);
+    if (imageCover) {
+      await db.projects.where('id').equals(currentID).modify( (e) => {
+        e.data.notes[positionInArray].image_card = imageCover;
+      });
+    }
   }
   document.getElementById('link_title').value = '';
   document.getElementById('link_address').value = '';

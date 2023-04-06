@@ -178,7 +178,7 @@ function createLinksCards(links, divID) {
   links.forEach( (link, i) => {
     const anchor = document.createElement('a');
 
-    anchor.innerHTML = `<p style='margin-bottom: 10px'><a href='${link.address}' target="_blank">  ${link.title} <a/></p>`
+    anchor.innerHTML = `<p style='margin-bottom: 10px'><a href='${link.address}' target="_blank">  ${link.title}🡽<a/></p>`
     linksDiv.appendChild(anchor);
   });
 }

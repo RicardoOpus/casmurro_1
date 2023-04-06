@@ -1109,12 +1109,12 @@ fieldset {
   font-size: medium;
 }
 
-.chapterLine{
+/* .chapterLine{ */
   /* margin-bottom: 0px; */
   /* margin-top: 1px; */
   /* border: 1px solid #4444445a; */
   /* border: 1px solid #0a62ce5a; */
-}
+/* } */
 
 /* Notes styles ================================================ */
 
@@ -1128,8 +1128,14 @@ fieldset {
 
 .linksList a {
   font-size: large;
-  color: #0a62ce;
+  color: #0a62cea1;
   text-decoration: none;
+}
+
+.linksList a:hover {
+  font-size: large;
+  color: #0a62ce;
+  text-decoration: underline;
 }
 
 .xlink {
