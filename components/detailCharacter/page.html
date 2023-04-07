@@ -1,6 +1,7 @@
 <div class="tab">
   <div class="innerTabDefault">
     <p class="extraInfosTab">Adicionar:</p>
+    <button id="addRelation" class="btnExtra ui-button ui-corner-all">Relacionamentos</button>
     <input type="checkbox" name="" id="checkbox-date-birth"><label class="extraInfosTab" for="checkbox-date-birth">Data de Nascimento<br></label>
     <input type="checkbox" name="" id="checkbox-date-death"><label class="extraInfosTab" for="checkbox-date-death">Data da morte<br></label>
     <input type="checkbox" name="" id="checkbox-extra_1"><label class="extraInfosTab" for="checkbox-extra_1">Características<br></label>
@@ -62,6 +63,7 @@
         </div>
       </div>
       <div>
+        <div id="relationsList" class="linksList"></div>
         <fieldset id="info_extra_1" style="display: none;">
           <legend style="margin-bottom: 0px;">Características:</legend>
           <div style="display: flex;">
@@ -120,3 +122,16 @@
       Tem certeza que deseja deletar este cartão?
     </h4>
 </div>
+
+<div id="myModalCharacterRelations" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div style="text-align: center;">
+      <h3>Personagem</h3>
+      <select id="relationListSelect" class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget"></select>
+      <h3>Tipo de relação:</h3>
+      <input id="relationDescription" class="cardInputNormal dateFactInputForm" type="text" placeholder="amigo, pai, irmão, escudeiro, ajudante...">
+      <br>
+      <button onclick="saveRelation()" class="ui-button ui-corner-all backupModal">Adicionar</button>
+  </div>
+</div> 

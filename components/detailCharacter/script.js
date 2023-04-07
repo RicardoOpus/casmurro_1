@@ -13,6 +13,28 @@ async function clearDateDeathBirth(type) {
     })
 };
 
+async function deleteRalation(ralation) {
+  const currentID = await getCurrentProjectID();
+  const positionInArray = await getCurrentCard();
+  db.projects.where('id').equals(currentID).modify( (e) => {
+    e.data.characters[positionInArray].relations.splice(ralation, 1);
+  });
+  return pageChange('#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')
+}
+
+function createRelations(relations, characters) {
+  const linksDiv = document.getElementById('relationsList');
+  linksDiv.innerHTML = '<p>Relações com outros personagens:</p>'
+  relations.forEach( (relationElement, i) => {
+    const char = characters.filter( (ele) => ele.id === relationElement.character)
+    console.log(relationElement.character, char);
+    const anchor = document.createElement('div');
+
+    anchor.innerHTML = `<p id="${i}"><span class="xlink" style='cursor: pointer' onclick="deleteRalation(${i})">&times;</span> <button style="border-radius: 5px;background-color: ${char[0].color}"> ${char[0].title} </button> - ${relationElement.relation}</p>`
+    linksDiv.appendChild(anchor);
+  });
+}
+
 async function restoreCharactersCard() {
   const currentCardID = await getCurrentCardID();
   const projectData = await getCurrentProject();
@@ -68,7 +90,9 @@ async function restoreCharactersCard() {
             divExtra.removeAttribute("style");
             checkExtra.checked = true;
           }
-        } if (result) {
+        } if (key === "relations" && ele[key].length > 0) {
+          return createRelations(ele[key], projectData.data.characters)
+        }  if (result) {
           return result.value = ele[key];
         }
       })
@@ -278,3 +302,51 @@ checkboxExtra2.addEventListener('change', createCheckboxChangeHandler(checkboxEx
 var checkboxExtra3 = document.getElementById('checkbox-extra_3');
 var divExtraInfos3 = document.getElementById('info_extra_3');
 checkboxExtra3.addEventListener('change', createCheckboxChangeHandler(checkboxExtra3, divExtraInfos3, "extra_3", "extra_3_1"));
+
+var addRelationBtn = document.querySelector("#addRelation");
+var modalRelations = document.getElementById("myModalCharacterRelations");
+var span = document.getElementsByClassName("close")[0];
+addRelationBtn.onclick = function () {
+  modalRelations.style.display = "block";
+};
+span.onclick = function () {
+  document.getElementById('relationListSelect').value = '';
+  document.getElementById('relationDescription').value = '';
+  modalRelations.style.display = "none";
+};
+
+async function restoreCharRelation(id) {
+  const currentCardID = await getCurrentCardID();
+  const project = await getCurrentProject();
+
+  const itensList = project.data.characters;
+  $(id).empty();
+  $(id).append('<option disabled>-- selecione --<option>');
+  $.each(itensList, function(i, value) {
+    if (value.id !== currentCardID) {
+      const option = $(`<option></option>`).val(value.id).html(value.title);
+      $(id).append(option);
+    }
+  })
+};
+
+restoreCharRelation('#relationListSelect');
+
+async function saveRelation() {
+  const currentID = await getCurrentProjectID();
+  const positionInArray = await getCurrentCard();
+  const character = document.getElementById('relationListSelect').value;
+  const relation = document.getElementById('relationDescription').value;
+  if (!character || !relation) {
+    return alert("Favor preenchar todos os campos!")
+  }
+  const obj = { character: Number(character), relation};
+  console.log(obj);
+  await db.projects.where('id').equals(currentID).modify( (e) => {
+    e.data.characters[positionInArray].relations.push(obj);
+  });
+  modalRelations.style.display = "none";
+  document.getElementById('relationListSelect').value = '';
+  document.getElementById('relationDescription').value = '';
+  return pageChange('#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')
+}
