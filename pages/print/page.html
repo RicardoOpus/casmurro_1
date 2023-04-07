@@ -36,7 +36,6 @@
     height: 200px;
     object-fit: cover;
     border-radius: 5px;
-    float: left;
     margin-right: 15px;
   }
 
@@ -45,7 +44,6 @@
     height: 100px;
     object-fit: cover;
     border-radius: 5px;
-    float: left;
     margin-right: 15px;
     margin-top: 15px;
   }
@@ -55,7 +53,6 @@
     height: 200px;
     object-fit: cover;
     border-radius: 5px;
-    /* float: left; */
     margin-right: 15px;
   }
 
@@ -131,8 +128,9 @@
       const mainDiv = document.getElementById('content-print');
       const propriedades = ['title', 'subtitle', 'image_project', 'status', 'author', 'literary_genre', 'startDate', 'finishDate', 'description'];
       for (let i = 0; i < propriedades.length; i++) {
-      const propriedade = propriedades[i];
-      const valor = project[propriedade];
+        const propriedade = propriedades[i];
+        const valor = project[propriedade];
+        console.log('project[propriedade]', project[propriedade], 'proriedade', propriedade);
         if (typeof valor !== 'object' && valor !== '') {
           if (propriedade === 'title') {
             maintitle.innerHTML += `<h1>${valor}</h1>`;
@@ -151,7 +149,7 @@
           } else if (propriedade === 'literary_genre') {
             mainDiv.innerHTML += `<p><b>Tipo literário:</b> ${valor}</p>`;
           } else if (propriedade === 'image_project') {
-              mainDiv.innerHTML += `<img src='${valor}' class='imageProject'></img>`;
+            mainDiv.innerHTML += `<img src='${valor}' class='imageProject'></img>`;
           } else {
             mainDiv.innerHTML += `<p>${propriedade}: ${valor}</p>`;
           }
@@ -163,7 +161,7 @@
       const personagnes = sortByKey(project.data.characters, 'title');
       const mainDiv = document.getElementById('content-chars');
       mainDiv.innerHTML += `<h1>Persongens</h1><hr>`;
-      const propriedades = ['image_card', 'title', 'category', 'age', 'gender', 'ocupation', 'date_birth', 'date_death', 'extra_1', 'extra_1_1', 'extra_2', 'extra_2_1', 'extra_2_2', 'extra_3', 'extra_3_1', 'content'];
+      const propriedades = ['title', 'image_card', 'category', 'age', 'gender', 'ocupation', 'date_birth', 'date_death', 'extra_1', 'extra_1_1', 'extra_2', 'extra_2_1', 'extra_2_2', 'extra_3', 'extra_3_1', 'content'];
       let texto = '';
       for (let index = 0; index < personagnes.length; index++) {
         const element = personagnes[index];

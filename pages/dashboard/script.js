@@ -208,9 +208,9 @@ async function restorelastEditCards() {
     return $('#lastCards').append("<div><p>No momento não existem cartões</p></div>")
   }
   project.recent_edits.reverse().forEach( (ele, i) => {
-    const icon = returnDomainName(ele.table)
-    const page = returnPageName(ele.table)
-    const cardItem = project.data[ele.table].filter( (item) => item.id === ele.id)
+    const icon = returnDomainName(ele.table);
+    const page = returnPageName(ele.table);
+    const cardItem = project.data[ele.table].filter( (item) => item.id === ele.id);
     return $('#lastCards').append(
       `
       <div style="margin-top: 5px">

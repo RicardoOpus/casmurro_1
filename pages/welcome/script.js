@@ -81,11 +81,13 @@ async function createNewProject() {
     { title: inputName.value,
       subtitle: '',
       status: "novo",
+      author: null,
       recent_edits: [],
       data: data,
       literary_genre: null,
       description: null,
       image_cover: null,
+      image_project: null,
       created_at: currentDate,
       last_edit: currentDate,
       timestamp: timeStamp,
@@ -96,6 +98,8 @@ async function createNewProject() {
       id_structure: 0,
       id_notes: 0,
       lastBackup: '',
+      startDate: null,
+      finishDate: null,
       settings: categoriesDefault
     }).then();
   const updadeCurrent = await db.settings.update(1,{ currentproject: idNew });

@@ -279,7 +279,7 @@ async function getTimeline() {
       $('#timelineMain').append(li);
     }
   }
-  removeDuplicateIds()
+  removeDuplicateIds();
 };
 
 function checkObject(obj, id) {
@@ -328,7 +328,7 @@ async function geTimelineFiltred(filter) {
     }
     removeDuplicateIds()
   }
-  changeInnerTabColor(filter)
+  changeInnerTabColor('tab'+filter)
 };
 
 async function createNewTimeline() {
