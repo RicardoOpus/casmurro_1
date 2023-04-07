@@ -154,7 +154,7 @@ elementsArray.forEach(async function(elem) {
           db.projects.where('id').equals(currentID).modify( (e) => {
             e.data.characters[positionInArray].image_card = result;
           });
-          pageChange('#project-list', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js');
+          pageChange('#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js');
         } else {
           db.projects.where('id').equals(currentID).modify( (e) => {
             e.data.characters[positionInArray][field] = elem.value;
@@ -205,27 +205,9 @@ restoreCharactersCard();
 restoreCategories('characters');
 restoreGenders();
 
-var innerTabDefault = document.querySelector('.innerTabDefault');
-document.querySelectorAll(".target").forEach( ele => ele.remove());
-
-var label = document.createElement('p');
-label.innerText = "Adicionar:";
-label.classList = "extraInfosTab target";
-innerTabDefault.appendChild(label);
-
 //Date birth ==========================>
-var date_birthchk = document.createElement('input');
-date_birthchk.type = 'checkbox';
-date_birthchk.id = 'checkbox-date-birth';
-date_birthchk.classList = "target"
-innerTabDefault.appendChild(date_birthchk);
-var labelDateBirth = document.createElement('label');
-labelDateBirth.htmlFor = 'checkbox-date-birth';
-labelDateBirth.innerHTML = 'Data de Nascimento<br>';
-labelDateBirth.classList = "extraInfosTab target"
-innerTabDefault.appendChild(labelDateBirth);
+var date_birthchk = document.getElementById('checkbox-date-birth');
 var fieldDateBirth = document.getElementById('dateBirthDiv');
-fieldDateBirth.classList.add('divExtraInfos');
 date_birthchk.addEventListener('change', async function() {
   const currentID = await getCurrentProjectID();
   const positionInArray = await getCurrentCard();
@@ -245,18 +227,8 @@ date_birthchk.addEventListener('change', async function() {
 });
 
 //Date death ==========================>
-var date_deathchk = document.createElement('input');
-date_deathchk.type = 'checkbox';
-date_deathchk.id = 'checkbox-date-death';
-date_deathchk.classList = "target"
-innerTabDefault.appendChild(date_deathchk);
-var labelDateDeath = document.createElement('label');
-labelDateDeath.htmlFor = 'checkbox-date-death';
-labelDateDeath.innerHTML = 'Data da morte<br>';
-labelDateDeath.classList = "extraInfosTab target"
-innerTabDefault.appendChild(labelDateDeath);
+var date_deathchk = document.getElementById('checkbox-date-death');
 var fieldDateDeath = document.getElementById('dateDeathDiv');
-fieldDateDeath.classList.add('divExtraInfos');
 date_deathchk.addEventListener('change', async function() {
   const currentID = await getCurrentProjectID();
   const positionInArray = await getCurrentCard();
@@ -275,95 +247,34 @@ date_deathchk.addEventListener('change', async function() {
   }
 });
 
-//Extra 1 ==========================>
-var checkboxExtra1 = document.createElement('input');
-checkboxExtra1.type = 'checkbox';
-checkboxExtra1.id = 'checkbox-extra_1';
-checkboxExtra1.classList = "target"
-innerTabDefault.appendChild(checkboxExtra1);
-var labelExtra_1 = document.createElement('label');
-labelExtra_1.htmlFor = 'checkbox-extra_1';
-labelExtra_1.innerHTML = 'Características<br>';
-labelExtra_1.classList = "extraInfosTab target"
-innerTabDefault.appendChild(labelExtra_1);
+function createCheckboxChangeHandler(checkbox, divInfo, extra1, extra2, extra3) {
+  return async function() {
+    const currentID = await getCurrentProjectID();
+    const positionInArray = await getCurrentCard();
+    if (this.checked) {
+      divInfo.style.display = 'block';
+      divInfo.scrollIntoView({behavior: 'smooth'})
+      resumeHeight(extra1, extra2, extra3);
+      db.projects.where('id').equals(currentID).modify( (e) => {
+        e.data.characters[positionInArray][`chk${checkbox.id}`] = true;
+      });
+    } else {
+      divInfo.style.display = 'none';
+      db.projects.where('id').equals(currentID).modify( (e) => {
+        e.data.characters[positionInArray][`chk${checkbox.id}`] = false;
+      });
+    }
+  }
+}
+
+var checkboxExtra1 = document.getElementById('checkbox-extra_1');
 var divExtraInfos1 = document.getElementById('info_extra_1');
-divExtraInfos1.classList.add('divExtraInfos');
-checkboxExtra1.addEventListener('change', async function() {
-  const currentID = await getCurrentProjectID();
-  const positionInArray = await getCurrentCard();
-  if (this.checked) {
-    divExtraInfos1.style.display = 'block';
-    divExtraInfos1.scrollIntoView({behavior: 'smooth'})
-    resumeHeight("extra_1", "extra_1_1");
-    db.projects.where('id').equals(currentID).modify( (e) => {
-      e.data.characters[positionInArray].chkExtra1 = true;
-    });
-  } else {
-    divExtraInfos1.style.display = 'none';
-    db.projects.where('id').equals(currentID).modify( (e) => {
-      e.data.characters[positionInArray].chkExtra1 = false;
-    });
-  }
-});
+checkboxExtra1.addEventListener('change', createCheckboxChangeHandler(checkboxExtra1, divExtraInfos1, "extra_1", "extra_1_1"));
 
-// Extra 2 ==========================>
-var checkboxExtra2 = document.createElement('input');
-checkboxExtra2.type = 'checkbox';
-checkboxExtra2.id = 'checkbox-extra_2';
-checkboxExtra2.classList = "target"
-innerTabDefault.appendChild(checkboxExtra2);
-var labelExtra_2 = document.createElement('label');
-labelExtra_2.htmlFor = 'checkbox-extra_2';
-labelExtra_2.innerHTML = 'Jornada<br>';
-labelExtra_2.classList = "extraInfosTab target"
-innerTabDefault.appendChild(labelExtra_2);
+var checkboxExtra2 = document.getElementById('checkbox-extra_2');
 var divExtraInfos2 = document.getElementById('info_extra_2');
-divExtraInfos2.classList.add('divExtraInfos');
-checkboxExtra2.addEventListener('change', async function() {
-  const currentID = await getCurrentProjectID();
-  const positionInArray = await getCurrentCard();
-  if (this.checked) {
-    divExtraInfos2.style.display = 'block';
-    divExtraInfos2.scrollIntoView({behavior: 'smooth'})
-    resumeHeight("extra_2", "extra_2_1", "extra_2_2");
-    db.projects.where('id').equals(currentID).modify( (e) => {
-      e.data.characters[positionInArray].chkExtra2 = true;
-    });
-  } else {
-    divExtraInfos2.style.display = 'none';
-    db.projects.where('id').equals(currentID).modify( (e) => {
-      e.data.characters[positionInArray].chkExtra2 = false;
-    });
-  }
-});
+checkboxExtra2.addEventListener('change', createCheckboxChangeHandler(checkboxExtra2, divExtraInfos2, "extra_2", "extra_2_1", "extra_2_2"));
 
-// Extra 3 ==========================>
-var checkboxExtra3 = document.createElement('input');
-checkboxExtra3.type = 'checkbox';
-checkboxExtra3.id = 'checkbox-extra_3';
-checkboxExtra3.classList = "target"
-innerTabDefault.appendChild(checkboxExtra3);
-var labelExtra_3 = document.createElement('label');
-labelExtra_3.htmlFor = 'checkbox-extra_3';
-labelExtra_3.innerHTML = 'Dualidade<br>';
-labelExtra_3.classList = "extraInfosTab target"
-innerTabDefault.appendChild(labelExtra_3);
+var checkboxExtra3 = document.getElementById('checkbox-extra_3');
 var divExtraInfos3 = document.getElementById('info_extra_3');
-divExtraInfos3.classList.add('divExtraInfos');
-checkboxExtra3.addEventListener('change', async function() {
-  const currentID = await getCurrentProjectID();
-  const positionInArray = await getCurrentCard();
-  if (this.checked) {
-    divExtraInfos3.style.display = 'block';
-    divExtraInfos3.scrollIntoView({behavior: 'smooth'})
-    resumeHeight("extra_3", "extra_3_1");
-    db.projects.where('id').equals(currentID).modify( (e) => {
-      e.data.characters[positionInArray].chkExtra3 = true;
-    });
-  } else {
-    divExtraInfos3.style.display = 'none';
-    db.projects.where('id').equals(currentID).modify( (e) => {
-      e.data.characters[positionInArray].chkExtra3 = false;
-    });
-  }
-});
+checkboxExtra3.addEventListener('change', createCheckboxChangeHandler(checkboxExtra3, divExtraInfos3, "extra_3", "extra_3_1"));

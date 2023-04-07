@@ -150,7 +150,7 @@ async function getCharactersCards() {
       `
       <ul class="worldList">
         <li class="worldItens" id='${ ele.id }'>
-        <a onclick="pageChange('#project-list', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')">
+        <a onclick="pageChange('#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')">
           <div class="worldName" onclick="setCurrentCard('characters', ${ ele.id })">
             <div class="contentListChar">
           <div class="${checkElement(ele)}"></div>
@@ -192,7 +192,7 @@ async function getCharactersCardsFiltred(filter) {
         `
         <ul class="worldList">
           <li class="worldItens" id='${ ele.id }'>
-          <a onclick="pageChange('#project-list', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')">
+          <a onclick="pageChange('#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')">
             <div class="worldName" onclick="setCurrentCard('characters', ${ ele.id })">
               <div class="contentListChar">
             <div class="${checkElement(ele)}"></div>
@@ -257,19 +257,3 @@ getCharactersCards();
 validateNewCard("characterName", "#okBtn-character");
 validateNewCard("categoryCharName", "#okBtn-cat");
 validateNewCard("categoryDelName-char", "#okBtn-delcat");
-
-var element = { 
-category: "Principais",
-gender: "Masculino",
-date_birth: 26,
-age: "33",
-ocupation: "Hobbit, ex-proprietário do Bolsão",
-content: "Frodo .",
-extra_1: "Pequeno.",
-extra_1_1: "Pequeno em estatura",
-extra_2: " Cumprir a tarefa",
-extra_2_1: "Frodo é constantemente",
-extra_2_2: "Frodo é profundamente.",
-extra_3: "Frodo lida com a dualidade.",
-extra_3_1: "Frodo lida com a dualidade.",
-}

@@ -271,7 +271,9 @@ function auto_grow(element) {
 function resumeHeight(...args) {
   const results = args.map(arg => document.getElementById(arg));
   results.forEach(result => {
-    result.style.height = result.scrollHeight + "px";
+    if (result) {
+      result.style.height = result.scrollHeight + "px";
+    }
   });
 };
 
