@@ -34,6 +34,11 @@ function loadpageDetail(detailPage) {
   pageChange('#dinamic', `components/${detailPage}/page.html`, `components/${detailPage}/script.js`);
 };
 
+async function loadpageOnclick(card, id, idCall, pagaCall, scriptCall) {
+  await db.settings.update(1, { currentCard: card, currendIdCard: id})
+  return pageChange(idCall, pagaCall, scriptCall)
+};
+
 async function welcome() {
   const projectActual = await db.settings.toArray();
   if (projectActual[0]?.currentproject === 0 || !projectActual.length ) {
@@ -448,16 +453,17 @@ async function restoreTimelineDates(id, type) {
   getTimelineSimle(id)
 };
 
-
 async function applyCharScene(id, idChars) {
   const project = await getCurrentProject();
   $(id).empty();
   $(id).append($('<h3></h3>').val('').html('Personagens em cena:'))
   $.each(idChars, function(i, value) {
-    const povID = project.data.characters.map(function (e) { return e.id; }).indexOf(Number(value));
-    const povName = project?.data?.characters?.[povID]?.title ?? '';
-    const povColor = project?.data?.characters?.[povID]?.color ?? '';
-    return $(id).append($(`<button style='margin: 5px; color: black; background-color: ${povColor}; border-radius: 5px; padding: 5px'></button>`).val(value.id).html(povName))
+    const pov = project.data.characters.map(function (e) { return e.id; }).indexOf(Number(value));
+    const povName = project?.data?.characters?.[pov]?.title ?? '';
+    const povColor = project?.data?.characters?.[pov]?.color ?? '';
+    const povID = project?.data?.characters?.[pov]?.id ?? '';
+    console.log(povID);
+    return $(id).append($(`<button onclick="loadpageOnclick('characters', ${povID}, '#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')" style='margin: 5px; color: black; background-color: ${povColor}; border-radius: 5px; padding: 5px; cursor: pointer'></button>`).val(value.id).html(povName))
   });
 };
 
