@@ -56,10 +56,10 @@ async function getStructureFiltred(filter) {
       `
       <ul class="worldListStructure" id="${ele.id}">
         <li class="worldItens">
-        <div class="ui-widget-content portlet ui-corner-all" onclick="setCurrentCard('chapters', ${ ele.id })">
+        <div class="ui-widget-content portlet ui-corner-all">
         <div class="contentListWorld">
         <div class="ui-widget-header ui-corner-all portlet-header">Capítulo ${ i + 1 } - ${ ele.title }
-        <a onclick="pageChange('#dinamic', 'components/detailChapter/page.html', 'components/detailChapter/script.js')">
+        <a onclick="loadpageOnclick('chapters', ${ ele.id }, '#dinamic', 'components/detailChapter/page.html', 'components/detailChapter/script.js')">
           </div>
             <p class="infosCardScenes">${ !ele.status ? '' : ele.status }</p>
           </div>

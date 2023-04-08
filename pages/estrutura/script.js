@@ -83,7 +83,7 @@ function putChaptersInPat(arrayChapters, idPart, filterChapters, arrayScenes) {
       const isAlldone = checkStatus(newfiltredScenes, 'Pronto')
       $(idPart).append(
         `
-        <p class="ChapterOutline" id='${ elem.id }'>${isAlldone? "<span style='color: green'>🗸 </span>" : ''}${elem.title}
+        <p onclick="loadpageOnclick('chapters', ${elem.id}, '#dinamic', 'components/detailChapter/page.html', 'components/detailChapter/script.js')" class="ChapterOutline" id='${ elem.id }'>${isAlldone? "<span style='color: green'>🗸 </span>" : ''}${elem.title}
         </p>
         <ul id="List${i}" class="SceneOutline"></ul>
         `

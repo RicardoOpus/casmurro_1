@@ -195,8 +195,8 @@ async function getNotesCards() {
         `
         <ul class="worldList">
           <li class="worldItens" id='${ ele.id }'>
-          <a onclick="pageChange('#dinamic', 'components/detailList/page.html', 'components/detailList/script.js')">
-            <div class="worldName" onclick="setCurrentCard('notes', ${ ele.id })">
+          <a onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailList/page.html', 'components/detailList/script.js')">
+            <div class="worldName">
               <div class="contentListWorld">
                 <p class="wordlTitle">${ ele.title }</p>
                 <hr class="cardLineTop">
@@ -218,8 +218,8 @@ async function getNotesCards() {
         `
         <ul class="worldList">
           <li class="worldItens" id='${ ele.id }'>
-          <a onclick="pageChange('#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
-            <div class="worldName" onclick="setCurrentCard('notes', ${ ele.id })">
+          <a onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
+            <div class="worldName">
               <div class="contentListWorld">
                 <p class="wordlTitle">${ ele.title }</p></a>
                 <hr class="cardLineTop">
@@ -228,7 +228,7 @@ async function getNotesCards() {
                 <div>
 
                     <div id='links+${i}' class='linksList'></div>
-                <a onclick="pageChange('#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
+                <a onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
                     <p class="it">${ ele.content }</p>
                   </div>
                   <div>
@@ -247,8 +247,8 @@ async function getNotesCards() {
       `
       <ul class="worldList">
         <li class="worldItens" id='${ ele.id }'>
-        <a onclick="pageChange('#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
-          <div class="worldName" onclick="setCurrentCard('notes', ${ ele.id })">
+        <a onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
+          <div class="worldName">
             <div class="contentListWorld">
               <p class="wordlTitle">${ ele.title }</p>
               <hr class="cardLineTop">
@@ -287,8 +287,8 @@ async function getNotesCardsFilter(filter) {
           `
           <ul class="worldList">
             <li class="worldItens" id='${ ele.id }'>
-            <a onclick="pageChange('#dinamic', 'components/detailList/page.html', 'components/detailList/script.js')">
-              <div class="worldName" onclick="setCurrentCard('notes', ${ ele.id })">
+            <a onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailList/page.html', 'components/detailList/script.js')">
+              <div class="worldName">
                 <div class="contentListWorld">
                   <p class="wordlTitle">${ ele.title }</p>
                   <hr class="cardLineTop">
@@ -310,8 +310,8 @@ async function getNotesCardsFilter(filter) {
           `
           <ul class="worldList">
             <li class="worldItens" id='${ ele.id }'>
-            <a onclick="pageChange('#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
-              <div class="worldName" onclick="setCurrentCard('notes', ${ ele.id })">
+            <a onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
+              <div class="worldName">
                 <div class="contentListWorld">
                   <p class="wordlTitle">${ ele.title }</p></a>
                   <hr class="cardLineTop">
@@ -320,7 +320,7 @@ async function getNotesCardsFilter(filter) {
                   <div>
   
                       <div id='links+${i}' class='linksList'></div>
-                  <a onclick="pageChange('#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
+                  <a onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
                       <p class="it">${ ele.content }</p>
                     </div>
                     <div>
@@ -339,8 +339,8 @@ async function getNotesCardsFilter(filter) {
         `
         <ul class="worldList">
           <li class="worldItens" id='${ ele.id }'>
-          <a onclick="pageChange('#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
-            <div class="worldName" onclick="setCurrentCard('notes', ${ ele.id })">
+          <a onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
+            <div class="worldName">
               <div class="contentListWorld">
                 <p class="wordlTitle">${ ele.title }</p>
                 <hr class="cardLineTop">
