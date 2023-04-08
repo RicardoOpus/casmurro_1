@@ -1,3 +1,5 @@
+changeTabColor("mundo");
+
 document.getElementById("category").addEventListener('change', (e) => enableDateInput(e.target.value))
 
 async function enableDateInput(target) {
@@ -31,7 +33,7 @@ async function restoreCharactersCard() {
           return result.value = ele[key];
         }
       })
-      resumeHeight("content")
+      resumeHeight("content");
     } else {
       return null
     }

@@ -1,10 +1,12 @@
+changeTabColor("notas");
+
 async function deleteLink(position) {
   const currentID = await getCurrentProjectID();
   const positionInArray = await getCurrentCard();
   db.projects.where('id').equals(currentID).modify( (e) => {
     e.data.notes[positionInArray].links.splice(position, 1);
   });
-  return pageChange('#project-list', 'components/detailNote/page.html', 'components/detailNote/script.js')
+  return pageChange('#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')
 }
 
 function createLinks(links) {
@@ -165,23 +167,8 @@ async function saveLink() {
   }
   document.getElementById('link_title').value = '';
   document.getElementById('link_address').value = '';
-  return pageChange('#project-list', 'components/detailNote/page.html', 'components/detailNote/script.js')
+  return pageChange('#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')
 }
-
-var innerTabDefault = document.querySelector('.innerTabDefault');
-document.querySelectorAll(".target").forEach( ele => ele.remove());
-
-var label = document.createElement('p');
-label.innerText = "Adicionar:";
-label.classList = "extraInfosTab target";
-innerTabDefault.appendChild(label);
-
-//    Add Link ==========================>
-var btnAddlink = document.createElement('button');
-btnAddlink.innerText = 'Adicionar link externo';
-btnAddlink.id = 'addLink';
-btnAddlink.classList = "btnExtra ui-button ui-corner-all target"
-innerTabDefault.appendChild(btnAddlink);
 
 var salverLinkBtn = document.querySelector("#addLink");
 var modalLinks = document.getElementById("myModalLink-notes");

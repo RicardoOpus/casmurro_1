@@ -1,119 +1,128 @@
-<div class="edirCardWorld">
-  <div class="backArrow">
-    <a onclick="pageChange('#dinamic', 'pages/cenas/page.html', 'pages/cenas/script.js')">❮ voltar</a>
+<div class="tab">
+  <div class="innerTabDefault">
+    <p class="extraInfosTab">Adicionar:</p>
+    <button id="btn-addChar" class="btnExtra ui-button ui-corner-all">Personagens em cena</button>
+    <input type="checkbox" id="checkbox-date-scene"><label class="extraInfosTab" for="checkbox-date-scene">Data da cena<br></label>
+    <input type="checkbox" id="checkbox-constucao"><label class="extraInfosTab" for="checkbox-constucao">Construção de cena<br></label>
+    <input type="checkbox" id="checkboxExtra-2"><label class="extraInfosTab" for="checkboxExtra-2">Detalhes da cena<br></label>
+    <input type="checkbox" id="checkboxExtra-3"><label class="extraInfosTab" for="checkboxExtra-3">Profundidade<br></label>
   </div>
-  <div class="card" id="detail_scene">
-    <div id="weather_img">
-        <input class="editProjectTitle projectInputForm" id="title">
-        <p class="delete"><a id="deleteSceneCard" style="background-color: #202024; border-radius: 5px; padding: 5px;"><span class="ui-icon ui-icon-trash"></span> Excluir</a></p>
-          <div>
-            <img src="" id="image_card" class="sceneImg">
-          </div>
-        <div class="cardImageDivChar">
-          <div class="editProjectTable charInfos">
-            <div class="editProjectBlock">
-              <h3>Período:</h3>
-              <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget" id="time">
-                <option value=""> </option>
-                <option value="">n/a</option>
-                <option value="Nascer do sol">Nascer do sol</option>
-                <option value="Manhã">&nbsp;&nbsp;&nbsp;Manhã</option>
-                <option value="Meio-dia">&nbsp;&nbsp;&nbsp;Meio-dia</option>
-                <option value="Tarde">&nbsp;&nbsp;&nbsp;Tarde</option>
-                <option value="Pôr do sol">Pôr do sol</option>
-                <option value="Noite">&nbsp;&nbsp;&nbsp;Noite</option>
-                <option value="Meia-noite">&nbsp;&nbsp;&nbsp;Meia-noite</option>
-                <option value="Madrugada">&nbsp;&nbsp;&nbsp;Madrugada</option>
-              </select>
-              <h3>Status:</h3>
-              <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget"name="" id="status">
-                <option value="" > </option>
-                <option value="" >n/a</option>
-                <option value="Pronto">Pronto</option>
-                <option value="Em andamento">Em andamento</option>
-                <option value="Pausado">Pausado</option>
-                <option value="Problema">Problema</option>
-                <option value="Não iniciado">Não iniciado</option>
-              </select>
-              <div style="display: none" id="dateSceneDiv">
-                <h3>Data:</h3>
-                <input class="cardInputNormal projectInputForm dateFactInputForm" id="date" type="date">
+  <div class="edirCardWorld">
+    <div class="backArrow">
+      <a onclick="pageChange('#dinamic', 'pages/cenas/page.html', 'pages/cenas/script.js')">❮ voltar</a>
+    </div>
+    <div class="card" id="detail_scene">
+      <div id="weather_img">
+          <input class="editProjectTitle projectInputForm" id="title">
+          <p class="delete"><a id="deleteSceneCard" style="background-color: #202024; border-radius: 5px; padding: 5px;"><span class="ui-icon ui-icon-trash"></span> Excluir</a></p>
+            <div>
+              <img src="" id="image_card" class="sceneImg">
+            </div>
+          <div class="cardImageDivChar">
+            <div class="editProjectTable charInfos">
+              <div class="editProjectBlock">
+                <h3>Período:</h3>
+                <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget" id="time">
+                  <option value=""> </option>
+                  <option value="">n/a</option>
+                  <option value="Nascer do sol">Nascer do sol</option>
+                  <option value="Manhã">&nbsp;&nbsp;&nbsp;Manhã</option>
+                  <option value="Meio-dia">&nbsp;&nbsp;&nbsp;Meio-dia</option>
+                  <option value="Tarde">&nbsp;&nbsp;&nbsp;Tarde</option>
+                  <option value="Pôr do sol">Pôr do sol</option>
+                  <option value="Noite">&nbsp;&nbsp;&nbsp;Noite</option>
+                  <option value="Meia-noite">&nbsp;&nbsp;&nbsp;Meia-noite</option>
+                  <option value="Madrugada">&nbsp;&nbsp;&nbsp;Madrugada</option>
+                </select>
+                <h3>Status:</h3>
+                <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget"name="" id="status">
+                  <option value="" > </option>
+                  <option value="" >n/a</option>
+                  <option value="Pronto">Pronto</option>
+                  <option value="Em andamento">Em andamento</option>
+                  <option value="Pausado">Pausado</option>
+                  <option value="Problema">Problema</option>
+                  <option value="Não iniciado">Não iniciado</option>
+                </select>
+                <div style="display: none" id="dateSceneDiv">
+                  <h3>Data:</h3>
+                  <input class="cardInputNormal projectInputForm dateFactInputForm" id="date" type="date">
+                </div>
+              </div>
+              <div class="editProjectBlock">
+                <h3>Local:</h3>
+                <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget"name="" id="place_id"></select>
+                <h3>Condições climáticas:</h3>
+                <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget"name="" id="weather">
+                  <option value="" > </option>
+                  <option value="" >Normal</option>
+                  <option value="Ensolarado">Ensolarado</option>
+                  <option value="Chuvoso">Chuvoso</option>
+                  <option value="Tempestuoso">Tempestuoso</option>
+                  <option value="Neve">Neve</option>
+                  <option value="Nublado">Nublado</option>
+                  <option value="Seco">Seco</option>
+                  <option value="Quente">Quente</option>
+                  <option value="Frio">Frio</option>
+                  <option value="Úmido">Úmido</option>
+                  <option value="Vento">Vento</option>
+                  <option value="Granizo">Granizo</option>
+                  <option value="Tempestade de neve">Tempestade de neve</option>
+                  <option value="Tempestade de areia">Tempestade de areia</option>
+                  <option value="Chuva ácida">Chuva ácida</option>
+                  <option value="Neblina">Neblina</option>
+                  <option value="Ciclone">Ciclone</option>
+                </select>
+              </div>
+              <div id="div_Date" class="editProjectBlock">          
+                <h3>POV:</h3>
+                <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget" id="pov_id"></select>
+                <h3>Capítulo:</h3>
+                <div id="chap_name"><p>Nenhum</p></div>
               </div>
             </div>
-            <div class="editProjectBlock">
-              <h3>Local:</h3>
-              <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget"name="" id="place_id"></select>
-              <h3>Condições climáticas:</h3>
-              <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget"name="" id="weather">
-                <option value="" > </option>
-                <option value="" >Normal</option>
-                <option value="Ensolarado">Ensolarado</option>
-                <option value="Chuvoso">Chuvoso</option>
-                <option value="Tempestuoso">Tempestuoso</option>
-                <option value="Neve">Neve</option>
-                <option value="Nublado">Nublado</option>
-                <option value="Seco">Seco</option>
-                <option value="Quente">Quente</option>
-                <option value="Frio">Frio</option>
-                <option value="Úmido">Úmido</option>
-                <option value="Vento">Vento</option>
-                <option value="Granizo">Granizo</option>
-                <option value="Tempestade de neve">Tempestade de neve</option>
-                <option value="Tempestade de areia">Tempestade de areia</option>
-                <option value="Chuva ácida">Chuva ácida</option>
-                <option value="Neblina">Neblina</option>
-                <option value="Ciclone">Ciclone</option>
-              </select>
-            </div>
-            <div id="div_Date" class="editProjectBlock">          
-              <h3>POV:</h3>
-              <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget" id="pov_id"></select>
-              <h3>Capítulo:</h3>
-              <div id="chap_name"><p>Nenhum</p></div>
-            </div>
+          </div>
+          <div>
+            <div id="characters_scene" style="max-width: 600px;"></div>
+            <h3>Resumo:</h3>
+            <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="4" id="content" oninput="auto_grow(this)"></textarea>
+            <!-- Extra 1 -->
+            <fieldset id="info_extra_1" style="display: none;">
+              <legend style="margin-bottom: 0px;">Contrução de cena</legend>
+              <p style='font-size: medium; margin: 1px 1px;'>Defina a abertura:</p>
+              <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_1' oninput='auto_grow(this)'></textarea>
+              <p style='font-size: medium; margin-bottom: 1px;'>Defina o final:</p>
+              <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_1-1' oninput='auto_grow(this)'></textarea>
+              <p style='font-size: medium; margin-bottom: 1px;'>Defina o pico emocional ou conflito principal:</p>
+              <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_1-2' oninput='auto_grow(this)'></textarea>
+              <p style='font-size: medium; margin-bottom: 1px;'>Liste os personagens que estão em cena e suas motivações (agenda):</p>
+              <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_1-3' oninput='auto_grow(this)'></textarea>
+            </fieldset>
+            <!-- Extra 2 -->
+            <fieldset id="info_extra_2" style="display: none;">
+              <legend style="margin-bottom: 0px;">Detalhes da cena</legend>
+              <p style='font-size: medium; margin: 1px 1px;'>Acrescente detalhes que dão vida e realismo a cena:</p>
+              <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_2' oninput='auto_grow(this)'></textarea>
+              <p style='font-size: medium; margin: 1px 1px;'>Defina como os personagens interagem com o ambiente e como são efetados por ele:</p>
+              <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_2-1' oninput='auto_grow(this)'></textarea>
+            </fieldset>
+            <!-- Extra 3 -->
+            <fieldset id="info_extra_3" style="display: none;">
+              <legend style="margin-bottom: 0px;">Profundidade</legend>
+              <p style='font-size: medium; margin: 1px 1px;'>O que esta cena revela/esconde dos personagens?</p>
+              <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_3' oninput='auto_grow(this)'></textarea>
+              <p style='font-size: medium; margin-bottom: 1px;'>O que a cena deixa para o leitor completar ou deduzir?</p>
+              <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_3-1' oninput='auto_grow(this)'></textarea>
+              <p style='font-size: medium; margin-bottom: 1px;'>Defina um detalhe ou elemento que simbolize o estado de espírito do POV:</p>
+              <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_3-2' oninput='auto_grow(this)'></textarea>
+            </fieldset>
+            <h3>Descrição completa:</h3>
+            <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content_full" oninput="auto_grow(this)"></textarea>
           </div>
         </div>
-        <div>
-          <div id="characters_scene" style="max-width: 600px;"></div>
-          <h3>Resumo:</h3>
-          <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="4" id="content" oninput="auto_grow(this)"></textarea>
-          <!-- Extra 1 -->
-          <fieldset id="info_extra_1" style="display: none;">
-            <legend style="margin-bottom: 0px;">Contrução de cena</legend>
-            <p style='font-size: medium; margin: 1px 1px;'>Defina a abertura:</p>
-            <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_1' oninput='auto_grow(this)'></textarea>
-            <p style='font-size: medium; margin-bottom: 1px;'>Defina o final:</p>
-            <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_1-1' oninput='auto_grow(this)'></textarea>
-            <p style='font-size: medium; margin-bottom: 1px;'>Defina o pico emocional ou conflito principal:</p>
-            <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_1-2' oninput='auto_grow(this)'></textarea>
-            <p style='font-size: medium; margin-bottom: 1px;'>Liste os personagens que estão em cena e suas motivações (agenda):</p>
-            <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_1-3' oninput='auto_grow(this)'></textarea>
-          </fieldset>
-          <!-- Extra 2 -->
-          <fieldset id="info_extra_2" style="display: none;">
-            <legend style="margin-bottom: 0px;">Detalhes da cena</legend>
-            <p style='font-size: medium; margin: 1px 1px;'>Acrescente detalhes que dão vida e realismo a cena:</p>
-            <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_2' oninput='auto_grow(this)'></textarea>
-            <p style='font-size: medium; margin: 1px 1px;'>Defina como os personagens interagem com o ambiente e como são efetados por ele:</p>
-            <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_2-1' oninput='auto_grow(this)'></textarea>
-          </fieldset>
-          <!-- Extra 3 -->
-          <fieldset id="info_extra_3" style="display: none;">
-            <legend style="margin-bottom: 0px;">Profundidade</legend>
-            <p style='font-size: medium; margin: 1px 1px;'>O que esta cena revela/esconde dos personagens?</p>
-            <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_3' oninput='auto_grow(this)'></textarea>
-            <p style='font-size: medium; margin-bottom: 1px;'>O que a cena deixa para o leitor completar ou deduzir?</p>
-            <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_3-1' oninput='auto_grow(this)'></textarea>
-            <p style='font-size: medium; margin-bottom: 1px;'>Defina um detalhe ou elemento que simbolize o estado de espírito do POV:</p>
-            <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_3-2' oninput='auto_grow(this)'></textarea>
-          </fieldset>
-          <h3>Descrição completa:</h3>
-          <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content_full" oninput="auto_grow(this)"></textarea>
-        </div>
       </div>
-    </div>
+  </div>
 </div>
-
 <!-- ui-dialog -->
 <div id="dialog-delete-scene" title="Excluir cartão">
     <h4>

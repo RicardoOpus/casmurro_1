@@ -131,7 +131,7 @@ async function getScenesdCards() {
           <div class="ui-widget-content portlet ui-corner-all" onclick="setCurrentCard('scenes', ${ ele.id })">
           <div class="contentListWorld">
           <div class="ui-widget-header ui-corner-all portlet-header">${ ele.title }
-          <a onclick="pageChange('#project-list', 'components/detailScene/page.html', 'components/detailScene/script.js')">
+          <a onclick="pageChange('#dinamic', 'components/detailScene/page.html', 'components/detailScene/script.js')">
             </div>
               <p class="infosCardScenes"><span class="povLabel" style="background-color:${ele.pov_id ? povColor: ""}">${ !ele.pov_id ? '&nbsp;&nbsp;&nbsp' : povName }</span> 
               ${ !ele.status ? '' : ` ${ele.status}` }

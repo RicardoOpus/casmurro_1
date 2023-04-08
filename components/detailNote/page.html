@@ -1,38 +1,44 @@
-<div class="edirCardWorld">
-  <div class="backArrow">
-    <a onclick="pageChange('#dinamic', 'pages/notas/page.html', 'pages/notas/script.js')">❮ voltar</a>
+<div class="tab">
+  <div class="innerTabDefault">
+    <p class="extraInfosTab">Adicionar:</p>
+    <button id="addLink" class="btnExtra ui-button ui-corner-all">Adicionar link externo</button>
   </div>
-  <div class="card">
-    <input class="editProjectTitle projectInputForm" id="title">
-    <p class="delete"><span class="ui-icon ui-icon-trash"></span><a id="deleteNoteCard"> Excluir</a></p>
-
-    <div id="imageCardBackgournd">
-      <div>
-        <img src="" id="image_card">
-      </div>
+  <div class="edirCardWorld" style="width: 100%;">
+    <div class="backArrow">
+      <a onclick="pageChange('#dinamic', 'pages/notas/page.html', 'pages/notas/script.js')">❮ voltar</a>
     </div>
-
-    <div class="editProjectTable">
-      <div class="editProjectBlock">
-        <h3>Categoria:</h3>
-        <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget" id="category">
-        </select>
-      </div>
-    </div>
-    <div id="links" class="linksList"></div>
-    <div>
-      <h3>Conteúdo:</h3>
-      <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content" oninput="auto_grow(this)"></textarea>
-    </div>
+    <div class="card">
+      <input class="editProjectTitle projectInputForm" id="title">
+      <p class="delete"><span class="ui-icon ui-icon-trash"></span><a id="deleteNoteCard"> Excluir</a></p>
   
-  </div>
-  <div class="cardAddimg">
-    <h3>Imagem:</h3>
-      <input type="file" id="my-image" class="inputFile ui-corner-all ui-widget">
-      <div>
-        <input id="btnSaveWall" type="button" value="Atualizar imagem" class="ui-button ui-corner-all btnSmall" onclick="saveCardImage('notes', '#project-list', 'components/detailNote/page.html', 'components/detailNote/script.js')">
-        <input type="button" value="Limpar imagem" class="ui-button ui-corner-all btnSmall" onclick="deleteImageCard('notes', '#project-list', 'components/detailNote/page.html', 'components/detailNote/script.js')">
+      <div id="imageCardBackgournd">
+        <div>
+          <img src="" id="image_card">
+        </div>
       </div>
+  
+      <div class="editProjectTable">
+        <div class="editProjectBlock">
+          <h3>Categoria:</h3>
+          <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget" id="category">
+          </select>
+        </div>
+      </div>
+      <div id="links" class="linksList"></div>
+      <div>
+        <h3>Conteúdo:</h3>
+        <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content" oninput="auto_grow(this)"></textarea>
+      </div>
+    
+    </div>
+    <div class="cardAddimg">
+      <h3>Imagem:</h3>
+        <input type="file" id="my-image" class="inputFile ui-corner-all ui-widget">
+        <div>
+          <input id="btnSaveWall" type="button" value="Atualizar imagem" class="ui-button ui-corner-all btnSmall" onclick="saveCardImage('notes', '#project-list', 'components/detailNote/page.html', 'components/detailNote/script.js')">
+          <input type="button" value="Limpar imagem" class="ui-button ui-corner-all btnSmall" onclick="deleteImageCard('notes', '#project-list', 'components/detailNote/page.html', 'components/detailNote/script.js')">
+        </div>
+    </div>
   </div>
 </div>
 

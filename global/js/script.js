@@ -30,20 +30,8 @@ async function loadpage(pagename) {
   dynamic.appendChild(script);
 }
 
-async function loadpageDetail(pagename, id, detailPage) {
-  $("#dinamic").load("pages/" + pagename + "/page.html", function () {
-    myLoadScript("pages/" + pagename + "/script.js");
-  });
-  if (id) {
-    let target;
-    while (!target) {
-      target = document.getElementById(id);
-      if (!target) {
-        await new Promise(resolve => setTimeout(resolve, 50));
-      }
-    }
-    pageChange('#project-list', `components/${detailPage}/page.html`, `components/${detailPage}/script.js`);
-  }
+function loadpageDetail(detailPage) {
+  pageChange('#dinamic', `components/${detailPage}/page.html`, `components/${detailPage}/script.js`);
 };
 
 async function welcome() {

@@ -1,3 +1,5 @@
+changeTabColor("cenas");
+
 function returnUrlImgWeather(param) {
   switch (param) {
     case 'Nascer do sol':
@@ -216,32 +218,8 @@ restoreCategories('scenes');
 restorePOV("#pov_id", "characters");
 restorePlace("#place_id", "world");
 
-var innerTabDefault = document.querySelector('.innerTabDefault');
-document.querySelectorAll(".target").forEach( ele => ele.remove());
-
-var label = document.createElement('p');
-label.innerText = "Adicionar:";
-label.classList = "extraInfosTab";
-innerTabDefault.appendChild(label);
-
-// Add Personagens ==========================>
-var btnAddCharacters = document.createElement('button');
-btnAddCharacters.innerText = 'Personagens em cena';
-btnAddCharacters.id = 'btn-addChar';
-btnAddCharacters.classList = "btnExtra ui-button ui-corner-all"
-innerTabDefault.appendChild(btnAddCharacters);
-
 //Date scene ==========================>
-var date_scene = document.createElement('input');
-date_scene.type = 'checkbox';
-date_scene.id = 'checkbox-date-scene';
-date_scene.classList = "target"
-innerTabDefault.appendChild(date_scene);
-var labelDateScene = document.createElement('label');
-labelDateScene.htmlFor = 'checkbox-date-scene';
-labelDateScene.innerHTML = 'Data da cena<br>';
-labelDateScene.classList = "extraInfosTab target"
-innerTabDefault.appendChild(labelDateScene);
+var date_scene = document.getElementById('checkbox-date-scene');
 var fieldDateScene = document.getElementById('dateSceneDiv');
 fieldDateScene.classList.add('divExtraInfos');
 date_scene.addEventListener('change', async function() {
@@ -263,15 +241,7 @@ date_scene.addEventListener('change', async function() {
 });
 
 // Contrução de cena (Extra 1) ==========================>
-var checkboxConstrucao = document.createElement('input');
-checkboxConstrucao.type = 'checkbox';
-checkboxConstrucao.id = 'checkbox-constucao';
-innerTabDefault.appendChild(checkboxConstrucao);
-var labelConstrucao = document.createElement('label');
-labelConstrucao.htmlFor = 'checkbox-constucao';
-labelConstrucao.innerHTML = 'Construção de cena<br>';
-labelConstrucao.classList = "extraInfosTab"
-innerTabDefault.appendChild(labelConstrucao);
+var checkboxConstrucao = document.getElementById('checkbox-constucao');
 var divExtraInfos3 = document.getElementById('info_extra_1');
 divExtraInfos3.classList.add('divExtraInfos');
 checkboxConstrucao.addEventListener('change', async function() {
@@ -293,15 +263,7 @@ checkboxConstrucao.addEventListener('change', async function() {
 });
 
 // Contrução de cena (Extra 2) ==========================>
-var checkboxExtra3 = document.createElement('input');
-checkboxExtra3.type = 'checkbox';
-checkboxExtra3.id = 'checkboxExtra-2';
-innerTabDefault.appendChild(checkboxExtra3);
-var labelExtra2 = document.createElement('label');
-labelExtra2.htmlFor = 'checkboxExtra-2';
-labelExtra2.innerHTML = 'Detalhes da cena<br>';
-labelExtra2.classList = "extraInfosTab"
-innerTabDefault.appendChild(labelExtra2);
+var checkboxExtra3 = document.getElementById('checkboxExtra-2');
 var divExtra2 = document.getElementById('info_extra_2');
 divExtra2.classList.add('divExtraInfos');
 checkboxExtra3.addEventListener('change', async function() {
@@ -323,15 +285,7 @@ checkboxExtra3.addEventListener('change', async function() {
 });
 
 // Contrução de cena (Extra 3) ==========================>
-var checkboxExtra3 = document.createElement('input');
-checkboxExtra3.type = 'checkbox';
-checkboxExtra3.id = 'checkboxExtra-3';
-innerTabDefault.appendChild(checkboxExtra3);
-var labelExtra3 = document.createElement('label');
-labelExtra3.htmlFor = 'checkboxExtra-3';
-labelExtra3.innerHTML = 'Profundidade<br>';
-labelExtra3.classList = "extraInfosTab"
-innerTabDefault.appendChild(labelExtra3);
+var checkboxExtra3 = document.getElementById('checkboxExtra-3');
 var divExtra3 = document.getElementById('info_extra_3');
 divExtra3.classList.add('divExtraInfos');
 checkboxExtra3.addEventListener('change', async function() {
