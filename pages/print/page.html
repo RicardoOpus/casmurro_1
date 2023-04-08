@@ -161,7 +161,7 @@
       const personagnes = sortByKey(project.data.characters, 'title');
       const mainDiv = document.getElementById('content-chars');
       mainDiv.innerHTML += `<h1>Persongens</h1><hr>`;
-      const propriedades = ['title', 'image_card', 'category', 'age', 'gender', 'ocupation', 'date_birth', 'date_death', 'extra_1', 'extra_1_1', 'extra_2', 'extra_2_1', 'extra_2_2', 'extra_3', 'extra_3_1', 'content'];
+      const propriedades = ['title', 'image_card', 'nameFull', 'category', 'age', 'gender', 'ocupation', 'date_birth', 'date_death', 'relations', 'extra_1', 'extra_1_1', 'extra_2', 'extra_2_1', 'extra_2_2', 'extra_3', 'extra_3_1', 'content'];
       let texto = '';
       for (let index = 0; index < personagnes.length; index++) {
         const element = personagnes[index];
@@ -172,6 +172,9 @@
             switch (propriedade) {
               case 'title':
                 nomePropriedade = 'Nome';
+                break;
+              case 'nameFull':
+                nomePropriedade = 'Nome completo';
                 break;
               case 'category':
                 nomePropriedade = 'Categoria';
@@ -232,6 +235,14 @@
               mainDiv.innerHTML += `<p class='content'>${text}</p>`;
             } else if (propriedade === 'image_card') {
               mainDiv.innerHTML += `<img src='${element[propriedade]}' class='imageChar'></img>`;
+            } else if (propriedade === 'relations' && element[propriedade].length === 0) {
+              null
+            } else if (propriedade === 'relations') {
+              mainDiv.innerHTML += `<p><b>Relacionamentos:</b></p>`
+              element[propriedade].forEach( (e) => {
+                const char = personagnes.filter( (ele) => ele.id === e.character)
+                mainDiv.innerHTML += `<li>${char[0].title}: ${e.relation}</li>`
+              })
             } else {
               mainDiv.innerHTML += `<p><b>${nomePropriedade}</b>:<br> ${element[propriedade]}</p>`;
             }
@@ -589,6 +600,30 @@
     }
   };
 
+  function sanitizeFilename(filename) {
+    const forbiddenChars = /[\\/:"*?<>.|]/g;
+    return filename.replace(forbiddenChars, " ");
+  }
+
+  function getCurrentDateString() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+    const pad = (num) => (num < 10 ? "0" + num : num);
+    return {
+      toFileName: `${year}-${pad(month)}-${pad(day)}-${pad(hours)}-${pad(minutes)}-${pad(seconds)}`,
+      toBackup: `\n\nEste backup foi criado em ${pad(day)}/${pad(month)}/${year} às ${pad(hours)}:${pad(minutes)}:${pad(seconds)}\n`
+    }
+  }
+
+    const detatime = getCurrentDateString();
+    const nameReult = sanitizeFilename(project.title)
+    document.title = nameReult + ' ' + detatime.toFileName;
+
     getBasicInfos();
     getCharacters();
     getWorld();
@@ -597,9 +632,9 @@
     getChapters();
     getTimeline();
     getNotes();
-    // window.print();
+    window.print();
     window.onload = function() {
-      // window.print();
+      window.print();
     };
   }
 

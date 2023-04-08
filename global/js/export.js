@@ -65,7 +65,7 @@ function getNotas() {
 
 function getTextChar(project) {
   const personagnes = sortByKey(project.data.characters, 'title')
-  const propriedades = ['title', 'category', 'age', 'gender', 'ocupation', 'date_birth', 'date_death', 'extra_1', 'extra_1_1', 'extra_2', 'extra_2_1', 'extra_2_2', 'extra_3', 'extra_3_1', 'content'];
+  const propriedades = ['title', 'category', 'nameFull', 'age', 'gender', 'ocupation', 'date_birth', 'date_death', 'relations', 'extra_1', 'extra_1_1', 'extra_2', 'extra_2_1', 'extra_2_2', 'extra_3', 'extra_3_1', 'content'];
   let texto = '';
   for (let index = 0; index < personagnes.length; index++) {
     const element = personagnes[index];
@@ -76,6 +76,9 @@ function getTextChar(project) {
         switch (propriedade) {
           case 'title':
             nomePropriedade = 'Nome';
+            break;
+          case 'nameFull':
+            nomePropriedade = 'Nome completo';
             break;
           case 'category':
             nomePropriedade = 'Categoria';
@@ -128,6 +131,16 @@ function getTextChar(project) {
         } else if (propriedade === 'date_death') {
           const result = project.data.timeline.filter((ele) => ele.id === element[propriedade]);
           texto += `${nomePropriedade}: ${result[0].date}\n`;
+        } else if (propriedade === 'relations' && element[propriedade].length === 0) {
+          null
+        } else if (propriedade === 'relations') {
+          texto += `Relacionamentos: `;
+          const list = element[propriedade];
+          for (let i = 0; i < list.length; i++ ) {
+            const char = project.data.characters.filter( (ele) => ele.id === list[i].character)
+            texto += `${char[0].title}: ${list[i].relation} - `
+          };
+          texto += `\n`
         } else {
           texto += `${nomePropriedade}: ${element[propriedade]}\n`;
         }
