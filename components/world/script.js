@@ -31,7 +31,7 @@ async function restoreCharactersCard() {
           return result.value = ele[key];
         }
       })
-      resumeHeight("content")
+      resumeHeight("content");
     } else {
       return null
     }
