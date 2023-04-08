@@ -1,3 +1,5 @@
+changeTabColor("cenas");
+
 function returnUrlImgWeather(param) {
   switch (param) {
     case 'Nascer do sol':

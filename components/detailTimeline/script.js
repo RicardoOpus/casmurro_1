@@ -1,4 +1,4 @@
-console.log('chamou detail timeline');
+changeTabColor("timeline");
 
 async function restoreCharactersCard() {
   const currentCardID = await getCurrentCardID();

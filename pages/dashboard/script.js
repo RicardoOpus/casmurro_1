@@ -219,7 +219,7 @@ async function restorelastEditCards() {
         </div>
         <div>
           ${cardItem[0].category? cardItem[0].category : icon.name}
-          <a class="lastEditTitle" onclick="loadpageDetail('${page.pagename}', '${ele.table === 'parts' ? 'project-list' : ele.id}', '${cardItem[0].category === 'Listas' ? 'detailList' : page.detailPage}')">
+          <a class="lastEditTitle" onclick="loadpageDetail('${cardItem[0].category === 'Listas' ? 'detailList' : page.detailPage}')">
             <div onclick="setCurrentCard('${ ele.table }', ${ ele.id })">
             ${cardItem[0].title}
             </div>

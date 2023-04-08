@@ -1,3 +1,5 @@
+changeTabColor("personagens");
+
 async function clearDateDeathBirth(type) {
   document.getElementById(type).value = '';
   const projectData = await getCurrentProject();

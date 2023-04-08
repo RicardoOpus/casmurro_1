@@ -1,3 +1,5 @@
+changeTabColor("notas");
+
 async function deleteLink(position) {
   const currentID = await getCurrentProjectID();
   const positionInArray = await getCurrentCard();

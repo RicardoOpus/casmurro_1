@@ -1,3 +1,5 @@
+changeTabColor("estrutura");
+
 async function applySceneslist(id, idChars) {
   const project = await getCurrentProject();
   $(id).empty();

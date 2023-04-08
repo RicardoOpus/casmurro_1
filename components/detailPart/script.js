@@ -1,3 +1,5 @@
+changeTabColor("estrutura");
+
 async function applyChapterslist(id, idChars) {
   const project = await getCurrentProject();
   $(id).empty();

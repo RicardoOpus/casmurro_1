@@ -1,3 +1,5 @@
+changeTabColor("mundo");
+
 document.getElementById("category").addEventListener('change', (e) => enableDateInput(e.target.value))
 
 async function enableDateInput(target) {
