@@ -7,7 +7,7 @@ async function applySceneslist(id, idChars) {
   const resultSorted = sortByKey(project.data.scenes, 'position')
   resultSorted.forEach( (ele) => {
     if (idChars.includes(ele.id)) {
-      return $(id).append($(`<button style='margin: 5px; color: black; background-color: #8F8F8F; border-radius: 5px; padding: 5px'></button><br>`).val(ele.id).html(ele.title))
+      return $(id).append($(`<button onclick="loadpageOnclick('scenes', ${ele.id}, '#dinamic', 'components/detailScene/page.html', 'components/detailScene/script.js')" style='margin: 5px; color: black; background-color: #8F8F8F; border-radius: 5px; padding: 5px; cursor: pointer'></button><br>`).html(ele.title))
     }
   })
 };

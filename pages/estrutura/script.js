@@ -69,7 +69,7 @@ function putScenesInChapters(arrayScenes, idPart, filterChapters) {
     if (filterChapters?.includes(ele.id)) {
       $(idPart).append(
         `
-        <li>${ele.status === 'Pronto' ? "<span style='color: green'> 🗸 </span>": ''}${ele.title}</li>
+        <li onclick="loadpageOnclick('scenes', ${ele.id}, '#dinamic', 'components/detailScene/page.html', 'components/detailScene/script.js')" class='liSceneOutline'>${ele.status === 'Pronto' ? "<span style='color: green'> 🗸 </span>": ''}${ele.title}</li>
         `
       );
     }
@@ -97,7 +97,7 @@ function putChaptersInPat(arrayChapters, idPart, filterChapters, arrayScenes) {
         const isAlldone = checkStatus(newfiltredScenes, 'Pronto')
       $(idPart).append(
         `
-        <p class="ChapterOutline" id='${ elem.id }'>${isAlldone? "<span style='color: green'>🗸 </span>" : ''}${elem.title}
+        <p onclick="loadpageOnclick('chapters', ${elem.id}, '#dinamic', 'components/detailChapter/page.html', 'components/detailChapter/script.js')" class="ChapterOutline" id='${ elem.id }'>${isAlldone? "<span style='color: green'>🗸 </span>" : ''}${elem.title}
         </p>
         <ul id="List${i}" class="SceneOutline"></ul>
         `
@@ -105,7 +105,7 @@ function putChaptersInPat(arrayChapters, idPart, filterChapters, arrayScenes) {
       putScenesInChapters(arrayScenes,  `#List${i}`, elem.scenes)
     }
   })
-}
+};
 
 async function getStructureFiltred() {
   $('#project-list').empty();
@@ -121,7 +121,7 @@ async function getStructureFiltred() {
     return partsSorted.forEach( async (ele, i) => {
       $('#outlineContent').append(
         `
-        <h3 class="PartOutline">${ele.title}
+        <h3 onclick="loadpageOnclick('parts', ${ele.id}, '#dinamic', 'components/detailPart/page.html', 'components/detailPart/script.js')" class="PartOutline">${ele.title}
         <hr class="chapterLine">
         </h3>
         <p id="partList${i}" style="margin: 0px"></p>

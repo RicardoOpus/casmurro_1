@@ -1082,6 +1082,11 @@ fieldset {
 .PartOutline{
   margin-left: 40px;
   margin-bottom: 0px;
+  cursor: pointer;
+}
+
+.PartOutline:hover {
+  color: #0a62ce;
 }
 
 .cardStructure{
@@ -1104,10 +1109,13 @@ fieldset {
   margin-bottom: 0px;
   margin-top: 5px;
   font-size: medium;
-  /* color: #cbcbcb; */
-  /* background-color: #121214; */
   font-size: 1.1rem;
   font-weight: bold;
+  cursor: pointer;
+}
+
+.ChapterOutline:hover {
+  color: #0a62ce;
 }
 
 .SceneOutline{
@@ -1121,6 +1129,14 @@ fieldset {
   margin-bottom: 0px;
   margin-top: 1px;
   border: 1px solid #0a62ce5a;
+}
+
+.liSceneOutline {
+  cursor: pointer;
+}
+
+.liSceneOutline:hover {
+  color: #0a62ce;
 }
 
 /* Notes styles ================================================ */
