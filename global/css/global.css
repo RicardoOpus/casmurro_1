@@ -1117,12 +1117,11 @@ fieldset {
   font-size: medium;
 }
 
-/* .chapterLine{ */
-  /* margin-bottom: 0px; */
-  /* margin-top: 1px; */
-  /* border: 1px solid #4444445a; */
-  /* border: 1px solid #0a62ce5a; */
-/* } */
+.chapterLine{
+  margin-bottom: 0px;
+  margin-top: 1px;
+  border: 1px solid #0a62ce5a;
+}
 
 /* Notes styles ================================================ */
 

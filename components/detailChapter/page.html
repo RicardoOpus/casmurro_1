@@ -1,21 +1,27 @@
-<div class="edirCardWorld">
-  <div class="backArrow">
-    <a onclick="pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_chapters.js')">❮ voltar</a>
+<div class="tab">
+  <div class="innerTabDefault">
+    <p class="extraInfosTab">Adicionar:</p>
+    <button id="btn-addSceneToChap" class="btnExtra ui-button ui-corner-all">Cenas ao capítulo</button>
   </div>
-  <div class="card">
-    <input class="editProjectTitle projectInputForm" id="title">
-    <p class="delete"><span class="ui-icon ui-icon-trash"></span><a id="deleteChapterCard"> Excluir</a></p>
-
-    <div class="editProjectTable">
+  <div class="edirCardWorld" style="width: 100%;">
+    <div class="backArrow">
+      <a onclick="pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_chapters.js')">❮ voltar</a>
     </div>
-    <div>
-      <h3>Resumo:</h3>
-      <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content" oninput="auto_grow(this)"></textarea>
-      <div class="editProjectBlock" id="scenes_list"></div>
-      <h3>Conteúdo:</h3>
-      <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content_full" oninput="auto_grow(this)"></textarea>
-    </div>
+    <div class="card">
+      <input class="editProjectTitle projectInputForm" id="title">
+      <p class="delete"><span class="ui-icon ui-icon-trash"></span><a id="deleteChapterCard"> Excluir</a></p>
   
+      <div class="editProjectTable">
+      </div>
+      <div>
+        <h3>Resumo:</h3>
+        <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content" oninput="auto_grow(this)"></textarea>
+        <div class="editProjectBlock" id="scenes_list"></div>
+        <h3>Conteúdo:</h3>
+        <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content_full" oninput="auto_grow(this)"></textarea>
+      </div>
+    
+    </div>
   </div>
 </div>
 

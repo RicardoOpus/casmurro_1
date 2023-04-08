@@ -79,22 +79,6 @@ $( "#deletePartCard" ).click(function( event ) {
 });
 
 restorePartCard();
-// restoreCategories('world');
-
-var innerTabDefault = document.querySelector('.innerTabDefault');
-document.querySelectorAll(".target").forEach( ele => ele.remove());
-
-var label = document.createElement('p');
-label.innerText = "Adicionar:";
-label.classList = "extraInfosTab";
-innerTabDefault.appendChild(label);
-
-// Add Personagens ==========================>
-var btnAddCharacters = document.createElement('button');
-btnAddCharacters.innerText = 'Capítulos à parte';
-btnAddCharacters.id = 'btn-addChaptersToPart';
-btnAddCharacters.classList = "btnExtra ui-button ui-corner-all"
-innerTabDefault.appendChild(btnAddCharacters);
 
 async function saveCheckedValues() {
   const form = document.getElementById("chapterToPart");
@@ -111,7 +95,6 @@ async function saveCheckedValues() {
     e.data.parts[positionInArray].chapters = checkedValues;
   });
 }
-
 
 $( "#dialog-addChaptersToPart" ).dialog({
 	autoOpen: false,

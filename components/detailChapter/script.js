@@ -80,21 +80,6 @@ $( "#deleteChapterCard" ).click(function( event ) {
 
 restoreChapterCard();
 
-var innerTabDefault = document.querySelector('.innerTabDefault');
-document.querySelectorAll(".target").forEach( ele => ele.remove());
-
-var label = document.createElement('p');
-label.innerText = "Adicionar:";
-label.classList = "extraInfosTab";
-innerTabDefault.appendChild(label);
-
-// Add Personagens ==========================>
-var btnAddCharacters = document.createElement('button');
-btnAddCharacters.innerText = 'Cenas ao capítulo';
-btnAddCharacters.id = 'btn-addSceneToChap';
-btnAddCharacters.classList = "btnExtra ui-button ui-corner-all"
-innerTabDefault.appendChild(btnAddCharacters);
-
 async function saveCheckedValues() {
   const form = document.getElementById("scenesToChapter");
   const checkboxes = form.querySelectorAll('input[type="checkbox"]');
@@ -110,7 +95,6 @@ async function saveCheckedValues() {
     e.data.chapters[positionInArray].scenes = checkedValues;
   });
 }
-
 
 $( "#dialog-addScenetoChap" ).dialog({
 	autoOpen: false,
