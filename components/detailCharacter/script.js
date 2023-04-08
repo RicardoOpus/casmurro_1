@@ -22,7 +22,7 @@ async function deleteRalation(ralation) {
     e.data.characters[positionInArray].relations.splice(ralation, 1);
   });
   return pageChange('#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')
-}
+};
 
 function createRelations(relations, characters) {
   const linksDiv = document.getElementById('relationsList');
@@ -34,7 +34,7 @@ function createRelations(relations, characters) {
     anchor.innerHTML = `<p id="${i}"><span class="xlink" style='cursor: pointer' onclick="deleteRalation(${i})">&times;</span> <button style="border-radius: 5px;background-color: ${char[0].color}"> ${char[0].title} </button> ${relationElement.relation}</p>`
     insideDiv.appendChild(anchor);
   });
-}
+};
 
 async function restoreCharactersCard() {
   const currentCardID = await getCurrentCardID();

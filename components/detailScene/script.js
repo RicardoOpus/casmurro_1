@@ -359,7 +359,7 @@ async function getChapter() {
   if (Array.isArray(chapters)) { // Verifica se chapters é um array
     chapters.forEach( (ele) => {
       if (ele && ele.scenes && ele.scenes.includes(currentCardID)) { // Verifica se ele existe e tem a propriedade scenes
-        document.getElementById('chap_name').innerHTML = `<p>${ele.title}</p>`;
+        document.getElementById('chap_name').innerHTML = `<a onclick="loadpageOnclick('chapters', ${ele.id}, '#dinamic', 'components/detailChapter/page.html', 'components/detailChapter/script.js')"><p>${ele.title}</p></a>`;
       }
     });
   }
