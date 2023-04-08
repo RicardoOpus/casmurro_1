@@ -241,6 +241,7 @@ async function createNewCharacter() {
     ocupation: '',
     age: '',
     color: color,
+    relations: [],
     id: ID
   };
   db.projects.where('id').equals(pjID).modify( (ele) => {

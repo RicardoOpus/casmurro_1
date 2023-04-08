@@ -689,6 +689,14 @@ input[type="color"]::-webkit-color-swatch {
 	border-radius: 40px;
 }
 
+.realtionList {
+  margin: 0px 0px;
+}
+
+.realtionList p {
+  margin: 0px 0px;
+}
+
 /* Scenes page styles ================================================ */
 
 .portlet-header {

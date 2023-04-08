@@ -24,14 +24,13 @@ async function deleteRalation(ralation) {
 
 function createRelations(relations, characters) {
   const linksDiv = document.getElementById('relationsList');
-  linksDiv.innerHTML = '<p>Relações com outros personagens:</p>'
+  linksDiv.innerHTML = `<fieldset><legend>Relacionamentos:</legend><div id='anchorRel'></div></fieldset>`
+  const insideDiv = document.getElementById('anchorRel');
   relations.forEach( (relationElement, i) => {
     const char = characters.filter( (ele) => ele.id === relationElement.character)
-    console.log(relationElement.character, char);
     const anchor = document.createElement('div');
-
-    anchor.innerHTML = `<p id="${i}"><span class="xlink" style='cursor: pointer' onclick="deleteRalation(${i})">&times;</span> <button style="border-radius: 5px;background-color: ${char[0].color}"> ${char[0].title} </button> - ${relationElement.relation}</p>`
-    linksDiv.appendChild(anchor);
+    anchor.innerHTML = `<p id="${i}"><span class="xlink" style='cursor: pointer' onclick="deleteRalation(${i})">&times;</span> <button style="border-radius: 5px;background-color: ${char[0].color}"> ${char[0].title} </button> ${relationElement.relation}</p>`
+    insideDiv.appendChild(anchor);
   });
 }
 
@@ -55,24 +54,24 @@ async function restoreCharactersCard() {
         } if (key === "image_card" && ele[key] !== '') {
           result.setAttribute("src", ele[key]);
           result.classList.add("cardImageChar");
-        } if (key === "chkExtra1") {
+        } if (key === "checkboxExtra_1") {
           const divExtra = document.getElementById("info_extra_1");
           if (ele[key] ) {
-            const checkExtra = document.getElementById("checkbox-extra_1");
+            const checkExtra = document.getElementById("checkboxExtra_1");
             divExtra.removeAttribute("style");
             checkExtra.checked = true;
           }
-        } if (key === "chkExtra2") {
+        } if (key === "checkboxExtra_2") {
           const divExtra = document.getElementById("info_extra_2");
           if (ele[key] ) {
-            const checkExtra = document.getElementById("checkbox-extra_2");
+            const checkExtra = document.getElementById("checkboxExtra_2");
             divExtra.removeAttribute("style");
             checkExtra.checked = true;
           }
-        } if (key === "chkExtra3") {
+        } if (key === "checkboxExtra_3") {
           const divExtra = document.getElementById("info_extra_3");
           if (ele[key] ) {
-            const checkExtra = document.getElementById("checkbox-extra_3");
+            const checkExtra = document.getElementById("checkboxExtra_3");
             divExtra.removeAttribute("style");
             checkExtra.checked = true;
           }
@@ -90,9 +89,16 @@ async function restoreCharactersCard() {
             divExtra.removeAttribute("style");
             checkExtra.checked = true;
           }
+        } if (key === "checkboxFullName") {
+          const divExtra = document.getElementById("fullNameDiv");
+          if (ele[key] ) {
+            const checkExtra = document.getElementById("checkboxFullName");
+            divExtra.removeAttribute("style");
+            checkExtra.checked = true;
+          }
         } if (key === "relations" && ele[key].length > 0) {
           return createRelations(ele[key], projectData.data.characters)
-        }  if (result) {
+        } if (result) {
           return result.value = ele[key];
         }
       })
@@ -280,26 +286,30 @@ function createCheckboxChangeHandler(checkbox, divInfo, extra1, extra2, extra3) 
       divInfo.scrollIntoView({behavior: 'smooth'})
       resumeHeight(extra1, extra2, extra3);
       db.projects.where('id').equals(currentID).modify( (e) => {
-        e.data.characters[positionInArray][`chk${checkbox.id}`] = true;
+        e.data.characters[positionInArray][checkbox.id] = true;
       });
     } else {
       divInfo.style.display = 'none';
       db.projects.where('id').equals(currentID).modify( (e) => {
-        e.data.characters[positionInArray][`chk${checkbox.id}`] = false;
+        e.data.characters[positionInArray][checkbox.id] = false;
       });
     }
   }
 }
 
-var checkboxExtra1 = document.getElementById('checkbox-extra_1');
+var checkboxFullName = document.getElementById('checkboxFullName');
+var divFullName = document.getElementById('fullNameDiv');
+checkboxFullName.addEventListener('change', createCheckboxChangeHandler(checkboxFullName, divFullName, "nameFull"));
+
+var checkboxExtra1 = document.getElementById('checkboxExtra_1');
 var divExtraInfos1 = document.getElementById('info_extra_1');
 checkboxExtra1.addEventListener('change', createCheckboxChangeHandler(checkboxExtra1, divExtraInfos1, "extra_1", "extra_1_1"));
 
-var checkboxExtra2 = document.getElementById('checkbox-extra_2');
+var checkboxExtra2 = document.getElementById('checkboxExtra_2');
 var divExtraInfos2 = document.getElementById('info_extra_2');
 checkboxExtra2.addEventListener('change', createCheckboxChangeHandler(checkboxExtra2, divExtraInfos2, "extra_2", "extra_2_1", "extra_2_2"));
 
-var checkboxExtra3 = document.getElementById('checkbox-extra_3');
+var checkboxExtra3 = document.getElementById('checkboxExtra_3');
 var divExtraInfos3 = document.getElementById('info_extra_3');
 checkboxExtra3.addEventListener('change', createCheckboxChangeHandler(checkboxExtra3, divExtraInfos3, "extra_3", "extra_3_1"));
 
@@ -341,7 +351,6 @@ async function saveRelation() {
     return alert("Favor preenchar todos os campos!")
   }
   const obj = { character: Number(character), relation};
-  console.log(obj);
   await db.projects.where('id').equals(currentID).modify( (e) => {
     e.data.characters[positionInArray].relations.push(obj);
   });

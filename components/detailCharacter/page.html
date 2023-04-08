@@ -2,11 +2,12 @@
   <div class="innerTabDefault">
     <p class="extraInfosTab">Adicionar:</p>
     <button id="addRelation" class="btnExtra ui-button ui-corner-all">Relacionamentos</button>
+    <input type="checkbox" name="" id="checkboxFullName"><label class="extraInfosTab" for="checkboxFullName">Nome completo<br></label>
     <input type="checkbox" name="" id="checkbox-date-birth"><label class="extraInfosTab" for="checkbox-date-birth">Data de Nascimento<br></label>
     <input type="checkbox" name="" id="checkbox-date-death"><label class="extraInfosTab" for="checkbox-date-death">Data da morte<br></label>
-    <input type="checkbox" name="" id="checkbox-extra_1"><label class="extraInfosTab" for="checkbox-extra_1">Características<br></label>
-    <input type="checkbox" name="" id="checkbox-extra_2"><label class="extraInfosTab" for="checkbox-extra_2">Jornada<br><label>
-    <input type="checkbox" name="" id="checkbox-extra_3"><label class="extraInfosTab" for="checkbox-extra_3">Dualidade<br><label>
+    <input type="checkbox" name="" id="checkboxExtra_1"><label class="extraInfosTab" for="checkboxExtra_1">Características<br></label>
+    <input type="checkbox" name="" id="checkboxExtra_2"><label class="extraInfosTab" for="checkboxExtra_2">Jornada<br><label>
+    <input type="checkbox" name="" id="checkboxExtra_3"><label class="extraInfosTab" for="checkboxExtra_3">Dualidade<br><label>
   </div>
   <div class="edirCardWorld">
     <div class="backArrow">
@@ -14,6 +15,9 @@
     </div>
     <div class="card">
       <input class="editProjectTitle projectInputForm" id="title">
+      <div id="fullNameDiv" style="display: none;">
+        <input class="projectInputForm cardInputNormal" id="nameFull" style="margin-top: 5px; height: 25px; text-align: center" placeholder="Nome completo">
+      </div>
       <p class="delete"><span class="ui-icon ui-icon-trash"></span><a id="deleteCharCard"> Excluir</a></p>
       <div class="cardImageDivChar">
         <div id="imageCardBackgourndChar">
@@ -63,7 +67,7 @@
         </div>
       </div>
       <div>
-        <div id="relationsList" class="linksList"></div>
+        <div id="relationsList" class="realtionList"></div>
         <fieldset id="info_extra_1" style="display: none;">
           <legend style="margin-bottom: 0px;">Características:</legend>
           <div style="display: flex;">
