@@ -81,10 +81,14 @@ function applyFiltersToImage(imageURL) {
     img.onload = () => {
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext('2d');
-      canvas.width = img.width;
-      canvas.height = img.height;
+      let scaleFactor = 1;
+      if (img.width > 1500) {
+        scaleFactor = 1500 / img.width; // calcula a proporção para redimensionar para 1000px
+      }
+      canvas.width = img.width * scaleFactor;
+      canvas.height = img.height * scaleFactor;
       ctx.filter = 'brightness(0.2)';
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height)   
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
       const resizedImageData = canvas.toDataURL();
       resolve(resizedImageData);
     }
@@ -103,10 +107,28 @@ async function saveProjectCover() {
   const file = fileInput.files[0];
   const reader = new FileReader();
   reader.onloadend = async () => {
-    const base64String = reader.result
-    const  imgFinal = await applyFiltersToImage(base64String);
-    await db.projects.update(projectData.id, {image_cover: imgFinal});
-    await db.projects.update(projectData.id, {image_project: base64String})
+    const base64String = reader.result;
+    let imgProject;
+    let imgCover;
+    if (file.size > 1024 * 1024) { // verifica se o tamanho é maior que 1MB
+      const image = new Image();
+      image.src = base64String;
+      await new Promise(resolve => { // espera a imagem ser carregada
+        image.onload = resolve;
+      });
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = image.width;
+      canvas.height = image.height;
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+      imgProject = canvas.toDataURL('image/jpeg', 0.7); // redimensiona e converte para JPEG
+      imgCover = await applyFiltersToImage(imgProject);
+    } else {
+      imgProject = base64String;
+      imgCover = await applyFiltersToImage(imgProject);
+    }
+    await db.projects.update(projectData.id, {image_cover: imgCover});
+    await db.projects.update(projectData.id, {image_project: imgProject});
   };
   reader.readAsDataURL(file);
   pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js');
