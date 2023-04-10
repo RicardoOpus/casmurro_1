@@ -230,6 +230,7 @@ textarea {
   background-color: #121214;
   /* background: linear-gradient(180deg, rgb(49, 49, 49) 0%, rgb(23, 23, 26) 300px); */
   padding: 2rem;
+  min-height: 600px;
 }
 
 .tabActive {
@@ -790,6 +791,20 @@ fieldset {
 .extraInfosTab {
   color: #898989;
   cursor: pointer;
+}
+
+.innerTabChapters {
+  margin-left: 5px;
+  margin-bottom: 0px;
+}
+
+.innerTabChapters p {
+  margin-bottom: 0px;
+  cursor: pointer;
+}
+
+.innerTabChapters p:hover {
+  color: #0a62ce;
 }
 
 /* World page styles ================================================ */

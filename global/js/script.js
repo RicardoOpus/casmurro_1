@@ -359,6 +359,11 @@ function povFilterLoadPage(id) {
   pageChange('#dinamic', 'components/filtredPovScene/page.html', 'components/filtredPovScene/script.js')
 }
 
+function chapterFilterLoadPage(id) {
+  localStorage.setItem("chapterFilter", id);
+  pageChange('#dinamic', 'components/filtredPovScene/page.html', 'components/filtredPovScene/script_chapter.js')
+}
+
 async function setCustomPovTabs(type, callback) {
   const project = await getCurrentProject();
   const categoryList = project.settings[type];

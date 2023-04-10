@@ -1,4 +1,4 @@
-console.log("Chamou Cenas!");
+console.log('chamou script cenas filtrada capítulo');
 changeTabColor("cenas");
 
 $( "#dialogScene" ).dialog({
@@ -109,13 +109,22 @@ function setFilterCategory(tab, filterCategory) {
   getScenesCardsFiltred(filterCategory);
 }
 
-async function getScenesdCards() {
+async function getScenesCardsFiltred(filter) {
+  $('#project-list').empty();
   const project = await getCurrentProject();
   const resultSorted = sortByKey(project.data.scenes, 'position');
-  if (resultSorted.length === 0) {
-    return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
+  const chpterScenes = project.data.chapters.filter( (ele) => ele.id === Number(filter));
+  const chpterScenesList = chpterScenes[0].scenes;
+  const resultFiltred = [];
+  if (!chpterScenesList || chpterScenesList?.length === 0 ) {
+    return $('#project-list').append(`<p style='margin: 15px 55px'>Sem cenas para este capítulo</p>`);
   }
-  resultSorted.forEach( (ele) => {
+  resultSorted.forEach( (element) => {
+    if (chpterScenesList.includes(element.id)) {
+      resultFiltred.push(element)
+    }
+  })
+  resultFiltred.forEach( (ele, i) => {
     const povID = project.data.characters.map(function (e) { return e.id; }).indexOf(Number(ele.pov_id));
     const povName = project?.data?.characters?.[povID]?.title ?? '';
     const povColor = project?.data?.characters?.[povID]?.color ?? '';
@@ -130,10 +139,10 @@ async function getScenesdCards() {
           <li class="worldItens">
           <div class="ui-widget-content portlet ui-corner-all">
           <div class="contentListWorld">
-          <div class="ui-widget-header ui-corner-all portlet-header">${ ele.title }
+          <div class="ui-widget-header ui-corner-all portlet-header">${ i + 1} - ${ ele.title }
           <a onclick="loadpageOnclick('scenes', ${ ele.id }, '#dinamic', 'components/detailScene/page.html', 'components/detailScene/script.js')">
             </div>
-              <p class="infosCardScenes"><span class="povLabel" style="background-color:${ele.pov_id ? povColor: ""}">${ !ele.pov_id ? '&nbsp;&nbsp;&nbsp' : povName }</span> 
+              <p class="infosCardScenes"><span class="povLabel" style="background-color:${ele.pov_id ? povColor: ""}">${ !ele.pov_id ? '<br> ' : povName }</span> 
               ${ !ele.status ? '' : ` ${ele.status}` }
                 ${ !ele.date ? '' : `• ${dateConverted}`}
               </p>
@@ -151,7 +160,6 @@ async function getScenesdCards() {
     setContentOpacity();
     setImageOpacity();
   })
-  autoChapterFilter(project);
 };
 
 async function createNewScene() {
@@ -169,7 +177,7 @@ async function createNewScene() {
     place_id: '',
     id: ID
   };
-  await db.projects.where('id').equals(pjID).modify( (ele) => {
+  db.projects.where('id').equals(pjID).modify( (ele) => {
     ele.data.scenes.push(data) 
     }
   );
@@ -178,46 +186,10 @@ async function createNewScene() {
   return
 };
 
-setCustomPovTabs('scenes');
-getScenesdCards();
+var idRecoved = localStorage.getItem("chapterFilter");
+
+getScenesCardsFiltred(idRecoved);
 validateNewCard("sceneName", "#okBtn-scene");
 validateNewCard("povName", "#okBtn-cat");
 validateNewCard("povDelName", "#okBtn-delpov");
-document.getElementById("project-list").className = "listCardsScenes"
-
-$(function() {
-  $("#project-list").sortable({
-    update: function(event, ui) {
-      savePositions();
-    }
-  });
-  $("#project-list").disableSelection();
-  function savePositions() {
-    $("#project-list .worldListScenes").each(async function() {
-      var id = $(this).attr("id");
-      var position = $(this).index();
-      var currentID = await getCurrentProjectID();
-      var positionInDB = await getCurrentScene(Number(id)) 
-      db.projects.where('id').equals(currentID).modify( (ele) => {
-        ele.data.scenes[positionInDB].position = position;
-        }
-      );
-    });
-  }
-});
-
-function autoChapterFilter(project) {
-  const resultSorted = sortByKey(project.data.chapters, 'position');
-  const tab = document.querySelector('.innerTabChapters');
-  if (resultSorted.length > 0) {
-    const chapDivider = document.createElement('h3');
-    chapDivider.innerHTML = 'Capítulos:<hr>'
-    tab.appendChild(chapDivider);
-    for (let i = 0; i < resultSorted.length; i++) {
-      const chapter = resultSorted[i];
-      const chapterItem = document.createElement('div');
-      chapterItem.innerHTML = `<p onclick="chapterFilterLoadPage(${chapter.id})">${chapter.title}</p><div class="dashboard-divisor2"><div>`;
-      tab.appendChild(chapterItem);
-    };
-  };
-};
+document.getElementById("project-list").className = "listCardsScenes";

@@ -188,4 +188,4 @@ getScenesCardsFiltred(idRecoved);
 validateNewCard("sceneName", "#okBtn-scene");
 validateNewCard("povName", "#okBtn-cat");
 validateNewCard("povDelName", "#okBtn-delpov");
-document.getElementById("project-list").className = "listCardsScenes"
+document.getElementById("project-list").className = "listCardsScenes";
