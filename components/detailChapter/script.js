@@ -101,6 +101,7 @@ async function saveCheckedValues() {
 $( "#dialog-addScenetoChap" ).dialog({
 	autoOpen: false,
 	width: 500,
+  maxHeight: 600,
 	buttons: [
 		{
 			text: "Ok",

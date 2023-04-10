@@ -502,7 +502,7 @@ async function restoreScenesListInput(id) {
   const itensList = resultSorted;
   $(id).empty();
   $.each(itensList, function(i, value) {
-    const isScenePresent = filtredChaptes.some(chapter => chapter.scenes.includes(value.id));;
+    const isScenePresent = filtredChaptes.some(chapter => chapter?.scenes?.includes(value.id));;
     if (isScenePresent) {
       const checkbox = $(`<input type='checkbox' disabled></input><label style='text-decoration: line-through'></label><br>`).html(value.title);
       $(id).append(checkbox);

@@ -325,6 +325,7 @@ async function saveCheckedValues() {
 $( "#dialog-addCharScene" ).dialog({
 	autoOpen: false,
 	width: 500,
+  maxHeight: 600,
 	buttons: [
 		{
 			text: "Ok",

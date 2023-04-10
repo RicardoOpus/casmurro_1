@@ -101,6 +101,7 @@ async function saveCheckedValues() {
 $( "#dialog-addChaptersToPart" ).dialog({
 	autoOpen: false,
 	width: 500,
+  maxHeight: 600,
 	buttons: [
 		{
 			text: "Ok",
