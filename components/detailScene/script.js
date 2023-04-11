@@ -127,6 +127,7 @@ async function restoreSceneCard() {
     }
   })
   previousAndNextScene(projectData.data.scenes);
+  getPOVCard(projectData, currentCardID)
 };
 
 var elementsArray = document.querySelectorAll(".projectInputForm");
@@ -381,5 +382,28 @@ async function previousAndNextScene(scenes) {
   }
   if (next) {
     nextDiv.innerHTML = `<p onclick="loadpageOnclick('scenes', ${ next.id }, '#dinamic', 'components/detailScene/page.html', 'components/detailScene/script.js')">${next.title}</p>`
+  }
+};
+
+function getPOVCard(projectData, currentCardID) {
+  const scene = projectData.data.scenes.find( (ele) => ele.id === currentCardID);
+  const pov = projectData.data.characters.find( (ele) => ele.id === Number(scene.pov_id));
+  if (pov) {
+    const div = document.getElementById('POVcard');
+    div.innerHTML = `<div class='POVpic'><img src="${pov.image_card}" class="cardScenePOV" onclick="loadpageOnclick('characters', ${ pov.id }, '#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')"></img></div>
+    ${pov.nameFull? `<p>${pov.nameFull}</p>` : ''}
+      ${pov.age? `<p>${pov.age} anos</p>` : ''}
+      ${pov.category? `<p>${pov.category}</p>` : ''}
+      ${pov.gender? `<p>${pov.gender}</p>` : ''}
+      ${pov.ocupation? `<p>${pov.ocupation}</p>` : ''}
+      ${pov.extra_1? `<p>Características físicas: ${pov.extra_1}</p>` : ''}
+      ${pov.extra_1_1? `<p>Características psicologias: ${pov.extra_1_1}</p>` : ''}
+      ${pov.extra_2? `<p>Motivação: ${pov.extra_2}</p>` : ''}
+      ${pov.extra_2_1? `<p>Conflito: ${pov.extra_2_1}</p>` : ''}
+      ${pov.extra_2_2? `<p>Transformação: ${pov.extra_2_2}</p>` : ''}
+      ${pov.extra_3? `<p>Interior: ${pov.extra_3}</p>` : ''}
+      ${pov.extra_3_1? `<p>Exterior: ${pov.extra_3_1}</p>` : ''}
+      ${pov.content? `<p>${pov.content}</p>` : ''}
+      `
   }
 };

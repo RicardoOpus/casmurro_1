@@ -467,7 +467,6 @@ async function applyCharScene(id, idChars) {
     const povName = project?.data?.characters?.[pov]?.title ?? '';
     const povColor = project?.data?.characters?.[pov]?.color ?? '';
     const povID = project?.data?.characters?.[pov]?.id ?? '';
-    console.log(povID);
     return $(id).append($(`<button onclick="loadpageOnclick('characters', ${povID}, '#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')" style='margin: 5px; color: black; background-color: ${povColor}; border-radius: 5px; padding: 5px; cursor: pointer'></button>`).val(value.id).html(povName))
   });
 };
