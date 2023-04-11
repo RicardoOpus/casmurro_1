@@ -11,9 +11,23 @@
     <div class="backArrow">
       <a onclick="pageChange('#dinamic', 'pages/cenas/page.html', 'pages/cenas/script.js')">❮ voltar</a>
     </div>
+    <div class="PreviousAndNext">
+      <div>
+        <div>⮜ Cena anterior
+          <div class="dashboard-divisor" style="margin: 5px 0px;"></div>
+          <div id="PreviousScene" class="PreviousScene" ></div>
+        </div>
+      </div>
+      <div>
+        <div style="text-align: right;">Próxima cena ➤
+          <div class="dashboard-divisor" style="margin: 5px 0px;"></div>
+          <div id="NextScene" class="NextScene"></div>
+        </div>
+      </div>
+    </div>
     <div class="card" id="detail_scene">
       <div id="weather_img">
-          <input class="editProjectTitle projectInputForm" id="title">
+          <textarea class="editSceneTitle projectInputForm" id="title" oninput='auto_grow(this)'></textarea>
           <p class="delete"><a id="deleteSceneCard" style="background-color: #202024; border-radius: 5px; padding: 5px;"><span class="ui-icon ui-icon-trash"></span> Excluir</a></p>
             <div>
               <img src="" id="image_card" class="sceneImg">
