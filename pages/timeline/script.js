@@ -241,6 +241,24 @@ function removeDuplicateIds() {
   });
 }
 
+function getCharColor(id, characters) {
+  if (id) {
+    const char = characters.filter((ele) => ele.id === id);
+    return char[0].color;
+  }
+  return null 
+}
+
+function getColor(charName, selectedCharColor) {
+  if (charName) {
+    return charName.color
+  } else if (selectedCharColor) {
+    return selectedCharColor
+  } else {
+    return '#2D333B';
+  }
+};
+
 async function getTimeline() {
   const project = await getCurrentProject();
   const resultSorted = sortByDate(project.data.timeline);
@@ -255,10 +273,11 @@ async function getTimeline() {
     const symbolTitle = handleTitle(ele.elementType);
     const identfyType =  ele.elementID || ele.historicID || ele.sceneID;
     const charName = await getElementTitle(ele.elementType, identfyType);
+    const selectedCharColor = getCharColor(Number(ele.pov_id), project.data.characters);
     if (dateConverted === prevDate) {
       prevLi.find('p').append(`
       <a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
-        <div id="${ele.id}" class="time" style="background: linear-gradient(to right, ${charName.color ? charName.color : '#2D333B'} 0%, #2D333B 85%); color: ${charName.color ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
+        <div id="${ele.id}" class="time" style="background: linear-gradient(to right, ${ getColor(charName, selectedCharColor) } 0%, #2D333B 85%); color: ${charName.color || selectedCharColor ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
         </a>
         <p><a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ ele.content }</a></p>
       `);
@@ -269,7 +288,7 @@ async function getTimeline() {
         <div class="timeline-section" id='${ ele.id }'>
           <a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
             <div class="timeDate">${ dateConverted }</div>
-            <div class="time" style="background: linear-gradient(to right, ${charName.color ? charName.color : '#2D333B'} 0%, #2D333B 85%); color: ${charName.color ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
+            <div class="time" style="background: linear-gradient(to right, ${getColor(charName, selectedCharColor)} 0%, #2D333B 85%); color: ${charName.color || selectedCharColor ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
             </a>
             <p><a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ ele.content }</a></p>
         </div>
@@ -302,10 +321,11 @@ async function geTimelineFiltred(filter) {
       const dateConverted = convertDatePT_BR(ele.date);
       const symbolTitle = handleTitle(ele.elementType);
       const charName = await getElementTitle(ele.elementType, ele.elementID);
+      const selectedCharColor = getCharColor(Number(ele.pov_id), project.data.characters);
       if (dateConverted === prevDate) {
         prevLi.find('p').append(`
         <a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
-          <div id="${ele.id}" class="time" style="background: linear-gradient(to right, ${charName.color ? charName.color : '#2D333B'} 0%, #2D333B 85%); color: ${charName.color ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
+          <div id="${ele.id}" class="time" style="background: linear-gradient(to right, ${getColor(charName, selectedCharColor)} 0%, #2D333B 85%); color: ${charName.color || selectedCharColor ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
           </a>
           <p><a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ ele.content }</a></p>
         `);
@@ -316,7 +336,7 @@ async function geTimelineFiltred(filter) {
           <div class="timeline-section">
             <a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
               <div class="timeDate">${ dateConverted }</div>
-              <div class="time" style="background: linear-gradient(to right, ${charName.color ? charName.color : '#2D333B'} 0%, #2D333B 85%); color: ${charName.color ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
+              <div class="time" style="background: linear-gradient(to right, ${getColor(charName, selectedCharColor)} 0%, #2D333B 85%); color: ${charName.color || selectedCharColor ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
               </a>
               <p><a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ ele.content }</a></p>
           </div>
