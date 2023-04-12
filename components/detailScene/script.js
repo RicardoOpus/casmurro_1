@@ -127,7 +127,7 @@ async function restoreSceneCard() {
     }
   })
   previousAndNextScene(projectData.data.scenes);
-  getPOVCard(projectData, currentCardID)
+  getPOVCard();
 };
 
 var elementsArray = document.querySelectorAll(".projectInputForm");
@@ -147,6 +147,12 @@ document.getElementById('weather').addEventListener('change', function() {
     addBackgroundToMainDiv(this.value, "detail_scene");
   }
 });
+
+// document.getElementById('pov_id').addEventListener('change', async function () {
+//   const projectData = await getCurrentProject();
+//   const currentCardID = await getCurrentCardID();
+//   getPOVCard(projectData, currentCardID);
+// });
 
 elementsArray.forEach(async function(elem) {
   const currentID = await getCurrentProjectID();
@@ -181,6 +187,7 @@ elementsArray.forEach(async function(elem) {
           await db.projects.where('id').equals(currentID).modify( (e) => {
             e.data.scenes[positionInArray][field] = elem.value;
           });
+          getPOVCard();
         }
         updateLastEdit(currentID);
       });
@@ -385,10 +392,13 @@ async function previousAndNextScene(scenes) {
   }
 };
 
-function getPOVCard(projectData, currentCardID) {
+async function getPOVCard() {
+  const projectData = await getCurrentProject();
+  const currentCardID = await getCurrentCardID();
   const scene = projectData.data.scenes.find( (ele) => ele.id === currentCardID);
   const pov = projectData.data.characters.find( (ele) => ele.id === Number(scene.pov_id));
   if (pov) {
+    console.log('chegou dentro do if', scene, pov);
     const div = document.getElementById('POVcard');
     div.innerHTML = `<div class='POVpic'><img src="${pov.image_card}" class="cardScenePOV" onclick="loadpageOnclick('characters', ${ pov.id }, '#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')"></img></div>
     ${pov.nameFull? `<p>${pov.nameFull}</p>` : ''}
