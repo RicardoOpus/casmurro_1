@@ -240,18 +240,12 @@ async function saveCardImage(typeCard, htmlPlace, page, srcipt) {
 async function deleteImageCard(typeCard, htmlPlace, page, srcipt) {
   const currentID = await getCurrentProjectID();
   const currentCard = await getCurrentCard();
-  if (typeCard === "characters") {
-    await db.projects.where('id').equals(currentID).modify( (e) => {
-      e.data[typeCard][currentCard].image_card = '';
-    });
-  } else {
-    await db.projects.where('id').equals(currentID).modify( (e) => {
-      e.data[typeCard][currentCard].image_card_mini = '';
-    });
-    await db.projects.where('id').equals(currentID).modify( (e) => {
-      e.data[typeCard][currentCard].image_card = '';
-    });
-  }
+  await db.projects.where('id').equals(currentID).modify( (e) => {
+    e.data[typeCard][currentCard].image_card_mini = '';
+  });
+  await db.projects.where('id').equals(currentID).modify( (e) => {
+    e.data[typeCard][currentCard].image_card = '';
+  });
   return pageChange(htmlPlace, page, srcipt);
 };
 
