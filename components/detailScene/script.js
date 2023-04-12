@@ -95,6 +95,13 @@ async function restoreSceneCard() {
             divExtra.removeAttribute("style");
             checkExtra.checked = true;
           }
+        }  if (key === "chkExtra4") {
+          const divExtra = document.getElementById("POVcard");
+          if (ele[key] ) {
+            const checkExtra = document.getElementById("checkboxExtra-4");
+            divExtra.removeAttribute("style");
+            checkExtra.checked = true;
+          }
         } if (key === "scene_characters") {
           await applyCharScene("#characters_scene", ele[key]);
           ele[key].length === 0 ? document.getElementById('characters_scene').innerHTML = '' : null;
@@ -312,6 +319,26 @@ checkboxExtra3.addEventListener('change', async function() {
     divExtra3.style.display = 'none';
     db.projects.where('id').equals(currentID).modify( (e) => {
       e.data.scenes[positionInArray].chkExtra3 = false;
+    });
+  }
+});
+
+// Ficha POV (Extra 4) ==========================>
+var checkboxExtra4 = document.getElementById('checkboxExtra-4');
+var divExtra4 = document.getElementById('POVcard');
+checkboxExtra4.addEventListener('change', async function() {
+  const currentID = await getCurrentProjectID();
+  const positionInArray = await getCurrentCard();
+  if (this.checked) {
+    divExtra4.style.display = 'block';
+    divExtra4.scrollIntoView({behavior: 'smooth'})
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.scenes[positionInArray].chkExtra4 = true;
+    });
+  } else {
+    divExtra4.style.display = 'none';
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.scenes[positionInArray].chkExtra4 = false;
     });
   }
 });
