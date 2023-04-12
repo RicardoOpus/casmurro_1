@@ -786,3 +786,27 @@ async function deleteLastEditCards(table, id) {
     e.recent_edits.splice(index, 1);
   })
 };
+
+async function previousAndNextCard(tableArray, tableName, detailName) {
+  console.log(tableArray);
+  const positionInArray = await getCurrentCard();
+  const nextDiv = document.getElementById('NextDiv');
+  const prevDiv = document.getElementById('PreviousDiv')
+  const next = tableArray[positionInArray + 1];
+  const prev = tableArray[positionInArray - 1];
+  if (prev) {
+    prevDiv.innerHTML = `<p onclick="loadpageOnclick('${tableName}', ${ prev.id }, '#dinamic', 'components/${detailName}/page.html', 'components/${detailName}/script.js')">${prev.title}</p>`
+  }
+  if (next) {
+    nextDiv.innerHTML = `<p onclick="loadpageOnclick('${tableName}', ${ next.id }, '#dinamic', 'components/${detailName}/page.html', 'components/${detailName}/script.js')">${next.title}</p>`
+  }
+};
+
+async function saveSorted(pjID, table) {
+  const project = await getCurrentProject();
+  const resultSorted = sortByKey(project.data.characters, 'title');
+  db.projects.where('id').equals(pjID).modify( (ele) => {
+    ele.data[table] = resultSorted;
+    }
+  );
+};
