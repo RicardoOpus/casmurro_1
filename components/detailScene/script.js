@@ -420,7 +420,7 @@ async function getPOVCard() {
   const pov = projectData.data.characters.find( (ele) => ele.id === Number(scene.pov_id));
   if (pov) {
     const div = document.getElementById('POVcard');
-    div.innerHTML = `<div class='POVpic'><img src="${pov.image_card}" class="cardScenePOV" onclick="loadpageOnclick('characters', ${ pov.id }, '#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')"></img></div>
+    div.innerHTML = `<div class='POVpic'><img src="${pov.image_card? pov.image_card : 'assets/images/person.png' }" class="cardScenePOV" onclick="loadpageOnclick('characters', ${ pov.id }, '#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')"></img></div>
     ${pov.nameFull? `<p>${pov.nameFull}</p>` : ''}
       ${pov.age? `<p>${pov.age} anos</p>` : ''}
       ${pov.category? `<p>${pov.category}</p>` : ''}

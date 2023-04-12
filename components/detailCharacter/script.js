@@ -55,7 +55,6 @@ async function restoreCharactersCard() {
           return result.value = resultDate[0].date;
         } if (key === "image_card" && ele[key] !== '') {
           result.setAttribute("src", ele[key]);
-          result.classList.add("cardImageChar");
         } if (key === "checkboxExtra_1") {
           const divExtra = document.getElementById("info_extra_1");
           if (ele[key] ) {
@@ -178,15 +177,6 @@ elementsArray.forEach(async function(elem) {
               e.data.characters[positionInArray][field] = timelineID;
             });
           }
-        } if (elem.id === "gender") {
-          result = changeImgDefault(elem.value);
-          db.projects.where('id').equals(currentID).modify( (e) => {
-            e.data.characters[positionInArray][field] = elem.value;
-          });
-          db.projects.where('id').equals(currentID).modify( (e) => {
-            e.data.characters[positionInArray].image_card = result;
-          });
-          pageChange('#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js');
         } else {
           db.projects.where('id').equals(currentID).modify( (e) => {
             e.data.characters[positionInArray][field] = elem.value;
