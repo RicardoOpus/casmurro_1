@@ -110,7 +110,7 @@ function setFilterCategory(tab, filterCategory) {
 
 async function getWorldCards() {
   const project = await getCurrentProject();
-  const resultSorted = sortByKey(project.data.world, 'title');
+  const resultSorted = project.data.world;
   if (resultSorted.length === 0) {
     return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
   }
@@ -148,7 +148,7 @@ async function getWorldCards() {
 async function getWorldCardsFiltred(filter) {
   $('#project-list').empty();
   const project = await getCurrentProject();
-  const resultSorted = sortByKey(project.data.world, 'title');
+  const resultSorted = project.data.world;
   if (resultSorted.length === 0) {
     return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
   };
@@ -206,7 +206,8 @@ async function createNewWorld() {
     }
   ); 
   await updateLastEditList('world', ID)
-  return db.projects.update(pjID,{ last_edit: currentDate,  timestamp: timeStamp });
+  await db.projects.update(pjID,{ last_edit: currentDate,  timestamp: timeStamp });
+  return await saveSorted(pjID, 'world');
 };
 
 setCustomTabs('world');

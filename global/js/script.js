@@ -804,7 +804,7 @@ async function previousAndNextCard(tableArray, tableName, detailName) {
 
 async function saveSorted(pjID, table) {
   const project = await getCurrentProject();
-  const resultSorted = sortByKey(project.data.characters, 'title');
+  const resultSorted = sortByKey(project.data[table], 'title');
   db.projects.where('id').equals(pjID).modify( (ele) => {
     ele.data[table] = resultSorted;
     }
