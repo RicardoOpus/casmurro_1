@@ -871,7 +871,28 @@ fieldset {
   border: solid 2px transparent;
 }
 
+.imgCharScene {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.characters_scene_list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5px;
+}
+
+.elementCharScene {
+  margin: 5px;
+  text-align: center;
+  font-size: small;
+  max-width: 100px;
+}
+
 /* World page styles ================================================ */
+
 .listCards{
   width: 100%;
 }
@@ -879,19 +900,17 @@ fieldset {
 .worldList {
   display: flex;
   flex-direction: column;
-  /* gap: var(--space-spacingMd); */
   align-items: flex-start;
   justify-content: flex-start;
   list-style-type: none;
-  /* margin-bottom: 0px; */
   padding-inline-start: 0px;
   padding: 0rem 1rem 0rem 1rem;
 }
+
 .worldItens {
   min-width: 100%;
   max-width: 100%;
 }
-
 
 .worldName {
   border-width: 1px;

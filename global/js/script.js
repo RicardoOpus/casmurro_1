@@ -461,13 +461,14 @@ async function restoreTimelineDates(id, type) {
 async function applyCharScene(id, idChars) {
   const project = await getCurrentProject();
   $(id).empty();
-  $(id).append($('<h3></h3>').val('').html('Personagens em cena:'))
+  $(id).append($(`<h3 >Personagens em cena:<div id="charsInnerDiv" class="characters_scene_list"></div></h3>`));
   $.each(idChars, function(i, value) {
     const pov = project.data.characters.map(function (e) { return e.id; }).indexOf(Number(value));
     const povName = project?.data?.characters?.[pov]?.title ?? '';
     const povColor = project?.data?.characters?.[pov]?.color ?? '';
     const povID = project?.data?.characters?.[pov]?.id ?? '';
-    return $(id).append($(`<button onclick="loadpageOnclick('characters', ${povID}, '#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')" style='margin: 5px; color: black; background-color: ${povColor}; border-radius: 5px; padding: 5px; cursor: pointer'></button>`).val(value.id).html(povName))
+    const povImg = project?.data?.characters?.[pov]?.image_card ?? '';
+    return $('#charsInnerDiv').append($(`<div class='elementCharScene'><img src='${povImg}' class='imgCharScene'></img><p onclick="loadpageOnclick('characters', ${povID}, '#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')" style='margin: 5px; color: black; background-color: ${povColor}; border-radius: 5px; padding: 5px; cursor: pointer'> ${povName}</p></div>`))
   });
 };
 

@@ -155,12 +155,6 @@ document.getElementById('weather').addEventListener('change', function() {
   }
 });
 
-// document.getElementById('pov_id').addEventListener('change', async function () {
-//   const projectData = await getCurrentProject();
-//   const currentCardID = await getCurrentCardID();
-//   getPOVCard(projectData, currentCardID);
-// });
-
 elementsArray.forEach(async function(elem) {
   const currentID = await getCurrentProjectID();
   const currentCardID = await getCurrentCardID();
@@ -425,7 +419,6 @@ async function getPOVCard() {
   const scene = projectData.data.scenes.find( (ele) => ele.id === currentCardID);
   const pov = projectData.data.characters.find( (ele) => ele.id === Number(scene.pov_id));
   if (pov) {
-    console.log('chegou dentro do if', scene, pov);
     const div = document.getElementById('POVcard');
     div.innerHTML = `<div class='POVpic'><img src="${pov.image_card}" class="cardScenePOV" onclick="loadpageOnclick('characters', ${ pov.id }, '#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')"></img></div>
     ${pov.nameFull? `<p>${pov.nameFull}</p>` : ''}
@@ -433,13 +426,13 @@ async function getPOVCard() {
       ${pov.category? `<p>${pov.category}</p>` : ''}
       ${pov.gender? `<p>${pov.gender}</p>` : ''}
       ${pov.ocupation? `<p>${pov.ocupation}</p>` : ''}
-      ${pov.extra_1? `<p>Características físicas: ${pov.extra_1}</p>` : ''}
-      ${pov.extra_1_1? `<p>Características psicologias: ${pov.extra_1_1}</p>` : ''}
-      ${pov.extra_2? `<p>Motivação: ${pov.extra_2}</p>` : ''}
-      ${pov.extra_2_1? `<p>Conflito: ${pov.extra_2_1}</p>` : ''}
-      ${pov.extra_2_2? `<p>Transformação: ${pov.extra_2_2}</p>` : ''}
-      ${pov.extra_3? `<p>Interior: ${pov.extra_3}</p>` : ''}
-      ${pov.extra_3_1? `<p>Exterior: ${pov.extra_3_1}</p>` : ''}
+      ${pov.extra_1? `<p><b>Características físicas:</b> ${pov.extra_1}</p>` : ''}
+      ${pov.extra_1_1? `<p><b>Características psicologias:</b> ${pov.extra_1_1}</p>` : ''}
+      ${pov.extra_2? `<p><b>Motivação:</b> ${pov.extra_2}</p>` : ''}
+      ${pov.extra_2_1? `<p><b>Conflito:</b> ${pov.extra_2_1}</p>` : ''}
+      ${pov.extra_2_2? `<p><b>Transformação:</b> ${pov.extra_2_2}</p>` : ''}
+      ${pov.extra_3? `<p><b>Interior:</b> ${pov.extra_3}</p>` : ''}
+      ${pov.extra_3_1? `<p><b>Exterior:</b> ${pov.extra_3_1}</p>` : ''}
       ${pov.content? `<p>${pov.content}</p>` : ''}
       `
   }
