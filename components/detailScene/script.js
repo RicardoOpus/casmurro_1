@@ -133,7 +133,7 @@ async function restoreSceneCard() {
       return null
     }
   })
-  previousAndNextCard(projectData.data.scenes, 'scenes', 'detailScene');
+  previousNextPosition(projectData.data.scenes, 'scenes', 'detailScene');
   getPOVCard();
 };
 

@@ -29,6 +29,7 @@ async function restorePartCard() {
       resumeHeight("content", "content_full")
     }
   })
+  previousNextPosition(projectData.data.parts, 'parts', 'detailPart');
 };
 
 var elementsArray = document.querySelectorAll(".projectInputForm");
