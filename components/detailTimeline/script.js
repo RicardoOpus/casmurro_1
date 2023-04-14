@@ -11,11 +11,10 @@ async function restoreCharactersCard() {
           return result.value = ele[key];
         }
       })
-      resumeHeight("content")
-    } else {
-      return null
+      resumeHeight("content");
     }
   })
+  previousAndNextCard(projectData.data.timeline, 'timeline', 'detailTimeline');
 };
 
 var elementsArray = document.querySelectorAll(".projectInputForm");
@@ -25,18 +24,18 @@ elementsArray.forEach(async function(elem) {
   const currentCardID = await getCurrentCardID();
   const projectData = await getCurrentProject();
   const positionInArray = await getCurrentCard();
+  console.log(positionInArray);
   projectData.data.timeline.forEach( (ele) => {
     if (ele.id === currentCardID) {
-      elem.addEventListener("input", async () => {
+      elem.addEventListener("change", async () => {
         await lastEditListModify('timeline', currentCardID);
         const field = elem.id
         await db.projects.where('id').equals(currentID).modify( (e) => {
           e.data.timeline[positionInArray][field] = elem.value;
         });
         updateLastEdit(currentID);
+        await saveSortedByDate(currentID, 'timeline');
       });
-    } else {
-      return null
     }
   })
 });
@@ -48,7 +47,7 @@ $( "#dialog-delete-timeline" ).dialog({
 		{
 			text: "Ok",
 			click: async function() {
-        await deleteCard('timeline');
+        await deleteTimeline();
         $( this ).dialog( "close" );
         loadpage('timeline');
 			}

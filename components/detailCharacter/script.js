@@ -5,11 +5,13 @@ async function clearDateDeathBirth(type) {
   const projectData = await getCurrentProject();
   const currentID = await getCurrentProjectID();
   const positionInArray =  await getCurrentCard();
-  const idTimeline = projectData.data.characters[positionInArray][type]
+  const idTimeline = projectData.data.characters[positionInArray][type];
   const positionInArrayTime = projectData.data.timeline.map(function (e) { return e.id; }).indexOf(idTimeline);
-  await db.projects.where('id').equals(currentID).modify( (e) => {
-    e.data.timeline.splice(positionInArrayTime, 1)
-  });
+  if (positionInArrayTime !== -1) {
+    await db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.timeline.splice(positionInArrayTime, 1)
+    });
+  }
   return db.projects.where('id').equals(currentID).modify( (e) => {
       e.data.characters[positionInArray][type] = '';
     })
@@ -136,11 +138,12 @@ elementsArray.forEach(async function(elem) {
             const projectDataActual = await getCurrentProject();
             const actualIDdateBirth = projectDataActual.data.characters[positionInArray].date_birth;
             const positionInArrayTime = projectDataActual.data.timeline.map(function (e) { return e.id; }).indexOf(actualIDdateBirth);
-            return db.projects.where('id').equals(currentID).modify( (e) => {
+            await db.projects.where('id').equals(currentID).modify( (e) => {
               e.data.timeline[positionInArrayTime].date = elem.value;
             });
+            return saveSortedByDate(currentID, 'timeline')
           } else {
-            const timelineID = await NewTimelineCharacter(elem.value, ele.id, 'characters-birth');
+            const timelineID = await NewTimelineCharacter(elem.value, ele.id, 'characters-birth', ele.title);
             return db.projects.where('id').equals(currentID).modify( (e) => {
               e.data.characters[positionInArray][field] = timelineID;
             });
@@ -151,11 +154,12 @@ elementsArray.forEach(async function(elem) {
             const projectDataActual = await getCurrentProject();
             const actualIDdateDeath = projectDataActual.data.characters[positionInArray].date_death;
             const positionInArrayTime = projectDataActual.data.timeline.map(function (e) { return e.id; }).indexOf(actualIDdateDeath);
-            return db.projects.where('id').equals(currentID).modify( (e) => {
+            await db.projects.where('id').equals(currentID).modify( (e) => {
               e.data.timeline[positionInArrayTime].date = elem.value;
             });
+            return saveSortedByDate(currentID, 'timeline')
           } else {
-            const timelineID = await NewTimelineCharacter(elem.value, ele.id, 'characters-death');
+            const timelineID = await NewTimelineCharacter(elem.value, ele.id, 'characters-death',  ele.title);
             return db.projects.where('id').equals(currentID).modify( (e) => {
               e.data.characters[positionInArray][field] = timelineID;
             });

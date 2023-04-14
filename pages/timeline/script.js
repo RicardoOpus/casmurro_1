@@ -178,10 +178,10 @@ function handleTitle(type) {
   let result;
   switch(type) {
     case "characters-death":
-      result = "🪦 Morre ";
+      result = "X ";
       break;
     case "characters-birth":
-      result = "✶ Nasce ";
+      result = "✶ ";
       break;
     case "scene":
       result = "🎬 ";
@@ -250,7 +250,8 @@ function getCharColor(id, characters) {
 }
 
 function getColor(charName, selectedCharColor) {
-  if (charName) {
+  console.log(charName, selectedCharColor);
+  if (charName.color) {
     return charName.color
   } else if (selectedCharColor) {
     return selectedCharColor
@@ -261,7 +262,7 @@ function getColor(charName, selectedCharColor) {
 
 async function getTimeline() {
   const project = await getCurrentProject();
-  const resultSorted = sortByDate(project.data.timeline);
+  const resultSorted = project.data.timeline;
   if (resultSorted.length === 0) {
     return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
   }
@@ -312,7 +313,7 @@ function checkObject(obj, id) {
 async function geTimelineFiltred(filter) {
   $('#timelineMain').empty();
   const project = await getCurrentProject();
-  const resultSorted = sortByDate(project.data.timeline);
+  const resultSorted = project.data.timeline;
   let prevDate = null;
   let prevLi = null;
   for (let i = 0; i < resultSorted.length; i++) {
@@ -372,7 +373,7 @@ async function createNewTimeline() {
   );
   await updateLastEditList('timeline', ID);
   await db.projects.update(pjID,{ last_edit: currentDate,  timestamp: timeStamp });
-  return
+  return saveSortedByDate(pjID, 'timeline');
 };
 
 setCustomTimelineTabs('timeline');

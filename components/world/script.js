@@ -61,7 +61,7 @@ elementsArray.forEach(async function(elem) {
               e.data.timeline[positionInArrayTime].date = elem.value;
             });
           } else {
-            const timelineID = await NewTimelineGenericWorld(elem.value, ele.id, 'historical-event');
+            const timelineID = await NewTimelineGenericWorld(elem.value, ele.id, 'historical-event', ele.title);
             return await db.projects.where('id').equals(currentID).modify( (e) => {
               e.data.world[positionInArray][field] = timelineID;
             });

@@ -196,6 +196,35 @@ async function deleteCard(cardType) {
   });
 };
 
+async function deleteTimeline() {
+  const currentID = await getCurrentProjectID();
+  const currentCard = await getCurrentCard();
+  const currentCardID = await getCurrentCardID();
+  const projectData = await getCurrentProject();
+  const deleteCard = projectData.data.timeline.find((ele) => ele.id === currentCardID);
+  if (deleteCard.elementType === "characters-birth") {
+    const positionInArray = projectData.data.characters.map(function (e) { return e.date_birth; }).indexOf(currentCardID);
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.characters[positionInArray].date_birth = '';
+    });
+  } if (deleteCard.elementType === "characters-death") {
+    const positionInArray = projectData.data.characters.map(function (e) { return e.date_death; }).indexOf(currentCardID);
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.characters[positionInArray].date_death = '';
+    });
+  } if (deleteCard.elementType === "historical-event") {
+    const positionInArray = projectData.data.world.map(function (e) { return e.date; }).indexOf(currentCardID);
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.world[positionInArray].date = '';
+    });
+  }
+  await deleteLastEditCards('timeline', currentCardID);
+  db.projects.where('id').equals(currentID).modify( (e) => {
+    e.data.timeline.splice(currentCard, 1)
+  });
+  console.log(deleteCard);
+};
+
 function resizeImage(imageData) {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -607,13 +636,14 @@ async function randomColor() {
     })
 }
 
-async function NewTimelineCharacter(date, idCharcter, type) {
+async function NewTimelineCharacter(date, idCharcter, type, name) {
   const typeDate = type === 'characters-birth' ? 'characters-birth' : 'characters-death';
+  const typeTitle = type === 'characters-birth' ? 'Nasce' : 'Morre';
   const ID = await idManager('id_timeline');
   const pjID = await getCurrentProjectID();
   let result = ''
   const data = {
-    title: '',
+    title: `${typeTitle} ${name}`,
     elementType: typeDate,
     elementID: idCharcter,
     content: '',
@@ -626,6 +656,7 @@ async function NewTimelineCharacter(date, idCharcter, type) {
   ).then( () => {
     result = data.id
   });
+  await saveSortedByDate(pjID, 'timeline');
   return result
 };
 
@@ -649,15 +680,16 @@ async function NewTimelineGeneric(date, idCharcter, type) {
   ).then( () => {
     result = data.id
   });
+  await saveSortedByDate(pjID, 'timeline');
   return result
 };
 
-async function NewTimelineGenericWorld(date, historicID, type) {
+async function NewTimelineGenericWorld(date, historicID, type, Name) {
   const ID = await idManager('id_timeline');
   const pjID = await getCurrentProjectID();
   let result = ''
   const data = {
-    title: '',
+    title: Name,
     elementType: type,
     elementID: '',
     historicID: historicID,
@@ -672,6 +704,7 @@ async function NewTimelineGenericWorld(date, historicID, type) {
   ).then( () => {
     result = data.id
   });
+  await saveSortedByDate(pjID, 'timeline');
   return result
 };
 
@@ -695,8 +728,10 @@ async function NewTimelineGenericScene(date, sceneID, type) {
   ).then( () => {
     result = data.id
   });
+  await saveSortedByDate(pjID, 'timeline');
   return result
 };
+
 // =========== backup
 // async function checkTimelineNewDate(elementID, typeDate) {
 //   const projectData = await getCurrentProject();
@@ -821,6 +856,15 @@ async function previousNextPosition(tableArray, tableName, detailName) {
 async function saveSorted(pjID, table) {
   const project = await getCurrentProject();
   const resultSorted = sortByKey(project.data[table], 'title');
+  db.projects.where('id').equals(pjID).modify( (ele) => {
+    ele.data[table] = resultSorted;
+    }
+  );
+};
+
+async function saveSortedByDate(pjID, table) {
+  const project = await getCurrentProject();
+  const resultSorted = sortByDate(project.data[table]);
   db.projects.where('id').equals(pjID).modify( (ele) => {
     ele.data[table] = resultSorted;
     }
