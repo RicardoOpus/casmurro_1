@@ -42,7 +42,6 @@
 //   );
 // });
 
-
 // Choose a cache name
 const cacheName = 'cache-v1';
 // List the files to precache
@@ -91,8 +90,9 @@ const precacheResources = [
   './pages/welcome/page.html',
   './pages/welcome/script.js',
 ];
-  
+
 // When the service worker is installing, open the cache and add the precache resources to it
+// eslint-disable-next-line no-restricted-globals
 self.addEventListener('install', (e) => {
   console.log('[Service Worker] Install');
   e.waitUntil((async () => {
@@ -102,7 +102,9 @@ self.addEventListener('install', (e) => {
   })());
 });
 
-// When there's an incoming fetch request, try and respond with a precached resource, otherwise fall back to the network
+// When there's an incoming fetch request,
+// try and respond with a precached resource, otherwise fall back to the network
+// eslint-disable-next-line no-restricted-globals
 self.addEventListener('fetch', (event) => {
   console.log('Fetch intercepted for:', event.request.url);
   event.respondWith(
