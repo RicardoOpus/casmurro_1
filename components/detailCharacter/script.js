@@ -7,9 +7,11 @@ async function clearDateDeathBirth(type) {
   const positionInArray =  await getCurrentCard();
   const idTimeline = projectData.data.characters[positionInArray][type]
   const positionInArrayTime = projectData.data.timeline.map(function (e) { return e.id; }).indexOf(idTimeline);
-  await db.projects.where('id').equals(currentID).modify( (e) => {
-    e.data.timeline.splice(positionInArrayTime, 1)
-  });
+  if (positionInArrayTime !== -1) {
+    await db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.timeline.splice(positionInArrayTime, 1)
+    });
+  }
   return db.projects.where('id').equals(currentID).modify( (e) => {
       e.data.characters[positionInArray][type] = '';
     })

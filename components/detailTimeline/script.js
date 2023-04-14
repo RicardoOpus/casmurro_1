@@ -27,7 +27,7 @@ elementsArray.forEach(async function(elem) {
   const positionInArray = await getCurrentCard();
   projectData.data.timeline.forEach( (ele) => {
     if (ele.id === currentCardID) {
-      elem.addEventListener("input", async () => {
+      elem.addEventListener("change", async () => {
         await lastEditListModify('timeline', currentCardID);
         const field = elem.id
         await db.projects.where('id').equals(currentID).modify( (e) => {
