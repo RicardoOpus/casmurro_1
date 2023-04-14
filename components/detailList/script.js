@@ -1,58 +1,68 @@
-changeTabColor("notas");
+/* eslint-disable no-alert */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
+changeTabColor('notas');
 
 async function restoreNoteCard() {
   const currentCardID = await getCurrentCardID();
   const projectData = await getCurrentProject();
-  projectData.data.notes.forEach( (ele) => {
+  projectData.data.notes.forEach((ele) => {
     if (ele.id === currentCardID) {
-      Object.keys(ele).forEach(key => {
+      Object.keys(ele).forEach((key) => {
         const result = document.getElementById(key);
-        if (key === "image_card" && ele[key] !== '') {
-          var cardbackgrond = document.getElementById("imageCardBackgournd");
-          cardbackgrond.classList.add("imageCardBackgournd");
-          cardbackgrond.children[0].style.backgroundImage =  `url(${ ele[key] })`;
-          cardbackgrond.children[0].classList.add("cardImageDiv");
-          result.setAttribute("src", ele[key]);
-          result.classList.add("cardImage");
-        } if (key === "content") {
-          return document.getElementById("lista-tarefas").innerHTML = ele[key];
+        if (key === 'image_card' && ele[key] !== '') {
+          const cardbackgrond = document.getElementById('imageCardBackgournd');
+          cardbackgrond.classList.add('imageCardBackgournd');
+          cardbackgrond.children[0].style.backgroundImage = `url(${ele[key]})`;
+          cardbackgrond.children[0].classList.add('cardImageDiv');
+          result.setAttribute('src', ele[key]);
+          result.classList.add('cardImage');
+        } if (key === 'content') {
+          document.getElementById('lista-tarefas').innerHTML = ele[key];
+          return null;
         } if (result) {
-          return result.value = ele[key];
+          result.value = ele[key];
+          return null;
         }
-      })
-    }
-  })
-};
-
-var elementsArray = document.querySelectorAll(".projectInputForm");
-
-elementsArray.forEach(async function(elem) {
-  const currentID = await getCurrentProjectID();
-  const currentCardID = await getCurrentCardID();
-  const projectData = await getCurrentProject();
-  const positionInArray = await getCurrentCard();
-  projectData.data.notes.forEach( (ele) => {
-    if (ele.id === currentCardID) {
-      elem.addEventListener("input", async () => {
-        await lastEditListModify('notes', currentCardID);
-        const field = elem.id
-        await db.projects.where('id').equals(currentID).modify( (e) => {
-          e.data.notes[positionInArray][field] = elem.value;
-        });
-        updateLastEdit(currentID);
+        return null;
       });
     }
-  })
-});
+  });
+}
 
-var selectItem = document.getElementById('lista-tarefas');
+function saveValues() {
+  const elementsArray = document.querySelectorAll('.projectInputForm');
+  elementsArray.forEach(async (elem) => {
+    const currentID = await getCurrentProjectID();
+    const currentCardID = await getCurrentCardID();
+    const projectData = await getCurrentProject();
+    const positionInArray = await getCurrentCard();
+    projectData.data.notes.forEach((ele) => {
+      if (ele.id === currentCardID) {
+        elem.addEventListener('input', async () => {
+          await lastEditListModify('notes', currentCardID);
+          const field = elem.id;
+          await db.projects.where('id').equals(currentID).modify((e) => {
+            e.data.notes[positionInArray][field] = elem.value;
+          });
+          updateLastEdit(currentID);
+        });
+      }
+    });
+  });
+}
+
+saveValues();
+
+// eslint-disable-next-line prefer-const
+let selectItem = document.getElementById('lista-tarefas');
 
 async function saveChecklistContent() {
   const currentCardID = await getCurrentCardID();
   const list = document.querySelector('ol').innerHTML;
   const currentID = await getCurrentProjectID();
   const positionInArray = await getCurrentCard();
-  await db.projects.where('id').equals(currentID).modify( (e) => {
+  await db.projects.where('id').equals(currentID).modify((e) => {
     e.data.notes[positionInArray].content = list;
   });
   await lastEditListModify('notes', currentCardID);
@@ -63,18 +73,19 @@ function newTask() {
   const li = document.createElement('p');
   const newItem = document.getElementById('texto-tarefa').value;
   if (!newItem) {
-    return alert("Digite uma terefa!")
+    return alert('Digite uma terefa!');
   }
-  const textItem = '• ' + newItem
+  const textItem = `• ${newItem}`;
   const ol = document.getElementById('lista-tarefas');
   li.innerText = textItem;
   ol.appendChild(li);
-  saveChecklistContent()
+  saveChecklistContent();
   document.getElementById('texto-tarefa').value = '';
+  return null;
 }
 
 function clearAll() {
-  selectItem.innerHTML = "";
+  selectItem.innerHTML = '';
   saveChecklistContent();
 }
 
@@ -89,8 +100,8 @@ function clearAllDone() {
 function sendDown() {
   const atual = document.querySelectorAll('p');
   const proximo = document.querySelector('.selected');
-  for (let i =0; i < atual.length - 1; i += 1) {
-    let teste = atual[i].classList;
+  for (let i = 0; i < atual.length - 1; i += 1) {
+    const teste = atual[i].classList;
     if (teste.contains('selected')) {
       atual[i].parentNode.insertBefore(atual[i].nextSibling, proximo);
     }
@@ -101,14 +112,14 @@ function sendDown() {
 function sendUp() {
   const atual = document.querySelectorAll('p');
   const proximo = document.querySelector('.selected');
-  for (let i =1; i < atual.length; i += 1) {
-    let teste = atual[i].classList;
+  for (let i = 1; i < atual.length; i += 1) {
+    const teste = atual[i].classList;
     if (teste.contains('selected')) {
       atual[i].parentNode.insertBefore(proximo, atual[i].previousSibling);
     }
   }
   saveChecklistContent();
-};
+}
 
 function removeSelected() {
   const liSecelt = document.querySelectorAll('.selected');
@@ -120,8 +131,8 @@ function removeSelected() {
 
 function selectTask(event) {
   const element = event.target;
-  const className = element.classList[0]; 
-  if (className === "selected") {
+  const className = element.classList[0];
+  if (className === 'selected') {
     element.classList.remove('selected');
     return saveChecklistContent();
   }
@@ -130,7 +141,7 @@ function selectTask(event) {
     mouseClick[i].classList.remove('selected');
   }
   event.target.classList.add('selected');
-  saveChecklistContent();
+  return saveChecklistContent();
 }
 
 function taskDone(event2) {
@@ -146,40 +157,40 @@ function taskDone(event2) {
 selectItem.addEventListener('click', selectTask);
 selectItem.addEventListener('dblclick', taskDone);
 
-var inputText = document.getElementById('texto-tarefa');
+const inputText = document.getElementById('texto-tarefa');
 
-inputText.addEventListener('keyup', function(event) {
+inputText.addEventListener('keyup', (event) => {
   if (event.key === 'Enter') {
-    newTask()
+    newTask();
   }
 });
 
-$( "#dialog-delete-note-list" ).dialog({
-	autoOpen: false,
-	width: 500,
-	buttons: [
-		{
-			text: "Ok",
-			click: async function() {
+$('#dialog-delete-note-list').dialog({
+  autoOpen: false,
+  width: 500,
+  buttons: [
+    {
+      text: 'Ok',
+      async click() {
         await deleteCard('notes');
-        $( this ).dialog( "close" );
+        $(this).dialog('close');
         loadpage('notas');
-			}
-		},
-		{
-			text: "Cancel",
-      id: "btnTwo-delete-list-note",
-			click: function() {
-				$( this ).dialog( "close" );
-			}
-		}
-	]
+      },
+    },
+    {
+      text: 'Cancel',
+      id: 'btnTwo-delete-list-note',
+      click() {
+        $(this).dialog('close');
+      },
+    },
+  ],
 });
 // Link to open the dialog
-$( "#deleteNoteListCard" ).click(function( event ) {
-	$( "#dialog-delete-note-list" ).dialog( "open" );
-  $("#btnTwo-delete-list-note").focus();
-	event.preventDefault();
+$('#deleteNoteListCard').click((event) => {
+  $('#dialog-delete-note-list').dialog('open');
+  $('#btnTwo-delete-list-note').focus();
+  event.preventDefault();
 });
 
 restoreNoteCard();
