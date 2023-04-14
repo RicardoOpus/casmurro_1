@@ -250,7 +250,7 @@ function getCharColor(id, characters) {
 }
 
 function getColor(charName, selectedCharColor) {
-  if (charName) {
+  if (charName.color) {
     return charName.color
   } else if (selectedCharColor) {
     return selectedCharColor
