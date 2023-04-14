@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-console.log('chamou script geral');
 
 function myLoadScript(url) {
   const jsScript = document.createElement('script');
@@ -317,6 +316,7 @@ async function verifyCat(type, category) {
 async function addNewCategory(type, category) {
   const verify = await verifyCat(type, category);
   if (verify) {
+    // eslint-disable-next-line no-alert
     return alert('Item já foi adicionado!');
   }
   const projectID = await getCurrentProjectID();
