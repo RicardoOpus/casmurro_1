@@ -786,3 +786,43 @@ async function deleteLastEditCards(table, id) {
     e.recent_edits.splice(index, 1);
   })
 };
+
+async function previousAndNextCard(tableArray, tableName, detailName) {
+  const positionInArray = await getCurrentCard();
+  const nextDiv = document.getElementById('NextDiv');
+  const prevDiv = document.getElementById('PreviousDiv')
+  const next = tableArray[positionInArray + 1];
+  const prev = tableArray[positionInArray - 1];
+  if (prev) {
+    prevDiv.innerHTML = `<p onclick="loadpageOnclick('${tableName}', ${ prev.id }, '#dinamic', 'components/${detailName}/page.html', 'components/${detailName}/script.js')">${prev.title}</p>`
+  }
+  if (next) {
+    nextDiv.innerHTML = `<p onclick="loadpageOnclick('${tableName}', ${ next.id }, '#dinamic', 'components/${detailName}/page.html', 'components/${detailName}/script.js')">${next.title}</p>`
+  }
+};
+
+async function previousNextPosition(tableArray, tableName, detailName) {
+  const resultSorted = sortByKey(tableArray, 'position');
+  const currentSettings = await db.settings.get(1);
+  const currentCardID = await currentSettings.currendIdCard;
+  const positionInArray = resultSorted.map(function (e) { return e.id; }).indexOf(currentCardID);
+  const nextDiv = document.getElementById('NextDiv');
+  const prevDiv = document.getElementById('PreviousDiv')
+  const next = tableArray[positionInArray + 1];
+  const prev = tableArray[positionInArray - 1];
+  if (prev) {
+    prevDiv.innerHTML = `<p onclick="loadpageOnclick('${tableName}', ${ prev.id }, '#dinamic', 'components/${detailName}/page.html', 'components/${detailName}/script.js')">${prev.title}</p>`
+  }
+  if (next) {
+    nextDiv.innerHTML = `<p onclick="loadpageOnclick('${tableName}', ${ next.id }, '#dinamic', 'components/${detailName}/page.html', 'components/${detailName}/script.js')">${next.title}</p>`
+  }
+};
+
+async function saveSorted(pjID, table) {
+  const project = await getCurrentProject();
+  const resultSorted = sortByKey(project.data[table], 'title');
+  db.projects.where('id').equals(pjID).modify( (ele) => {
+    ele.data[table] = resultSorted;
+    }
+  );
+};

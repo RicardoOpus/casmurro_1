@@ -26,9 +26,10 @@ async function restoreChapterCard() {
           return result.value = ele[key];
         }
       })
-      resumeHeight("content", "content_full")
+      resumeHeight("content", "content_full");
     }
   })
+  previousNextPosition(projectData.data.chapters, 'chapters', 'detailChapter');
 };
 
 var elementsArray = document.querySelectorAll(".projectInputForm");

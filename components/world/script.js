@@ -34,10 +34,9 @@ async function restoreCharactersCard() {
         }
       })
       resumeHeight("content");
-    } else {
-      return null
     }
   })
+  previousAndNextCard(projectData.data.world, 'world', 'world');
 };
 
 var elementsArray = document.querySelectorAll(".projectInputForm");

@@ -133,7 +133,7 @@ async function restoreSceneCard() {
       return null
     }
   })
-  previousAndNextScene(projectData.data.scenes);
+  previousNextPosition(projectData.data.scenes, 'scenes', 'detailScene');
   getPOVCard();
 };
 
@@ -398,20 +398,6 @@ async function getChapter() {
 };
 
 getChapter()
-
-async function previousAndNextScene(scenes) {
-  const positionInArray = await getCurrentCard();
-  const nextDiv = document.getElementById('NextScene');
-  const prevDiv = document.getElementById('PreviousScene')
-  const next = scenes[positionInArray + 1];
-  const prev = scenes[positionInArray - 1];
-  if (prev) {
-    prevDiv.innerHTML = `<p onclick="loadpageOnclick('scenes', ${ prev.id }, '#dinamic', 'components/detailScene/page.html', 'components/detailScene/script.js')">${prev.title}</p>`
-  }
-  if (next) {
-    nextDiv.innerHTML = `<p onclick="loadpageOnclick('scenes', ${ next.id }, '#dinamic', 'components/detailScene/page.html', 'components/detailScene/script.js')">${next.title}</p>`
-  }
-};
 
 async function getPOVCard() {
   const projectData = await getCurrentProject();
