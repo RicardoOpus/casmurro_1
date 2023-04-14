@@ -44,6 +44,7 @@ $('#dialogStructure').dialog({
           document.getElementById('structureType').value = '';
           pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script.js');
         } else {
+          // eslint-disable-next-line no-alert
           alert('Por favor, preencha todas as informações!');
         }
       },
