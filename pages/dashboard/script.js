@@ -141,9 +141,9 @@ function addInfosHtml(data) {
   // Progressbar section
   data.deadline? document.getElementById("sectionDeadline").style.display = 'block': '';
   const resultTime = calcularProgresso(data.startDate, data.finishDate);
-  const startDateBR = convertDatePTBR(data.startDate);
+  const startDateBR = convertDatePT_BR(data.startDate);
   document.getElementById('startDate').innerText = data.startDate ? startDateBR : 'sem dada';
-  const finishDateBR = convertDatePTBR(data.finishDate)
+  const finishDateBR = convertDatePT_BR(data.finishDate)
   document.getElementById('finishDate').innerText = data.finishDate ? finishDateBR : 'sem prazo';
   document.getElementById('daysRemaining').innerText = resultTime.remain;
   document.getElementById('progressBarColor').style.width = resultTime.porcent;

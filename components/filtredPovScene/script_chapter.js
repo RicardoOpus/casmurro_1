@@ -132,7 +132,7 @@ async function getScenesCardsFiltred(filter) {
     const dateValue = project?.data?.timeline?.[resultDate]?.date ?? '';
     const chapters = project?.data?.chapters
     const chapterName = getChapterName(chapters, ele.id);
-    const dateConverted = convertDatePTBR(dateValue);
+    const dateConverted = convertDatePT_BR(dateValue);
     $('#project-list').append(
       `
         <ul class="worldListScenes" id="${ele.id}">

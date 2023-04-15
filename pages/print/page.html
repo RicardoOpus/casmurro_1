@@ -130,6 +130,7 @@
       for (let i = 0; i < propriedades.length; i++) {
         const propriedade = propriedades[i];
         const valor = project[propriedade];
+        console.log('project[propriedade]', project[propriedade], 'proriedade', propriedade);
         if (typeof valor !== 'object' && valor !== '') {
           if (propriedade === 'title') {
             maintitle.innerHTML += `<h1>${valor}</h1>`;
