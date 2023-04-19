@@ -161,7 +161,7 @@ describe('Verifica Estrutura', () => {
     expect(wordlTitleTexts).toEqual(titles);
   });
 
-  it('Esboço deve mostrar estrutura correte, Partes - Patítulos - Cenas', async () => {
+  it('Esboço deve mostrar estrutura correta, Partes - Capítulos - Cenas', async () => {
     const result = ['Parte 1 Três não é demais Cena 1 Cena 2 A Sombra do Passado Cena 3 Cena 4'];
     await page.waitForTimeout(500);
     await page.click('.sceneCartContent');

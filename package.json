@@ -9,6 +9,6 @@
     "stylelint": "^15.4.0"
   },
   "scripts": {
-    "test": "jest --runInBand  --detectOpenHandles --forceExit"
+    "test": "jest --runInBand --detectOpenHandles --forceExit --verbose"
   }
 }

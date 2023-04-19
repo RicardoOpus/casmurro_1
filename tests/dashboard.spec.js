@@ -185,12 +185,12 @@ describe('Verifica Dashboard', () => {
     expect(cardCharactersQty).toBe('2');
   });
 
-  it('Total de cartões deve conter o valor "13"', async () => {
+  it('Total de cartões deve conter a quantidade correta', async () => {
     const totalCards = await page.$eval('#totalcards', (el) => el.innerHTML);
     expect(totalCards).toEqual('13');
   });
 
-  it('Array últimos cartões devem ter a quantidade corretas', async () => {
+  it('Array últimos cartões devem ter o tamanho correta', async () => {
     const recentElements = await page.$$eval('.lastEditTitle', (recentDiv) => recentDiv.length);
     expect(recentElements).toBe(10);
   });

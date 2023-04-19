@@ -35,7 +35,7 @@ describe('Verifica página incial de projetos', () => {
     await projectButton.click();
   });
 
-  it('Ao ser clicado, o projeto criado deve retornar para a Dashboard', async () => {
+  it('A clicar no projeto, deve carregar a Dashboard', async () => {
     await page.waitForSelector('.projectTitle');
     const projectTitleLink = await page.$eval('.projectTitle', (el) => el.innerHTML);
     expect(projectTitleLink).toEqual('O Senhor dos Anéis');
