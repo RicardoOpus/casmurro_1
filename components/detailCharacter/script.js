@@ -179,6 +179,7 @@ $( "#dialog-delete-char" ).dialog({
 	buttons: [
 		{
 			text: "Ok",
+      id: 'btnDelChar',
 			click: async function() {
         await clearDateDeathBirth('date_birth');
         await clearDateDeathBirth('date_death');

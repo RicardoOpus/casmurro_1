@@ -150,7 +150,7 @@ async function getCharactersCards() {
       `
       <ul class="worldList">
         <li class="worldItens" id='${ ele.id }'>
-        <a onclick="loadpageOnclick('characters', ${ ele.id }, '#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')">
+        <a data-testid="card-${ele.id}" onclick="loadpageOnclick('characters', ${ ele.id }, '#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')">
           <div class="worldName">
             <div class="contentListChar">
           <div class="${checkElement(ele)}"></div>
@@ -192,7 +192,7 @@ async function getCharactersCardsFiltred(filter) {
         `
         <ul class="worldList">
           <li class="worldItens" id='${ ele.id }'>
-          <a onclick="loadpageOnclick('characters', ${ ele.id }, '#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')">
+          <a data-testid="card-${ele.id}" onclick="loadpageOnclick('characters', ${ ele.id }, '#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')">
             <div class="worldName">
               <div class="contentListChar">
             <div class="${checkElement(ele)}"></div>
