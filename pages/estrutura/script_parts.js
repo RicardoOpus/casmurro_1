@@ -48,20 +48,19 @@ async function getStructureFiltred(filter) {
   resultSorted.forEach( (ele, i) => {
     $('#project-list').append(
       `
-      <ul class="worldListStructure" id="${ele.id}">
+      <ul class="worldListStructure" id="${ele.id}" data-testid='part-${ele.id}'>
         <li class="worldItens">
-        <div class="ui-widget-content portlet ui-corner-all">
-        <div class="contentListWorld">
-        <div class="ui-widget-header ui-corner-all portlet-header">Parte ${ i + 1 } - ${ ele.title }
-        <a onclick="loadpageOnclick('parts', ${ ele.id }, '#dinamic', 'components/detailPart/page.html', 'components/detailPart/script.js')">
+          <div class="ui-widget-content portlet ui-corner-all">
+            <div class="contentListWorld">
+              <div class="ui-widget-header ui-corner-all portlet-header">Parte ${ i + 1 } - ${ ele.title }</div>
+              <a onclick="loadpageOnclick('parts', ${ ele.id }, '#dinamic', 'components/detailPart/page.html', 'components/detailPart/script.js')">
+                  <p class="infosCardScenes">${ !ele.status ? '' : ele.status }</p>
+                <div>  
+                  <p class="sceneCartContent">${ ele.content? ele.content : '<br>' }</p>
+                </div>
+              </a>
+            </div>
           </div>
-            <p class="infosCardScenes">${ !ele.status ? '' : ele.status }</p>
-          </div>
-          <div>  
-            <p class="sceneCartContent">${ ele.content? ele.content : '<br>' }</p>
-          </div>
-          </div>
-        </a>
         </li>
       </ul>
       `

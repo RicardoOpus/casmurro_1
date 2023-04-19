@@ -11,9 +11,9 @@ describe('Verifica Mundo', () => {
     page = await browser.newPage();
   });
 
-  // afterAll(async () => {
-  //   await global.browser.close();
-  // });
+  afterAll(async () => {
+    await global.browser.close();
+  });
 
   it('Itens mundo devem ser mostrados em ordem alfabética', async () => {
     const titles = ['A Batalha dos Campos de Pelennor', 'Andúril', 'O Condado'];

@@ -59,6 +59,7 @@ $( "#dialog-delete-part" ).dialog({
 	buttons: [
 		{
 			text: "Ok",
+      id: "btnDelPart",
 			click: async function() {
         await deleteCard('parts');
         $( this ).dialog( "close" );
@@ -106,6 +107,7 @@ $( "#dialog-addChaptersToPart" ).dialog({
 	buttons: [
 		{
 			text: "Ok",
+      id: "btnOkChap",
 			click: async function() {
         await saveCheckedValues()
         $( this ).dialog( "close" );

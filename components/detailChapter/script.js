@@ -59,6 +59,7 @@ $( "#dialog-delete-chapter" ).dialog({
 	buttons: [
 		{
 			text: "Ok",
+      id: "btnDelChap",
 			click: async function() {
         await deleteCard('chapters');
         $( this ).dialog( "close" );
@@ -106,6 +107,7 @@ $( "#dialog-addScenetoChap" ).dialog({
 	buttons: [
 		{
 			text: "Ok",
+      id: "btnChapScene",
 			click: async function() {
         await saveCheckedValues()
         $( this ).dialog( "close" );
