@@ -119,7 +119,7 @@ async function getWorldCards() {
       `
       <ul class="worldList">
         <li class="worldItens" id='${ ele.id }'>
-        <a onclick="loadpageOnclick('world', ${ ele.id }, '#dinamic', 'components/world/page.html', 'components/world/script.js')">
+        <a data-testid='card-${ele.id}' onclick="loadpageOnclick('world', ${ ele.id }, '#dinamic', 'components/world/page.html', 'components/world/script.js')">
           <div class="worldName">
             <div class="contentListWorld">
               <p class="wordlTitle">${ ele.title }</p>
@@ -158,7 +158,7 @@ async function getWorldCardsFiltred(filter) {
         `
         <ul class="worldList">
           <li class="worldItens">
-          <a onclick="loadpageOnclick('world', ${ ele.id }, '#dinamic', 'components/world/page.html', 'components/world/script.js')">
+          <a data-testid='card-${ele.id}' onclick="loadpageOnclick('world', ${ ele.id }, '#dinamic', 'components/world/page.html', 'components/world/script.js')">
             <div class="worldName paper">
               <div class="contentListWorld">
                 <p class="wordlTitle">${ ele.title }</p>

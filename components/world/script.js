@@ -83,6 +83,7 @@ $( "#dialog-delete-world" ).dialog({
 	buttons: [
 		{
 			text: "Ok",
+      id: "btnDelWorld",
 			click: async function() {
         await clearDate('world');
         await deleteCard('world');
