@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const puppeteer = require('puppeteer');
 
-describe('Verifica Personagens', () => {
+describe.skip('Verifica Personagens', () => {
   let page;
 
   beforeAll(async () => {

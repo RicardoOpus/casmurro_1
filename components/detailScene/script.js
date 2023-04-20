@@ -202,6 +202,7 @@ $( "#dialog-delete-scene" ).dialog({
 	buttons: [
 		{
 			text: "Ok",
+      id: "btnDelScene",
 			click: async function() {
         await deleteCard('scenes');
         $( this ).dialog( "close" );
@@ -360,6 +361,7 @@ $( "#dialog-addCharScene" ).dialog({
 	buttons: [
 		{
 			text: "Ok",
+      id: "btnAddCharScene",
 			click: async function() {
         await saveCheckedValues()
         $( this ).dialog( "close" );

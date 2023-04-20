@@ -124,27 +124,26 @@ async function getScenesCardsFiltred(filter) {
     if (ele.pov_id === filter) {
       $('#project-list').append(
         `
-          <ul class="worldListScenes" id="${ele.id}">
-            <li class="worldItens">
+        <ul class="worldListScenes" id="${ele.id}">
+          <li class="worldItens">
             <div class="ui-widget-content portlet ui-corner-all">
-            <div class="contentListWorld">
-            <div class="ui-widget-header ui-corner-all portlet-header">${ ele.title }
-            <a onclick="loadpageOnclick('scenes', ${ ele.id }, '#dinamic', 'components/detailScene/page.html', 'components/detailScene/script.js')">
-              </div>
-                <p class="infosCardScenes"><span class="povLabel" style="background-color:${ele.pov_id ? povColor: ""}">${ !ele.pov_id ? '<br> ' : povName }</span> 
-                ${ !ele.status ? '' : ` ${ele.status}` }
+              <div class="contentListWorld">
+                <div data-testid='scene-${ ele.id }' class="ui-widget-header ui-corner-all portlet-header">${ ele.title }</div>
+                  <a onclick="loadpageOnclick('scenes', ${ ele.id }, '#dinamic', 'components/detailScene/page.html', 'components/detailScene/script.js')">
+                  <p class="infosCardScenes"><span class="povLabel" style="background-color:${ele.pov_id ? povColor: ""}">${ !ele.pov_id ? '&nbsp;&nbsp;&nbsp' : povName }</span> 
+                  ${ !ele.status ? '' : ` ${ele.status}` }
                   ${ !ele.date ? '' : `• ${dateConverted}`}
-                </p>
-                <p class="infosCardScenes">${ !chapterName ? '' : `Cap. ${chapterName}` }</p>
+                  </p>
+                  <p class="infosCardScenes">${ !chapterName ? '' : `Cap. ${chapterName}` }</p>
+                  <div>  
+                    <p class="sceneCartContent">${ ele.content }</p>
+                  </div>
+                  </a>
               </div>
-              <div>  
-                <p class="sceneCartContent">${ ele.content }</p>
-              </div>
-              </div>
-            </a>
-            </li>
-          </ul>
-        `
+            </div>
+          </li>
+        </ul>
+        `,
       );
     } else {
       null
