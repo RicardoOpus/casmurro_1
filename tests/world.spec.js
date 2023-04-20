@@ -55,6 +55,7 @@ describe.skip('Verifica Mundo', () => {
       .map(async (element) => element.evaluate((node) => node.textContent)));
     expect(wordlTitleTexts).toEqual(titles);
   });
+
   it('Filtros devem mostrar itens mundo corretamente', async () => {
     const char1 = await page.$("[data-testid='card-2']");
     await char1.click();
@@ -88,6 +89,7 @@ describe.skip('Verifica Mundo', () => {
       .map(async (element) => element.evaluate((node) => node.textContent)));
     expect(wordlTitleTexts3).toEqual(['O Condado']);
   });
+
   it('Deve deletar um item mundo', async () => {
     const titles = ['A Batalha dos Campos de Pelennor', 'Andúril'];
     await page.click('.wordlTitle');
@@ -101,6 +103,7 @@ describe.skip('Verifica Mundo', () => {
       .map(async (element) => element.evaluate((node) => node.textContent)));
     expect(wordlTitleTexts).toEqual(titles);
   });
+
   it('Deve deletar uma categoria', async () => {
     const titles = ['Objeto', 'Fato histórico', 'Cultura'];
     await page.click('#dialog-link-delcategory');

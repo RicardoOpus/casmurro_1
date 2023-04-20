@@ -276,21 +276,21 @@ async function getTimeline() {
     const selectedCharColor = getCharColor(Number(ele.pov_id), project.data.characters);
     if (dateConverted === prevDate) {
       prevLi.find('p').append(`
-      <a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
+      <a data-testid='timeline-item-${ele.id}' class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
         <div id="${ele.id}" class="time" style="background: linear-gradient(to right, ${ getColor(charName, selectedCharColor) } 0%, #2D333B 85%); color: ${charName.color || selectedCharColor ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
         </a>
-        <p><a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ ele.content }</a></p>
+        <p><a data-testid='timeline-content-${ele.id}' class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ ele.content }</a></p>
       `);
     } else {
       prevDate = dateConverted;
       const li = $(`
       <li>
-        <div class="timeline-section" id='${ ele.id }'>
-          <a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
+        <div class="timeline-section" id='timeline-element-${ ele.id }'>
+          <a data-testid='timeline-item-${ele.id}' class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
             <div class="timeDate">${ dateConverted }</div>
             <div class="time" style="background: linear-gradient(to right, ${getColor(charName, selectedCharColor)} 0%, #2D333B 85%); color: ${charName.color || selectedCharColor ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
             </a>
-            <p><a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ ele.content }</a></p>
+            <p><a data-testid='timeline-content-${ele.id}' class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ ele.content }</a></p>
         </div>
       </li>
       `);
@@ -324,21 +324,21 @@ async function geTimelineFiltred(filter) {
       const selectedCharColor = getCharColor(Number(ele.pov_id), project.data.characters);
       if (dateConverted === prevDate) {
         prevLi.find('p').append(`
-        <a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
+        <a data-testid='timeline-item-${ele.id}' class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
           <div id="${ele.id}" class="time" style="background: linear-gradient(to right, ${getColor(charName, selectedCharColor)} 0%, #2D333B 85%); color: ${charName.color || selectedCharColor ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
           </a>
-          <p><a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ ele.content }</a></p>
+          <p><a data-testid='timeline-content-${ele.id}' class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ ele.content }</a></p>
         `);
       } else {
         prevDate = dateConverted;
         const li = $(`
         <li>
-          <div class="timeline-section">
-            <a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
+          <div class="timeline-section" id='timeline-element-${ ele.id }'>
+            <a data-testid='timeline-item-${ele.id}' class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
               <div class="timeDate">${ dateConverted }</div>
               <div class="time" style="background: linear-gradient(to right, ${getColor(charName, selectedCharColor)} 0%, #2D333B 85%); color: ${charName.color || selectedCharColor ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
               </a>
-              <p><a class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ ele.content }</a></p>
+              <p><a data-testid='timeline-content-${ele.id}' class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ ele.content }</a></p>
           </div>
         </li>
         `);

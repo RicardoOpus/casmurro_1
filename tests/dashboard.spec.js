@@ -218,6 +218,7 @@ describe.skip('Verifica Dashboard', () => {
     );
     expect(result).toEqual(expectedList);
   });
+
   it('Últimos cartões devem ter as posições corretas, mesmo depois de edita-los', async () => {
     const expectedList = [
       'A Batalha dos Campos de Pelennor - Editada',
@@ -258,6 +259,7 @@ describe.skip('Verifica Dashboard', () => {
     );
     expect(result).toEqual(expectedList);
   });
+
   it('As informações do projeto devem ser exbidas corretamente', async () => {
     const dashboardBtn = await page.$('#dashboard');
     const editProject = await page.$("[data-testid='edit-project']");

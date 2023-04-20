@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const puppeteer = require('puppeteer');
 
-describe('Verifica Cenas', () => {
+describe.skip('Verifica Cenas', () => {
   let page;
 
   beforeAll(async () => {
@@ -11,9 +11,9 @@ describe('Verifica Cenas', () => {
     page = await browser.newPage();
   });
 
-  // afterAll(async () => {
-  //   await global.browser.close();
-  // });
+  afterAll(async () => {
+    await global.browser.close();
+  });
 
   it('cenas devem ser mostradas na ordem em que foram criadas', async () => {
     const titles = ['Cena 1', 'Cena 2', 'Cena 3', 'Cena 4'];

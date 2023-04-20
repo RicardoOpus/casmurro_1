@@ -55,6 +55,7 @@ describe.skip('Verifica Personagens', () => {
       .map(async (element) => element.evaluate((node) => node.textContent)));
     expect(wordlTitleTexts).toEqual(titles);
   });
+
   it('Filtros devem mostrar personagens corretamente', async () => {
     const char1 = await page.$("[data-testid='card-3']");
     await char1.click();
@@ -88,6 +89,7 @@ describe.skip('Verifica Personagens', () => {
       .map(async (element) => element.evaluate((node) => node.textContent)));
     expect(wordlTitleTexts3).toEqual(['🯊 Frodo Bolseiro']);
   });
+
   it('Deve deletar um personagem', async () => {
     const titles = ['🯊 Aragorn', '🯊 Gollum'];
     await page.click('.wordlTitle');
@@ -101,6 +103,7 @@ describe.skip('Verifica Personagens', () => {
       .map(async (element) => element.evaluate((node) => node.textContent)));
     expect(wordlTitleTexts).toEqual(titles);
   });
+
   it('Deve deletar uma categoria', async () => {
     const titles = ['Todos', 'Principais', 'Teste'];
     await page.click('#dialog-link-delcategory-char');

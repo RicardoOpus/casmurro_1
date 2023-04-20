@@ -133,6 +133,7 @@ elementsArray.forEach(async function(elem) {
         lastEditListModify('characters', currentCardID);
         const field = elem.id
         if (elem.id === "date_birth") {
+          console.log('chamou date');
           const checkIfisNew = await checkTimelineNewDate(ele.id, 'characters-birth', 'elementID')
           if (checkIfisNew) {
             const projectDataActual = await getCurrentProject();
@@ -163,6 +164,7 @@ elementsArray.forEach(async function(elem) {
             });
           }
         } else {
+          console.log('chamou normal');
           db.projects.where('id').equals(currentID).modify( (e) => {
             e.data.characters[positionInArray][field] = elem.value;
           });
