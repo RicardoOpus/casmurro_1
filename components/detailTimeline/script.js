@@ -47,6 +47,7 @@ $( "#dialog-delete-timeline" ).dialog({
 	buttons: [
 		{
 			text: "Ok",
+      id: "btnDelTimeline",
 			click: async function() {
         await deleteCard('timeline');
         $( this ).dialog( "close" );
