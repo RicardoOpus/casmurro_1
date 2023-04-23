@@ -3,10 +3,23 @@ changeTabColor("mundo");
 document.getElementById("category").addEventListener('change', (e) => enableDateInput(e.target.value))
 
 async function enableDateInput(target) {
-  const divDate = document.getElementById("div_Date");
-  target === 'Fato histórico' ? divDate.removeAttribute("style") : divDate.style.display = "none";
-  target !== 'Fato histórico' ? clearDate('world') : '';
-};
+  const divDate = document.getElementById('div_Date');
+  if (target === 'Fato histórico') {
+    const currentID = await getCurrentProjectID();
+    const currentCardID = await getCurrentCardID();
+    const positionInArray = await getCurrentCard();
+    divDate.removeAttribute('style');
+    const timelineID = await NewTimelineGenericWorld('2000-01-01', currentCardID, 'historical-event');
+    db.projects.where('id').equals(currentID).modify((e) => {
+      e.data.world[positionInArray].date = timelineID;
+    });
+  } else {
+    divDate.style.display = 'none';
+  }
+  if (target !== 'Fato histórico') {
+    clearDate('world');
+  }
+}
 
 async function restoreCharactersCard() {
   const currentCardID = await getCurrentCardID();
@@ -83,6 +96,7 @@ $( "#dialog-delete-world" ).dialog({
 	buttons: [
 		{
 			text: "Ok",
+      id: "btnDelWorld",
 			click: async function() {
         await clearDate('world');
         await deleteCard('world');

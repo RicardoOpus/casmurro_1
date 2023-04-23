@@ -202,6 +202,7 @@ $( "#dialog-delete-scene" ).dialog({
 	buttons: [
 		{
 			text: "Ok",
+      id: "btnDelScene",
 			click: async function() {
         await deleteCard('scenes');
         $( this ).dialog( "close" );
@@ -235,12 +236,17 @@ var fieldDateScene = document.getElementById('dateSceneDiv');
 fieldDateScene.classList.add('divExtraInfos');
 date_scene.addEventListener('change', async function() {
   const currentID = await getCurrentProjectID();
+  const currentCardID = await getCurrentCardID();
   const positionInArray = await getCurrentCard();
   if (this.checked) {
     fieldDateScene.style.display = 'block';
     fieldDateScene.scrollIntoView({behavior: 'smooth'})
     db.projects.where('id').equals(currentID).modify( (e) => {
       e.data.scenes[positionInArray].chkDateScene = true;
+    });
+    const timelineID = await NewTimelineGenericScene('2000-01-01', currentCardID, 'scene');
+    return db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.scenes[positionInArray].date = timelineID;
     });
   } else {
     clearDate('scenes');
@@ -360,6 +366,7 @@ $( "#dialog-addCharScene" ).dialog({
 	buttons: [
 		{
 			text: "Ok",
+      id: "btnAddCharScene",
 			click: async function() {
         await saveCheckedValues()
         $( this ).dialog( "close" );

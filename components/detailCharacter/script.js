@@ -133,6 +133,7 @@ elementsArray.forEach(async function(elem) {
         lastEditListModify('characters', currentCardID);
         const field = elem.id
         if (elem.id === "date_birth") {
+          console.log('chamou date');
           const checkIfisNew = await checkTimelineNewDate(ele.id, 'characters-birth', 'elementID')
           if (checkIfisNew) {
             const projectDataActual = await getCurrentProject();
@@ -163,6 +164,7 @@ elementsArray.forEach(async function(elem) {
             });
           }
         } else {
+          console.log('chamou normal');
           db.projects.where('id').equals(currentID).modify( (e) => {
             e.data.characters[positionInArray][field] = elem.value;
           });
@@ -179,6 +181,7 @@ $( "#dialog-delete-char" ).dialog({
 	buttons: [
 		{
 			text: "Ok",
+      id: 'btnDelChar',
 			click: async function() {
         await clearDateDeathBirth('date_birth');
         await clearDateDeathBirth('date_death');
@@ -217,12 +220,17 @@ var date_birthchk = document.getElementById('checkbox-date-birth');
 var fieldDateBirth = document.getElementById('dateBirthDiv');
 date_birthchk.addEventListener('change', async function() {
   const currentID = await getCurrentProjectID();
+  const currentCardID = await getCurrentCardID();
   const positionInArray = await getCurrentCard();
   if (this.checked) {
     fieldDateBirth.style.display = 'block';
     fieldDateBirth.scrollIntoView({behavior: 'smooth'})
     db.projects.where('id').equals(currentID).modify( (e) => {
       e.data.characters[positionInArray].chkBirth = true;
+    });
+    const timelineID = await NewTimelineCharacter('2000-01-01', currentCardID, 'characters-birth');
+    return db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.characters[positionInArray].date_birth = timelineID;
     });
   } else {
     clearDateDeathBirth('date_birth')
@@ -238,12 +246,17 @@ var date_deathchk = document.getElementById('checkbox-date-death');
 var fieldDateDeath = document.getElementById('dateDeathDiv');
 date_deathchk.addEventListener('change', async function() {
   const currentID = await getCurrentProjectID();
+  const currentCardID = await getCurrentCardID();
   const positionInArray = await getCurrentCard();
   if (this.checked) {
     fieldDateDeath.style.display = 'block';
     fieldDateDeath.scrollIntoView({behavior: 'smooth'})
     db.projects.where('id').equals(currentID).modify( (e) => {
       e.data.characters[positionInArray].chkDeath = true;
+    });
+    const timelineID = await NewTimelineCharacter('2000-01-01', currentCardID, 'characters-death');
+    return db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.characters[positionInArray].date_death = timelineID;
     });
   } else {
     clearDateDeathBirth('date_death')

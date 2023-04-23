@@ -505,7 +505,7 @@ async function restoreScenesListInput(id) {
       const checkbox = $(`<input type='checkbox' disabled></input><label style='text-decoration: line-through'></label><br>`).html(value.title);
       $(id).append(checkbox);
     } else {
-      const checkbox = $(`<input id='${value.id + value.title}' type='checkbox' name='${value.position}'></input><label style='color: white' for='${value.id + value.title}'></label><br>`).val(value.id).html(value.title);
+      const checkbox = $(`<input id='cena-${value.id}' type='checkbox' name='${value.position}'></input><label style='color: white' for='cena-${value.id}'></label><br>`).val(value.id).html(value.title);
         if (chklist?.includes(Number(value.id))) {
           checkbox.prop('checked', true);
         }
@@ -535,7 +535,7 @@ async function restoreChapListInput(id) {
       const checkbox = $(`<input type='checkbox' disabled></input><label style='text-decoration: line-through'></label><br>`).html(value.title);
       $(id).append(checkbox);
     } else {
-      const checkbox = $(`<input id='${value.id + value.title}' type='checkbox' name='${value.position}'  style='color: white'></input><label for='${value.id + value.title}'></label><br>`).val(value.id).html(value.title);
+      const checkbox = $(`<input id='chapter-${value.id}' type='checkbox' name='${value.position}'  style='color: white'></input><label for='chapter-${value.id}'></label><br>`).val(value.id).html(value.title);
       if (chklist?.includes(Number(value.id))) {
         checkbox.prop('checked', true);
       }
