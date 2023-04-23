@@ -7,7 +7,7 @@ function removerTextoEntreParenteses(texto) {
   return resultado.trim();
 }
 
-describe.skip('Verifica Dashboard', () => {
+describe('Verifica Dashboard', () => {
   let page;
 
   beforeAll(async () => {

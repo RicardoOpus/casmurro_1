@@ -5,7 +5,7 @@ function removeEspacosQuebrasDeLinhas(arr) {
   return arr.map((item) => item.replace(/\s+/g, ' ').trim());
 }
 
-describe.skip('Verifica Estrutura', () => {
+describe('Verifica Estrutura', () => {
   let page;
 
   beforeAll(async () => {

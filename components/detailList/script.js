@@ -160,6 +160,7 @@ $( "#dialog-delete-note-list" ).dialog({
 	buttons: [
 		{
 			text: "Ok",
+      id: "btnOkdelNotelist",
 			click: async function() {
         await deleteCard('notes');
         $( this ).dialog( "close" );

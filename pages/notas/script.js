@@ -195,7 +195,7 @@ async function getNotesCards() {
         `
         <ul class="worldList">
           <li class="worldItens" id='${ ele.id }'>
-          <a onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailList/page.html', 'components/detailList/script.js')">
+          <a data-testid='note-item-${ele.id}' onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailList/page.html', 'components/detailList/script.js')">
             <div class="worldName">
               <div class="contentListWorld">
                 <p class="wordlTitle">${ ele.title }</p>
@@ -218,7 +218,7 @@ async function getNotesCards() {
         `
         <ul class="worldList">
           <li class="worldItens" id='${ ele.id }'>
-          <a onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
+          <a data-testid='note-item-${ele.id}' onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
             <div class="worldName">
               <div class="contentListWorld">
                 <p class="wordlTitle">${ ele.title }</p></a>
@@ -247,7 +247,7 @@ async function getNotesCards() {
       `
       <ul class="worldList">
         <li class="worldItens" id='${ ele.id }'>
-        <a onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
+        <a data-testid='note-item-${ele.id}' onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
           <div class="worldName">
             <div class="contentListWorld">
               <p class="wordlTitle">${ ele.title }</p>
@@ -287,7 +287,7 @@ async function getNotesCardsFilter(filter) {
           `
           <ul class="worldList">
             <li class="worldItens" id='${ ele.id }'>
-            <a onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailList/page.html', 'components/detailList/script.js')">
+            <a data-testid='note-item-${ele.id}' onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailList/page.html', 'components/detailList/script.js')">
               <div class="worldName">
                 <div class="contentListWorld">
                   <p class="wordlTitle">${ ele.title }</p>
@@ -310,7 +310,7 @@ async function getNotesCardsFilter(filter) {
           `
           <ul class="worldList">
             <li class="worldItens" id='${ ele.id }'>
-            <a onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
+            <a data-testid='note-item-${ele.id}' onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
               <div class="worldName">
                 <div class="contentListWorld">
                   <p class="wordlTitle">${ ele.title }</p></a>
@@ -339,7 +339,7 @@ async function getNotesCardsFilter(filter) {
         `
         <ul class="worldList">
           <li class="worldItens" id='${ ele.id }'>
-          <a onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
+          <a data-testid='note-item-${ele.id}' onclick="loadpageOnclick('notes', ${ ele.id }, '#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')">
             <div class="worldName">
               <div class="contentListWorld">
                 <p class="wordlTitle">${ ele.title }</p>
