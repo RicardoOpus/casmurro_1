@@ -269,7 +269,7 @@ async function getTimeline() {
   let prevLi = null;
   for (let i = 0; i < resultSorted.length; i++) {
     const ele = resultSorted[i];
-    const dateConverted = convertDatePT_BR(ele.date);
+    const dateConverted = convertDatePTBR(ele.date);
     const symbolTitle = handleTitle(ele.elementType);
     const identfyType =  ele.elementID || ele.historicID || ele.sceneID;
     const charName = await getElementTitle(ele.elementType, identfyType);
@@ -318,7 +318,7 @@ async function geTimelineFiltred(filter) {
   for (let i = 0; i < resultSorted.length; i++) {
     const ele = resultSorted[i];
     if (ele.pov_id === filter || checkObject(ele, Number(filter))) {
-      const dateConverted = convertDatePT_BR(ele.date);
+      const dateConverted = convertDatePTBR(ele.date);
       const symbolTitle = handleTitle(ele.elementType);
       const charName = await getElementTitle(ele.elementType, ele.elementID);
       const selectedCharColor = getCharColor(Number(ele.pov_id), project.data.characters);
@@ -393,7 +393,7 @@ async function getTimelineSimle(id) {
   const resultSorted = sortByDate(project.data.timeline);
   for (let i = 0; i < resultSorted.length; i++) {
     const ele = resultSorted[i];
-    const dateConverted = convertDatePT_BR(ele.date);
+    const dateConverted = convertDatePTBR(ele.date);
     const symbolTitle = handleTitle(ele.elementType);
     const charName = await getElementTitle(ele.elementType, ele.elementID);
     const titleShort = reduceString(ele.title);
