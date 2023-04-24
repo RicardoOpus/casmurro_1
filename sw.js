@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 // self.addEventListener('install', (e) => {
 //   e.waitUntil(
 //     caches.open('casmurro-store').then((cache) => cache.addAll([
@@ -41,7 +42,6 @@
 //     caches.match(e.request).then((response) => response || fetch(e.request)),
 //   );
 // });
-
 
 // Choose a cache name
 const cacheName = 'cache-v1';
@@ -91,8 +91,9 @@ const precacheResources = [
   './pages/welcome/page.html',
   './pages/welcome/script.js',
 ];
-  
-// When the service worker is installing, open the cache and add the precache resources to it
+
+// When the service worker is installing,
+// open the cache and add the precache resources to it
 self.addEventListener('install', (e) => {
   console.log('[Service Worker] Install');
   e.waitUntil((async () => {
@@ -102,7 +103,8 @@ self.addEventListener('install', (e) => {
   })());
 });
 
-// When there's an incoming fetch request, try and respond with a precached resource, otherwise fall back to the network
+// When there's an incoming fetch request,
+// try and respond with a precached resource, otherwise fall back to the network
 self.addEventListener('fetch', (event) => {
   console.log('Fetch intercepted for:', event.request.url);
   event.respondWith(
