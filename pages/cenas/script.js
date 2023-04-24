@@ -201,6 +201,7 @@ document.getElementById('project-list').className = 'listCardsScenes';
 $(() => {
   $('#project-list').disableSelection();
   function savePositions() {
+    // eslint-disable-next-line func-names
     $('#project-list .worldListScenes').each(async function () {
       const id = $(this).attr('id');
       const position = $(this).index();
