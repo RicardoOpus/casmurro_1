@@ -1,91 +1,98 @@
-changeTabColor("estrutura");
+/* eslint-disable no-undef */
+changeTabColor('estrutura');
 
 async function applyChapterslist(id, idChars) {
   const project = await getCurrentProject();
   $(id).empty();
-  $(id).append($('<h3></h3>').val('').html('Lista de capítulos:'))
-  const resultSorted = sortByKey(project.data.chapters, 'position')
-  resultSorted.forEach( (ele) => {
+  $(id).append($('<h3></h3>').val('').html('Lista de capítulos:'));
+  const resultSorted = sortByKey(project.data.chapters, 'position');
+  resultSorted.forEach((ele) => {
     if (idChars.includes(ele.id)) {
-      return $(id).append($(`<button onclick="loadpageOnclick('parts', ${ele.id}, '#dinamic', 'components/detailChapter/page.html', 'components/detailChapter/script.js')" style='margin: 5px; color: black; background-color: #8F8F8F; border-radius: 5px; padding: 5px; cursor: pointer'></button><br>`).html(ele.title))
+      return $(id).append($(`<button onclick="loadpageOnclick('parts', ${ele.id}, '#dinamic', 'components/detailChapter/page.html', 'components/detailChapter/script.js')" style='margin: 5px; color: black; background-color: #8F8F8F; border-radius: 5px; padding: 5px; cursor: pointer'></button><br>`).html(ele.title));
     }
-  })
-};
+    return null;
+  });
+}
 
 async function restorePartCard() {
   const currentCardID = await getCurrentCardID();
   const projectData = await getCurrentProject();
-  projectData.data.parts.forEach( (ele) => {
+  projectData.data.parts.forEach((ele) => {
     if (ele.id === currentCardID) {
-      Object.keys(ele).forEach(async key => {
+      Object.keys(ele).forEach(async (key) => {
         const result = document.getElementById(key);
-        if (key === "chapters") {
-          await applyChapterslist("#chapter_list", ele[key]);
-          ele[key].length === 0 ? document.getElementById('chapter_list').innerHTML = '' : null;
+        if (key === 'chapters') {
+          await applyChapterslist('#chapter_list', ele[key]);
+          if (ele[key].length === 0) {
+            document.getElementById('chapter_list').innerHTML = '';
+          }
         } if (result) {
-          return result.value = ele[key];
+          result.value = ele[key];
+          return result.value;
         }
-      })
-      resumeHeight("content", "content_full")
-    }
-  })
-  previousNextPosition(projectData.data.parts, 'parts', 'detailPart');
-};
-
-var elementsArray = document.querySelectorAll(".projectInputForm");
-
-elementsArray.forEach(async function(elem) {
-  const currentID = await getCurrentProjectID();
-  const currentCardID = await getCurrentCardID();
-  const projectData = await getCurrentProject();
-  const positionInArray = await getCurrentCard();
-  projectData.data.parts.forEach( (ele) => {
-    if (ele.id === currentCardID) {
-      elem.addEventListener("input", async () => {
-        await lastEditListModify('parts', currentCardID);
-        const field = elem.id
-        await db.projects.where('id').equals(currentID).modify( (e) => {
-          e.data.parts[positionInArray][field] = elem.value;
-        });
-        updateLastEdit(currentID);
+        return null;
       });
+      resumeHeight('content', 'content_full');
     }
-  })
-});
+  });
+}
 
-$( "#dialog-delete-part" ).dialog({
-	autoOpen: false,
-	width: 500,
-	buttons: [
-		{
-			text: "Ok",
-      id: "btnDelPart",
-			click: async function() {
+function saveValues() {
+  const elementsArray = document.querySelectorAll('.projectInputForm');
+  elementsArray.forEach(async (elem) => {
+    const currentID = await getCurrentProjectID();
+    const currentCardID = await getCurrentCardID();
+    const projectData = await getCurrentProject();
+    const positionInArray = await getCurrentCard();
+    projectData.data.parts.forEach((ele) => {
+      if (ele.id === currentCardID) {
+        elem.addEventListener('input', async () => {
+          await lastEditListModify('parts', currentCardID);
+          const field = elem.id;
+          await db.projects.where('id').equals(currentID).modify((e) => {
+            e.data.parts[positionInArray][field] = elem.value;
+          });
+          updateLastEdit(currentID);
+        });
+      }
+    });
+  });
+}
+saveValues();
+
+$('#dialog-delete-part').dialog({
+  autoOpen: false,
+  width: 500,
+  buttons: [
+    {
+      text: 'Ok',
+      id: 'btnDelPart',
+      async click() {
         await deleteCard('parts');
-        $( this ).dialog( "close" );
+        $(this).dialog('close');
         loadpage('estrutura');
-			}
-		},
-		{
-			text: "Cancel",
-      id: "btnTwo",
-			click: function() {
-				$( this ).dialog( "close" );
-			}
-		}
-	]
+      },
+    },
+    {
+      text: 'Cancel',
+      id: 'btnTwo',
+      click() {
+        $(this).dialog('close');
+      },
+    },
+  ],
 });
 // Link to open the dialog
-$( "#deletePartCard" ).click(function( event ) {
-	$( "#dialog-delete-part" ).dialog( "open" );
-  $("#btnTwo").focus();
-	event.preventDefault();
+$('#deletePartCard').click((event) => {
+  $('#dialog-delete-part').dialog('open');
+  $('#btnTwo').focus();
+  event.preventDefault();
 });
 
 restorePartCard();
 
 async function saveCheckedValues() {
-  const form = document.getElementById("chapterToPart");
+  const form = document.getElementById('chapterToPart');
   const checkboxes = form.querySelectorAll('input[type="checkbox"]');
   const checkedValues = [];
   const currentID = await getCurrentProjectID();
@@ -95,39 +102,38 @@ async function saveCheckedValues() {
       checkedValues.push(Number(checkbox.value));
     }
   });
-  db.projects.where('id').equals(currentID).modify( (e) => {
+  db.projects.where('id').equals(currentID).modify((e) => {
     e.data.parts[positionInArray].chapters = checkedValues;
   });
 }
 
-$( "#dialog-addChaptersToPart" ).dialog({
-	autoOpen: false,
-	width: 500,
+$('#dialog-addChaptersToPart').dialog({
+  autoOpen: false,
+  width: 500,
   maxHeight: 600,
-	buttons: [
-		{
-			text: "Ok",
-      id: "btnOkChap",
-			click: async function() {
-        await saveCheckedValues()
-        $( this ).dialog( "close" );
-        restorePartCard()
-			}
-		},
-		{
-			text: "Cancel",
-      id: "btnTwo",
-			click: function() {
-				$( this ).dialog( "close" );
-			}
-		}
-	]
+  buttons: [
+    {
+      text: 'Ok',
+      id: 'btnOkChap',
+      async click() {
+        await saveCheckedValues();
+        $(this).dialog('close');
+        restorePartCard();
+      },
+    },
+    {
+      text: 'Cancel',
+      id: 'btnTwo',
+      click() {
+        $(this).dialog('close');
+      },
+    },
+  ],
 });
-// Link to open the dialog
-$( "#btn-addChaptersToPart" ).click(function( event ) {
-	$( "#dialog-addChaptersToPart" ).dialog( "open" );
-  $("#btnTwo").focus();
-	event.preventDefault();
+$('#btn-addChaptersToPart').click((event) => {
+  $('#dialog-addChaptersToPart').dialog('open');
+  $('#btnTwo').focus();
+  event.preventDefault();
 });
 
-restoreChapListInput("#chapterToPart");
+restoreChapListInput('#chapterToPart');
