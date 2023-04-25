@@ -1,20 +1,23 @@
-changeTabColor("notas");
+/* eslint-disable no-alert */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
+changeTabColor('notas');
 
 async function deleteLink(position) {
   const currentID = await getCurrentProjectID();
   const positionInArray = await getCurrentCard();
-  db.projects.where('id').equals(currentID).modify( (e) => {
+  db.projects.where('id').equals(currentID).modify((e) => {
     e.data.notes[positionInArray].links.splice(position, 1);
   });
-  return pageChange('#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')
+  return pageChange('#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js');
 }
 
 function createLinks(links) {
   const linksDiv = document.getElementById('links');
-  links.forEach( (link, i) => {
+  links.forEach((link, i) => {
     const anchor = document.createElement('a');
 
-    anchor.innerHTML = `<p id="${i}"><span class="xlink" onclick="deleteLink(${i})">&times;</span><a href='${link.address}' target="_blank"> ${link.title}🡽<a/></p>`
+    anchor.innerHTML = `<p id="${i}"><span class="xlink" onclick="deleteLink(${i})">&times;</span><a href='${link.address}' target="_blank"> ${link.title}🡽<a/></p>`;
     linksDiv.appendChild(anchor);
   });
 }
@@ -22,81 +25,85 @@ function createLinks(links) {
 async function restoreNoteCard() {
   const currentCardID = await getCurrentCardID();
   const projectData = await getCurrentProject();
-  projectData.data.notes.forEach( (ele) => {
+  projectData.data.notes.forEach((ele) => {
     if (ele.id === currentCardID) {
-      Object.keys(ele).forEach(key => {
+      Object.keys(ele).forEach((key) => {
         const result = document.getElementById(key);
-        if (key === "image_card" && ele[key] !== '') {
-          var cardbackgrond = document.getElementById("imageCardBackgournd");
-          cardbackgrond.classList.add("imageCardBackgournd");
-          cardbackgrond.children[0].style.backgroundImage =  `url(${ ele[key] })`;
-          cardbackgrond.children[0].classList.add("cardImageDiv");
-          result.setAttribute("src", ele[key]);
-          result.classList.add("cardImage");
-        } if (key === "links" && ele[key].length > 0) {
-          return createLinks(ele[key])
+        if (key === 'image_card' && ele[key] !== '') {
+          const cardbackgrond = document.getElementById('imageCardBackgournd');
+          cardbackgrond.classList.add('imageCardBackgournd');
+          cardbackgrond.children[0].style.backgroundImage = `url(${ele[key]})`;
+          cardbackgrond.children[0].classList.add('cardImageDiv');
+          result.setAttribute('src', ele[key]);
+          result.classList.add('cardImage');
+        } if (key === 'links' && ele[key].length > 0) {
+          return createLinks(ele[key]);
         } if (result) {
-          return result.value = ele[key];
+          result.value = ele[key];
+          return result.value;
         }
-      })
-      resumeHeight("content")
-    }
-  })
-};
-
-var elementsArray = document.querySelectorAll(".projectInputForm");
-
-elementsArray.forEach(async function(elem) {
-  const currentID = await getCurrentProjectID();
-  const currentCardID = await getCurrentCardID();
-  const projectData = await getCurrentProject();
-  const positionInArray = await getCurrentCard();
-  projectData.data.notes.forEach( (ele) => {
-    if (ele.id === currentCardID) {
-      elem.addEventListener("input", async () => {
-        await lastEditListModify('notes', currentCardID);
-        const field = elem.id
-        await db.projects.where('id').equals(currentID).modify( (e) => {
-          e.data.notes[positionInArray][field] = elem.value;
-        });
-        updateLastEdit(currentID);
+        return null;
       });
+      return resumeHeight('content');
     }
-  })
-});
+    return null;
+  });
+}
 
-$( "#dialog-delete-note" ).dialog({
-	autoOpen: false,
-	width: 500,
-	buttons: [
-		{
-			text: "Ok",
-      id: "btnOkdelNote",
-			click: async function() {
+function saveValues() {
+  const elementsArray = document.querySelectorAll('.projectInputForm');
+  elementsArray.forEach(async (elem) => {
+    const currentID = await getCurrentProjectID();
+    const currentCardID = await getCurrentCardID();
+    const projectData = await getCurrentProject();
+    const positionInArray = await getCurrentCard();
+    projectData.data.notes.forEach((ele) => {
+      if (ele.id === currentCardID) {
+        elem.addEventListener('input', async () => {
+          await lastEditListModify('notes', currentCardID);
+          const field = elem.id;
+          await db.projects.where('id').equals(currentID).modify((e) => {
+            e.data.notes[positionInArray][field] = elem.value;
+          });
+          updateLastEdit(currentID);
+        });
+      }
+    });
+  });
+}
+saveValues();
+
+$('#dialog-delete-note').dialog({
+  autoOpen: false,
+  width: 500,
+  buttons: [
+    {
+      text: 'Ok',
+      id: 'btnOkdelNote',
+      async click() {
         await deleteCard('notes');
-        $( this ).dialog( "close" );
+        $(this).dialog('close');
         loadpage('notas');
-			}
-		},
-		{
-			text: "Cancel",
-      id: "btnTwoNotes",
-			click: function() {
-				$( this ).dialog( "close" );
-			}
-		}
-	]
+      },
+    },
+    {
+      text: 'Cancel',
+      id: 'btnTwoNotes',
+      click() {
+        $(this).dialog('close');
+      },
+    },
+  ],
 });
-// Link to open the dialog
-$( "#deleteNoteCard" ).click(function( event ) {
-	$( "#dialog-delete-note" ).dialog( "open" );
-  $("#btnTwoNotes").focus();
-	event.preventDefault();
+$('#deleteNoteCard').click((event) => {
+  $('#dialog-delete-note').dialog('open');
+  $('#btnTwoNotes').focus();
+  event.preventDefault();
 });
 
-document.getElementById("btnSaveWall").disabled = true;
-document.getElementById("my-image").addEventListener('input', () => { 
-  document.getElementById("btnSaveWall").disabled = false;
+document.getElementById('btnSaveWall').disabled = true;
+document.getElementById('my-image').addEventListener('input', () => {
+  document.getElementById('btnSaveWall').disabled = false;
 });
 
 restoreNoteCard();
@@ -114,8 +121,10 @@ async function saveImageToBase64(url) {
     const base64data = reader.result;
     return base64data;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
   }
+  return null;
 }
 
 async function getCoverFromFecth(url) {
@@ -131,54 +140,60 @@ async function getCoverFromFecth(url) {
       return img;
     }
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
   }
+  return null;
 }
 
 function isURLmusic(str) {
-  return str.startsWith("https://music.youtube.com/") || str.startsWith("https://open.spotify.com/");
+  return str.startsWith('https://music.youtube.com/') || str.startsWith('https://open.spotify.com/');
 }
 
 function isValideURL(str) {
-  return str.startsWith("https://") || str.startsWith("https://");
+  return str.startsWith('https://') || str.startsWith('https://');
 }
 
 async function saveLink() {
+  const modalLinks = document.getElementById('myModalLink-notes');
   const currentID = await getCurrentProjectID();
   const positionInArray = await getCurrentCard();
   const title = document.getElementById('link_title').value;
   const address = document.getElementById('link_address').value;
-  const verifyUrl = isValideURL(address)
+  const verifyUrl = isValideURL(address);
   if (!verifyUrl) {
-    return alert("O endereço deve começar com 'https://' ou 'http://'")
+    return alert("O endereço deve começar com 'https://' ou 'http://'");
   }
-  const obj = { title, address};
-  await db.projects.where('id').equals(currentID).modify( (e) => {
+  const obj = { title, address };
+  await db.projects.where('id').equals(currentID).modify((e) => {
     e.data.notes[positionInArray].links.push(obj);
   });
-  modalLinks.style.display = "none";
-  const verifyURLmidia = isURLmusic(address)
+  modalLinks.style.display = 'none';
+  const verifyURLmidia = isURLmusic(address);
   if (verifyURLmidia) {
     const imageCover = await getCoverFromFecth(address);
     if (imageCover) {
-      await db.projects.where('id').equals(currentID).modify( (e) => {
+      await db.projects.where('id').equals(currentID).modify((e) => {
         e.data.notes[positionInArray].image_card = imageCover;
       });
     }
   }
   document.getElementById('link_title').value = '';
   document.getElementById('link_address').value = '';
-  return pageChange('#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')
+  return pageChange('#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js');
 }
 
-var salverLinkBtn = document.querySelector("#addLink");
-var modalLinks = document.getElementById("myModalLink-notes");
-var span = document.getElementsByClassName("close")[0];
-salverLinkBtn.onclick = function () {
-  modalLinks.style.display = "block";
-};
-span.onclick = function () {
-  document.getElementById('link_title').value = '';
-  document.getElementById('link_address').value = '';
-  modalLinks.style.display = "none";
-};
+function modalSets() {
+  const modalLinks = document.getElementById('myModalLink-notes');
+  const salverLinkBtn = document.querySelector('#addLink');
+  const span = document.getElementsByClassName('close')[0];
+  salverLinkBtn.onclick = () => {
+    modalLinks.style.display = 'block';
+  };
+  span.onclick = () => {
+    document.getElementById('link_title').value = '';
+    document.getElementById('link_address').value = '';
+    modalLinks.style.display = 'none';
+  };
+}
+modalSets();
