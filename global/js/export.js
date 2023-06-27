@@ -1,5 +1,5 @@
-console.log('chamou export script');
-
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 function getResume() {
   return `
                   ╔═════════════════════╗
@@ -7,7 +7,7 @@ function getResume() {
                   ╚═════════════════════╝
 
 `;
-};
+}
 
 function getPersonagens() {
   return `
@@ -15,7 +15,7 @@ function getPersonagens() {
 ▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒░║      PERSONAGENS       ║░▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓
                   ╚════════════════════════╝
 
-`
+`;
 }
 
 function getMundo() {
@@ -24,7 +24,7 @@ function getMundo() {
 ▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒░║         MUNDO          ║░▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓
                   ╚════════════════════════╝
 
-`
+`;
 }
 
 function getCenas() {
@@ -33,7 +33,7 @@ function getCenas() {
 ▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒░║         CENAS          ║░▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓
                   ╚════════════════════════╝
 
-`
+`;
 }
 
 function getEstrutura() {
@@ -42,7 +42,7 @@ function getEstrutura() {
 ▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒░║       ESTRUTURA        ║░▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓
                   ╚════════════════════════╝
 
-`
+`;
 }
 
 function getTimelineLabel() {
@@ -51,7 +51,7 @@ function getTimelineLabel() {
 ▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒░║        TIMELINE        ║░▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓
                   ╚════════════════════════╝
 
-`
+`;
 }
 
 function getNotas() {
@@ -60,16 +60,16 @@ function getNotas() {
 ▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒░║         NOTAS          ║░▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓
                   ╚════════════════════════╝
   
-`
+`;
 }
 
 function getTextChar(project) {
-  const personagnes = sortByKey(project.data.characters, 'title')
+  const personagnes = sortByKey(project.data.characters, 'title');
   const propriedades = ['title', 'category', 'nameFull', 'age', 'gender', 'ocupation', 'date_birth', 'date_death', 'relations', 'extra_1', 'extra_1_1', 'extra_2', 'extra_2_1', 'extra_2_2', 'extra_3', 'extra_3_1', 'content'];
   let texto = '';
-  for (let index = 0; index < personagnes.length; index++) {
+  for (let index = 0; index < personagnes.length; index += 1) {
     const element = personagnes[index];
-    for (let i = 0; i < propriedades.length; i++) {
+    for (let i = 0; i < propriedades.length; i += 1) {
       const propriedade = propriedades[i];
       if (element[propriedade]) {
         let nomePropriedade;
@@ -132,15 +132,15 @@ function getTextChar(project) {
           const result = project.data.timeline.filter((ele) => ele.id === element[propriedade]);
           texto += `${nomePropriedade}: ${result[0].date}\n`;
         } else if (propriedade === 'relations' && element[propriedade].length === 0) {
-          null
+          null;
         } else if (propriedade === 'relations') {
-          texto += `Relacionamentos: `;
+          texto += 'Relacionamentos: ';
           const list = element[propriedade];
-          for (let i = 0; i < list.length; i++ ) {
-            const char = project.data.characters.filter( (ele) => ele.id === list[i].character)
-            texto += `${char[0].title}: ${list[i].relation} - `
-          };
-          texto += `\n`
+          for (let ind = 0; i < list.length; ind += 1) {
+            const char = project.data.characters.filter((ele) => ele.id === list[ind].character);
+            texto += `${char[0].title}: ${list[ind].relation} - `;
+          }
+          texto += '\n';
         } else {
           texto += `${nomePropriedade}: ${element[propriedade]}\n`;
         }
@@ -155,9 +155,9 @@ function getTextWorld(project) {
   const personagnes = sortByKey(project.data.world, 'title');
   const propriedades = ['title', 'category', 'date', 'content'];
   let texto = '';
-  for (let index = 0; index < personagnes.length; index++) {
+  for (let index = 0; index < personagnes.length; index += 1) {
     const element = personagnes[index];
-    for (let i = 0; i < propriedades.length; i++) {
+    for (let i = 0; i < propriedades.length; i += 1) {
       const propriedade = propriedades[i];
       if (element[propriedade]) {
         let nomePropriedade;
@@ -191,12 +191,12 @@ function getTextWorld(project) {
 }
 
 function getTextScenes(project) {
-  const personagnes = sortByKey(project.data.scenes, 'position')
-  const propriedades = ['title', 'pov_id', 'status', 'place_id','time', 'date', 'weather', 'scene_characters', 'content', 'extra_1', 'extra_1-1','extra_1-2','extra_1-3','extra_2','extra_2-1','extra_3', 'extra_3-1', 'extra_3-2', 'content_full'];
+  const personagnes = sortByKey(project.data.scenes, 'position');
+  const propriedades = ['title', 'pov_id', 'status', 'place_id', 'time', 'date', 'weather', 'scene_characters', 'content', 'extra_1', 'extra_1-1', 'extra_1-2', 'extra_1-3', 'extra_2', 'extra_2-1', 'extra_3', 'extra_3-1', 'extra_3-2', 'content_full'];
   let texto = '';
-  for (let index = 0; index < personagnes.length; index++) {
+  for (let index = 0; index < personagnes.length; index += 1) {
     const element = personagnes[index];
-    for (let i = 0; i < propriedades.length; i++) {
+    for (let i = 0; i < propriedades.length; i += 1) {
       const propriedade = propriedades[i];
       if (element[propriedade]) {
         let nomePropriedade;
@@ -259,22 +259,24 @@ function getTextScenes(project) {
             nomePropriedade = '';
             break;
         } if (propriedade === 'pov_id') {
-          const result = project.data.characters.filter((ele) => ele.id === Number(element[propriedade]));
+          const result = project.data.characters
+            .filter((ele) => ele.id === Number(element[propriedade]));
           texto += `POV: ${result[0].title}\n`;
         } else if (propriedade === 'place_id') {
-          const result = project.data.world.filter((ele) => ele.id === Number(element[propriedade]));
+          const result = project.data.world
+            .filter((ele) => ele.id === Number(element[propriedade]));
           texto += `Local: ${result[0].title}\n`;
         } else if (propriedade === 'date') {
           const result = project.data.timeline.filter((ele) => ele.id === element[propriedade]);
           texto += `${nomePropriedade}: ${result[0].date}\n`;
         } else if (propriedade === 'scene_characters') {
-          texto += `Personagens em cena: `;
+          texto += 'Personagens em cena: ';
           const list = element[propriedade];
-          for (let i = 0; i < list.length; i++ ) {
+          for (let i = 0; i < list.length; i += 1) {
             const result = project.data.characters.filter((ele) => ele.id === Number(list[i]));
             texto += `${result[0].title} - `;
-          };
-          texto += `\n`;
+          }
+          texto += '\n';
         } else {
           texto += `${nomePropriedade}: ${element[propriedade]}\n`;
         }
@@ -289,10 +291,10 @@ function getTextParts(project) {
   const personagnes = sortByKey(project.data.parts, 'position');
   const propriedades = ['title', 'content', 'content_full', 'chapters'];
   let texto = '';
-  texto += '\═══════════════════════════ Partes ═══════════════════════════\n'
-  for (let index = 0; index < personagnes.length; index++) {
+  texto += '\═══════════════════════════ Partes ═══════════════════════════\n';
+  for (let index = 0; index < personagnes.length; index += 1) {
     const element = personagnes[index];
-    for (let i = 0; i < propriedades.length; i++) {
+    for (let i = 0; i < propriedades.length; i += 1) {
       const propriedade = propriedades[i];
       if (element[propriedade]) {
         let nomePropriedade;
@@ -310,10 +312,10 @@ function getTextParts(project) {
             nomePropriedade = '';
             break;
         } if (propriedade === 'chapters') {
-          let chaptersName = '\n'
-          element[propriedade].forEach(e => {
+          let chaptersName = '\n';
+          element[propriedade].forEach((e) => {
             const result = project.data.chapters.filter((ele) => ele.id === e);
-            chaptersName += `${result[0].title}\n`
+            chaptersName += `${result[0].title}\n`;
           });
           texto += chaptersName;
         } else {
@@ -332,9 +334,9 @@ function getTextChapters(project) {
   const propriedades = ['title', 'content', 'content_full', 'scenes'];
   let texto = '';
   texto += '\═══════════════════════════ Capítulos ════════════════════════\n\n';
-  for (let index = 0; index < personagnes.length; index++) {
+  for (let index = 0; index < personagnes.length; index += 1) {
     const element = personagnes[index];
-    for (let i = 0; i < propriedades.length; i++) {
+    for (let i = 0; i < propriedades.length; i += 1) {
       const propriedade = propriedades[i];
       if (element[propriedade]) {
         let nomePropriedade;
@@ -352,10 +354,10 @@ function getTextChapters(project) {
             nomePropriedade = '';
             break;
         } if (propriedade === 'scenes') {
-          let scenesName = '\n'
-          element[propriedade].forEach(e => {
+          let scenesName = '\n';
+          element[propriedade].forEach((e) => {
             const result = project.data.scenes.filter((ele) => ele.id === e);
-            scenesName += `${result[0].title}\n`
+            scenesName += `${result[0].title}\n`;
           });
           texto += scenesName;
         } else {
@@ -372,9 +374,9 @@ function getTextTimeline(project) {
   const personagnes = sortByDate(project.data.timeline);
   const propriedades = ['date', 'title', 'elementType', 'elementID', 'historicID', 'sceneID', 'content'];
   let texto = '';
-  for (let index = 0; index < personagnes.length; index++) {
+  for (let index = 0; index < personagnes.length; index += 1) {
     const element = personagnes[index];
-    for (let i = 0; i < propriedades.length; i++) {
+    for (let i = 0; i < propriedades.length; i += 1) {
       const propriedade = propriedades[i];
       if (element[propriedade]) {
         let nomePropriedade;
@@ -405,22 +407,22 @@ function getTextTimeline(project) {
             break;
         }
         if (propriedade === 'historicID') {
-          const result = project.data.world.filter((ele) => ele.id === element[propriedade])
+          const result = project.data.world.filter((ele) => ele.id === element[propriedade]);
           texto += `${result[0].title}\n`;
         } else if (propriedade === 'sceneID') {
-          const result = project.data.scenes.filter((ele) => ele.id === element[propriedade])
+          const result = project.data.scenes.filter((ele) => ele.id === element[propriedade]);
           texto += `${result[0].title}\n`;
         } else if (propriedade === 'elementID') {
-          const result = project.data.characters.filter((ele) => ele.id === element[propriedade])
+          const result = project.data.characters.filter((ele) => ele.id === element[propriedade]);
           texto += `${result[0].title}\n`;
-        } else if (element[propriedade] === 'characters-birth'){
-          texto += `Nasce personagem: `;
-        } else if (element[propriedade] === 'characters-death'){
-          texto += `Morre personagem: `;
-        } else if (element[propriedade] === 'historical-event'){
-          texto += `Fato histórico: `;
-        } else if (element[propriedade] === 'scene'){
-          texto += `Cena: `;
+        } else if (element[propriedade] === 'characters-birth') {
+          texto += 'Nasce personagem: ';
+        } else if (element[propriedade] === 'characters-death') {
+          texto += 'Morre personagem: ';
+        } else if (element[propriedade] === 'historical-event') {
+          texto += 'Fato histórico: ';
+        } else if (element[propriedade] === 'scene') {
+          texto += 'Cena: ';
         } else {
           texto += `${nomePropriedade}: ${element[propriedade]}\n`;
         }
@@ -435,9 +437,9 @@ function getTextNotes(project) {
   const personagnes = sortByKey(project.data.notes, 'title');
   const propriedades = ['title', 'category', 'links', 'content'];
   let texto = '';
-  for (let index = 0; index < personagnes.length; index++) {
+  for (let index = 0; index < personagnes.length; index += 1) {
     const element = personagnes[index];
-    for (let i = 0; i < propriedades.length; i++) {
+    for (let i = 0; i < propriedades.length; i += 1) {
       const propriedade = propriedades[i];
       if (element[propriedade]) {
         let nomePropriedade;
@@ -455,9 +457,9 @@ function getTextNotes(project) {
             nomePropriedade = '';
             break;
         } if (propriedade === 'links') {
-          element[propriedade].forEach( (e) => {
-            texto += `${e.title}:\n${e.address}\n`
-          })
+          element[propriedade].forEach((e) => {
+            texto += `${e.title}:\n${e.address}\n`;
+          });
         } else {
           const tempDiv = document.createElement('div');
           tempDiv.innerHTML = element[propriedade];
@@ -473,7 +475,7 @@ function getTextNotes(project) {
 
 function gerarArquivoTxt(objeto, nomeArquivo, databackup) {
   let texto = '';
-  for (let chave in objeto) {
+  for (const chave in objeto) {
     if (typeof objeto[chave] !== 'object') {
       if (chave === 'title') {
         texto += `Título: ${objeto[chave]}\n\n`;
@@ -492,16 +494,16 @@ function gerarArquivoTxt(objeto, nomeArquivo, databackup) {
       } else if (chave === 'finishDate') {
         texto += `Data final: ${objeto[chave]}\n\n`;
       }
-    } 
+    }
   }
 
   basic = databackup.toBackup + getResume() + texto + getPersonagens();
   basicChars = basic + getTextChar(objeto);
-  WorldChars = basicChars +  getMundo() + getTextWorld(objeto);
-  ScenesWorld = WorldChars +  getCenas() + getTextScenes(objeto);
+  WorldChars = basicChars + getMundo() + getTextWorld(objeto);
+  ScenesWorld = WorldChars + getCenas() + getTextScenes(objeto);
   StructureScenes = ScenesWorld + getEstrutura() + getTextParts(objeto) + getTextChapters(objeto);
   TimelineStructure = StructureScenes + getTimelineLabel() + getTextTimeline(objeto);
-  NotesAndFinish = TimelineStructure + getNotas() + getTextNotes(objeto)
+  NotesAndFinish = TimelineStructure + getNotas() + getTextNotes(objeto);
 
   const data = new Blob([NotesAndFinish], { type: 'text/plain' });
   const url = window.URL.createObjectURL(data);
@@ -510,7 +512,6 @@ function gerarArquivoTxt(objeto, nomeArquivo, databackup) {
   link.setAttribute('download', nomeArquivo);
   link.click();
 }
-
 
 function clearData1(project) {
   delete project.created_at;
@@ -528,7 +529,7 @@ function clearData1(project) {
   delete project.showSubtitle;
   delete project.timestamp;
   delete project.lastBackup;
-  return project
+  return project;
 }
 
 function getCurrentDateString() {
@@ -539,37 +540,37 @@ function getCurrentDateString() {
   const hours = now.getHours();
   const minutes = now.getMinutes();
   const seconds = now.getSeconds();
-  const pad = (num) => (num < 10 ? "0" + num : num);
+  const pad = (num) => (num < 10 ? `0${num}` : num);
   return {
     toFileName: `${year}-${pad(month)}-${pad(day)}-${pad(hours)}-${pad(minutes)}-${pad(seconds)}`,
-    toBackup: `\n\nEste backup foi criado em ${pad(day)}/${pad(month)}/${year} às ${pad(hours)}:${pad(minutes)}:${pad(seconds)}\n`
-  }
+    toBackup: `\n\nEste backup foi criado em ${pad(day)}/${pad(month)}/${year} às ${pad(hours)}:${pad(minutes)}:${pad(seconds)}\n`,
+  };
 }
 
 function sanitizeFilename(filename) {
   const forbiddenChars = /[\\/:"*?<>.|]/g;
-  return filename.replace(forbiddenChars, " ");
+  return filename.replace(forbiddenChars, ' ');
 }
 
 async function updateTimeBackup() {
   const currentID = await getCurrentProjectID();
   const now = new Date();
-  return await db.projects.where('id').equals(currentID).modify( (e) => {
+  return db.projects.where('id').equals(currentID).modify((e) => {
     e.lastBackup = now;
   });
-};
+}
 
 async function exportProjectText() {
-  const project = await getCurrentProject();  
+  const project = await getCurrentProject();
   const detatime = getCurrentDateString();
-  const nameReult = sanitizeFilename(project.title)
-  const name = nameReult + ' ' + detatime.toFileName;
+  const nameReult = sanitizeFilename(project.title);
+  const name = `${nameReult} ${detatime.toFileName}`;
   const basicInfos = clearData1(project);
-  const modal = document.getElementById("myModal");
+  const modal = document.getElementById('myModal');
   document.getElementById('backup').innerHTML = '';
   updateTimeBackup();
   gerarArquivoTxt(basicInfos, name, detatime);
-  return modal.style.display = "none";
+  return modal.style.display = 'none';
 }
 
 function salvarComoJSON(objeto, nomeArquivo) {
@@ -586,17 +587,18 @@ async function exportProject() {
   const project = await getCurrentProject();
   const detatime = getCurrentDateString();
   const nameReult = sanitizeFilename(project.title);
-  const name = nameReult + ' ' + detatime.toFileName;
-  const modal = document.getElementById("myModal");
+  const name = `${nameReult} ${detatime.toFileName}`;
+  const modal = document.getElementById('myModal');
   document.getElementById('backup').innerHTML = '';
-  salvarComoJSON(project, name)
+  salvarComoJSON(project, name);
   updateTimeBackup();
-  return modal.style.display = "none";
+  modal.style.display = 'none';
+  return modal;
 }
 
 async function calcularTempoPassado() {
   const divBackup = document.getElementById('backup');
-  const project = await getCurrentProject();  
+  const project = await getCurrentProject();
   const desde = project?.lastBackup;
   const agora = new Date();
   const diferenca = agora - desde;
@@ -604,15 +606,14 @@ async function calcularTempoPassado() {
   const dias = Math.floor(diferenca / msEmUmDia);
   const horas = Math.floor((diferenca % msEmUmDia) / 3600000);
   if (!desde) {
-    return  divBackup.innerText = `Salve as informações do seu projeto`;
+    return divBackup.innerText = 'Salve as informações do seu projeto';
   }
   if (horas < 2 && dias < 1) {
     return divBackup.innerText = '';
-  } else if (dias === 1){
-    return divBackup.innerText = `${dias} dia e ${horas } hrs desde o último backup`;
-  } else {
-    return divBackup.innerText = `${dias === 0 ? '' : dias + ' dias e '} ${horas} hrs desde o último backup`;
+  } if (dias === 1) {
+    return divBackup.innerText = `${dias} dia e ${horas} hrs desde o último backup`;
   }
+  return divBackup.innerText = `${dias === 0 ? '' : `${dias} dias e `} ${horas} hrs desde o último backup`;
 }
 
 function chamarFuncaoCadaMinuto() {

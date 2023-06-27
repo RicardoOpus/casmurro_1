@@ -6,7 +6,7 @@ describe('Verifica página timeline', () => {
 
   beforeAll(async () => {
     global.browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
     });
     page = await browser.newPage();
   });
@@ -36,19 +36,19 @@ describe('Verifica página timeline', () => {
     await page.click('#dialog-link-timeline');
     await page.waitForTimeout(500);
     await page.type('#timelineName', 'Evento Um');
-    await page.type('#timelineDate', '04-15-2023');
+    await page.type('#timelineDate', '15-04-2023');
     await page.click('#okBtn-timeline:not([disabled])');
     await page.waitForTimeout(500);
     await page.click('#dialog-link-timeline');
     await page.waitForSelector('#timelineName');
     await page.type('#timelineName', 'Evento Dois');
-    await page.type('#timelineDate', '04-16-2023');
+    await page.type('#timelineDate', '16-04-2023');
     await page.click('#okBtn-timeline:not([disabled])');
     await page.waitForTimeout(500);
     await page.click('#dialog-link-timeline');
     await page.waitForSelector('#timelineName');
     await page.type('#timelineName', 'Evento Três');
-    await page.type('#timelineDate', '04-12-2023');
+    await page.type('#timelineDate', '12-04-2023');
     await page.click('#okBtn-timeline:not([disabled])');
     await page.waitForTimeout(500);
     const wordlTitleElements = await page.$$('.timeDate');
@@ -61,8 +61,9 @@ describe('Verifica página timeline', () => {
     const titles = ['10/04/2023', '12/04/2023', '16/04/2023'];
     await page.click("[data-testid='timeline-item-1']");
     await page.waitForTimeout(500);
-    await page.type('#date', '04-10-2023');
+    await page.type('#date', '10-04-2023');
     await page.type('#content', 'Frodo e seus amigos chegam a uma cidade chamada Bri, onde encontram o humano Aragorn, que se junta a eles na jornada para Valfenda. Eles são seguidos pelos Nazgûl, que atacam e ferem Frodo. Eles escapam para o refúgio de Rivendell');
+    await page.waitForTimeout(500);
     await page.click('#timeline');
     await page.waitForTimeout(500);
     const wordlTitleElements = await page.$$('.timeDate');
@@ -81,7 +82,7 @@ describe('Verifica página timeline', () => {
     await page.click('#dialog-link-timeline');
     await page.waitForTimeout(500);
     await page.type('#timelineName', 'Evento Quatro');
-    await page.type('#timelineDate', '04-12-2023');
+    await page.type('#timelineDate', '12-04-2023');
     await page.click('#okBtn-timeline:not([disabled])');
     await page.waitForTimeout(500);
     const elementAfter = await page.$('#timeline-element-3');

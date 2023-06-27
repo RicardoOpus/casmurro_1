@@ -1,9 +1,10 @@
-console.log("Chamou timeline!");
-changeTabColor("timeline");
+/* eslint-disable no-alert */
+/* eslint-disable no-undef */
+changeTabColor('timeline');
 
 function validadeForm() {
-  const dateField = document.getElementById("timelineDate").value
-  return dateField !== "" ? true : false;
+  const dateField = document.getElementById('timelineDate').value;
+  return dateField !== '';
 }
 
 function showElapsedtime() {
@@ -13,181 +14,196 @@ function showElapsedtime() {
   const date2 = document.getElementById('date2_ElapsedTime').value;
   const element = document.createElement('p');
   const result = calculateTimeElapsed(date1, date2);
-  element.innerText = `Passaram-se ${result.years} anos, ${result.months} meses e ${result.days} dias`
+  element.innerText = `Passaram-se ${result.years} anos, ${result.months} meses e ${result.days} dias`;
   divtarget.appendChild(element);
-};
-
-$( "#dialogTimeline" ).dialog({
-autoOpen: false,
-width: 600,
-buttons: [
-  {
-    text: "Ok",
-    id: "okBtn-timeline",
-    disabled: false,
-    click: async function() {
-      const validade = validadeForm();
-      if (validade) {
-        await createNewTimeline();
-        $( this ).dialog( "close" );
-        document.getElementById("timelineName").value = "";
-        document.getElementById("timelineDate").value = "";
-        pageChange('#dinamic', 'pages/timeline/page.html', 'pages/timeline/script.js')
-      } else {
-        alert('Por favor, preencha a data!')
-      }
-    }
-  },
-  {
-    text: "Cancel",
-    click: function() {
-      document.getElementById("timelineName").value = "";
-      document.getElementById("timelineDate").value = "";
-      $( this ).dialog( "close" );
-    }
-  }]
-});
-// Link to open the dialog
-$( "#dialog-link-timeline" ).click(function( event ) {
-  $( "#dialogTimeline" ).dialog( "open" );
-  $( "#okBtn-timeline" ).addClass( "ui-button-disabled ui-state-disabled" );
-  $( ".ui-icon-closethick" ).click(function( event ) {
-    document.getElementById("timelineName").value = "";
-    document.getElementById("timelineDate").value = "";
-  })
-  event.preventDefault();
-});
-
-$( "#dialog_new_timelineCategory" ).dialog({
-  autoOpen: false,
-  width: 400,
-  buttons: [
-    {
-      text: "Ok",
-      id: "okBtn-cat-time",
-      disabled: false,
-      click: async function() {
-        var filterChar = document.getElementById("catCharacterName");
-        await addNewCategory('timeline', filterChar.value);
-        $( this ).dialog( "close" );
-        document.getElementById("catCharacterName").value = "";
-        pageChange('#dinamic', 'pages/timeline/page.html', 'pages/timeline/script.js')
-      }
-    },
-    {
-      text: "Cancel",
-      click: function() {
-        document.getElementById("catCharacterName").value = "";
-        $( this ).dialog( "close" );
-      }
-    }]
-});
-// Link to open the dialog Category
-$( "#dialog-link-character-filter" ).click(function( event ) {
-  $( "#dialog_new_timelineCategory" ).dialog( "open" );
-  $( "#okBtn-cat-time" ).addClass( "ui-button-disabled ui-state-disabled" );
-  $( ".ui-icon-closethick" ).click(function( event ) {
-    document.getElementById("catCharacterName").value = "";
-    })
-  restorePOV('#catCharacterName', 'characters');
-  event.preventDefault();
-});
-
-$( "#dialog_delete_timelineCategory" ).dialog({
-  autoOpen: false,
-  width: 400,
-  buttons: [
-    {
-      text: "Ok",
-      id: "okBtn-delcatTimeline",
-      disabled: false,
-      click: async function() {
-        var catDel = document.getElementById("categoryDeltimelineName");
-        await removeCategory('timeline', catDel.value);
-        $( this ).dialog( "close" );
-        document.getElementById("categoryDeltimelineName").value = "";
-        pageChange('#dinamic', 'pages/timeline/page.html', 'pages/timeline/script.js')
-      }
-    },
-    {
-      text: "Cancel",
-      click: function() {
-        document.getElementById("categoryDeltimelineName").value = "";
-        $( this ).dialog( "close" );
-      }
-    }]
-});
-// Link to open the dialog Delete Category
-$( "#dialog-link-delcategory" ).click(function( event ) {
-  $( "#dialog_delete_timelineCategory" ).dialog( "open" );
-  $( "#okBtn-delcatTimeline" ).addClass( "ui-button-disabled ui-state-disabled" );
-  $( ".ui-icon-closethick" ).click(function( event ) {
-    document.getElementById("categoryDeltimelineName").value = "";
-    })
-    restoreDelPovTab('timeline', '#categoryDeltimelineName');
-  event.preventDefault();
-});
-
-function setFilterCategory(tab, filterCategory) {
-  changeInnerTabColor(tab);
-  geTimelineFiltred(filterCategory);
 }
 
-$( "#elapsedTime" ).dialog({
+async function createNewTimeline() {
+  const ID = await idManager('id_timeline');
+  const currentDate = new Date();
+  const timeStamp = Date.now();
+  const pjID = await getCurrentProjectID();
+  const timelineName = document.getElementById('timelineName');
+  const timelineDate = document.getElementById('timelineDate');
+  const data = {
+    title: timelineName.value,
+    elementType: '',
+    elementID: '',
+    content: '',
+    date: timelineDate.value,
+    id: ID,
+  };
+  await db.projects.where('id').equals(pjID).modify((ele) => {
+    ele.data.timeline.push(data);
+  });
+  await updateLastEditList('timeline', ID);
+  await db.projects.update(pjID, { last_edit: currentDate, timestamp: timeStamp });
+}
+
+$('#dialogTimeline').dialog({
   autoOpen: false,
   width: 600,
   buttons: [
     {
-      text: "Ok",
-      id: "okBtn-elapsedTime",
+      text: 'Ok',
+      id: 'okBtn-timeline',
       disabled: false,
-      click: async function() {
+      async click() {
         const validade = validadeForm();
-        if (true) {
-          showElapsedtime();
-          document.getElementById("timelineName").value = "";
-          document.getElementById("timelineDate").value = "";
+        if (validade) {
+          await createNewTimeline();
+          $(this).dialog('close');
+          document.getElementById('timelineName').value = '';
+          document.getElementById('timelineDate').value = '';
+          pageChange('#dinamic', 'pages/timeline/page.html', 'pages/timeline/script.js');
         } else {
-          alert('Por favor, preencha a data!')
+          alert('Por favor, preencha a data!');
         }
-      }
+      },
     },
     {
-      text: "Cancel",
-      click: function() {
-        document.getElementById("timelineName").value = "";
-        document.getElementById("timelineDate").value = "";
-        $( this ).dialog( "close" );
-      }
-    }]
+      text: 'Cancel',
+      click() {
+        document.getElementById('timelineName').value = '';
+        document.getElementById('timelineDate').value = '';
+        $(this).dialog('close');
+      },
+    }],
+});
+// Link to open the dialog
+$('#dialog-link-timeline').click((event) => {
+  $('#dialogTimeline').dialog('open');
+  $('#okBtn-timeline').addClass('ui-button-disabled ui-state-disabled');
+  $('.ui-icon-closethick').click(() => {
+    document.getElementById('timelineName').value = '';
+    document.getElementById('timelineDate').value = '';
   });
-  // Link to open the dialog Elapsedtime
-  $( "#dialog-link-elapsedTime" ).click(function( event ) {
-    $( "#elapsedTime" ).dialog( "open" );
-    $( "#okBtn-timeline" ).addClass( "ui-button-disabled ui-state-disabled" );
-    $( ".ui-icon-closethick" ).click(function( event ) {
-      document.getElementById("timelineName").value = "";
-      document.getElementById("timelineDate").value = "";
-    })
-    restoreTimelineDates('#date1_ElapsedTime', 'timeline');
-    restoreTimelineDates('#date2_ElapsedTime', 'timeline')
-    event.preventDefault();
+  event.preventDefault();
+});
+
+$('#dialog_new_timelineCategory').dialog({
+  autoOpen: false,
+  width: 400,
+  buttons: [
+    {
+      text: 'Ok',
+      id: 'okBtn-cat-time',
+      disabled: false,
+      async click() {
+        const filterChar = document.getElementById('catCharacterName');
+        await addNewCategory('timeline', filterChar.value);
+        $(this).dialog('close');
+        document.getElementById('catCharacterName').value = '';
+        pageChange('#dinamic', 'pages/timeline/page.html', 'pages/timeline/script.js');
+      },
+    },
+    {
+      text: 'Cancel',
+      click() {
+        document.getElementById('catCharacterName').value = '';
+        $(this).dialog('close');
+      },
+    }],
+});
+$('#dialog-link-character-filter').click((event) => {
+  $('#dialog_new_timelineCategory').dialog('open');
+  $('#okBtn-cat-time').addClass('ui-button-disabled ui-state-disabled');
+  $('.ui-icon-closethick').click(() => {
+    document.getElementById('catCharacterName').value = '';
   });
+  restorePOV('#catCharacterName', 'characters');
+  event.preventDefault();
+});
+
+$('#dialog_delete_timelineCategory').dialog({
+  autoOpen: false,
+  width: 400,
+  buttons: [
+    {
+      text: 'Ok',
+      id: 'okBtn-delcatTimeline',
+      disabled: false,
+      async click() {
+        const catDel = document.getElementById('categoryDeltimelineName');
+        await removeCategory('timeline', catDel.value);
+        $(this).dialog('close');
+        document.getElementById('categoryDeltimelineName').value = '';
+        pageChange('#dinamic', 'pages/timeline/page.html', 'pages/timeline/script.js');
+      },
+    },
+    {
+      text: 'Cancel',
+      click() {
+        document.getElementById('categoryDeltimelineName').value = '';
+        $(this).dialog('close');
+      },
+    }],
+});
+$('#dialog-link-delcategory').click((event) => {
+  $('#dialog_delete_timelineCategory').dialog('open');
+  $('#okBtn-delcatTimeline').addClass('ui-button-disabled ui-state-disabled');
+  $('.ui-icon-closethick').click(() => {
+    document.getElementById('categoryDeltimelineName').value = '';
+  });
+  restoreDelPovTab('timeline', '#categoryDeltimelineName');
+  event.preventDefault();
+});
+
+$('#elapsedTime').dialog({
+  autoOpen: false,
+  width: 600,
+  buttons: [
+    {
+      text: 'Ok',
+      id: 'okBtn-elapsedTime',
+      disabled: false,
+      async click() {
+        const validade = validadeForm();
+        if (validade) {
+          showElapsedtime();
+          document.getElementById('timelineName').value = '';
+          document.getElementById('timelineDate').value = '';
+        } else {
+          alert('Por favor, preencha a data!');
+        }
+      },
+    },
+    {
+      text: 'Cancel',
+      click() {
+        document.getElementById('timelineName').value = '';
+        document.getElementById('timelineDate').value = '';
+        $(this).dialog('close');
+      },
+    }],
+});
+// Link to open the dialog Elapsedtime
+$('#dialog-link-elapsedTime').click((event) => {
+  $('#elapsedTime').dialog('open');
+  $('#okBtn-timeline').addClass('ui-button-disabled ui-state-disabled');
+  $('.ui-icon-closethick').click(() => {
+    document.getElementById('timelineName').value = '';
+    document.getElementById('timelineDate').value = '';
+  });
+  restoreTimelineDates('#date1_ElapsedTime', 'timeline');
+  restoreTimelineDates('#date2_ElapsedTime', 'timeline');
+  event.preventDefault();
+});
 
 function handleTitle(type) {
   let result;
-  switch(type) {
-    case "characters-death":
-      result = "🪦 Morre ";
+  switch (type) {
+    case 'characters-death':
+      result = '🪦 Morre ';
       break;
-    case "characters-birth":
-      result = "✶ Nasce ";
+    case 'characters-birth':
+      result = '✶ Nasce ';
       break;
-    case "scene":
-      result = "🎬 ";
+    case 'scene':
+      result = '🎬 ';
       break;
-    case "historical-event":
-      result = "🗓 ";
+    case 'historical-event':
+      result = '🗓 ';
       break;
     default:
       result = '';
@@ -197,18 +213,18 @@ function handleTitle(type) {
 
 function tableName(name) {
   let result;
-  switch(name) {
-    case "characters-death":
-      result = "characters";
+  switch (name) {
+    case 'characters-death':
+      result = 'characters';
       break;
-    case "characters-birth":
-      result = "characters";
+    case 'characters-birth':
+      result = 'characters';
       break;
-    case "scene":
-      result = "scenes";
+    case 'scene':
+      result = 'scenes';
       break;
-    case "historical-event":
-      result = "world";
+    case 'historical-event':
+      result = 'world';
       break;
     default:
       result = '';
@@ -220,10 +236,10 @@ async function getElementTitle(type, elementID) {
   const table = tableName(type);
   if (table) {
     const project = await getCurrentProject();
-    const element = project.data[table].map(function (e) { return e.id; }).indexOf(elementID);
+    const element = project.data[table].map((e) => e.id).indexOf(elementID);
     const resultName = project.data[table][element].title;
     const resultColor = project.data[table][element].color;
-    return { 'name': resultName, 'color': resultColor };
+    return { name: resultName, color: resultColor };
   }
   return '';
 }
@@ -246,51 +262,51 @@ function getCharColor(id, characters) {
     const char = characters.filter((ele) => ele.id === id);
     return char[0].color;
   }
-  return null 
+  return null;
 }
 
 function getColor(charName, selectedCharColor) {
   if (charName.color) {
-    return charName.color
-  } else if (selectedCharColor) {
-    return selectedCharColor
-  } else {
-    return '#2D333B';
+    return charName.color;
+  } if (selectedCharColor) {
+    return selectedCharColor;
   }
-};
+  return '#2D333B';
+}
 
 async function getTimeline() {
   const project = await getCurrentProject();
   const resultSorted = sortByDate(project.data.timeline);
   if (resultSorted.length === 0) {
-    return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>")
+    return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>");
   }
   let prevDate = null;
   let prevLi = null;
-  for (let i = 0; i < resultSorted.length; i++) {
+  for (let i = 0; i < resultSorted.length; i += 1) {
     const ele = resultSorted[i];
-    const dateConverted = convertDatePT_BR(ele.date);
+    const dateConverted = convertDatePTBR(ele.date);
     const symbolTitle = handleTitle(ele.elementType);
-    const identfyType =  ele.elementID || ele.historicID || ele.sceneID;
+    const identfyType = ele.elementID || ele.historicID || ele.sceneID;
+    // eslint-disable-next-line no-await-in-loop
     const charName = await getElementTitle(ele.elementType, identfyType);
     const selectedCharColor = getCharColor(Number(ele.pov_id), project.data.characters);
     if (dateConverted === prevDate) {
       prevLi.find('p').append(`
-      <a data-testid='timeline-item-${ele.id}' class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
-        <div id="${ele.id}" class="time" style="background: linear-gradient(to right, ${ getColor(charName, selectedCharColor) } 0%, #2D333B 85%); color: ${charName.color || selectedCharColor ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
+      <a data-testid='timeline-item-${ele.id}' class="${ele.title ? '' : 'noPonter'}" onclick="${ele.title ? `loadpageOnclick('timeline', ${ele.id}, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
+        <div id="${ele.id}" class="time" style="background: linear-gradient(to right, ${getColor(charName, selectedCharColor)} 0%, #2D333B 85%); color: ${charName.color || selectedCharColor ? 'black' : ''}">${symbolTitle} ${ele.title ? ele.title : charName.name}</div>
         </a>
-        <p><a data-testid='timeline-content-${ele.id}' class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ ele.content }</a></p>
+        <p><a data-testid='timeline-content-${ele.id}' class="${ele.title ? '' : 'noPonter'}" onclick="${ele.title ? `loadpageOnclick('timeline', ${ele.id}, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ele.content}</a></p>
       `);
     } else {
       prevDate = dateConverted;
       const li = $(`
       <li>
-        <div class="timeline-section" id='timeline-element-${ ele.id }'>
-          <a data-testid='timeline-item-${ele.id}' class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
-            <div class="timeDate">${ dateConverted }</div>
-            <div class="time" style="background: linear-gradient(to right, ${getColor(charName, selectedCharColor)} 0%, #2D333B 85%); color: ${charName.color || selectedCharColor ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
+        <div class="timeline-section" id='timeline-element-${ele.id}'>
+          <a data-testid='timeline-item-${ele.id}' class="${ele.title ? '' : 'noPonter'}" onclick="${ele.title ? `loadpageOnclick('timeline', ${ele.id}, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
+            <div class="timeDate">${dateConverted}</div>
+            <div class="time" style="background: linear-gradient(to right, ${getColor(charName, selectedCharColor)} 0%, #2D333B 85%); color: ${charName.color || selectedCharColor ? 'black' : ''}">${symbolTitle} ${ele.title ? ele.title : charName.name}</div>
             </a>
-            <p><a data-testid='timeline-content-${ele.id}' class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ ele.content }</a></p>
+            <p><a data-testid='timeline-content-${ele.id}' class="${ele.title ? '' : 'noPonter'}" onclick="${ele.title ? `loadpageOnclick('timeline', ${ele.id}, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ele.content}</a></p>
         </div>
       </li>
       `);
@@ -298,15 +314,14 @@ async function getTimeline() {
       $('#timelineMain').append(li);
     }
   }
-  removeDuplicateIds();
-};
+  return removeDuplicateIds();
+}
 
 function checkObject(obj, id) {
-  if (obj.elementType && obj.elementType.startsWith("characters") && obj.elementID === id) {
+  if (obj.elementType && obj.elementType.startsWith('characters') && obj.elementID === id) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 async function geTimelineFiltred(filter) {
@@ -315,30 +330,31 @@ async function geTimelineFiltred(filter) {
   const resultSorted = sortByDate(project.data.timeline);
   let prevDate = null;
   let prevLi = null;
-  for (let i = 0; i < resultSorted.length; i++) {
+  for (let i = 0; i < resultSorted.length; i += 1) {
     const ele = resultSorted[i];
     if (ele.pov_id === filter || checkObject(ele, Number(filter))) {
-      const dateConverted = convertDatePT_BR(ele.date);
+      const dateConverted = convertDatePTBR(ele.date);
       const symbolTitle = handleTitle(ele.elementType);
+      // eslint-disable-next-line no-await-in-loop
       const charName = await getElementTitle(ele.elementType, ele.elementID);
       const selectedCharColor = getCharColor(Number(ele.pov_id), project.data.characters);
       if (dateConverted === prevDate) {
         prevLi.find('p').append(`
-        <a data-testid='timeline-item-${ele.id}' class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
-          <div id="${ele.id}" class="time" style="background: linear-gradient(to right, ${getColor(charName, selectedCharColor)} 0%, #2D333B 85%); color: ${charName.color || selectedCharColor ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
+        <a data-testid='timeline-item-${ele.id}' class="${ele.title ? '' : 'noPonter'}" onclick="${ele.title ? `loadpageOnclick('timeline', ${ele.id}, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
+          <div id="${ele.id}" class="time" style="background: linear-gradient(to right, ${getColor(charName, selectedCharColor)} 0%, #2D333B 85%); color: ${charName.color || selectedCharColor ? 'black' : ''}">${symbolTitle} ${ele.title ? ele.title : charName.name}</div>
           </a>
-          <p><a data-testid='timeline-content-${ele.id}' class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ ele.content }</a></p>
+          <p><a data-testid='timeline-content-${ele.id}' class="${ele.title ? '' : 'noPonter'}" onclick="${ele.title ? `loadpageOnclick('timeline', ${ele.id}, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ele.content}</a></p>
         `);
       } else {
         prevDate = dateConverted;
         const li = $(`
         <li>
-          <div class="timeline-section" id='timeline-element-${ ele.id }'>
-            <a data-testid='timeline-item-${ele.id}' class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
-              <div class="timeDate">${ dateConverted }</div>
-              <div class="time" style="background: linear-gradient(to right, ${getColor(charName, selectedCharColor)} 0%, #2D333B 85%); color: ${charName.color || selectedCharColor ? 'black' : ''}">${symbolTitle} ${ele.title? ele.title : charName.name}</div>
+          <div class="timeline-section" id='timeline-element-${ele.id}'>
+            <a data-testid='timeline-item-${ele.id}' class="${ele.title ? '' : 'noPonter'}" onclick="${ele.title ? `loadpageOnclick('timeline', ${ele.id}, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">
+              <div class="timeDate">${dateConverted}</div>
+              <div class="time" style="background: linear-gradient(to right, ${getColor(charName, selectedCharColor)} 0%, #2D333B 85%); color: ${charName.color || selectedCharColor ? 'black' : ''}">${symbolTitle} ${ele.title ? ele.title : charName.name}</div>
               </a>
-              <p><a data-testid='timeline-content-${ele.id}' class="${ele.title? '' : 'noPonter'}" onclick="${ele.title? `loadpageOnclick('timeline', ${ ele.id }, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ ele.content }</a></p>
+              <p><a data-testid='timeline-content-${ele.id}' class="${ele.title ? '' : 'noPonter'}" onclick="${ele.title ? `loadpageOnclick('timeline', ${ele.id}, '#dinamic', 'components/detailTimeline/page.html', 'components/detailTimeline/script.js')` : ''}">${ele.content}</a></p>
           </div>
         </li>
         `);
@@ -346,63 +362,47 @@ async function geTimelineFiltred(filter) {
         $('#timelineMain').append(li);
       }
     }
-    removeDuplicateIds()
+    removeDuplicateIds();
   }
-  changeInnerTabColor('tab'+filter)
-};
-
-async function createNewTimeline() {
-  const ID = await idManager('id_timeline')
-  const currentDate = new Date();
-  const timeStamp = Date.now();
-  const pjID = await getCurrentProjectID()
-  const timelineName = document.getElementById("timelineName");
-  const timelineDate = document.getElementById("timelineDate");
-  const data = {
-    title: timelineName.value,
-    elementType: '',
-    elementID: '',
-    content: '',
-    date: timelineDate.value,
-    id: ID
-  };
-  await db.projects.where('id').equals(pjID).modify( (ele) => {
-    ele.data.timeline.push(data) 
-    }
-  );
-  await updateLastEditList('timeline', ID);
-  await db.projects.update(pjID,{ last_edit: currentDate,  timestamp: timeStamp });
-  return
-};
+  changeInnerTabColor(`tab${filter}`);
+}
 
 setCustomTimelineTabs('timeline');
 getTimeline();
-validateNewCard("timelineName", "#okBtn-timeline");
-validateNewCard("catCharacterName", "#okBtn-cat-time");
-validateNewCard("categoryDeltimelineName", "#okBtn-delcatTimeline");
+validateNewCard('timelineName', '#okBtn-timeline');
+validateNewCard('catCharacterName', '#okBtn-cat-time');
+validateNewCard('categoryDeltimelineName', '#okBtn-delcatTimeline');
 
 function reduceString(str) {
   if (str.length > 35) {
-    return str.slice(0, 35) + '...';
+    return `${str.slice(0, 35)}...`;
   }
   return str;
 }
 
+// eslint-disable-next-line no-unused-vars
 async function getTimelineSimle(id) {
   const project = await getCurrentProject();
   const resultSorted = sortByDate(project.data.timeline);
-  for (let i = 0; i < resultSorted.length; i++) {
+  for (let i = 0; i < resultSorted.length; i += 1) {
     const ele = resultSorted[i];
-    const dateConverted = convertDatePT_BR(ele.date);
+    const dateConverted = convertDatePTBR(ele.date);
     const symbolTitle = handleTitle(ele.elementType);
+    // eslint-disable-next-line no-await-in-loop
     const charName = await getElementTitle(ele.elementType, ele.elementID);
     const titleShort = reduceString(ele.title);
     $(id).append(
       `
       <option value='${ele.date}'>
-        <div> ${ dateConverted } - ${symbolTitle} ${ele.title? titleShort : charName.name}</div>
+        <div> ${dateConverted} - ${symbolTitle} ${ele.title ? titleShort : charName.name}</div>
       </option>
-      `
+      `,
     );
   }
+}
+
+// eslint-disable-next-line no-unused-vars
+function setFilterCategory(tab, filterCategory) {
+  changeInnerTabColor(tab);
+  geTimelineFiltred(filterCategory);
 }

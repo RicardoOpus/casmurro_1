@@ -21,7 +21,7 @@
 //   deferredPrompt = e;
 //   // Update UI to notify the user they can add to home screen
 //   installAlert.style.display = 'block';
-  
+
 //   closeBtn.addEventListener('click', () => {
 //     installAlert.style.display = 'none';
 //   })

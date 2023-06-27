@@ -6,7 +6,7 @@ describe('Verifica página incial de projetos', () => {
 
   beforeAll(async () => {
     global.browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
     });
     page = await browser.newPage();
   });

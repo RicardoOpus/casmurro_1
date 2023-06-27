@@ -10,7 +10,7 @@ describe('Verifica Estrutura', () => {
 
   beforeAll(async () => {
     global.browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
     });
     page = await browser.newPage();
   });
