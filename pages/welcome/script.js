@@ -50,38 +50,6 @@ async function createNewProject() {
   return updadeCurrent;
 }
 
-$('#dialog').dialog({
-  autoOpen: false,
-  width: 600,
-  buttons: [
-    {
-      text: 'Ok',
-      id: 'okBtn',
-      disabled: false,
-      async click() {
-        await createNewProject();
-        $(this).dialog('close');
-        pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js');
-      },
-    },
-    {
-      text: 'Cancel',
-      click() {
-        document.getElementById('projectName').value = '';
-        $(this).dialog('close');
-      },
-    },
-  ],
-});
-// Link to open the dialog
-$('#dialog-link').click(() => {
-  $('#dialog').dialog('open');
-  $('#okBtn').addClass('ui-button-disabled ui-state-disabled');
-  $('.ui-icon-closethick').click(() => {
-    document.getElementById('projectName').value = '';
-  });
-});
-
 function handleInputFile() {
   const filename = document.getElementById('file-input-import');
   if (!filename.value.endsWith('.json')) {
@@ -123,6 +91,69 @@ async function importNewProject() {
   projectObj.created_at = currentDate;
   return db.projects.add(projectObj);
 }
+
+$('#dialog').dialog({
+  autoOpen: false,
+  width: 600,
+  buttons: [
+    {
+      text: 'Ok',
+      id: 'okBtn',
+      disabled: false,
+      async click() {
+        await createNewProject();
+        $(this).dialog('close');
+        pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js');
+      },
+    },
+    {
+      text: 'Cancel',
+      click() {
+        document.getElementById('projectName').value = '';
+        $(this).dialog('close');
+      },
+    },
+  ],
+});
+// Link to open the dialog
+$('#dialog-link').click(() => {
+  $('#dialog').dialog('open');
+  $('#okBtn').addClass('ui-button-disabled ui-state-disabled');
+  $('.ui-icon-closethick').click(() => {
+    document.getElementById('projectName').value = '';
+  });
+});
+
+$('#dialog-import').dialog({
+  autoOpen: false,
+  width: 600,
+  buttons: [
+    {
+      text: 'Ok',
+      id: 'okBtnImport',
+      disabled: false,
+      async click() {
+        await importNewProject();
+        $(this).dialog('close');
+        pageChange('#dinamicPage', 'pages/welcome/page.html', 'pages/welcome/script.js');
+      },
+    },
+    {
+      text: 'Cancel',
+      click() {
+        $(this).dialog('close');
+      },
+    },
+  ],
+});
+// Link to open the dialog
+$('#dialog-link-import').click((event) => {
+  $('#dialog-import').dialog('open');
+  $('#okBtnImport').addClass('ui-button-disabled ui-state-disabled');
+  $('.ui-icon-closethick').click(() => {
+    document.getElementById('projectName').value = '';
+  });
+});
 
 function disableNavBar() {
   const navBarButtons = document.querySelectorAll('.navtrigger');
