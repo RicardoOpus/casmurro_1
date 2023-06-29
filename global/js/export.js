@@ -510,6 +510,7 @@ function gerarArquivoTxt(objeto, nomeArquivo, databackup) {
   const link = document.createElement('a');
   link.setAttribute('href', url);
   link.setAttribute('download', nomeArquivo);
+  console.log(link);
   link.click();
 }
 
@@ -547,9 +548,34 @@ function getCurrentDateString() {
   };
 }
 
+function removeAccents(str) {
+  const accents = [
+    ['a', /[àáâãä]/g],
+    ['e', /[éèêẽë]/g],
+    ['i', /[íìîï]/g],
+    ['o', /[óòôõö]/g],
+    ['u', /[úùûũü]/g],
+    ['c', /[ç]/g],
+    ['n', /[ñ]/g],
+    ['A', /[ÀÁÂÃÄÅ]/g],
+    ['E', /[ÈÉÊË]/g],
+    ['I', /[ÌÍÎÏ]/g],
+    ['O', /[ÒÓÔÕÖ]/g],
+    ['U', /[ÙÚÛÜ]/g],
+    ['C', /[Ç]/g],
+    ['N', /[Ñ]/g],
+  ];
+  let result = str;
+  for (let i = 0; i < accents.length; i += 1) {
+    result = result.replace(accents[i][1], accents[i][0]);
+  }
+  return result;
+}
+
 function sanitizeFilename(filename) {
+  const noAcents = removeAccents(filename);
   const forbiddenChars = /[\\/:"*?<>.|]/g;
-  return filename.replace(forbiddenChars, ' ');
+  return noAcents.replace(forbiddenChars, ' ');
 }
 
 async function updateTimeBackup() {
@@ -570,7 +596,8 @@ async function exportProjectText() {
   document.getElementById('backup').innerHTML = '';
   updateTimeBackup();
   gerarArquivoTxt(basicInfos, name, detatime);
-  return modal.style.display = 'none';
+  modal.style.display = 'none';
+  return true;
 }
 
 function salvarComoJSON(objeto, nomeArquivo) {
