@@ -1,3 +1,4 @@
+/* eslint-disable */
 changeTabColor("cenas");
 
 function returnUrlImgWeather(param) {
