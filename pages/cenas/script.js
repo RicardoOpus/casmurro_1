@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 changeTabColor('cenas');
 
@@ -164,7 +165,7 @@ async function getScenesdCards() {
     const dateConverted = convertDatePTBR(dateValue);
     $('#project-list').append(
       `
-        <ul class="worldListScenes" id="${ele.id}">
+        <ul class="worldListScenes ${!ele.status ? '' : ` ${ele.status}-Status`}" id="${ele.id}">
           <li class="worldItens">
             <div class="ui-widget-content portlet ui-corner-all">
               <div class="contentListWorld">
@@ -198,6 +199,19 @@ validateNewCard('povName', '#okBtn-cat');
 validateNewCard('povDelName', '#okBtn-delpov');
 document.getElementById('project-list').className = 'listCardsScenes';
 
+function ocultarElementos(status) {
+  $('#project-list').sortable('destroy');
+  const elementos = document.getElementsByClassName('worldListScenes');
+  for (let i = 0; i < elementos.length; i += 1) {
+    const elemento = elementos[i];
+    if (!elemento.classList.contains(status)) {
+      elemento.style.display = 'none';
+    }
+  }
+  document.getElementById('meu-select').disabled = true;
+  document.getElementById('clear_status').style.display = 'inline';
+}
+
 $(() => {
   $('#project-list').disableSelection();
   function savePositions() {
@@ -219,3 +233,7 @@ $(() => {
     },
   });
 });
+
+function clearStatusFilter() {
+  loadpage('cenas');
+}
