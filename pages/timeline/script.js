@@ -7,6 +7,12 @@ function validadeForm() {
   return dateField !== '';
 }
 
+function validadeDatesInputs() {
+  const date1 = document.getElementById('date1_ElapsedTime').value;
+  const date2 = document.getElementById('date2_ElapsedTime').value;
+  return date1 !== '' && date2 !== '';
+}
+
 function showElapsedtime() {
   const divtarget = document.getElementById('elipsedTimeResult');
   divtarget.innerHTML = '';
@@ -158,13 +164,13 @@ $('#elapsedTime').dialog({
       id: 'okBtn-elapsedTime',
       disabled: false,
       async click() {
-        const validade = validadeForm();
+        const validade = validadeDatesInputs();
         if (validade) {
           showElapsedtime();
           document.getElementById('timelineName').value = '';
           document.getElementById('timelineDate').value = '';
         } else {
-          alert('Por favor, preencha a data!');
+          alert('Por favor, preencha as duas datas!');
         }
       },
     },
