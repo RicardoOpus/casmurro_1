@@ -1,103 +1,103 @@
-changeTabColor("cenas");
+changeTabColor('cenas');
 
-$( "#dialogScene" ).dialog({
+$( '#dialogScene' ).dialog({
 autoOpen: false,
 width: 600,
 buttons: [
   {
-    text: "Ok",
-    id: "okBtn-scene",
+    text: 'Ok',
+    id: 'okBtn-scene',
     disabled: false,
     click: async function() {
       await createNewScene();
-      $( this ).dialog( "close" );
-      document.getElementById("sceneName").value = "";
+      $( this ).dialog( 'close' );
+      document.getElementById('sceneName').value = '';
       pageChange('#dinamic', 'pages/cenas/page.html', 'pages/cenas/script.js')
     }
   },
   {
-    text: "Cancel",
+    text: 'Cancel',
     click: function() {
-      document.getElementById("sceneName").value = "";
-      $( this ).dialog( "close" );
+      document.getElementById('sceneName').value = '';
+      $( this ).dialog( 'close' );
     }
   }]
 });
 // Link to open the dialog
-$( "#dialog-link-scene" ).click(function( event ) {
-  $( "#dialogScene" ).dialog( "open" );
-  $( "#okBtn-scene" ).addClass( "ui-button-disabled ui-state-disabled" );
-  $( ".ui-icon-closethick" ).click(function( event ) {
-    document.getElementById("sceneName").value = "";
+$( '#dialog-link-scene' ).click(function( event ) {
+  $( '#dialogScene' ).dialog( 'open' );
+  $( '#okBtn-scene' ).addClass( 'ui-button-disabled ui-state-disabled' );
+  $( '.ui-icon-closethick' ).click(function( event ) {
+    document.getElementById('sceneName').value = '';
   })
   event.preventDefault();
 });
 
-$( "#dialog_new_pov" ).dialog({
+$( '#dialog_new_pov' ).dialog({
   autoOpen: false,
   width: 400,
   buttons: [
     {
-      text: "Ok",
-      id: "okBtn-cat",
+      text: 'Ok',
+      id: 'okBtn-cat',
       disabled: false,
       click: async function() {
-        var catPOV = document.getElementById("povName");
+        var catPOV = document.getElementById('povName');
         await addNewCategory('scenes', catPOV.value);
-        $( this ).dialog( "close" );
-        document.getElementById("povName").value = "";
+        $( this ).dialog( 'close' );
+        document.getElementById('povName').value = '';
         pageChange('#dinamic', 'pages/cenas/page.html', 'pages/cenas/script.js')
       }
     },
     {
-      text: "Cancel",
+      text: 'Cancel',
       click: function() {
-        document.getElementById("povName").value = "";
-        $( this ).dialog( "close" );
+        document.getElementById('povName').value = '';
+        $( this ).dialog( 'close' );
       }
     }]
 });
 // Link to open the dialog Category
-$( "#dialog-link-category" ).click(function( event ) {
-  $( "#dialog_new_pov" ).dialog( "open" );
-  $( "#okBtn-cat" ).addClass( "ui-button-disabled ui-state-disabled" );
-  $( ".ui-icon-closethick" ).click(function( event ) {
-    document.getElementById("povName").value = "";
+$( '#dialog-link-category' ).click(function( event ) {
+  $( '#dialog_new_pov' ).dialog( 'open' );
+  $( '#okBtn-cat' ).addClass( 'ui-button-disabled ui-state-disabled' );
+  $( '.ui-icon-closethick' ).click(function( event ) {
+    document.getElementById('povName').value = '';
     })
   restorePOV('#povName', 'characters');
   event.preventDefault();
 });
 
-$( "#dialog_delete_pov" ).dialog({
+$( '#dialog_delete_pov' ).dialog({
   autoOpen: false,
   width: 400,
   buttons: [
     {
-      text: "Ok",
-      id: "okBtn-delpov",
+      text: 'Ok',
+      id: 'okBtn-delpov',
       disabled: false,
       click: async function() {
-        var catDelPov = document.getElementById("povDelName");
+        var catDelPov = document.getElementById('povDelName');
         await removeCategory('scenes', catDelPov.value);
-        $( this ).dialog( "close" );
-        document.getElementById("povDelName").value = "";
+        $( this ).dialog( 'close' );
+        document.getElementById('povDelName').value = '';
         pageChange('#dinamic', 'pages/cenas/page.html', 'pages/cenas/script.js')
       }
     },
     {
-      text: "Cancel",
+      text: 'Cancel',
       click: function() {
-        document.getElementById("povDelName").value = "";
-        $( this ).dialog( "close" );
+        document.getElementById('povDelName').value = '';
+        $( this ).dialog( 'close' );
       }
     }]
 });
 // Link to open the dialog Delete Category
-$( "#dialog-link-delcategory" ).click(function( event ) {
-  $( "#dialog_delete_pov" ).dialog( "open" );
-  $( "#okBtn-delpov" ).addClass( "ui-button-disabled ui-state-disabled" );
-  $( ".ui-icon-closethick" ).click(function( event ) {
-    document.getElementById("povDelName").value = "";
+$( '#dialog-link-delcategory' ).click(function( event ) {
+  $( '#dialog_delete_pov' ).dialog( 'open' );
+  $( '#okBtn-delpov' ).addClass( 'ui-button-disabled ui-state-disabled' );
+  $( '.ui-icon-closethick' ).click(function( event ) {
+    document.getElementById('povDelName').value = '';
     })
     restoreDelPovTab('scenes', '#povDelName');
   event.preventDefault();
@@ -106,6 +106,14 @@ $( "#dialog-link-delcategory" ).click(function( event ) {
 function setFilterCategory(tab, filterCategory) {
   changeInnerTabColor(tab);
   getScenesCardsFiltred(filterCategory);
+}
+
+function getScenesPovInfos() {
+  const elements = document.getElementsByClassName('worldListScenes');
+  const parentDiv = document.getElementById('innerTabDefault');
+  const childDiv = document.createElement('div');
+  childDiv.innerHTML = `<h3>${elements.length} cenas</h3>`;
+  parentDiv.appendChild(childDiv);
 }
 
 async function getScenesCardsFiltred(filter) {
@@ -130,7 +138,7 @@ async function getScenesCardsFiltred(filter) {
               <div class="contentListWorld">
                 <div data-testid='scene-${ ele.id }' class="ui-widget-header ui-corner-all portlet-header">${ ele.title }</div>
                   <a onclick="loadpageOnclick('scenes', ${ ele.id }, '#dinamic', 'components/detailScene/page.html', 'components/detailScene/script.js')">
-                  <p class="infosCardScenes"><span class="povLabel" style="background-color:${ele.pov_id ? povColor: ""}">${ !ele.pov_id ? '&nbsp;&nbsp;&nbsp' : povName }</span> 
+                  <p class="infosCardScenes"><span class="povLabel" style="background-color:${ele.pov_id ? povColor: ''}">${ !ele.pov_id ? '&nbsp;&nbsp;&nbsp' : povName }</span> 
                   ${ !ele.status ? '' : ` ${ele.status}` }
                   ${ !ele.date ? '' : `• ${dateConverted}`}
                   </p>
@@ -150,15 +158,16 @@ async function getScenesCardsFiltred(filter) {
     }
     setContentOpacity();
     setImageOpacity();
-  })
-};
+  });
+  getScenesPovInfos();
+}
 
 async function createNewScene() {
   const ID = await idManager('id_scenes')
   const currentDate = new Date();
   const timeStamp = Date.now();
   const pjID = await getCurrentProjectID()
-  const sceneName = document.getElementById("sceneName");
+  const sceneName = document.getElementById('sceneName');
   const data = {
     title: sceneName.value,
     position: 'Z',
@@ -177,14 +186,14 @@ async function createNewScene() {
   return
 };
 
-var idRecoved = localStorage.getItem("idPovFilter");
+var idRecoved = localStorage.getItem('idPovFilter');
 
 setCustomPovTabs('scenes', function() {
   changeInnerTabColor(idRecoved);
 });
 
 getScenesCardsFiltred(idRecoved);
-validateNewCard("sceneName", "#okBtn-scene");
-validateNewCard("povName", "#okBtn-cat");
-validateNewCard("povDelName", "#okBtn-delpov");
-document.getElementById("project-list").className = "listCardsScenes";
+validateNewCard('sceneName', '#okBtn-scene');
+validateNewCard('povName', '#okBtn-cat');
+validateNewCard('povDelName', '#okBtn-delpov');
+document.getElementById('project-list').className = 'listCardsScenes';
