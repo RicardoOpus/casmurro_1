@@ -376,9 +376,13 @@ async function getNotesCardsFilter(filter) {
 }
 
 function setFilterCategory(tab, filterCategory) {
-  changeInnerTabColor(tab);
-  getNotesCardsFilter(filterCategory);
+  localStorage.setItem('tabNotes', tab);
+  if (tab === 'All') {
+    loadpage('notas');
+  } else {
+    changeInnerTabColor(tab);
+    getNotesCardsFilter(filterCategory);
+  }
 }
 
-getNotesCards();
-setCustomTabs('notes');
+recovLastTab('notes', 'tabNotes', getNotesCardsFilter, getNotesCards);
