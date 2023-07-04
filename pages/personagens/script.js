@@ -218,7 +218,7 @@ async function getCharactersCards() {
 async function getCharactersCardsFiltred(filter) {
   $('#project-list').empty();
   const project = await getCurrentProject();
-  const sortBy = localStorage.getItem('sortNotes');
+  const sortBy = localStorage.getItem('sortCharacters');
   let resultSorted = project.data.characters;
   if (resultSorted.length === 0) {
     return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>");
