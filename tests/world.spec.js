@@ -98,6 +98,8 @@ describe('Verifica Mundo', () => {
     await page.waitForTimeout(500);
     await page.click('#btnDelWorld');
     await page.waitForTimeout(500);
+    await page.click('#Todos');
+    await page.waitForTimeout(500);
     const wordlTitleElements = await page.$$('.wordlTitle');
     const wordlTitleTexts = await Promise.all(wordlTitleElements
       .map(async (element) => element.evaluate((node) => node.textContent)));

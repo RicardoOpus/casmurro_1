@@ -219,12 +219,16 @@ async function getWorldCardsFiltred(filter) {
 }
 
 function setFilterCategory(tab, filterCategory) {
-  changeInnerTabColor(tab);
-  getWorldCardsFiltred(filterCategory);
+  localStorage.setItem('tabWorld', tab);
+  if (tab === 'All') {
+    loadpage('mundo');
+  } else {
+    changeInnerTabColor(tab);
+    getWorldCardsFiltred(filterCategory);
+  }
 }
 
-setCustomTabs('world');
-getWorldCards();
+recovLastTab('world', 'tabWorld', getWorldCardsFiltred, getWorldCards);
 validateNewCard('worldName', '#okBtn-world');
 validateNewCard('categoryName', '#okBtn-cat');
 validateNewCard('categoryDelName', '#okBtn-delcat');
