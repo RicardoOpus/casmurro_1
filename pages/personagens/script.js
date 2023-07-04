@@ -167,9 +167,18 @@ function checkElement(element) {
 
 async function getCharactersCards() {
   const project = await getCurrentProject();
-  const resultSorted = project.data.characters;
+  const sortBy = localStorage.getItem('sortCharacters');
+  let resultSorted = project.data.characters;
   if (resultSorted.length === 0) {
     return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>");
+  }
+  if (sortBy === 'ZA') {
+    resultSorted = resultSorted.reverse();
+    document.getElementById('sortDescending').disabled = true;
+    document.getElementById('sortAscending').disabled = false;
+  } else {
+    document.getElementById('sortDescending').disabled = false;
+    document.getElementById('sortAscending').disabled = true;
   }
   resultSorted.forEach((ele) => {
     $('#project-list').append(
@@ -209,9 +218,13 @@ async function getCharactersCards() {
 async function getCharactersCardsFiltred(filter) {
   $('#project-list').empty();
   const project = await getCurrentProject();
-  const resultSorted = project.data.characters;
+  const sortBy = localStorage.getItem('sortNotes');
+  let resultSorted = project.data.characters;
   if (resultSorted.length === 0) {
     return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>");
+  }
+  if (sortBy === 'ZA') {
+    resultSorted = resultSorted.reverse();
   }
   resultSorted.forEach((ele) => {
     if (ele.category === filter) {

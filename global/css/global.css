@@ -163,6 +163,7 @@ footer {
 }
 
 .btnAZ {
+  margin-top: 1rem;
   background-color: #121214;
   color: grey;
   cursor: pointer;
