@@ -805,3 +805,20 @@ async function saveSorted(pjID, table) {
     ele.data[table] = resultSorted;
   });
 }
+
+function clearList() {
+  const projectList = document.getElementById('project-list');
+  const { children } = projectList;
+  for (let i = children.length - 1; i >= 0; i -= 1) {
+    const child = children[i];
+    if (child.tagName.toLowerCase() !== 'button') {
+      projectList.removeChild(child);
+    }
+  }
+}
+
+function sortByAZ(page, type, callback) {
+  localStorage.setItem(page, type);
+  clearList();
+  callback();
+}

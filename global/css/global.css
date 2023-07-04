@@ -155,11 +155,23 @@ footer {
   border: none;
   outline: none;
   background-color: #555;
-  color: white;
+  color: #cbcbcb;
   cursor: pointer;
   border-radius: 100%;
   width: 40px;
   height: 40px;
+}
+
+.btnAZ {
+  background-color: #121214;
+  color: grey;
+  cursor: pointer;
+}
+
+.btnAZ:disabled {
+  background-color: #555;
+  color: #cbcbcb;
+  cursor: default;
 }
 
 /* ============================================= */
