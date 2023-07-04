@@ -822,3 +822,15 @@ function sortByAZ(page, type, callback) {
   clearList();
   callback();
 }
+
+async function recovLastTab(table, tableName, callbackGetFiltred, callbackGetAll) {
+  await setCustomTabs(table);
+  const savedTab = localStorage.getItem(tableName);
+  const tab = document.getElementById(savedTab);
+  if (tab) {
+    callbackGetFiltred(tab.innerText);
+    changeInnerTabColor(tab.innerText);
+  } else {
+    callbackGetAll();
+  }
+}

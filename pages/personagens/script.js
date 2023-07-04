@@ -264,12 +264,16 @@ async function getCharactersCardsFiltred(filter) {
 }
 
 function setFilterCategory(tab, filterCategory) {
-  changeInnerTabColor(tab);
-  getCharactersCardsFiltred(filterCategory);
+  localStorage.setItem('tabCharacters', tab);
+  if (tab === 'All') {
+    loadpage('personagens');
+  } else {
+    changeInnerTabColor(tab);
+    getCharactersCardsFiltred(filterCategory);
+  }
 }
 
-setCustomTabs('characters');
-getCharactersCards();
+recovLastTab('characters', 'tabCharacters', getCharactersCardsFiltred, getCharactersCards);
 validateNewCard('characterName', '#okBtn-character');
 validateNewCard('categoryCharName', '#okBtn-cat');
 validateNewCard('categoryDelName-char', '#okBtn-delcat');
