@@ -4,9 +4,9 @@
 
 <div class="tab" id="controlStructure">
   <div class="innerTabDefault">
-    <button class="innerTabActive target" onclick="pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script.js')" id="subplotsTab">Esboço</button>
-    <button class="innerTabInactive target" onclick="pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_chapters.js')" id="chaptersTab">Capítulos</button>
-    <button class="innerTabInactive target" onclick="pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_parts.js')" id="partsTab">Partes</button>
+    <button class="innerTabActive target" onclick="setLastTabStructure('OUTLINE')" id="subplotsTab">Esboço</button>
+    <button class="innerTabInactive target" onclick="setLastTabStructure('CHAPTER')" id="chaptersTab">Capítulos</button>
+    <button class="innerTabInactive target" onclick="setLastTabStructure('PART')" id="partsTab">Partes</button>
   </div>
     <div id="project-list" class=""></div>
   </div>
