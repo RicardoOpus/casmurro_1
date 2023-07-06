@@ -338,6 +338,7 @@ async function geTimelineFiltred(filter) {
   let prevLi = null;
   for (let i = 0; i < resultSorted.length; i += 1) {
     const ele = resultSorted[i];
+    console.log('chegou quiiiii', filter, ele);
     if (ele.pov_id === filter || checkObject(ele, Number(filter))) {
       const dateConverted = convertDatePTBR(ele.date);
       const symbolTitle = handleTitle(ele.elementType);
@@ -370,14 +371,8 @@ async function geTimelineFiltred(filter) {
     }
     removeDuplicateIds();
   }
-  changeInnerTabColor(`tab${filter}`);
+  changeInnerTabColor(filter);
 }
-
-setCustomTimelineTabs('timeline');
-getTimeline();
-validateNewCard('timelineName', '#okBtn-timeline');
-validateNewCard('catCharacterName', '#okBtn-cat-time');
-validateNewCard('categoryDeltimelineName', '#okBtn-delcatTimeline');
 
 function reduceString(str) {
   if (str.length > 35) {
@@ -409,6 +404,27 @@ async function getTimelineSimle(id) {
 
 // eslint-disable-next-line no-unused-vars
 function setFilterCategory(tab, filterCategory) {
-  changeInnerTabColor(tab);
-  geTimelineFiltred(filterCategory);
+  localStorage.setItem('tabTimeline', filterCategory);
+  if (tab === 'All') {
+    loadpage('timeline');
+  } else {
+    geTimelineFiltred(filterCategory);
+  }
 }
+
+async function recovLastTabScenePOV(table, tableNameTab) {
+  await setCustomTimelineTabs(table);
+  const savedTab = localStorage.getItem(tableNameTab);
+  const tab = document.getElementById(savedTab);
+  // console.log('entrou no if', tab.id);
+  if (tab) {
+    geTimelineFiltred(tab.id);
+  } else {
+    getTimeline();
+  }
+}
+
+recovLastTabScenePOV('timeline', 'tabTimeline');
+validateNewCard('timelineName', '#okBtn-timeline');
+validateNewCard('catCharacterName', '#okBtn-cat-time');
+validateNewCard('categoryDeltimelineName', '#okBtn-delcatTimeline');

@@ -6,13 +6,13 @@ describe('Verifica página timeline', () => {
 
   beforeAll(async () => {
     global.browser = await puppeteer.launch({
-      headless: true,
+      headless: false,
     });
     page = await browser.newPage();
   });
 
   afterAll(async () => {
-    await global.browser.close();
+    // await global.browser.close();
   });
 
   it('Deve criar um novo projeto', async () => {
@@ -213,13 +213,13 @@ describe('Verifica página timeline', () => {
     await page.select('#pov_id', '1');
     await page.click('#timeline');
     await page.waitForTimeout(500);
-    const tabButton = await page.$('#tab1');
+    const tabButton = await page.$("[data-testid='tab1']");
     expect(tabButton).toBeTruthy();
   });
 
   it('O filtro de personagem deve mostrar as informações corretas', async () => {
     const titles = ['02/02/2023', '10/04/2023', '06/06/2027'];
-    await page.click('#tab1');
+    await page.click("[data-testid='tab1']");
     await page.waitForTimeout(500);
     const wordlTitleElements = await page.$$('.timeDate');
     const wordlTitleTexts = await Promise.all(wordlTitleElements

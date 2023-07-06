@@ -361,7 +361,6 @@ function povFilterLoadPage(id) {
 }
 
 function chapterFilterLoadPage(id) {
-  console.log('chamou');
   localStorage.setItem('chapterFilter', id);
   localStorage.setItem('ScenesLastTab', 'CHAPTER');
   pageChange('#dinamic', 'components/filtredPovScene/page.html', 'components/filtredPovScene/script_chapter.js');
@@ -392,7 +391,7 @@ async function setCustomTimelineTabs(type, callback) {
     }
     const povID = project.data.characters.map((e) => e.id).indexOf(Number(value));
     const povName = project?.data?.characters?.[povID]?.title ?? '';
-    return $('.innerTabDefault').append($(`<button id='tab${value}' class='innerTabInactive target' onclick="geTimelineFiltred('${value}')"'></button>`).html(povName));
+    return $('.innerTabDefault').append($(`<button id='${value}' data-testid='tab${value}' class='innerTabInactive target' onclick="setFilterCategory('tab${value}', '${value}')"'></button>`).html(povName));
   });
   if (callback) {
     callback(); // chama a função de callback, se fornecida
