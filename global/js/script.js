@@ -375,7 +375,8 @@ async function setCustomPovTabs(type, callback) {
     }
     const povID = project.data.characters.map((e) => e.id).indexOf(Number(value));
     const povName = project?.data?.characters?.[povID]?.title ?? '';
-    return $('.innerTabDefault').append($(`<button id='${value}' class='innerTabInactive target' onclick="ocultarElementosPOV('${value}')"'></button>`).html(povName));
+    const qty = project.data.scenes.filter((ele) => ele.pov_id === value);
+    return $('.innerTabDefault').append($(`<button id='${value}' class='innerTabInactive target' onclick="ocultarElementosPOV('${value}')"'></button>`).html(`${povName} (${qty.length})`));
   });
   if (callback) {
     callback(); // chama a função de callback, se fornecida
