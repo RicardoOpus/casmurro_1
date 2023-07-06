@@ -1,5 +1,4 @@
 // /* eslint-disable */
-console.log('chamou script cenas filtrada capítulo');
 changeTabColor("cenas");
 
 $( "#dialogScene" ).dialog({
@@ -106,10 +105,15 @@ $( "#dialog-link-delcategory" ).click(function( event ) {
 });
 
 function setFilterCategory(tab, filterCategory) {
-  changeInnerTabColor(tab);
-  getScenesCardsFiltred(filterCategory);
+  localStorage.setItem('tabScenes', tab);
+  localStorage.setItem('ScenesLastTab', 'POV');
+  if (tab === 'All') {
+    loadpage('cenas');
+  } else {
+    changeInnerTabColor(tab);
+    ocultarElementosPOV(filterCategory);
+  }
 }
-
 function getChapInfos(chaptersData) {
   const div = document.getElementById('ChapInfos');
   div.style.display = 'block';

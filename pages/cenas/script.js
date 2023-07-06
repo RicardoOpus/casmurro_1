@@ -242,9 +242,10 @@ function ocultarElementosPOV(id) {
   getScenesCardsFiltred(id);
   changeInnerTabColor(id);
   localStorage.setItem('tabScenes', id);
+  localStorage.setItem('ScenesLastTab', 'POV');
 }
 
-async function recovLastTabScene(table, tableName, callbackGetFiltred, callbackGetAll) {
+async function recovLastTabScenePOV(table, tableName, callbackGetFiltred, callbackGetAll) {
   await setCustomPovTabs(table);
   const savedTab = localStorage.getItem(tableName);
   const tab = document.getElementById(savedTab);
@@ -266,7 +267,16 @@ function setFilterCategory(tab, filterCategory) {
   }
 }
 
-recovLastTabScene('scenes', 'tabScenes', ocultarElementosPOV, getScenesdCards);
+function recovLastTabScene() {
+  const tab = localStorage.getItem('ScenesLastTab');
+  if (tab === 'CHAPTER') {
+    pageChange('#dinamic', 'components/filtredPovScene/page.html', 'components/filtredPovScene/script_chapter.js');
+  } else {
+    recovLastTabScenePOV('scenes', 'tabScenes', ocultarElementosPOV, getScenesdCards);
+  }
+}
+
+recovLastTabScene();
 validateNewCard('sceneName', '#okBtn-scene');
 validateNewCard('povName', '#okBtn-cat');
 validateNewCard('povDelName', '#okBtn-delpov');

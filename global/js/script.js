@@ -361,7 +361,9 @@ function povFilterLoadPage(id) {
 }
 
 function chapterFilterLoadPage(id) {
+  console.log('chamou');
   localStorage.setItem('chapterFilter', id);
+  localStorage.setItem('ScenesLastTab', 'CHAPTER');
   pageChange('#dinamic', 'components/filtredPovScene/page.html', 'components/filtredPovScene/script_chapter.js');
 }
 
