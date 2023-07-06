@@ -334,7 +334,7 @@ function checkObject(obj, id) {
 async function geTimelineFiltred(filter) {
   $('#timelineMain').empty();
   const project = await getCurrentProject();
-  putTabAllAmount(project.data.notes);
+  putTabAllAmount(project.data.timeline);
   const resultSorted = sortByDate(project.data.timeline);
   let prevDate = null;
   let prevLi = null;
