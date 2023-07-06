@@ -128,6 +128,7 @@ $('#dialog-link-delcategory').click((event) => {
 
 async function getWorldCards() {
   const project = await getCurrentProject();
+  putTabAllAmount(project.data.world);
   const sortBy = localStorage.getItem('sortWorld');
   let resultSorted = sortByKey(project.data.world, 'title');
   if (resultSorted.length === 0) {
@@ -176,6 +177,7 @@ async function getWorldCards() {
 async function getWorldCardsFiltred(filter) {
   $('#project-list').empty();
   const project = await getCurrentProject();
+  putTabAllAmount(project.data.world);
   const sortBy = localStorage.getItem('sortWorld');
   let resultSorted = sortByKey(project.data.world, 'title');
   if (resultSorted.length === 0) {
