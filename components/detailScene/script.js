@@ -1,4 +1,4 @@
-/* eslint-disable */
+// /* eslint-disable */
 changeTabColor("cenas");
 
 function returnUrlImgWeather(param) {
@@ -56,6 +56,22 @@ function addBackgroundToMainDiv(time, placeID) {
     mainDiv.style.backgroundImage = '';
   };
 };
+
+function verifyFilter(projectData) {
+  const filter = localStorage.getItem('ScenesLastTab');
+  const povID = localStorage.getItem('tabScenes');
+  const chapID = localStorage.getItem('chapterFilter');
+  if (filter === 'POV' && povID !== 'All') {
+    const result = projectData.scenes.filter((item) => item.pov_id === povID);
+    return result;
+  } if (filter === 'CHAPTER') {
+    const scenesArray = projectData.chapters.filter((item) => item.id === Number(chapID));
+    const ids = scenesArray[0].scenes;
+    const result = projectData.scenes.filter((item) => ids.includes(item.id));
+    return result;
+  }
+  return projectData.scenes;
+}
 
 async function restoreSceneCard() {
   const currentCardID = await getCurrentCardID();
@@ -134,7 +150,8 @@ async function restoreSceneCard() {
       return null
     }
   })
-  previousNextPosition(projectData.data.scenes, 'scenes', 'detailScene');
+  const filter = verifyFilter(projectData.data);
+  previousNextPosition(filter, 'scenes', 'detailScene');
   getPOVCard();
 };
 
