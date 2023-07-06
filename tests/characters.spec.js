@@ -107,7 +107,7 @@ describe('Verifica Personagens', () => {
   });
 
   it('Deve deletar uma categoria', async () => {
-    const titles = ['Todos', 'Principais', 'Teste'];
+    const titles = ['Todos', 'Principais (1)', 'Teste (0)'];
     await page.click('#dialog-link-delcategory-char');
     await page.waitForTimeout(500);
     await page.select('#categoryDelName-char', 'Secundários');

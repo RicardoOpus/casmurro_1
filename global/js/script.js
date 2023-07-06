@@ -351,7 +351,8 @@ async function setCustomTabs(type) {
     if (value === '-- selecione --' || value === '-- nenhum --') {
       return null;
     }
-    return $('.innerTabDefault').append($(`<button class='innerTabInactive target' onclick="setFilterCategory('${value}', '${value}')" id='${value}'></button>`).html(value));
+    const qty = project?.data?.[type]?.filter((ele) => ele.category === value);
+    return $('.innerTabDefault').append($(`<button class='innerTabInactive target' onclick="setFilterCategory('${value}', '${value}')" id='${value}'></button>`).html(`${value} (${qty.length})`));
   });
 }
 
@@ -375,7 +376,7 @@ async function setCustomPovTabs(type, callback) {
     }
     const povID = project.data.characters.map((e) => e.id).indexOf(Number(value));
     const povName = project?.data?.characters?.[povID]?.title ?? '';
-    const qty = project.data.scenes.filter((ele) => ele.pov_id === value);
+    const qty = project?.data?.scenes?.filter((ele) => ele.pov_id === value);
     return $('.innerTabDefault').append($(`<button id='${value}' class='innerTabInactive target' onclick="ocultarElementosPOV('${value}')"'></button>`).html(`${povName} (${qty.length})`));
   });
   if (callback) {
@@ -830,8 +831,8 @@ async function recovLastTab(table, tableName, callbackGetFiltred, callbackGetAll
   const savedTab = localStorage.getItem(tableName);
   const tab = document.getElementById(savedTab);
   if (tab) {
-    callbackGetFiltred(tab.innerText);
-    changeInnerTabColor(tab.innerText);
+    callbackGetFiltred(tab.id);
+    changeInnerTabColor(tab.id);
   } else {
     callbackGetAll();
   }
