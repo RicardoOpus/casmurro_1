@@ -6,13 +6,13 @@ describe('Verifica página timeline', () => {
 
   beforeAll(async () => {
     global.browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
     });
     page = await browser.newPage();
   });
 
   afterAll(async () => {
-    // await global.browser.close();
+    await global.browser.close();
   });
 
   it('Deve criar um novo projeto', async () => {
@@ -239,6 +239,7 @@ describe('Verifica página timeline', () => {
 
   it('Deve ser possível deletar um cartão', async () => {
     const titles = ['02/02/2023', '12/04/2023', '16/04/2023', '08/08/2023', '10/10/2023', '06/06/2027'];
+    await page.click('#Todos');
     await page.waitForTimeout(500);
     await page.click("[data-testid='timeline-content-1']");
     await page.waitForTimeout(500);

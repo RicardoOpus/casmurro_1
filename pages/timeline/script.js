@@ -338,7 +338,6 @@ async function geTimelineFiltred(filter) {
   let prevLi = null;
   for (let i = 0; i < resultSorted.length; i += 1) {
     const ele = resultSorted[i];
-    console.log('chegou quiiiii', filter, ele);
     if (ele.pov_id === filter || checkObject(ele, Number(filter))) {
       const dateConverted = convertDatePTBR(ele.date);
       const symbolTitle = handleTitle(ele.elementType);
