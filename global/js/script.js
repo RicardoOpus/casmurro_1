@@ -864,3 +864,10 @@ function putTabListAmount(project) {
     tabList.innerText += ` (${qty.length})`;
   }
 }
+
+function putTabAllScenesAmount(project) {
+  const tabList = document.getElementById('Todos');
+  if (tabList.innerText === 'Todos') {
+    tabList.innerText += ` (${project.length})`;
+  }
+}
