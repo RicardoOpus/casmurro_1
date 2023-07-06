@@ -147,7 +147,8 @@ describe('Verifica Notas', () => {
     await page.waitForTimeout(500);
     await page.click('#btnOkdelNote');
     await page.waitForTimeout(500);
-
+    await page.click('#Todos');
+    await page.waitForTimeout(500);
     const wordlTitleElements = await page.$$('.wordlTitle');
     const result = await Promise.all(
       wordlTitleElements

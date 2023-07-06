@@ -7,7 +7,17 @@
 <div class="tab" id="mainSceneInner">
   <div>
     <div class="innerTabDefault">
-      <button class="innerTabActive target" onclick="loadpage('cenas')" id="Todos">Todos</button>
+      <select id="meu-select" onchange="ocultarElementos(this.value)" class="ui-corner-all smallSelect">
+        <option disabled selected> STATUS </option>
+        <option value="Pronto-Status">Pronto</option>
+        <option value="Revisado-Status">Revisado</option>
+        <option value="andamento-Status">Em andamento</option>
+        <option value="Pausado-Status">Pausado</option>
+        <option value="Problema-Status">Problema</option>
+        <option value="iniciado-Status">Não iniciado</option>
+      </select>
+      <span id="clear_status" onclick="clearStatusFilter()" class="xlink" style="display: none">x</span>
+      <button class="innerTabActive target" onclick="setFilterCategory('All', 'All')" id="Todos">Todos</button>
     </div>
     <div class="innerTabChapters"></div>
   </div>
@@ -54,3 +64,5 @@
   });
 })
 </script>
+
+<button onclick="topFunction()" id="topButton" class="topButton" title="Ir para o topo">🡅 </button>

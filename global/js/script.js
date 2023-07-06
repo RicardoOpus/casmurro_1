@@ -362,6 +362,7 @@ function povFilterLoadPage(id) {
 
 function chapterFilterLoadPage(id) {
   localStorage.setItem('chapterFilter', id);
+  localStorage.setItem('ScenesLastTab', 'CHAPTER');
   pageChange('#dinamic', 'components/filtredPovScene/page.html', 'components/filtredPovScene/script_chapter.js');
 }
 
@@ -374,7 +375,7 @@ async function setCustomPovTabs(type, callback) {
     }
     const povID = project.data.characters.map((e) => e.id).indexOf(Number(value));
     const povName = project?.data?.characters?.[povID]?.title ?? '';
-    return $('.innerTabDefault').append($(`<button id='${value}' class='innerTabInactive target' onclick="povFilterLoadPage(${value})"'></button>`).html(povName));
+    return $('.innerTabDefault').append($(`<button id='${value}' class='innerTabInactive target' onclick="ocultarElementosPOV('${value}')"'></button>`).html(povName));
   });
   if (callback) {
     callback(); // chama a função de callback, se fornecida
@@ -390,7 +391,7 @@ async function setCustomTimelineTabs(type, callback) {
     }
     const povID = project.data.characters.map((e) => e.id).indexOf(Number(value));
     const povName = project?.data?.characters?.[povID]?.title ?? '';
-    return $('.innerTabDefault').append($(`<button id='tab${value}' class='innerTabInactive target' onclick="geTimelineFiltred('${value}')"'></button>`).html(povName));
+    return $('.innerTabDefault').append($(`<button id='${value}' data-testid='tab${value}' class='innerTabInactive target' onclick="setFilterCategory('tab${value}', '${value}')"'></button>`).html(povName));
   });
   if (callback) {
     callback(); // chama a função de callback, se fornecida
@@ -804,4 +805,33 @@ async function saveSorted(pjID, table) {
     // eslint-disable-next-line no-param-reassign
     ele.data[table] = resultSorted;
   });
+}
+
+function clearList() {
+  const projectList = document.getElementById('project-list');
+  const { children } = projectList;
+  for (let i = children.length - 1; i >= 0; i -= 1) {
+    const child = children[i];
+    if (child.tagName.toLowerCase() !== 'button') {
+      projectList.removeChild(child);
+    }
+  }
+}
+
+function sortByAZ(page, type, callback) {
+  localStorage.setItem(page, type);
+  clearList();
+  callback();
+}
+
+async function recovLastTab(table, tableName, callbackGetFiltred, callbackGetAll) {
+  await setCustomTabs(table);
+  const savedTab = localStorage.getItem(tableName);
+  const tab = document.getElementById(savedTab);
+  if (tab) {
+    callbackGetFiltred(tab.innerText);
+    changeInnerTabColor(tab.innerText);
+  } else {
+    callbackGetAll();
+  }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-alert */
 /* eslint-disable no-undef */
 changeTabColor('estrutura');
@@ -152,7 +153,37 @@ async function getStructureFiltred() {
   return putChaptersInPat(chaptersSorted, '#outlineContent', null, scenesSorted);
 }
 
-getStructureFiltred();
+function recovLastTabStructure() {
+  const tab = localStorage.getItem('StructureLastTab');
+  if (tab === 'OUTLINE') {
+    getStructureFiltred();
+  } else if (tab === 'CHAPTER') {
+    pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_chapters.js');
+  } else {
+    pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_parts.js');
+  }
+}
+
+function setLastTabStructure(tab) {
+  switch (tab) {
+    case 'OUTLINE':
+      localStorage.setItem('StructureLastTab', 'OUTLINE');
+      pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script.js');
+      break;
+    case 'CHAPTER':
+      localStorage.setItem('StructureLastTab', 'CHAPTER');
+      pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_chapters.js');
+      break;
+    case 'PART':
+      localStorage.setItem('StructureLastTab', 'PART');
+      pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_parts.js');
+      break;
+    default:
+      break;
+  }
+}
+
+recovLastTabStructure();
 validateNewCard('structureName', '#okBtn-structure');
 validateNewCard('structureType', '#okBtn-structure');
 document.getElementById('project-list').className = 'worldListStructure';

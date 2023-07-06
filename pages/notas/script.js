@@ -179,9 +179,18 @@ function createLinksCards(links, divID) {
 
 async function getNotesCards() {
   const project = await getCurrentProject();
-  const resultSorted = sortByKey(project.data.notes, 'title');
+  const sortBy = localStorage.getItem('sortNotes');
+  let resultSorted = sortByKey(project.data.notes, 'title');
   if (resultSorted.length === 0) {
     return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>");
+  }
+  if (sortBy === 'ZA') {
+    resultSorted = resultSorted.reverse();
+    document.getElementById('sortDescending').disabled = true;
+    document.getElementById('sortAscending').disabled = false;
+  } else {
+    document.getElementById('sortDescending').disabled = false;
+    document.getElementById('sortAscending').disabled = true;
   }
   resultSorted.forEach((ele, i) => {
     if (ele.category === 'Listas') {
@@ -271,9 +280,13 @@ async function getNotesCards() {
 async function getNotesCardsFilter(filter) {
   $('#project-list').empty();
   const project = await getCurrentProject();
-  const resultSorted = sortByKey(project.data.notes, 'title');
+  const sortBy = localStorage.getItem('sortNotes');
+  let resultSorted = sortByKey(project.data.notes, 'title');
   if (resultSorted.length === 0) {
     return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>");
+  }
+  if (sortBy === 'ZA') {
+    resultSorted = resultSorted.reverse();
   }
   resultSorted.forEach((ele, i) => {
     if (ele.category === filter) {
@@ -363,9 +376,13 @@ async function getNotesCardsFilter(filter) {
 }
 
 function setFilterCategory(tab, filterCategory) {
-  changeInnerTabColor(tab);
-  getNotesCardsFilter(filterCategory);
+  localStorage.setItem('tabNotes', tab);
+  if (tab === 'All') {
+    loadpage('notas');
+  } else {
+    changeInnerTabColor(tab);
+    getNotesCardsFilter(filterCategory);
+  }
 }
 
-getNotesCards();
-setCustomTabs('notes');
+recovLastTab('notes', 'tabNotes', getNotesCardsFilter, getNotesCards);

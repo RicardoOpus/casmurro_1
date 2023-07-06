@@ -1,3 +1,4 @@
+/* eslint-disable */
 changeTabColor("cenas");
 
 function returnUrlImgWeather(param) {
@@ -196,6 +197,11 @@ elementsArray.forEach(async function(elem) {
   })
 });
 
+async function deleteScene() {
+  await clearDate('scenes');
+  await deleteCard('scenes')
+}
+
 $( "#dialog-delete-scene" ).dialog({
 	autoOpen: false,
 	width: 500,
@@ -204,7 +210,7 @@ $( "#dialog-delete-scene" ).dialog({
 			text: "Ok",
       id: "btnDelScene",
 			click: async function() {
-        await deleteCard('scenes');
+        await deleteScene();
         $( this ).dialog( "close" );
         loadpage('cenas');
 			}

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 changeTabColor('cenas');
 
@@ -125,12 +126,6 @@ $('#dialog-link-delcategory').click((event) => {
   event.preventDefault();
 });
 
-// eslint-disable-next-line no-unused-vars
-function setFilterCategory(tab, filterCategory) {
-  changeInnerTabColor(tab);
-  getScenesCardsFiltred(filterCategory);
-}
-
 function autoChapterFilter(project) {
   const resultSorted = sortByKey(project.data.chapters, 'position');
   const tab = document.querySelector('.innerTabChapters');
@@ -164,7 +159,7 @@ async function getScenesdCards() {
     const dateConverted = convertDatePTBR(dateValue);
     $('#project-list').append(
       `
-        <ul class="worldListScenes" id="${ele.id}">
+        <ul class="worldListScenes ${!ele.status ? '' : ` ${ele.status}-Status`}" id="${ele.id}">
           <li class="worldItens">
             <div class="ui-widget-content portlet ui-corner-all">
               <div class="contentListWorld">
@@ -191,12 +186,114 @@ async function getScenesdCards() {
   return autoChapterFilter(project);
 }
 
-setCustomPovTabs('scenes');
-getScenesdCards();
+async function getScenesCardsFiltred(filter) {
+  $('#project-list').empty();
+  const project = await getCurrentProject();
+  const resultSorted = sortByKey(project.data.scenes, 'position');
+  resultSorted.forEach((ele) => {
+    const povID = project.data.characters.map((e) => e.id).indexOf(Number(ele.pov_id));
+    const povName = project?.data?.characters?.[povID]?.title ?? '';
+    const povColor = project?.data?.characters?.[povID]?.color ?? '';
+    const resultDate = project.data.timeline.map((e) => e.id).indexOf(Number(ele.date));
+    const dateValue = project?.data?.timeline?.[resultDate]?.date ?? '';
+    const chapters = project?.data?.chapters;
+    const chapterName = getChapterName(chapters, ele.id);
+    const dateConverted = convertDatePTBR(dateValue);
+    if (ele.pov_id === filter) {
+      $('#project-list').append(
+        `
+        <ul class="worldListScenes" id="${ele.id}">
+          <li class="worldItens">
+            <div class="ui-widget-content portlet ui-corner-all">
+              <div class="contentListWorld">
+                <div data-testid='scene-${ele.id}' class="ui-widget-header ui-corner-all portlet-header">${ele.title}</div>
+                  <a onclick="loadpageOnclick('scenes', ${ele.id}, '#dinamic', 'components/detailScene/page.html', 'components/detailScene/script.js')">
+                  <p class="infosCardScenes"><span class="povLabel" style="background-color:${ele.pov_id ? povColor : ''}">${!ele.pov_id ? '&nbsp;&nbsp;&nbsp' : povName}</span> 
+                  ${!ele.status ? '' : ` ${ele.status}`}
+                  ${!ele.date ? '' : `• ${dateConverted}`}
+                  </p>
+                  <p class="infosCardScenes">${!chapterName ? '' : `Cap. ${chapterName}`}</p>
+                  <div>  
+                    <p class="sceneCartContent">${ele.content}</p>
+                  </div>
+                  </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+        `,
+      );
+    }
+    setContentOpacity();
+    setImageOpacity();
+  });
+  const chapDiv = document.querySelector('.innerTabChapters');
+  if (!chapDiv.firstChild) {
+    return autoChapterFilter(project);
+  }
+  return null;
+}
+
+function ocultarElementosPOV(id) {
+  const mainList = document.getElementById('project-list');
+  if (mainList.classList.contains('ui-sortable')) {
+    $('#project-list').sortable('destroy');
+  }
+  getScenesCardsFiltred(id);
+  changeInnerTabColor(id);
+  localStorage.setItem('tabScenes', id);
+  localStorage.setItem('ScenesLastTab', 'POV');
+}
+
+async function recovLastTabScenePOV(table, tableName, callbackGetFiltred, callbackGetAll) {
+  await setCustomPovTabs(table);
+  const savedTab = localStorage.getItem(tableName);
+  const tab = document.getElementById(savedTab);
+  if (tab) {
+    callbackGetFiltred(tab.id);
+    changeInnerTabColor(tab.id);
+  } else {
+    callbackGetAll();
+  }
+}
+
+function setFilterCategory(tab, filterCategory) {
+  localStorage.setItem('tabScenes', tab);
+  if (tab === 'All') {
+    loadpage('cenas');
+  } else {
+    changeInnerTabColor(tab);
+    ocultarElementosPOV(filterCategory);
+  }
+}
+
+function recovLastTabScene() {
+  const tab = localStorage.getItem('ScenesLastTab');
+  if (tab === 'CHAPTER') {
+    pageChange('#dinamic', 'components/filtredPovScene/page.html', 'components/filtredPovScene/script_chapter.js');
+  } else {
+    recovLastTabScenePOV('scenes', 'tabScenes', ocultarElementosPOV, getScenesdCards);
+  }
+}
+
+recovLastTabScene();
 validateNewCard('sceneName', '#okBtn-scene');
 validateNewCard('povName', '#okBtn-cat');
 validateNewCard('povDelName', '#okBtn-delpov');
 document.getElementById('project-list').className = 'listCardsScenes';
+
+function ocultarElementos(status) {
+  $('#project-list').sortable('destroy');
+  const elementos = document.getElementsByClassName('worldListScenes');
+  for (let i = 0; i < elementos.length; i += 1) {
+    const elemento = elementos[i];
+    if (!elemento.classList.contains(status)) {
+      elemento.style.display = 'none';
+    }
+  }
+  document.getElementById('meu-select').disabled = true;
+  document.getElementById('clear_status').style.display = 'inline';
+}
 
 $(() => {
   $('#project-list').disableSelection();
@@ -219,3 +316,7 @@ $(() => {
     },
   });
 });
+
+function clearStatusFilter() {
+  loadpage('cenas');
+}

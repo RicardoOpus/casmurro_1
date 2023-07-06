@@ -1,4 +1,4 @@
-console.log('chamou script cenas filtrada capítulo');
+// /* eslint-disable */
 changeTabColor("cenas");
 
 $( "#dialogScene" ).dialog({
@@ -105,8 +105,22 @@ $( "#dialog-link-delcategory" ).click(function( event ) {
 });
 
 function setFilterCategory(tab, filterCategory) {
-  changeInnerTabColor(tab);
-  getScenesCardsFiltred(filterCategory);
+  localStorage.setItem('tabScenes', tab);
+  localStorage.setItem('ScenesLastTab', 'POV');
+  if (tab === 'All') {
+    loadpage('cenas');
+  } else {
+    changeInnerTabColor(tab);
+    ocultarElementosPOV(filterCategory);
+  }
+}
+function getChapInfos(chaptersData) {
+  const div = document.getElementById('ChapInfos');
+  div.style.display = 'block';
+  div.innerHTML = `<p>Capítulo:</p><h2 style="cursor:pointer" onclick="loadpageOnclick('chapters', ${chaptersData[0].id}, '#dinamic', 'components/detailChapter/page.html', 'components/detailChapter/script.js')">${chaptersData[0].title ? chaptersData[0].title : ''}</h2>
+  <h3>${chaptersData[0].scenes.length} cenas</h3>
+  <p>${chaptersData[0].content}</p>
+  `;
 }
 
 async function getScenesCardsFiltred(filter) {
@@ -130,7 +144,7 @@ async function getScenesCardsFiltred(filter) {
     const povColor = project?.data?.characters?.[povID]?.color ?? '';
     const resultDate = project.data.timeline.map(function (e) { return e.id; }).indexOf(Number(ele.date));
     const dateValue = project?.data?.timeline?.[resultDate]?.date ?? '';
-    const chapters = project?.data?.chapters
+    const chapters = project?.data?.chapters;
     const chapterName = getChapterName(chapters, ele.id);
     const dateConverted = convertDatePTBR(dateValue);
     $('#project-list').append(
@@ -139,7 +153,7 @@ async function getScenesCardsFiltred(filter) {
         <li class="worldItens">
           <div class="ui-widget-content portlet ui-corner-all">
             <div class="contentListWorld">
-              <div data-testid='scene-${ ele.id }' class="ui-widget-header ui-corner-all portlet-header">${ ele.title }</div>
+              <div data-testid='scene-${ ele.id }' class="ui-widget-header ui-corner-all portlet-header">${i + 1} - ${ele.title}</div>
                 <a onclick="loadpageOnclick('scenes', ${ ele.id }, '#dinamic', 'components/detailScene/page.html', 'components/detailScene/script.js')">
                 <p class="infosCardScenes"><span class="povLabel" style="background-color:${ele.pov_id ? povColor: ""}">${ !ele.pov_id ? '&nbsp;&nbsp;&nbsp' : povName }</span> 
                 ${ !ele.status ? '' : ` ${ele.status}` }
@@ -158,8 +172,9 @@ async function getScenesCardsFiltred(filter) {
     );
     setContentOpacity();
     setImageOpacity();
-  })
-};
+  });
+  getChapInfos(chpterScenes);
+}
 
 async function createNewScene() {
   const ID = await idManager('id_scenes')

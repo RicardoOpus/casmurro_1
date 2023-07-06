@@ -128,9 +128,18 @@ $('#dialog-link-delcategory').click((event) => {
 
 async function getWorldCards() {
   const project = await getCurrentProject();
-  const resultSorted = project.data.world;
+  const sortBy = localStorage.getItem('sortWorld');
+  let resultSorted = project.data.world;
   if (resultSorted.length === 0) {
     return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>");
+  }
+  if (sortBy === 'ZA') {
+    resultSorted = resultSorted.reverse();
+    document.getElementById('sortDescending').disabled = true;
+    document.getElementById('sortAscending').disabled = false;
+  } else {
+    document.getElementById('sortDescending').disabled = false;
+    document.getElementById('sortAscending').disabled = true;
   }
   resultSorted.forEach((ele) => {
     $('#project-list').append(
@@ -167,9 +176,13 @@ async function getWorldCards() {
 async function getWorldCardsFiltred(filter) {
   $('#project-list').empty();
   const project = await getCurrentProject();
-  const resultSorted = project.data.world;
+  const sortBy = localStorage.getItem('sortWorld');
+  let resultSorted = project.data.world;
   if (resultSorted.length === 0) {
     return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>");
+  }
+  if (sortBy === 'ZA') {
+    resultSorted = resultSorted.reverse();
   }
   resultSorted.forEach((ele) => {
     if (ele.category === filter) {
@@ -206,12 +219,16 @@ async function getWorldCardsFiltred(filter) {
 }
 
 function setFilterCategory(tab, filterCategory) {
-  changeInnerTabColor(tab);
-  getWorldCardsFiltred(filterCategory);
+  localStorage.setItem('tabWorld', tab);
+  if (tab === 'All') {
+    loadpage('mundo');
+  } else {
+    changeInnerTabColor(tab);
+    getWorldCardsFiltred(filterCategory);
+  }
 }
 
-setCustomTabs('world');
-getWorldCards();
+recovLastTab('world', 'tabWorld', getWorldCardsFiltred, getWorldCards);
 validateNewCard('worldName', '#okBtn-world');
 validateNewCard('categoryName', '#okBtn-cat');
 validateNewCard('categoryDelName', '#okBtn-delcat');

@@ -213,13 +213,13 @@ describe('Verifica página timeline', () => {
     await page.select('#pov_id', '1');
     await page.click('#timeline');
     await page.waitForTimeout(500);
-    const tabButton = await page.$('#tab1');
+    const tabButton = await page.$("[data-testid='tab1']");
     expect(tabButton).toBeTruthy();
   });
 
   it('O filtro de personagem deve mostrar as informações corretas', async () => {
     const titles = ['02/02/2023', '10/04/2023', '06/06/2027'];
-    await page.click('#tab1');
+    await page.click("[data-testid='tab1']");
     await page.waitForTimeout(500);
     const wordlTitleElements = await page.$$('.timeDate');
     const wordlTitleTexts = await Promise.all(wordlTitleElements
@@ -239,6 +239,7 @@ describe('Verifica página timeline', () => {
 
   it('Deve ser possível deletar um cartão', async () => {
     const titles = ['02/02/2023', '12/04/2023', '16/04/2023', '08/08/2023', '10/10/2023', '06/06/2027'];
+    await page.click('#Todos');
     await page.waitForTimeout(500);
     await page.click("[data-testid='timeline-content-1']");
     await page.waitForTimeout(500);

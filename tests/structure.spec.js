@@ -220,7 +220,8 @@ describe('Verifica Estrutura', () => {
     await page.waitForTimeout(500);
     await page.click('#estrutura');
     await page.waitForTimeout(500);
-
+    await page.click('#subplotsTab');
+    await page.waitForTimeout(500);
     const wordlTitleElements = await page.$$('#outlineContent');
     const wordlTitleTexts = await Promise.all(wordlTitleElements
       .map(async (element) => (await element.evaluate((node) => node.textContent)).trim()));

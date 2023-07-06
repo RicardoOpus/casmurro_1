@@ -164,6 +164,7 @@ function disableNavBar() {
 }
 
 async function setProjectAtual(id) {
+  localStorage.clear();
   const result = await db.settings.update(1, { currentproject: id });
   pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js');
   return result;

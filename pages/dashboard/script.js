@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-var
 var totalCards = 0;
@@ -239,3 +240,17 @@ async function restorelastEditCards() {
 
 restorelastEditCards();
 calcularTempoPassado();
+
+function topFunction() {
+  document.body.scrollTop = 0; // Para navegadores Safari
+  document.documentElement.scrollTop = 0; // Para Chrome, Firefox, IE e Opera
+}
+
+window.onscroll = function scrollFunction() {
+  const btn = document.getElementById('topButton');
+  if ((document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) && btn) {
+    btn.style.display = 'block';
+  } else if (btn) {
+    document.getElementById('topButton').style.display = 'none';
+  }
+};
