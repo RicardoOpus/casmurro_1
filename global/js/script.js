@@ -393,7 +393,9 @@ async function setCustomTimelineTabs(type, callback) {
     }
     const povID = project.data.characters.map((e) => e.id).indexOf(Number(value));
     const povName = project?.data?.characters?.[povID]?.title ?? '';
-    return $('.innerTabDefault').append($(`<button id='${value}' data-testid='tab${value}' class='innerTabInactive target' onclick="setFilterCategory('tab${value}', '${value}')"'></button>`).html(povName));
+    const qty = project?.data?.[type]
+      ?.filter((ele) => ele.elementID === Number(value) || ele.pov_id === value);
+    return $('.innerTabDefault').append($(`<button id='${value}' data-testid='tab${value}' class='innerTabInactive target' onclick="setFilterCategory('tab${value}', '${value}')"'></button>`).html(`${povName} (${qty.length})`));
   });
   if (callback) {
     callback(); // chama a função de callback, se fornecida

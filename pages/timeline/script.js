@@ -282,6 +282,7 @@ function getColor(charName, selectedCharColor) {
 
 async function getTimeline() {
   const project = await getCurrentProject();
+  putTabAllAmount(project.data.timeline);
   const resultSorted = sortByDate(project.data.timeline);
   if (resultSorted.length === 0) {
     return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>");
@@ -333,6 +334,7 @@ function checkObject(obj, id) {
 async function geTimelineFiltred(filter) {
   $('#timelineMain').empty();
   const project = await getCurrentProject();
+  putTabAllAmount(project.data.notes);
   const resultSorted = sortByDate(project.data.timeline);
   let prevDate = null;
   let prevLi = null;
