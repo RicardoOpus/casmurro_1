@@ -846,3 +846,11 @@ function putTabsAmount(data) {
   tabChap.innerText += ` (${qtyChap})`;
   tabPart.innerText += ` (${qtyPart})`;
 }
+
+function putTabAllAmount(data) {
+  const tabAll = document.getElementById('Todos');
+  if (tabAll.innerText === 'Todos') {
+    const qtyAll = data.length;
+    tabAll.innerText += ` (${qtyAll})`;
+  }
+}

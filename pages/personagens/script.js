@@ -167,6 +167,7 @@ function checkElement(element) {
 
 async function getCharactersCards() {
   const project = await getCurrentProject();
+  putTabAllAmount(project.data.characters);
   const sortBy = localStorage.getItem('sortCharacters');
   let resultSorted = sortByKey(project.data.characters, 'title');
   if (resultSorted.length === 0) {
@@ -218,6 +219,7 @@ async function getCharactersCards() {
 async function getCharactersCardsFiltred(filter) {
   $('#project-list').empty();
   const project = await getCurrentProject();
+  putTabAllAmount(project.data.characters);
   const sortBy = localStorage.getItem('sortCharacters');
   let resultSorted = sortByKey(project.data.characters, 'title');
   if (resultSorted.length === 0) {
