@@ -856,3 +856,11 @@ function putTabAllAmount(data) {
     tabAll.innerText += ` (${qtyAll})`;
   }
 }
+
+function putTabListAmount(project) {
+  const tabList = document.getElementById('Listas');
+  if (tabList.innerText === 'Listas') {
+    const qty = project?.filter((ele) => ele.category === 'Listas');
+    tabList.innerText += ` (${qty.length})`;
+  }
+}
