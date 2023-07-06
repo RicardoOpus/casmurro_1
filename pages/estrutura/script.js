@@ -131,6 +131,7 @@ async function getStructureFiltred() {
   $('#project-list').empty();
   $('#project-list').append("<div id='outlineContent' class='cardStructure'></div>");
   const project = await getCurrentProject();
+  putTabsAmount(project.data);
   const partsSorted = sortByKey(project.data.parts, 'position');
   const chaptersSorted = sortByKey(project.data.chapters, 'position');
   if (chaptersSorted.length === 0) {
@@ -150,6 +151,7 @@ async function getStructureFiltred() {
       putChaptersInPat(chaptersSorted, `#partList${i}`, ele.chapters, scenesSorted);
     });
   }
+
   return putChaptersInPat(chaptersSorted, '#outlineContent', null, scenesSorted);
 }
 

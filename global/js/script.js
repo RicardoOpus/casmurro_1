@@ -837,3 +837,12 @@ async function recovLastTab(table, tableName, callbackGetFiltred, callbackGetAll
     callbackGetAll();
   }
 }
+
+function putTabsAmount(data) {
+  const tabChap = document.getElementById('chaptersTab');
+  const tabPart = document.getElementById('partsTab');
+  const qtyChap = data.chapters.length;
+  const qtyPart = data.parts.length;
+  tabChap.innerText += ` (${qtyChap})`;
+  tabPart.innerText += ` (${qtyPart})`;
+}
