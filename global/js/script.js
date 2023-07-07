@@ -253,11 +253,19 @@ async function deleteImageCard(typeCard, htmlPlace, page, srcipt) {
   return pageChange(htmlPlace, page, srcipt);
 }
 
+function substituirHifens() {
+  const input = document.getElementById('content_full');
+  if (input) {
+    input.value = input.value.replace(/--/g, '—');
+  }
+}
+
 function autoGrow(element) {
   // eslint-disable-next-line no-param-reassign
   element.style.height = '0px';
   // eslint-disable-next-line no-param-reassign
   element.style.height = `${element.scrollHeight}px`;
+  substituirHifens();
 }
 
 function resumeHeight(...args) {
