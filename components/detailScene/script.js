@@ -184,7 +184,6 @@ function saveDataScene() {
     projectData.data.scenes.forEach( (ele) => {
       if (ele.id === currentCardID) {
         elem.addEventListener("change", async (event) => {
-          console.log('ainda vivo');
           await lastEditListModify('scenes', currentCardID);
           const field = elem.id
           if (elem.id === "date") {

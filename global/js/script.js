@@ -887,12 +887,24 @@ function colocarItalico() {
   document.getElementById('content_full').innerHTML = resultado;
 }
 
+function contarPalavras(conteudoTexto) {
+  const textoLimpo = conteudoTexto.trim().replace(/\s+/g, ' ');
+  const palavras = textoLimpo.split(' ');
+  if (palavras[0] === '') {
+    document.getElementById('wcQty').innerHTML = '0 ';
+  } else {
+    document.getElementById('wcQty').innerHTML = `${palavras.length} `;
+  }
+  return palavras.length;
+}
+
 function transformSceneToViewer() {
   document.getElementById('doneBtn').disabled = true;
   document.getElementById('doneBtn').classList = 'ui-button ui-corner-all disabledBtn';
   document.getElementById('editBtn').disabled = false;
   document.getElementById('editBtn').classList = 'ui-button ui-corner-all';
   const textarea = document.getElementById('content_full');
+  contarPalavras(textarea.value);
   const div = document.createElement('div');
   div.className = 'sceneViewer';
   const paragraphs = textarea.value.split('\n'); // Separa o texto em parágrafos usando a quebra de linha como delimitador
@@ -913,7 +925,6 @@ function transformSceneToViewer() {
   colocarItalico();
 }
 
-
 function desfazerTransformacao() {
   document.getElementById('doneBtn').disabled = false;
   document.getElementById('doneBtn').classList = 'ui-button ui-corner-all';
@@ -926,7 +937,7 @@ function desfazerTransformacao() {
   for (let i = 0; i < paragraphs.length; i += 1) {
     text += `${paragraphs[i].innerText}\n`;
   }
-
+  contarPalavras(text);
   const textarea = document.createElement('textarea');
   textarea.id = 'content_full';
   textarea.classList = 'cardInputNormal projectInputForm projectInputResume';
