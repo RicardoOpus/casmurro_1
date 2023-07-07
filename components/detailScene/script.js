@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 // /* eslint-disable */
 changeTabColor("cenas");
 
@@ -45,17 +46,17 @@ function returnUrlImgWeather(param) {
 function addBackgroundToMainDiv(time, placeID) {
   if (time) {
     const mainDiv = document.getElementById(placeID);
-    const resultImg = returnUrlImgWeather(time)
+    const resultImg = returnUrlImgWeather(time);
     mainDiv.style.backgroundImage = resultImg;
     mainDiv.style.backgroundRepeat = "no-repeat";
     mainDiv.style.backgroundSize = "contain";
     mainDiv.style.width = "100%";
-    mainDiv.style.backgroundColor  = "#202024";
+    mainDiv.style.backgroundColor = "#202024";
   } else {
     const mainDiv = document.getElementById(placeID);
     mainDiv.style.backgroundImage = '';
-  };
-};
+  }
+}
 
 function verifyFilter(projectData) {
   const filter = localStorage.getItem('ScenesLastTab');
@@ -86,10 +87,10 @@ async function restoreSceneCard() {
           })
           return result.value = resultDate[0].date;
         } if (key === "time" || key === "weather") {
-            const noImg = ["Ensolarado", "Seco", "Quente", "Frio", "Úmido", "Vento", "Tempestade de areia"]
-            if (!noImg.includes(ele[key])) {
-              addBackgroundToMainDiv(ele[key], "detail_scene")
-            }
+          const noImg = ["", "Ensolarado", "Seco", "Quente", "Frio", "Úmido", "Vento", "Tempestade de areia", "Normal"]
+          if (!noImg.includes(ele[key])) {
+            addBackgroundToMainDiv(ele[key], "detail_scene");
+          }
           return result.value = ele[key];
         } if (key === "chkExtra1") {
           const divExtra = document.getElementById("info_extra_1");
