@@ -153,7 +153,7 @@ async function getScenesCardsFiltred(filter) {
         <li class="worldItens">
           <div class="ui-widget-content portlet ui-corner-all">
             <div class="contentListWorld">
-              <div data-testid='scene-${ ele.id }' class="ui-widget-header ui-corner-all portlet-header">${i + 1} - ${ele.title}</div>
+              <div data-testid='scene-${ ele.id }' class="ui-widget-header ui-corner-all portlet-header">${ele.title}</div>
                 <a onclick="loadpageOnclick('scenes', ${ ele.id }, '#dinamic', 'components/detailScene/page.html', 'components/detailScene/script.js')">
                 <p class="infosCardScenes"><span class="povLabel" style="background-color:${ele.pov_id ? povColor: ""}">${ !ele.pov_id ? '&nbsp;&nbsp;&nbsp' : povName }</span> 
                 ${ !ele.status ? '' : ` ${ele.status}` }

@@ -128,8 +128,9 @@ $('#dialog-link-delcategory').click((event) => {
 
 async function getWorldCards() {
   const project = await getCurrentProject();
+  putTabAllAmount(project.data.world);
   const sortBy = localStorage.getItem('sortWorld');
-  let resultSorted = project.data.world;
+  let resultSorted = sortByKey(project.data.world, 'title');
   if (resultSorted.length === 0) {
     return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>");
   }
@@ -176,8 +177,9 @@ async function getWorldCards() {
 async function getWorldCardsFiltred(filter) {
   $('#project-list').empty();
   const project = await getCurrentProject();
+  putTabAllAmount(project.data.world);
   const sortBy = localStorage.getItem('sortWorld');
-  let resultSorted = project.data.world;
+  let resultSorted = sortByKey(project.data.world, 'title');
   if (resultSorted.length === 0) {
     return $('#project-list').append("<div class='cardStructure'><p>No momento não existem cartões.</p><p>Crie cartões no botão (+ Cartão) acima.</p></div>");
   }

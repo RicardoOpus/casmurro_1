@@ -179,6 +179,8 @@ function createLinksCards(links, divID) {
 
 async function getNotesCards() {
   const project = await getCurrentProject();
+  putTabListAmount(project.data.notes);
+  putTabAllAmount(project.data.notes);
   const sortBy = localStorage.getItem('sortNotes');
   let resultSorted = sortByKey(project.data.notes, 'title');
   if (resultSorted.length === 0) {
@@ -280,6 +282,8 @@ async function getNotesCards() {
 async function getNotesCardsFilter(filter) {
   $('#project-list').empty();
   const project = await getCurrentProject();
+  putTabListAmount(project.data.notes);
+  putTabAllAmount(project.data.notes);
   const sortBy = localStorage.getItem('sortNotes');
   let resultSorted = sortByKey(project.data.notes, 'title');
   if (resultSorted.length === 0) {

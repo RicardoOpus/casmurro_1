@@ -107,7 +107,7 @@ describe('Verifica Mundo', () => {
   });
 
   it('Deve deletar uma categoria', async () => {
-    const titles = ['Objeto', 'Fato histórico', 'Cultura'];
+    const titles = ['Objeto (1)', 'Fato histórico (0)', 'Cultura (0)'];
     await page.click('#dialog-link-delcategory');
     await page.waitForTimeout(500);
     await page.select('#categoryDelName', 'Local');

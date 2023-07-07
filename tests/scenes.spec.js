@@ -151,7 +151,7 @@ describe('Verifica Cenas', () => {
   });
 
   it('Deve filtrar corretamento as cenas por capítulo', async () => {
-    const titles = ['1 - Cena 3', '2 - Cena 2'];
+    const titles = ['Cena 3', 'Cena 2'];
     await page.click('#estrutura');
     await page.waitForTimeout(500);
     await page.click('#dialog-link-structure');

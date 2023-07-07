@@ -253,11 +253,19 @@ async function deleteImageCard(typeCard, htmlPlace, page, srcipt) {
   return pageChange(htmlPlace, page, srcipt);
 }
 
+function substituirHifens() {
+  const input = document.getElementById('content_full');
+  if (input) {
+    input.value = input.value.replace(/--/g, '—');
+  }
+}
+
 function autoGrow(element) {
   // eslint-disable-next-line no-param-reassign
   element.style.height = '0px';
   // eslint-disable-next-line no-param-reassign
   element.style.height = `${element.scrollHeight}px`;
+  substituirHifens();
 }
 
 function resumeHeight(...args) {
@@ -351,7 +359,8 @@ async function setCustomTabs(type) {
     if (value === '-- selecione --' || value === '-- nenhum --') {
       return null;
     }
-    return $('.innerTabDefault').append($(`<button class='innerTabInactive target' onclick="setFilterCategory('${value}', '${value}')" id='${value}'></button>`).html(value));
+    const qty = project?.data?.[type]?.filter((ele) => ele.category === value);
+    return $('.innerTabDefault').append($(`<button class='innerTabInactive target' onclick="setFilterCategory('${value}', '${value}')" id='${value}'></button>`).html(`${value} (${qty.length})`));
   });
 }
 
@@ -375,7 +384,8 @@ async function setCustomPovTabs(type, callback) {
     }
     const povID = project.data.characters.map((e) => e.id).indexOf(Number(value));
     const povName = project?.data?.characters?.[povID]?.title ?? '';
-    return $('.innerTabDefault').append($(`<button id='${value}' class='innerTabInactive target' onclick="ocultarElementosPOV('${value}')"'></button>`).html(povName));
+    const qty = project?.data?.scenes?.filter((ele) => ele.pov_id === value);
+    return $('.innerTabDefault').append($(`<button id='${value}' class='innerTabInactive target' onclick="ocultarElementosPOV('${value}')"'></button>`).html(`${povName} (${qty.length})`));
   });
   if (callback) {
     callback(); // chama a função de callback, se fornecida
@@ -391,7 +401,9 @@ async function setCustomTimelineTabs(type, callback) {
     }
     const povID = project.data.characters.map((e) => e.id).indexOf(Number(value));
     const povName = project?.data?.characters?.[povID]?.title ?? '';
-    return $('.innerTabDefault').append($(`<button id='${value}' data-testid='tab${value}' class='innerTabInactive target' onclick="setFilterCategory('tab${value}', '${value}')"'></button>`).html(povName));
+    const qty = project?.data?.[type]
+      ?.filter((ele) => ele.elementID === Number(value) || ele.pov_id === value);
+    return $('.innerTabDefault').append($(`<button id='${value}' data-testid='tab${value}' class='innerTabInactive target' onclick="setFilterCategory('tab${value}', '${value}')"'></button>`).html(`${povName} (${qty.length})`));
   });
   if (callback) {
     callback(); // chama a função de callback, se fornecida
@@ -829,9 +841,41 @@ async function recovLastTab(table, tableName, callbackGetFiltred, callbackGetAll
   const savedTab = localStorage.getItem(tableName);
   const tab = document.getElementById(savedTab);
   if (tab) {
-    callbackGetFiltred(tab.innerText);
-    changeInnerTabColor(tab.innerText);
+    callbackGetFiltred(tab.id);
+    changeInnerTabColor(tab.id);
   } else {
     callbackGetAll();
+  }
+}
+
+function putTabsAmount(data) {
+  const tabChap = document.getElementById('chaptersTab');
+  const tabPart = document.getElementById('partsTab');
+  const qtyChap = data.chapters.length;
+  const qtyPart = data.parts.length;
+  tabChap.innerText += ` (${qtyChap})`;
+  tabPart.innerText += ` (${qtyPart})`;
+}
+
+function putTabAllAmount(data) {
+  const tabAll = document.getElementById('Todos');
+  if (tabAll.innerText === 'Todos') {
+    const qtyAll = data.length;
+    tabAll.innerText += ` (${qtyAll})`;
+  }
+}
+
+function putTabListAmount(project) {
+  const tabList = document.getElementById('Listas');
+  if (tabList.innerText === 'Listas') {
+    const qty = project?.filter((ele) => ele.category === 'Listas');
+    tabList.innerText += ` (${qty.length})`;
+  }
+}
+
+function putTabAllScenesAmount(project) {
+  const tabList = document.getElementById('Todos');
+  if (tabList.innerText === 'Todos') {
+    tabList.innerText += ` (${project.length})`;
   }
 }

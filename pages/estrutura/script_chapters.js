@@ -71,6 +71,7 @@ $('#dialog-link-structure').click((event) => {
 async function getStructureFiltred(filter) {
   $('#project-list').empty();
   const project = await getCurrentProject();
+  putTabsAmount(project.data);
   const resultSorted = sortByKey(project.data[filter], 'position');
   resultSorted.forEach((ele, i) => {
     $('#project-list').append(
