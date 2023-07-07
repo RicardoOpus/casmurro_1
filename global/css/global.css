@@ -175,6 +175,44 @@ footer {
   cursor: default;
 }
 
+.disabledBtn {
+  background-color: transparent;
+  color: gray;
+}
+
+.invisibleChar {
+  color: transparent;
+  font-size: 1px;
+}
+
+.fristParagraph {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.fristParagraph::first-letter {
+  font-size: 2em; /* Defina o tamanho da letra capitular */
+  font-weight: bold; /* Defina a espessura da letra capitular */
+  float: left; /* Opcional: para criar um efeito de destaque */
+  margin-right: 4px; /* Opcional: ajuste o espaçamento à direita da letra capitular */
+}
+
+.sceneViewer {
+  padding: 1rem;
+  font-family: serif;
+  font-size: larger;
+}
+
+.sceneViewer p {
+  text-align: justify;
+  hyphens: auto;
+}
+
+.sceneViewerP {
+  text-indent: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 /* ============================================= */
 
 .mainContent {

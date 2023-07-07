@@ -879,3 +879,62 @@ function putTabAllScenesAmount(project) {
     tabList.innerText += ` (${project.length})`;
   }
 }
+
+function colocarItalico() {
+  const textoOriginal = document.getElementById('content_full').innerHTML;
+  const regex = /\*([^*]+)\*/g;
+  const resultado = textoOriginal.replace(regex, '<i><span class="invisibleChar">*</span>$1<span class="invisibleChar">*</span></i>');
+  document.getElementById('content_full').innerHTML = resultado;
+}
+
+function transformSceneToViewer() {
+  document.getElementById('doneBtn').disabled = true;
+  document.getElementById('doneBtn').classList = 'ui-button ui-corner-all disabledBtn';
+  document.getElementById('editBtn').disabled = false;
+  document.getElementById('editBtn').classList = 'ui-button ui-corner-all';
+  const textarea = document.getElementById('content_full');
+  const div = document.createElement('div');
+  div.className = 'sceneViewer';
+  const paragraphs = textarea.value.split('\n'); // Separa o texto em parágrafos usando a quebra de linha como delimitador
+
+  for (let i = 0; i < paragraphs.length; i += 1) {
+    const paragraph = document.createElement('p');
+    if (i === 0) {
+      paragraph.classList = 'fristParagraph';
+    } if (i > 0) {
+      paragraph.classList = 'sceneViewerP';
+    }
+    paragraph.innerText = paragraphs[i];
+    div.appendChild(paragraph);
+  }
+
+  div.id = 'content_full';
+  textarea.parentNode.replaceChild(div, textarea);
+  colocarItalico();
+}
+
+
+function desfazerTransformacao() {
+  document.getElementById('doneBtn').disabled = false;
+  document.getElementById('doneBtn').classList = 'ui-button ui-corner-all';
+  document.getElementById('editBtn').disabled = true;
+  document.getElementById('editBtn').classList = 'ui-button ui-corner-all disabledBtn';
+  const div = document.getElementById('content_full');
+  const paragraphs = div.getElementsByTagName('p');
+  let text = '';
+
+  for (let i = 0; i < paragraphs.length; i += 1) {
+    text += `${paragraphs[i].innerText}\n`;
+  }
+
+  const textarea = document.createElement('textarea');
+  textarea.id = 'content_full';
+  textarea.classList = 'cardInputNormal projectInputForm projectInputResume';
+  textarea.setAttribute('type', 'textarea');
+  textarea.setAttribute('rows', '8');
+  textarea.setAttribute('oninput', 'autoGrow(this)');
+  textarea.value = text;
+  div.parentNode.replaceChild(textarea, div);
+  resumeHeight('content_full');
+  saveDataScene();
+}

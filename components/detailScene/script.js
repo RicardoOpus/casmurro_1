@@ -154,9 +154,9 @@ async function restoreSceneCard() {
   const filter = verifyFilter(projectData.data);
   previousNextPosition(filter, 'scenes', 'detailScene');
   getPOVCard();
+  transformSceneToViewer();
 };
 
-var elementsArray = document.querySelectorAll(".projectInputForm");
 
 document.getElementById('time').addEventListener('change', function() {
   const mainDiv = document.getElementById("weather");
@@ -174,46 +174,52 @@ document.getElementById('weather').addEventListener('change', function() {
   }
 });
 
-elementsArray.forEach(async function(elem) {
-  const currentID = await getCurrentProjectID();
-  const currentCardID = await getCurrentCardID();
-  const projectData = await getCurrentProject();
-  const positionInArray = await getCurrentCard();
-  projectData.data.scenes.forEach( (ele) => {
-    if (ele.id === currentCardID) {
-      elem.addEventListener("change", async (event) => {
-        await lastEditListModify('scenes', currentCardID);
-        const field = elem.id
-        if (elem.id === "date") {
-          const checkIfisNew = await checkTimelineNewDate(ele.id, 'scene', 'sceneID')
-          if (checkIfisNew) {
-            const projectDataActual = await getCurrentProject();
-            const actualIDdate = projectDataActual.data.scenes[positionInArray].date;
-            const positionInArrayTime = projectDataActual.data.timeline.map(function (e) { return e.id; }).indexOf(actualIDdate);
-            return await db.projects.where('id').equals(currentID).modify( (e) => {
-              e.data.timeline[positionInArrayTime].date = elem.value;
+function saveDataScene() {
+  const elementsArray = document.querySelectorAll(".projectInputForm");
+  elementsArray.forEach(async function(elem) {
+    const currentID = await getCurrentProjectID();
+    const currentCardID = await getCurrentCardID();
+    const projectData = await getCurrentProject();
+    const positionInArray = await getCurrentCard();
+    projectData.data.scenes.forEach( (ele) => {
+      if (ele.id === currentCardID) {
+        elem.addEventListener("change", async (event) => {
+          console.log('ainda vivo');
+          await lastEditListModify('scenes', currentCardID);
+          const field = elem.id
+          if (elem.id === "date") {
+            const checkIfisNew = await checkTimelineNewDate(ele.id, 'scene', 'sceneID')
+            if (checkIfisNew) {
+              const projectDataActual = await getCurrentProject();
+              const actualIDdate = projectDataActual.data.scenes[positionInArray].date;
+              const positionInArrayTime = projectDataActual.data.timeline.map(function (e) { return e.id; }).indexOf(actualIDdate);
+              return await db.projects.where('id').equals(currentID).modify( (e) => {
+                e.data.timeline[positionInArrayTime].date = elem.value;
+              });
+            } else {
+              const timelineID = await NewTimelineGenericScene(elem.value, ele.id, 'scene');
+              return await db.projects.where('id').equals(currentID).modify( (e) => {
+                e.data.scenes[positionInArray][field] = timelineID;
+              });
+            }
+          } if (elem.id === "time" || elem.id === "weather") {
+            await db.projects.where('id').equals(currentID).modify( (e) => {
+              e.data.scenes[positionInArray][field] = elem.value;
             });
           } else {
-            const timelineID = await NewTimelineGenericScene(elem.value, ele.id, 'scene');
-            return await db.projects.where('id').equals(currentID).modify( (e) => {
-              e.data.scenes[positionInArray][field] = timelineID;
+            await db.projects.where('id').equals(currentID).modify( (e) => {
+              e.data.scenes[positionInArray][field] = elem.value;
             });
+            getPOVCard();
           }
-        } if (elem.id === "time" || elem.id === "weather") {
-          await db.projects.where('id').equals(currentID).modify( (e) => {
-            e.data.scenes[positionInArray][field] = elem.value;
-          });
-        } else {
-          await db.projects.where('id').equals(currentID).modify( (e) => {
-            e.data.scenes[positionInArray][field] = elem.value;
-          });
-          getPOVCard();
-        }
-        updateLastEdit(currentID);
-      });
-    }
-  })
-});
+          updateLastEdit(currentID);
+        });
+      }
+    })
+  });
+  
+}
+saveDataScene();
 
 async function deleteScene() {
   await clearDate('scenes');
