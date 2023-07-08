@@ -162,6 +162,22 @@ footer {
   height: 40px;
 }
 
+.midleButtons {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #555;
+  color: #cbcbcb;
+  border-radius: 9px;
+  padding: 10px;
+}
+
 .btnAZ {
   margin-top: 1rem;
   background-color: #121214;
@@ -260,7 +276,7 @@ textarea {
   z-index: 9999;
 }
 
-#content_full {
+/* #content_full {
   box-shadow: none;
   transition: box-shadow 0.3s ease-in-out;
 }
@@ -269,7 +285,7 @@ textarea {
   position: relative;
   box-shadow: 0 0 1px 900px rgba(0, 0, 0, 0.72);
   z-index: 9999;
-}
+} */
 .ui-button-select {
   /* border: 1px solid #444444; */
   background: rgb(18, 18, 20);

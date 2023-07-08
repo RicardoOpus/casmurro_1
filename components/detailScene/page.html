@@ -100,7 +100,7 @@
               </div>
             </div>
           </div>
-          <div>
+          <div id="detailsScene">
             <div id="characters_scene"></div>
             <h3>Resumo:</h3>
             <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="4" id="content" oninput="autoGrow(this)"></textarea>
@@ -137,10 +137,17 @@
             <h3>Cena completa:</h3>
             <div style="margin-bottom: 15px;">
               <button id="doneBtn" onclick="transformSceneToViewer()" class=" ui-button ui-corner-all" disabled>Pronto</button>
-              <button id="editBtn" onclick="desfazerTransformacao()" class=" ui-button ui-corner-all">Editar</button>
+              <button id="editBtn" onclick="writeScene()" class=" ui-button ui-corner-all">Editar</button>
+              <button id="" onclick="markQuotation()" class="ui-button ui-corner-all markBtn" style="margin-left: 25px;">“A”</button>
+              <button onclick="markEmDash()" class="ui-button ui-corner-all markBtn">—</button>
+              <button onclick="markItalics()" class="ui-button ui-corner-all markBtn"><em>*I*</em></button>
+              <button onclick="markComments()" class="ui-button ui-corner-all markBtn">[C]</button>
+              <button onclick="markKnowItens('characters')" class="ui-button ui-corner-all markBtn" style="font-family: sans-serif;"> Personagens</button>
+              <button onclick="markKnowItens('world')" class="ui-button ui-corner-all markBtn" style="font-family: sans-serif;"> Mundo</button>
+              <button onclick="clearMark()" class="ui-button ui-corner-all markBtn" style="font-family: sans-serif;">Limpar Marcação</button>
               <p style="display: inline; float: right;"><span id="wcQty"></span>Palavras</p>
             </div>
-            <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content_full" oninput="autoGrow(this)"></textarea>
+            <textarea class="cardInputNormal projectInputForm projectInputResume vaiesse" type="textarea" rows="8" id="content_full" oninput="autoGrow(this)"></textarea>
           </div>
         </div>
       </div>
@@ -157,4 +164,15 @@
 <div id="dialog-addCharScene" title="Adicionar personagens">
   <p>Marque para adicionar/remover:</p>
   <form id="chars_scene"></form>
+</div>
+
+<div id="topButton" class="midleButtons" title="Ir para o topo">
+  <button id="doneBtn" onclick="transformSceneToViewer()" class=" ui-button ui-corner-all" disabled>Pronto</button>
+  <button id="" onclick="markQuotation()" class="ui-button ui-corner-all markBtn" style="margin-left: 25px;">“A”</button>
+  <button onclick="markEmDash()" class="ui-button ui-corner-all markBtn">—</button>
+  <button onclick="markItalics()" class="ui-button ui-corner-all markBtn"><em>*I*</em></button>
+  <button onclick="markComments()" class="ui-button ui-corner-all markBtn">[C]</button>
+  <button onclick="markKnowItens('characters')" class="ui-button ui-corner-all markBtn" style="font-family: sans-serif;"> Personagens</button>
+  <button onclick="markKnowItens('world')" class="ui-button ui-corner-all markBtn" style="font-family: sans-serif;"> Mundo</button>
+  <button onclick="clearMark()" class="ui-button ui-corner-all markBtn" style="font-family: sans-serif;">Limpar Marcação</button>
 </div>

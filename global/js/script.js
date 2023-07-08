@@ -253,9 +253,9 @@ async function deleteImageCard(typeCard, htmlPlace, page, srcipt) {
   return pageChange(htmlPlace, page, srcipt);
 }
 
-function substituirHifens() {
-  const input = document.getElementById('content_full');
+function substituirHifens(input) {
   if (input) {
+    // eslint-disable-next-line no-param-reassign
     input.value = input.value.replace(/--/g, '—');
   }
 }
@@ -265,7 +265,7 @@ function autoGrow(element) {
   element.style.height = '0px';
   // eslint-disable-next-line no-param-reassign
   element.style.height = `${element.scrollHeight}px`;
-  substituirHifens();
+  substituirHifens(element);
 }
 
 function resumeHeight(...args) {
@@ -898,11 +898,40 @@ function contarPalavras(conteudoTexto) {
   return palavras.length;
 }
 
+function replaceDiv() {
+  const contentElement = document.querySelector('.sceneViewer');
+  const contentDiv = document.getElementById('detailsScene');
+  const elementEdit = document.querySelector('.hwt-container');
+  if (elementEdit) {
+    contentDiv.removeChild(elementEdit);
+    contentDiv.appendChild(contentElement);
+  }
+}
+
+function disableBtnsMardk() {
+  const btns = document.querySelectorAll('.markBtn');
+  for (let index = 0; index < btns.length; index += 1) {
+    const element = btns[index];
+    element.disabled = true;
+    element.classList = 'ui-button ui-corner-all markBtn disabledBtn';
+  }
+}
+
+function enableBtnsMardk() {
+  const btns = document.querySelectorAll('.markBtn');
+  for (let index = 0; index < btns.length; index += 1) {
+    const element = btns[index];
+    element.disabled = false;
+    element.classList = 'ui-button ui-corner-all markBtn';
+  }
+}
+
 function transformSceneToViewer() {
   document.getElementById('doneBtn').disabled = true;
   document.getElementById('doneBtn').classList = 'ui-button ui-corner-all disabledBtn';
   document.getElementById('editBtn').disabled = false;
   document.getElementById('editBtn').classList = 'ui-button ui-corner-all';
+  disableBtnsMardk();
   const textarea = document.getElementById('content_full');
   contarPalavras(textarea.value);
   const div = document.createElement('div');
@@ -922,14 +951,63 @@ function transformSceneToViewer() {
 
   div.id = 'content_full';
   textarea.parentNode.replaceChild(div, textarea);
+  replaceDiv();
   colocarItalico();
 }
 
-function desfazerTransformacao() {
+function clearMark() {
+  const highlighter = new HighlightWithinTextarea(document.querySelector('.highlight'), {
+    highlight: '',
+  });
+}
+
+function markQuotation() {
+  const highlighter = new HighlightWithinTextarea(document.querySelector('.highlight'), {
+    highlight: /(['"])(.*?)\1/g,
+    className: 'green',
+  });
+}
+
+function markEmDash() {
+  const highlighter = new HighlightWithinTextarea(document.querySelector('.highlight'), {
+    highlight: /—(.+?)(?=(\n|$))/gs,
+    className: 'green',
+  });
+}
+
+function markItalics() {
+  const highlighter = new HighlightWithinTextarea(document.querySelector('.highlight'), {
+    highlight: /\*(.*?)\*/g,
+    className: 'green',
+  });
+}
+
+function markComments() {
+  const highlighter = new HighlightWithinTextarea(document.querySelector('.highlight'), {
+    highlight: /\[(.*?)\]/g,
+    className: 'green',
+  });
+}
+
+async function knowItens(itensList) {
+  const highlighter = new HighlightWithinTextarea(document.querySelector('.highlight'), {
+    highlight: itensList,
+    className: 'green',
+  });
+}
+
+async function markKnowItens(table) {
+  const projectData = await getCurrentProject();
+  const itensList = projectData.data[table].map((item) => item.title);
+  knowItens(itensList);
+}
+
+function writeScene() {
   document.getElementById('doneBtn').disabled = false;
   document.getElementById('doneBtn').classList = 'ui-button ui-corner-all';
   document.getElementById('editBtn').disabled = true;
   document.getElementById('editBtn').classList = 'ui-button ui-corner-all disabledBtn';
+  enableBtnsMardk();
   const div = document.getElementById('content_full');
   const paragraphs = div.getElementsByTagName('p');
   let text = '';
@@ -940,12 +1018,13 @@ function desfazerTransformacao() {
   contarPalavras(text);
   const textarea = document.createElement('textarea');
   textarea.id = 'content_full';
-  textarea.classList = 'cardInputNormal projectInputForm projectInputResume';
+  textarea.classList = 'highlight projectInputForm focusMode';
   textarea.setAttribute('type', 'textarea');
   textarea.setAttribute('rows', '8');
   textarea.setAttribute('oninput', 'autoGrow(this)');
   textarea.value = text;
   div.parentNode.replaceChild(textarea, div);
+  clearMark();
   resumeHeight('content_full');
   saveDataScene();
 }
