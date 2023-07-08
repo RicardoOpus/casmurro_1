@@ -908,30 +908,30 @@ function replaceDiv() {
   }
 }
 
-function disableBtnsMardk() {
-  const btns = document.querySelectorAll('.markBtn');
-  for (let index = 0; index < btns.length; index += 1) {
-    const element = btns[index];
-    element.disabled = true;
-    element.classList = 'ui-button ui-corner-all markBtn disabledBtn';
-  }
-}
+// function disableBtnsMardk() {
+//   const btns = document.querySelectorAll('.markBtn');
+//   for (let index = 0; index < btns.length; index += 1) {
+//     const element = btns[index];
+//     element.disabled = true;
+//     element.classList = 'ui-button ui-corner-all markBtn disabledBtn';
+//   }
+// }
 
-function enableBtnsMardk() {
-  const btns = document.querySelectorAll('.markBtn');
-  for (let index = 0; index < btns.length; index += 1) {
-    const element = btns[index];
-    element.disabled = false;
-    element.classList = 'ui-button ui-corner-all markBtn';
-  }
-}
+// function enableBtnsMardk() {
+//   const btns = document.querySelectorAll('.markBtn');
+//   for (let index = 0; index < btns.length; index += 1) {
+//     const element = btns[index];
+//     element.disabled = false;
+//     element.classList = 'ui-button ui-corner-all markBtn';
+//   }
+// }
 
 function transformSceneToViewer() {
   document.getElementById('doneBtn').disabled = true;
   document.getElementById('doneBtn').classList = 'ui-button ui-corner-all disabledBtn';
   document.getElementById('editBtn').disabled = false;
   document.getElementById('editBtn').classList = 'ui-button ui-corner-all';
-  disableBtnsMardk();
+  document.getElementById('WriteButtons').style.display = 'none';
   const textarea = document.getElementById('content_full');
   contarPalavras(textarea.value);
   const div = document.createElement('div');
@@ -1007,7 +1007,7 @@ function writeScene() {
   document.getElementById('doneBtn').classList = 'ui-button ui-corner-all';
   document.getElementById('editBtn').disabled = true;
   document.getElementById('editBtn').classList = 'ui-button ui-corner-all disabledBtn';
-  enableBtnsMardk();
+  document.getElementById('WriteButtons').style.display = 'block';
   const div = document.getElementById('content_full');
   const paragraphs = div.getElementsByTagName('p');
   let text = '';
@@ -1027,4 +1027,62 @@ function writeScene() {
   clearMark();
   resumeHeight('content_full');
   saveDataScene();
+}
+
+function toggleFullscreen() {
+  if (
+    document.fullscreenElement
+    || document.webkitFullscreenElement
+    || document.mozFullScreenElement
+    || document.msFullscreenElement
+  ) {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+  } else if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen();
+  } else if (document.documentElement.mozRequestFullScreen) {
+    document.documentElement.mozRequestFullScreen();
+  } else if (document.documentElement.webkitRequestFullscreen) {
+    document.documentElement.webkitRequestFullscreen();
+  } else if (document.documentElement.msRequestFullscreen) {
+    document.documentElement.msRequestFullscreen();
+  }
+}
+
+function aumentarFonte() {
+  var teste2 = document.querySelector('.hwt-container');
+  var fontSize = window.getComputedStyle(teste2).fontSize;
+  var currentSize = parseFloat(fontSize);
+  var newSize = currentSize + 2;
+  teste2.style.fontSize = newSize + 'px';
+}
+
+function diminuirFonte() {
+  var teste2 = document.querySelector('.hwt-container');
+  var fontSize = window.getComputedStyle(teste2).fontSize;
+  var currentSize = parseFloat(fontSize);
+  var newSize = currentSize - 2;
+  teste2.style.fontSize = newSize + 'px';
+}
+
+function setFontSerif() {
+  const div = document.querySelector('.hwt-container');
+  div.style.fontFamily = "'Times New Roman', Times, serif";
+}
+
+function setFontSansSerif() {
+  const div = document.querySelector('.hwt-container');
+  div.style.fontFamily = "'Trebuchet MS', sans-serif";
+}
+
+function setFontMomo() {
+  const div = document.querySelector('.hwt-container');
+  div.style.fontFamily = "'Courier New', Courier, monospace";
 }

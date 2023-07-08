@@ -169,7 +169,6 @@ footer {
   left: 50%;
   transform: translateX(-50%);
   z-index: 99;
-  font-size: 18px;
   border: none;
   outline: none;
   background-color: #555;
