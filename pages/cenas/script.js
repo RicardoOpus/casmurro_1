@@ -322,3 +322,5 @@ $(() => {
 function clearStatusFilter() {
   loadpage('cenas');
 }
+
+onscrollUp();

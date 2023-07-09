@@ -908,23 +908,19 @@ function replaceDiv() {
   }
 }
 
-// function disableBtnsMardk() {
-//   const btns = document.querySelectorAll('.markBtn');
-//   for (let index = 0; index < btns.length; index += 1) {
-//     const element = btns[index];
-//     element.disabled = true;
-//     element.classList = 'ui-button ui-corner-all markBtn disabledBtn';
-//   }
-// }
+function salvarDeclaracaoCSS() {
+  const elemento = document.querySelector('.hwt-container');
+  const declaracaoCSS = elemento.getAttribute('style');
+  localStorage.setItem('declaracaoCSS', declaracaoCSS);
+}
 
-// function enableBtnsMardk() {
-//   const btns = document.querySelectorAll('.markBtn');
-//   for (let index = 0; index < btns.length; index += 1) {
-//     const element = btns[index];
-//     element.disabled = false;
-//     element.classList = 'ui-button ui-corner-all markBtn';
-//   }
-// }
+function resgatarDeclaracaoCSS() {
+  const elemento = document.querySelector('.hwt-container');
+  const declaracaoCSS = localStorage.getItem('declaracaoCSS');
+  if (declaracaoCSS) {
+    elemento.setAttribute('style', declaracaoCSS);
+  }
+}
 
 function transformSceneToViewer() {
   document.getElementById('doneBtn').disabled = true;
@@ -932,6 +928,7 @@ function transformSceneToViewer() {
   document.getElementById('editBtn').disabled = false;
   document.getElementById('editBtn').classList = 'ui-button ui-corner-all';
   document.getElementById('WriteButtons').style.display = 'none';
+  document.getElementById('topButton').setAttribute('onclick', 'topFunction()');
   const textarea = document.getElementById('content_full');
   contarPalavras(textarea.value);
   const div = document.createElement('div');
@@ -1008,6 +1005,7 @@ function writeScene() {
   document.getElementById('editBtn').disabled = true;
   document.getElementById('editBtn').classList = 'ui-button ui-corner-all disabledBtn';
   document.getElementById('WriteButtons').style.display = 'block';
+  document.getElementById('topButton').setAttribute('onclick', 'topFunctionScene()');
   const div = document.getElementById('content_full');
   const paragraphs = div.getElementsByTagName('p');
   let text = '';
@@ -1025,6 +1023,7 @@ function writeScene() {
   textarea.value = text;
   div.parentNode.replaceChild(textarea, div);
   clearMark();
+  resgatarDeclaracaoCSS();
   resumeHeight('content_full');
   saveDataScene();
 }
@@ -1057,32 +1056,64 @@ function toggleFullscreen() {
 }
 
 function aumentarFonte() {
-  var teste2 = document.querySelector('.hwt-container');
-  var fontSize = window.getComputedStyle(teste2).fontSize;
-  var currentSize = parseFloat(fontSize);
-  var newSize = currentSize + 2;
-  teste2.style.fontSize = newSize + 'px';
+  const teste2 = document.querySelector('.hwt-container');
+  const { fontSize } = window.getComputedStyle(teste2);
+  const currentSize = parseFloat(fontSize);
+  const newSize = currentSize + 2;
+  teste2.style.fontSize = `${newSize}px`;
+  salvarDeclaracaoCSS();
 }
 
 function diminuirFonte() {
-  var teste2 = document.querySelector('.hwt-container');
-  var fontSize = window.getComputedStyle(teste2).fontSize;
-  var currentSize = parseFloat(fontSize);
-  var newSize = currentSize - 2;
-  teste2.style.fontSize = newSize + 'px';
+  const teste2 = document.querySelector('.hwt-container');
+  const { fontSize } = window.getComputedStyle(teste2);
+  const currentSize = parseFloat(fontSize);
+  const newSize = currentSize - 2;
+  teste2.style.fontSize = `${newSize}px`;
+  salvarDeclaracaoCSS();
 }
 
-function setFontSerif() {
-  const div = document.querySelector('.hwt-container');
-  div.style.fontFamily = "'Times New Roman', Times, serif";
+function changeFontFamily(fontFamily) {
+  document.querySelector('.hwt-container').style.fontFamily = fontFamily;
+  salvarDeclaracaoCSS();
 }
 
-function setFontSansSerif() {
-  const div = document.querySelector('.hwt-container');
-  div.style.fontFamily = "'Trebuchet MS', sans-serif";
+function topFunction() {
+  const beginner = document.getElementById('main-header');
+  beginner.scrollIntoView({ behavior: 'smooth' });
 }
 
-function setFontMomo() {
-  const div = document.querySelector('.hwt-container');
-  div.style.fontFamily = "'Courier New', Courier, monospace";
+function bottomFunction() {
+  const endPage = document.querySelector('footer');
+  endPage.scrollIntoView({ behavior: 'smooth' });
+}
+
+function topFunctionScene() {
+  const beginner = document.getElementById('content_full');
+  beginner.scrollIntoView({ behavior: 'smooth' });
+}
+
+function onscrollUpAndDown() {
+  window.onscroll = function scrollFunction() {
+    const btn = document.getElementById('bottonButton');
+    const btn2 = document.getElementById('topButton');
+    if ((document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) && btn) {
+      btn.style.display = 'block';
+      btn2.style.display = 'block';
+    } else if (btn) {
+      document.getElementById('bottonButton').style.display = 'none';
+      document.getElementById('topButton').style.display = 'none';
+    }
+  };
+}
+
+function onscrollUp() {
+  window.onscroll = function scrollFunction() {
+    const btn = document.getElementById('topButton');
+    if ((document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) && btn) {
+      btn.style.display = 'block';
+    } else if (btn) {
+      document.getElementById('topButton').style.display = 'none';
+    }
+  };
 }

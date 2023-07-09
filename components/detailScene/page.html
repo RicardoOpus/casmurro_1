@@ -167,20 +167,26 @@
 </div>
 
 <div id="WriteButtons" class="midleButtons" style="display: none;">
-  <button id="doneBtn" onclick="transformSceneToViewer()" class=" ui-button ui-corner-all" >Pronto</button>
+  <button id="doneBtn" onclick="transformSceneToViewer()" class=" ui-button ui-corner-all" >Fechar</button>
   
-  <button id="" onclick="markQuotation()" class="ui-button ui-corner-all markBtn" style="margin-left: 25px;">“A”</button>
-  <button onclick="markEmDash()" class="ui-button ui-corner-all markBtn">—</button>
-  <button onclick="markItalics()" class="ui-button ui-corner-all markBtn"><em>*I*</em></button>
-  <button onclick="markComments()" class="ui-button ui-corner-all markBtn">[C]</button>
-  <button onclick="markKnowItens('characters')" class="ui-button ui-corner-all markBtn">👤</button>
-  <button onclick="markKnowItens('world')" class="ui-button ui-corner-all markBtn"> 🌐</button>
+  <button onclick="aumentarFonte()" class="ui-button ui-corner-all markBtn" style="margin-left: 25px;">A+</button>
+  <button onclick="diminuirFonte()" class="ui-button ui-corner-all markBtn" style="margin-right: 25px;"><span style="font-size: smaller;">A</span>-</button>
+  <button onclick="markQuotation()" class="ui-button ui-corner-all markBtn" title="Resaltar entre aspas">“A”</button>
+  <button onclick="markEmDash()" class="ui-button ui-corner-all markBtn" title="Resaltar diálogos">—</button>
+  <button onclick="markItalics()" class="ui-button ui-corner-all markBtn" title="Resaltar itálicos"><em>*I*</em></button>
+  <button onclick="markComments()" class="ui-button ui-corner-all markBtn" title="Resaltar comentários">[C]</button>
+  <button onclick="markKnowItens('characters')" class="ui-button ui-corner-all markBtn" title="Resaltar personagens">👤</button>
+  <button onclick="markKnowItens('world')" class="ui-button ui-corner-all markBtn" title="Resaltar mundo">🌐</button>
 </button>
-<button onclick="aumentarFonte()" class="ui-button ui-corner-all markBtn">A+</button>
-<button onclick="diminuirFonte()" class="ui-button ui-corner-all markBtn"><span style="font-size: smaller;">A</span>-</button>
-<button onclick="setFontSerif()" class="ui-button ui-corner-all" style="font-family: serif">serifa</button>
-<button onclick="setFontSansSerif()" class="ui-button ui-corner-all"style="font-family: sans-serif">sem serifa</button>
-<button onclick="setFontMomo()" class="ui-button ui-corner-all"style="font-family: mono">mono</button>
-<button onclick="clearMark()" class="ui-button ui-corner-all">Limpar</button>
-<button id="fullscreenButton" onclick="toggleFullscreen()" class="ui-button ui-corner-all" style="float: right;"><sup>⇱</sup><sub>⇲</sub>
+<button onclick="clearMark()" class="ui-button ui-corner-all" title="Limpar resaltos">Limpar</button>
+<select onchange="changeFontFamily(this.value)" class="ui-button ui-corner-all">
+  <option selected disabled>Fonte</option>
+  <option value="'Times New Roman', Times, serif">Serifa</option>
+  <option value="'Trebuchet MS', sans-serif">Sem Serifa</option>
+  <option value="'Courier New', Courier, monospace">Mono</option>
+</select>
+<button id="fullscreenButton" onclick="toggleFullscreen()" class="ui-button ui-corner-all" style="float: right;" title="Tela cheia (F11)"><sup>⇱</sup><sub>⇲</sub>
 </div>
+
+<button onclick="topFunction()" id="topButton" class="topButton" title="Ir para o topo">🡅 </button>
+<button onclick="bottomFunction()" id="bottonButton" class="bottonButton" title="Ir para o fim">🡇 </button>
