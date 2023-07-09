@@ -892,8 +892,10 @@ function contarPalavras(conteudoTexto) {
   const palavras = textoLimpo.split(' ');
   if (palavras[0] === '') {
     document.getElementById('wcQty').innerHTML = '0 ';
+    document.getElementById('wordCount').innerHTML = '0 ';
   } else {
     document.getElementById('wcQty').innerHTML = `${palavras.length} `;
+    document.getElementById('wordCount').innerHTML = `${palavras.length} `;
   }
   return palavras.length;
 }
@@ -928,6 +930,7 @@ function transformSceneToViewer() {
   document.getElementById('editBtn').disabled = false;
   document.getElementById('editBtn').classList = 'ui-button ui-corner-all';
   document.getElementById('WriteButtons').style.display = 'none';
+  document.getElementById('wordCount').style.display = 'none';
   document.getElementById('topButton').setAttribute('onclick', 'topFunction()');
   const textarea = document.getElementById('content_full');
   contarPalavras(textarea.value);
@@ -999,12 +1002,28 @@ async function markKnowItens(table) {
   knowItens(itensList);
 }
 
+function updateWC() {
+  const contentElement = document.getElementById('content_full');
+  const wordCountElement = document.getElementById('wordCount');
+  function countWords(text) {
+    const words = text.trim().split(/\s+/);
+    return words.length;
+  }
+  function updateWordCount() {
+    const content = contentElement.value;
+    const wordCount = countWords(content);
+    wordCountElement.innerText = wordCount;
+  }
+  contentElement.addEventListener('input', updateWordCount);
+}
+
 function writeScene() {
   document.getElementById('doneBtn').disabled = false;
   document.getElementById('doneBtn').classList = 'ui-button ui-corner-all';
   document.getElementById('editBtn').disabled = true;
   document.getElementById('editBtn').classList = 'ui-button ui-corner-all disabledBtn';
   document.getElementById('WriteButtons').style.display = 'block';
+  document.getElementById('wordCount').style.display = 'block';
   document.getElementById('topButton').setAttribute('onclick', 'topFunctionScene()');
   const div = document.getElementById('content_full');
   const paragraphs = div.getElementsByTagName('p');
@@ -1026,6 +1045,7 @@ function writeScene() {
   resgatarDeclaracaoCSS();
   resumeHeight('content_full');
   saveDataScene();
+  updateWC();
 }
 
 function toggleFullscreen() {

@@ -194,6 +194,20 @@ footer {
   padding: 10px;
 }
 
+.wordCount {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  color: #6c6c6c;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
 .btnAZ {
   margin-top: 1rem;
   background-color: #121214;
