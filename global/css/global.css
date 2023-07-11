@@ -179,7 +179,24 @@ footer {
   height: 30px;
 }
 
+.topDownButton {
+  font-size: 18px;
+  background-color: #2D333B;
+  color: #cbcbcb;
+  cursor: pointer;
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+}
+
+.topDownButton:hover {
+  background-color: black;
+  border: solid 1px;
+  border-color: #0a62ce;
+}
+
 .midleButtons {
+  width: 60%;
   display: none;
   position: fixed;
   bottom: 20px;

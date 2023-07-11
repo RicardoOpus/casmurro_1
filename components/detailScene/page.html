@@ -139,7 +139,9 @@
               <button id="editBtn" onclick="writeScene()" class=" ui-button ui-corner-all">Editar</button>
               <p style="display: inline; float: right;"><span id="wcQty"></span>Palavras</p>
             </div>
-            <textarea class="cardInputNormal projectInputForm projectInputResume vaiesse" type="textarea" rows="8" id="content_full" oninput="autoGrow(this)"></textarea>
+            <div id="writingViwer" >
+              <textarea class="cardInputNormal projectInputForm projectInputResume vaiesse" type="textarea" rows="8" id="content_full" oninput="autoGrow(this)"></textarea>
+            </div>
           </div>
         </div>
       </div>
@@ -161,20 +163,29 @@
 <div id="WriteButtons" class="midleButtons" style="display: none;">
   <button id="doneBtn" onclick="transformSceneToViewer()" class=" ui-button ui-corner-all" >Fechar</button>
   <button onclick="aumentarFonte()" class="ui-button ui-corner-all markBtn" style="margin-left: 25px;">A+</button>
-  <button onclick="diminuirFonte()" class="ui-button ui-corner-all markBtn" style="margin-right: 25px;"><span style="font-size: smaller;">A</span>-</button>
-  <button onclick="markQuotation()" class="ui-button ui-corner-all markBtn" title="Resaltar entre aspas">“A”</button>
-  <button onclick="markEmDash()" class="ui-button ui-corner-all markBtn" title="Resaltar diálogos">—</button>
-  <button onclick="markItalics()" class="ui-button ui-corner-all markBtn" title="Resaltar itálicos"><em>*I*</em></button>
-  <button onclick="markComments()" class="ui-button ui-corner-all markBtn" title="Resaltar comentários">[C]</button>
-  <button onclick="markKnowItens('characters')" class="ui-button ui-corner-all markBtn" title="Resaltar personagens">👤</button>
-  <button onclick="markKnowItens('world')" class="ui-button ui-corner-all markBtn" title="Resaltar mundo">🌐</button>
-  <button onclick="clearMark()" class="ui-button ui-corner-all" title="Limpar resaltos">Limpar</button>
+  <button onclick="diminuirFonte()" class="ui-button ui-corner-all markBtn"><span style="font-size: smaller;">A</span> -</button>
+  <button onclick="modificarLargura('sum')" class="ui-button ui-corner-all markBtn" style="margin-left: 25px;">↔+</button>
+  <button onclick="modificarLargura('')" class="ui-button ui-corner-all markBtn">↔-</button>
+  <button onclick="modificarAltura('sum')" class="ui-button ui-corner-all markBtn">↕ +</button>
+  <button onclick="modificarAltura('')" class="ui-button ui-corner-all markBtn" style="margin-right: 25px;">↕ -</button>
+  <select onchange="setmark(this.value)" class="ui-button ui-corner-all">
+    <option selected disabled>Destaques</option>
+    <option value="markQuotation()" class="" title="Resaltar entre aspas">“Entre aspas”</option>
+    <option value="markEmDash()" class="" title="Resaltar diálogos">— Diálogos</option>
+    <option value="markItalics()" class="" title="Resaltar itálicos"><em>*itálicos*</em></option>
+    <option value="markComments()" class="" title="Resaltar comentários">[Comentários]</option>
+    <option value="markKnowItens('characters')" class="" title="Resaltar personagens">👤 Personagens</option>
+    <option value="markKnowItens('world')" class="" title="Resaltar mundo">🌐 Mundo</option>
+    <option value="clearMark()" class="" title="Limpar resaltos">Limpar</option>
+  </select>
   <select onchange="changeFontFamily(this.value)" class="ui-button ui-corner-all">
     <option selected disabled>Fonte</option>
     <option value="'Times New Roman', Times, serif">Serifa</option>
     <option value="'Trebuchet MS', sans-serif">Sem Serifa</option>
     <option value="'Courier New', Courier, monospace">Mono</option>
   </select>
+  <button onclick="topFunctionScene()" class="topDownButton" title="Ir para o topo">🡅 </button>
+  <button onclick="bottomFunctionScene()" class="topDownButton" title="Ir para o fim">🡇 </button>
   <button id="fullscreenButton" onclick="toggleFullscreen()" class="ui-button ui-corner-all" style="float: right;" title="Tela cheia (F11)"><sup>⇱</sup><sub>⇲</sub>
 </div>
 

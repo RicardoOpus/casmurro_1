@@ -255,8 +255,11 @@ async function deleteImageCard(typeCard, htmlPlace, page, srcipt) {
 
 function substituirHifens(input) {
   if (input) {
+    const startPos = input.selectionStart;
+    const endPos = input.selectionEnd;
     // eslint-disable-next-line no-param-reassign
     input.value = input.value.replace(/--/g, '—');
+    input.setSelectionRange(startPos, endPos);
   }
 }
 
@@ -265,7 +268,6 @@ function autoGrow(element) {
   element.style.height = '0px';
   // eslint-disable-next-line no-param-reassign
   element.style.height = `${element.scrollHeight}px`;
-  substituirHifens(element);
 }
 
 function resumeHeight(...args) {
@@ -902,7 +904,7 @@ function contarPalavras(conteudoTexto) {
 
 function replaceDiv() {
   const contentElement = document.querySelector('.sceneViewer');
-  const contentDiv = document.getElementById('detailsScene');
+  const contentDiv = document.getElementById('writingViwer');
   const elementEdit = document.querySelector('.hwt-container');
   if (elementEdit) {
     contentDiv.removeChild(elementEdit);
@@ -916,6 +918,11 @@ function salvarDeclaracaoCSS() {
   localStorage.setItem('declaracaoCSS', declaracaoCSS);
 }
 
+function salvarDimensoes(elemento) {
+  const declaracaoCSS = elemento.getAttribute('style');
+  localStorage.setItem('dimensoes', declaracaoCSS);
+}
+
 function resgatarDeclaracaoCSS() {
   const elemento = document.querySelector('.hwt-container');
   const declaracaoCSS = localStorage.getItem('declaracaoCSS');
@@ -924,7 +931,33 @@ function resgatarDeclaracaoCSS() {
   }
 }
 
+function setFullViewerScene() {
+  const declaracaoCSS = localStorage.getItem('dimensoes');
+  const writingViwer = document.getElementById('writingViwer');
+  writingViwer.classList = 'writingViwer';
+  const textArera = document.getElementById('content_full');
+  if (!declaracaoCSS) {
+    const altura = window.innerHeight;
+    const largura = window.innerWidth;
+    textArera.style.height = `${altura * 0.8}px`;
+    textArera.style.width = `${largura * 0.7}px`;
+  } else {
+    textArera.setAttribute('style', declaracaoCSS);
+  }
+  document.getElementById('main-header').style.display = 'none';
+  document.querySelector('footer').style.display = 'none';
+  window.scrollTo({ top: 0 });
+}
+
+function resetFullViewerScene() {
+  document.getElementById('main-header').style.display = 'block';
+  document.querySelector('footer').style.display = 'block';
+  const writingViwer = document.getElementById('writingViwer');
+  writingViwer.classList = '';
+}
+
 function transformSceneToViewer() {
+  resetFullViewerScene();
   document.getElementById('doneBtn').disabled = true;
   document.getElementById('doneBtn').classList = 'ui-button ui-corner-all disabledBtn';
   document.getElementById('editBtn').disabled = false;
@@ -1002,6 +1035,34 @@ async function markKnowItens(table) {
   knowItens(itensList);
 }
 
+function setmark(value) {
+  switch (value) {
+    case 'markQuotation()':
+      markQuotation();
+      break;
+    case 'markEmDash()':
+      markEmDash();
+      break;
+    case 'markItalics()':
+      markItalics();
+      break;
+    case 'markComments()':
+      markComments();
+      break;
+    case "markKnowItens('characters')":
+      markKnowItens('characters');
+      break;
+    case "markKnowItens('world')":
+      markKnowItens('world');
+      break;
+    case 'clearMark()':
+      clearMark();
+      break;
+    default:
+      break;
+  }
+}
+
 function updateWC() {
   const contentElement = document.getElementById('content_full');
   const wordCountElement = document.getElementById('wordCount');
@@ -1024,11 +1085,9 @@ function writeScene() {
   document.getElementById('editBtn').classList = 'ui-button ui-corner-all disabledBtn';
   document.getElementById('WriteButtons').style.display = 'block';
   document.getElementById('wordCount').style.display = 'block';
-  document.getElementById('topButton').setAttribute('onclick', 'topFunctionScene()');
   const div = document.getElementById('content_full');
   const paragraphs = div.getElementsByTagName('p');
   let text = '';
-
   for (let i = 0; i < paragraphs.length; i += 1) {
     text += `${paragraphs[i].innerText}\n`;
   }
@@ -1038,14 +1097,14 @@ function writeScene() {
   textarea.classList = 'highlight projectInputForm focusMode';
   textarea.setAttribute('type', 'textarea');
   textarea.setAttribute('rows', '8');
-  textarea.setAttribute('oninput', 'autoGrow(this)');
+  textarea.setAttribute('oninput', 'substituirHifens(this)');
   textarea.value = text;
   div.parentNode.replaceChild(textarea, div);
   clearMark();
   resgatarDeclaracaoCSS();
-  resumeHeight('content_full');
   saveDataScene();
   updateWC();
+  setFullViewerScene();
 }
 
 function toggleFullscreen() {
@@ -1076,21 +1135,49 @@ function toggleFullscreen() {
 }
 
 function aumentarFonte() {
-  const teste2 = document.querySelector('.hwt-container');
-  const { fontSize } = window.getComputedStyle(teste2);
+  const element = document.querySelector('.hwt-container');
+  const { fontSize } = window.getComputedStyle(element);
   const currentSize = parseFloat(fontSize);
   const newSize = currentSize + 2;
-  teste2.style.fontSize = `${newSize}px`;
+  element.style.fontSize = `${newSize}px`;
   salvarDeclaracaoCSS();
 }
 
 function diminuirFonte() {
-  const teste2 = document.querySelector('.hwt-container');
-  const { fontSize } = window.getComputedStyle(teste2);
+  const element = document.querySelector('.hwt-container');
+  const { fontSize } = window.getComputedStyle(element);
   const currentSize = parseFloat(fontSize);
   const newSize = currentSize - 2;
-  teste2.style.fontSize = `${newSize}px`;
+  element.style.fontSize = `${newSize}px`;
   salvarDeclaracaoCSS();
+}
+
+function modificarLargura(type) {
+  const element = document.getElementById('content_full');
+  const { width } = window.getComputedStyle(element);
+  const currentSize = parseFloat(width);
+  let newSize = 0;
+  if (type === 'sum') {
+    newSize = currentSize + 20;
+  } else {
+    newSize = currentSize - 20;
+  }
+  element.style.width = `${newSize}px`;
+  salvarDimensoes(element);
+}
+
+function modificarAltura(type) {
+  const element = document.getElementById('content_full');
+  const { height } = window.getComputedStyle(element);
+  const currentSize = parseFloat(height);
+  let newSize = 0;
+  if (type === 'sum') {
+    newSize = currentSize + 20;
+  } else {
+    newSize = currentSize - 20;
+  }
+  element.style.height = `${newSize}px`;
+  salvarDimensoes(element);
 }
 
 function changeFontFamily(fontFamily) {
@@ -1109,8 +1196,25 @@ function bottomFunction() {
 }
 
 function topFunctionScene() {
-  const beginner = document.getElementById('content_full');
-  beginner.scrollIntoView({ behavior: 'smooth' });
+  const container = document.getElementById('content_full');
+  const scrollToTop = () => {
+    if (container.scrollTop > 0) {
+      container.scrollTop -= 20;
+      setTimeout(scrollToTop, 10);
+    }
+  };
+  scrollToTop();
+}
+
+function bottomFunctionScene() {
+  const container = document.getElementById('content_full');
+  const scrollToBottom = () => {
+    if (container.scrollTop < container.scrollHeight - container.clientHeight) {
+      container.scrollTop += 20;
+      setTimeout(scrollToBottom, 10);
+    }
+  };
+  scrollToBottom();
 }
 
 function onscrollUpAndDown() {

@@ -1,11 +1,18 @@
+.writingViwer {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
 .hwt-container {
 	display: inline-block;
 	position: relative;
+	top: 0;
 	overflow: hidden !important;
 	-webkit-text-size-adjust: none !important;
 	width: 100%;
-	box-shadow: 0 0 1px 900px rgba(0, 0, 0, 0.90);
-	/* font-family: "Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', sans-serif"; */
+	box-shadow: 0 0 1px 900px rgba(0, 0, 0, 1);
 }
 
 .hwt-backdrop {
@@ -16,7 +23,7 @@
 	left: 0 !important;
 	padding-right: 99px !important;
 	overflow-x: hidden !important;
-	overflow-y: hidden !important;
+	/* overflow-y: hidden !important; */
 	background: rgb(18, 18, 20);
 }
 
@@ -38,7 +45,7 @@
 	margin: 0;
 	font: inherit;
 	overflow-x: hidden !important;
-	overflow-y: hidden !important;
+	/* overflow-y: hidden !important; */
 	width: 100%;
 	color: #ababab;
 	padding: 1rem;
@@ -50,22 +57,19 @@
 	border: 1px solid;
 	border-radius: 5px;
 	background: none transparent !important;
-	
 }
 
 .hwt-content mark {
 	padding: 0 !important;
 	color: inherit;
-	
 }
 
 .hwt-content mark.green {
-	/* background-color: #2D333B; */
 	background-color: #3a3f09;
 	border-radius: 5px;
 }
 
 .markBtn{
-	/* font-family: serif; */
 	padding: 5px;
+	margin-right: -5px;
 }
