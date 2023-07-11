@@ -1196,25 +1196,13 @@ function bottomFunction() {
 }
 
 function topFunctionScene() {
-  const container = document.getElementById('content_full');
-  const scrollToTop = () => {
-    if (container.scrollTop > 0) {
-      container.scrollTop -= 20;
-      setTimeout(scrollToTop, 10);
-    }
-  };
-  scrollToTop();
+  const beginner = document.getElementById('content_full');
+  beginner.scrollTop = 0;
 }
 
 function bottomFunctionScene() {
-  const container = document.getElementById('content_full');
-  const scrollToBottom = () => {
-    if (container.scrollTop < container.scrollHeight - container.clientHeight) {
-      container.scrollTop += 20;
-      setTimeout(scrollToBottom, 10);
-    }
-  };
-  scrollToBottom();
+  const beginner = document.getElementById('content_full');
+  beginner.scrollTop = beginner.scrollHeight;
 }
 
 function onscrollUpAndDown() {
