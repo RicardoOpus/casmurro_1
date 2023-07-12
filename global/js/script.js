@@ -1251,3 +1251,13 @@ function onscrollUp() {
     }
   };
 }
+
+function setSelectionItalic(char) {
+  const campoTexto = document.getElementById('content_full');
+  const inicioSelecao = campoTexto.selectionStart;
+  const fimSelecao = campoTexto.selectionEnd;
+  const textoAntes = campoTexto.value.substring(0, inicioSelecao);
+  const textoSelecionado = campoTexto.value.substring(inicioSelecao, fimSelecao);
+  const textoDepois = campoTexto.value.substring(fimSelecao);
+  campoTexto.value = `${textoAntes}${char}${textoSelecionado}${char}${textoDepois}`;
+}
