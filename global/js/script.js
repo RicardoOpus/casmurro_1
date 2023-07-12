@@ -963,7 +963,7 @@ function transformSceneToViewer() {
   document.getElementById('editBtn').disabled = false;
   document.getElementById('editBtn').classList = 'ui-button ui-corner-all';
   document.getElementById('WriteButtons').style.display = 'none';
-  document.getElementById('wordCount').style.display = 'none';
+  document.getElementById('contValues').style.display = 'none';
   document.getElementById('topButton').setAttribute('onclick', 'topFunction()');
   const textarea = document.getElementById('content_full');
   contarPalavras(textarea.value);
@@ -1063,17 +1063,39 @@ function setmark(value) {
   }
 }
 
+function exibirMetaBatida() {
+  const elemento = document.createElement('p');
+  elemento.innerHTML = "<span style='color: green'>🗸</span> Meta batida!";
+  elemento.classList = 'goalWarning';
+  document.body.appendChild(elemento);
+  setTimeout(() => {
+    document.body.removeChild(elemento);
+  }, 5000);
+}
+
 function updateWC() {
   const contentElement = document.getElementById('content_full');
   const wordCountElement = document.getElementById('wordCount');
+  const goalElement = document.getElementById('goalWC');
+  const progressElement = document.getElementById('progress');
+
   function countWords(text) {
     const words = text.trim().split(/\s+/);
     return words.length;
   }
+
   function updateWordCount() {
     const content = contentElement.value;
     const wordCount = countWords(content);
+    const goal = Number(goalElement.value);
     wordCountElement.innerText = wordCount;
+    if (goal !== 0) {
+      const percentage = Math.floor((wordCount / goal) * 100);
+      progressElement.innerText = `- ${percentage}%`;
+      if (wordCount === goal) {
+        exibirMetaBatida();
+      }
+    }
   }
   contentElement.addEventListener('input', updateWordCount);
 }
@@ -1084,7 +1106,7 @@ function writeScene() {
   document.getElementById('editBtn').disabled = true;
   document.getElementById('editBtn').classList = 'ui-button ui-corner-all disabledBtn';
   document.getElementById('WriteButtons').style.display = 'block';
-  document.getElementById('wordCount').style.display = 'block';
+  document.getElementById('contValues').style.display = 'block';
   const div = document.getElementById('content_full');
   const paragraphs = div.getElementsByTagName('p');
   let text = '';
