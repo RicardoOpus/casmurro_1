@@ -1029,6 +1029,19 @@ fieldset {
   max-width: 100px;
 }
 
+.chapNameScene {
+      background: rgb(18, 18, 20);
+      font-weight: normal;
+      color: #eeeeee;
+      cursor: pointer;
+      border-radius: 5px;
+      padding: 0.5em;
+}
+
+.chapNameScene p{
+  margin: 0px;
+}
+
 /* World page styles ================================================ */
 
 .listCards{

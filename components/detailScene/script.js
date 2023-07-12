@@ -99,6 +99,13 @@ async function restoreSceneCard() {
             divExtra.removeAttribute("style");
             checkExtra.checked = true;
           }
+        } if (key === "chkWCScene") {
+          const divExtra = document.getElementById("info_extra_wc");
+          if (ele[key] ) {
+            const checkExtra = document.getElementById("checkbox-word-goal");
+            divExtra.removeAttribute("style");
+            checkExtra.checked = true;
+          }
         } if (key === "chkExtra2") {
           const divExtra = document.getElementById("info_extra_2");
           if (ele[key] ) {
@@ -282,6 +289,27 @@ date_scene.addEventListener('change', async function() {
     fieldDateScene.style.display = 'none';
     db.projects.where('id').equals(currentID).modify( (e) => {
       e.data.scenes[positionInArray].chkDateScene = false;
+    });
+  }
+});
+
+//WordCount scene ==========================>
+var wc_scene = document.getElementById('checkbox-word-goal');
+var fieldWCScene = document.getElementById('info_extra_wc');
+fieldWCScene.classList.add('divExtraInfos');
+wc_scene.addEventListener('change', async function() {
+  const currentID = await getCurrentProjectID();
+  const positionInArray = await getCurrentCard();
+  if (this.checked) {
+    fieldWCScene.style.display = 'block';
+    fieldWCScene.scrollIntoView({behavior: 'smooth'})
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.scenes[positionInArray].chkWCScene = true;
+    });
+  } else {
+    fieldWCScene.style.display = 'none';
+    db.projects.where('id').equals(currentID).modify( (e) => {
+      e.data.scenes[positionInArray].chkWCScene = false;
     });
   }
 });
