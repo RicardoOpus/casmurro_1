@@ -192,6 +192,7 @@
     <option value="'Trebuchet MS', sans-serif">Sem Serifa</option>
     <option value="'Courier New', Courier, monospace">Mono</option>
   </select>
+  <button id="timmer" class="ui-button ui-corner-all" title="Temporizador">⏱</button>
   <button onclick="topFunctionScene()" class="topDownButton" title="Ir para o topo">🡅 </button>
   <button onclick="bottomFunctionScene()" class="topDownButton" title="Ir para o fim">🡇 </button>
   <button id="fullscreenButton" onclick="toggleFullscreen()" class="ui-button ui-corner-all" style="float: right;" title="Tela cheia (F11)"><sup>⇱</sup><sub>⇲</sub>
@@ -203,3 +204,29 @@
   <p id="wordCount" style="display: inline;"></p>
   <p  id="progress" style="display: inline;"></p>
 </div>
+<p id="elementTimmer" class="timmer"></p>
+
+
+<div id="myModalTimmer" class="modal">
+  <div class="modal-content">
+    <span id="closeSetTimmer" class="close">&times;</span>
+    <div style="text-align: center;">
+      <h2 style="margin-top: 0px;">Temporizador</h2>
+      <h3 style="display: inline;">Minutos:</h3>
+      <input type="number" name="" id="minutes" class="cardInputNormal dateFactInputForm projectInputForm" style="display: inline; width: 150px;">
+      <button onclick="startTimmer()" class="ui-button ui-corner-all" style="font-size: large;">▶ Iniciar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  var setTimmer = document.getElementById("timmer");
+  var modal = document.getElementById("myModalTimmer");
+  var span = document.getElementById("closeSetTimmer");
+  setTimmer.onclick = function () {
+    modal.style.display = "block";
+  };
+  span.onclick = function () {
+    modal.style.display = "none";
+  };
+</script>

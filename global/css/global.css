@@ -196,7 +196,7 @@ footer {
 }
 
 .midleButtons {
-  width: 800px;
+  width: 850px;
   display: none;
   position: fixed;
   bottom: 20px;
@@ -228,6 +228,20 @@ footer {
 .wordCount p {
   margin-bottom: 0;
   margin-top: 0;
+}
+
+.timmer{
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  color: #6c6c6c;
+  cursor: pointer;
+  margin-bottom: 5px;
 }
 
 .btnAZ {
@@ -281,6 +295,8 @@ footer {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
+
 /* ============================================= */
 
 .mainContent {

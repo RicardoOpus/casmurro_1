@@ -952,12 +952,54 @@ function setFullViewerScene() {
 function resetFullViewerScene() {
   document.getElementById('main-header').style.display = 'block';
   document.querySelector('footer').style.display = 'block';
+  document.getElementById('elementTimmer').style.display = 'none';
   const writingViwer = document.getElementById('writingViwer');
   writingViwer.classList = '';
 }
 
+function exibirFimdoTempo() {
+  const elemento = document.createElement('p');
+  elemento.innerHTML = 'Fim do tempo!';
+  elemento.classList = 'goalWarning';
+  document.body.appendChild(elemento);
+  setTimeout(() => {
+    document.body.removeChild(elemento);
+  }, 5000);
+}
+
+let intervalo;
+
+function contagemRegressiva(minutos) {
+  let segundos = minutos * 60;
+  clearInterval(intervalo);
+  intervalo = setInterval(() => {
+    const minutosRestantes = Math.floor(segundos / 60);
+    const segundosRestantes = segundos % 60;
+    const elementTimmer = document.getElementById('elementTimmer');
+
+    minutosRestantesFormatado = minutosRestantes.toString().padStart(2, '0');
+    segundosRestantesFormatado = segundosRestantes.toString().padStart(2, '0');
+    elementTimmer.innerText = `${minutosRestantesFormatado}:${segundosRestantesFormatado}`;
+    if (segundos > 0) {
+      segundos -= 1;
+    } else {
+      clearInterval(intervalo);
+      exibirFimdoTempo();
+    }
+  }, 1000);
+}
+
+function startTimmer() {
+  const modal = document.getElementById('myModalTimmer');
+  document.getElementById('elementTimmer').style.display = 'block';
+  const minutes = document.getElementById('minutes').value;
+  modal.style.display = 'none';
+  contagemRegressiva(minutes);
+}
+
 function transformSceneToViewer() {
   resetFullViewerScene();
+  clearInterval(intervalo);
   document.getElementById('doneBtn').disabled = true;
   document.getElementById('doneBtn').classList = 'ui-button ui-corner-all disabledBtn';
   document.getElementById('editBtn').disabled = false;
