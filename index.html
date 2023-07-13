@@ -44,7 +44,7 @@
           <legend>Dados do Projeto</legend>
           <button onclick="exportProject()" class="ui-button ui-corner-all backupModal json"><span class="ui-icon ui-icon-arrowthick-1-s"></span> Exportar Projeto</button>
           <button onclick="exportProjectText()" class="ui-button ui-corner-all backupModal txt"><span class="ui-icon ui-icon-note "></span> Salvar como texto</button>
-          <a onclick="prepareToPrint()" target="_blank" class="ui-button ui-corner-all backupModal print"><span class="ui-icon ui-icon-note "></span> Impressão </a>
+          <a onclick="prepareToPrint('project')" target="_blank" class="ui-button ui-corner-all backupModal print"><span class="ui-icon ui-icon-note "></span> Impressão </a>
         </fieldset>
         <fieldset>
           <legend>Rascunho (somente cenas)</legend>
@@ -73,9 +73,13 @@
   <link rel="stylesheet" href="global/css/global.css" />
 
   <script>
-    async function prepareToPrint() {
-      updateTimeBackup();
-      window.open('pages/print/page.html', '_blank');
+    async function prepareToPrint(param) {
+      if (param === 'project') {
+        updateTimeBackup();
+        window.open('pages/print/page.html', '_blank');
+      } else {
+        window.open('pages/print/pageDraft.html', '_blank');
+      }
     }
 
     var salvarBackupBtn = document.querySelector("#backup + button");

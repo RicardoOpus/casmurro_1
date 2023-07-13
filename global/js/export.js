@@ -660,9 +660,10 @@ function getTextScenesDraft(project) {
       if (element[propriedade]) {
         if (propriedade === 'title') {
           texto += `Parte: ${element[propriedade]}\n\n`;
-        } 
+        }
         if (propriedade === 'chapters') {
-          for (let indexChap = 0; indexChap < element.chapters.length; indexChap += 1) {
+          const chaptersSort = sortByKey(element.chapters, 'position');
+          for (let indexChap = 0; indexChap < chaptersSort.length; indexChap += 1) {
             const chapter = element.chapters[indexChap];
             if (chapter.title) {
               texto += `Capítulo: ${chapter.title}\n\n`;
