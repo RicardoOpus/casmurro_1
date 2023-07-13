@@ -958,7 +958,11 @@ function resetFullViewerScene() {
 }
 
 function exibirFimdoTempo() {
+  const wordsOld = localStorage.getItem('wordsSession');
+  const wordsActual = document.getElementById('wordCount');
+  console.log(wordsActual.innerText, wordsOld);
   const elemento = document.createElement('p');
+  document.getElementById('elementTimmer').innerText = `${Number(wordsActual.innerText) - wordsOld} palavras`;
   elemento.innerHTML = 'Fim do tempo!';
   elemento.classList = 'goalWarning';
   document.body.appendChild(elemento);
@@ -970,6 +974,8 @@ function exibirFimdoTempo() {
 let intervalo;
 
 function contagemRegressiva(minutos) {
+  const words = document.getElementById('wordCount');
+  localStorage.setItem('wordsSession', words.innerText);
   let segundos = minutos * 60;
   clearInterval(intervalo);
   intervalo = setInterval(() => {
