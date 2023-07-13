@@ -548,7 +548,7 @@ async function restoreChapListInput(id) {
   const itensList = resultSorted;
   $(id).empty();
   $.each(itensList, (i, value) => {
-    const isChapterPresent = filtredParts.some((part) => part.chapters.includes(value.id));
+    const isChapterPresent = filtredParts.some((part) => part?.chapters?.includes(value.id));
     if (isChapterPresent) {
       const checkbox = $('<input type=\'checkbox\' disabled></input><label style=\'text-decoration: line-through\'></label><br>').html(value.title);
       $(id).append(checkbox);
