@@ -1309,3 +1309,14 @@ function setSelectionItalic(char) {
   const textoDepois = campoTexto.value.substring(fimSelecao);
   campoTexto.value = `${textoAntes}${char}${textoSelecionado}${char}${textoDepois}`;
 }
+
+function getQtyCards(data) {
+  const totalchar = data.characters.length;
+  const totalworld = data.world.length;
+  const totalscenes = data.scenes.length;
+  const totalchapters = data.chapters.length;
+  const totaltimeline = data.timeline.length;
+  const totalnotes = data.notes.length;
+  const result = totalchar + totalworld + totalscenes + totalchapters + totaltimeline + totalnotes;
+  return result;
+}

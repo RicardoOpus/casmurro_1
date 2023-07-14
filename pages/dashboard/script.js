@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-var
-var totalCards = 0;
 document.getElementById('main-header').style.display = 'block';
 
 function getStatusColor(status) {
@@ -127,6 +126,8 @@ function calcSumSceneChap(scenes, charID) {
     itentsPosition.push(i + 1);
   }
   chartScene(amount, itentsPosition, charID);
+  const formattedValue = totalPalavras.toLocaleString('pt-BR');
+  document.getElementById('totalPalavras').innerText = formattedValue;
   return totalPalavras;
 }
 
@@ -160,7 +161,7 @@ function calcSumCharWorld(scenes, charID) {
   return totalPalavras;
 }
 
-function getDashCardInfos(data, idQtd, idImg) {
+function getDashCardInfos(data, idQtd) {
   if (idQtd === 'cardsDashboard_scenes_qtd') {
     calcSumSceneChap(data, 'myChartScenes');
   } if (idQtd === 'cardsDashboard_structure_qtd') {
@@ -171,7 +172,7 @@ function getDashCardInfos(data, idQtd, idImg) {
     calcSumCharWorld(data, 'myChartWorld');
   }
   const qtdWorld = data.length;
-  totalCards += qtdWorld;
+  // totalCards += qtdWorld;
   document.getElementById(idQtd).innerText = qtdWorld;
 }
 
@@ -263,11 +264,8 @@ function addInfosHtml(data) {
   getDashCardInfos(data.data.characters, 'cardsDashboard_characters_qtd', 'cardsDashboard_characters');
   getDashCardInfos(data.data.scenes, 'cardsDashboard_scenes_qtd', 'cardsDashboard_scenes');
   getDashCardInfos(data.data.chapters, 'cardsDashboard_structure_qtd', 'cardsDashboard_structure');
-  // getDashCardInfos(data.data.timeline, 'cardsDashboard_timeline_qtd', 'cardsDashboard_timeline');
-  // getDashCardInfos(data.data.notes, 'cardsDashboard_notes_qtd', 'cardsDashboard_notes');
-
+  const totalCards = getQtyCards(data.data);
   document.getElementById('totalcards').innerText = totalCards;
-
   addBackgroundProject(data.image_cover, 'Dashboard-content');
 }
 
