@@ -725,7 +725,6 @@ async function exportDraftText() {
     part.chapters = part.chapters
       .map((chapterId) => newProject.data.chapters.find((chapter) => chapter.id === chapterId));
   });
-
   const detatime = getCurrentDateString();
   const nameReult = sanitizeFilename(project.title);
   const name = `${nameReult} ${detatime.toFileName}`;

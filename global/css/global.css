@@ -272,13 +272,6 @@ footer {
   margin-bottom: 5px;
 }
 
-.fristParagraph::first-letter {
-  font-size: 2em; /* Defina o tamanho da letra capitular */
-  font-weight: bold; /* Defina a espessura da letra capitular */
-  float: left; /* Opcional: para criar um efeito de destaque */
-  margin-right: 4px; /* Opcional: ajuste o espaçamento à direita da letra capitular */
-}
-
 .sceneViewer {
   padding: 1rem;
   font-family: serif;
@@ -480,12 +473,10 @@ textarea {
   display: flex;
   justify-content: flex-start;
   color: #ffffff;
-  /* -webkit-text-stroke: 1px rgb(0, 0, 0); */
-  /* text-stroke: 1px rgb(0, 0, 0); */
 }
 
 .infoCards h2 {
-  font-size: 6rem;
+  font-weight: bold;
   margin-top: 0px;
   margin-bottom: 0px;
   -webkit-text-stroke: 1px #121214;
@@ -499,7 +490,6 @@ textarea {
 }
 
 .infoCardItens {
-  width: 300px;
   /* background-color: #121214; */
   backdrop-filter: blur(30px);
   padding: 1rem;
@@ -515,28 +505,11 @@ textarea {
   box-shadow: inset 0px 0px 25px 5px #121214;
 }
 
-/* .noInagmesCards {
-  position: relative;
-  background-image: url("../../assets/images/cards2.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position-x: 150px;
-} */
-
 .container {
   /* background-image: url("../../assets/images/person-f.png"), url("../../assets/images/person-m.png"),  url("../../assets/images/person-n.png"), url("../../assets/images/person-f.png"); */
   background-position: -90%, -10%, 50%, 100%; /* define a posição de cada imagem */
   background-size: 200px;
   background-repeat: no-repeat; /* evita que as imagens se repitam */
-}
-
-.arrowLetf {
-  font-size: 2rem;
-  float: right;
-  text-align: right;
-  margin-top: -30px;
-  margin-bottom: 0px;
-  color: #B4B4B5;
 }
 
 .zoom {
@@ -585,8 +558,21 @@ box-shadow: inset 0 250px 150px 0px #202024;
   width: 100%;
 }
 
+.divLastCards h3 {
+  margin: 0;
+  font-size: 2em;
+}
+
 .pb-5, .py-5 {
   padding-bottom: 3rem!important;
+}
+
+canvas {
+  max-height: 150px;
+}
+
+.cardsItens {
+  margin-bottom: 5px;
 }
 
 .progress {
