@@ -1148,6 +1148,19 @@ function updateWC() {
   contentElement.addEventListener('input', updateWordCount);
 }
 
+function tabInsideContentFull(element) {
+  element.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      element.scrollBy(0, 40);
+    }
+    if (e.ctrlKey) {
+      e.preventDefault();
+      element.scrollBy(0, -40);
+    }
+  });
+}
+
 function writeScene() {
   document.getElementById('doneBtn').disabled = false;
   document.getElementById('doneBtn').classList = 'ui-button ui-corner-all';
@@ -1175,6 +1188,7 @@ function writeScene() {
   saveDataScene();
   updateWC();
   setFullViewerScene();
+  tabInsideContentFull(textarea);
 }
 
 function toggleFullscreen() {
@@ -1319,4 +1333,18 @@ function getQtyCards(data) {
   const totalnotes = data.notes.length;
   const result = totalchar + totalworld + totalscenes + totalchapters + totaltimeline + totalnotes;
   return result;
+}
+
+function tabInsideContent(elementID) {
+  const textarea = document.getElementById(elementID);
+  textarea.addEventListener('keydown', function (e) {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const start = this.selectionStart;
+      const end = this.selectionEnd;
+      this.value = `${this.value.substring(0, start)}    ${this.value.substring(end)}`;
+      // eslint-disable-next-line no-multi-assign
+      this.selectionStart = this.selectionEnd = start + 4;
+    }
+  });
 }
