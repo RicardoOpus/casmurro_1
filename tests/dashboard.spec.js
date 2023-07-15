@@ -204,7 +204,8 @@ describe('Verifica Dashboard', () => {
   //     Array(9)
   //       .fill(null)
   //       .map(async (_, i) => {
-  //         const lastCards = await page.$eval(`[data-testid='recent-card-${i}']`, (recentsDiv) => recentsDiv.innerText);
+  //         const lastCards = await page.
+  // $eval(`[data-testid='recent-card-${i}']`, (recentsDiv) => recentsDiv.innerText);
   //         return removerTextoEntreParenteses(lastCards);
   //       }),
   //   );

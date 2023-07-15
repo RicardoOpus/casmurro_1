@@ -487,5 +487,3 @@ async function getPOVCard() {
       `
   }
 };
-
-onscrollUpAndDown()
