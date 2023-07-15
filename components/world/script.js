@@ -127,3 +127,4 @@ document.getElementById("my-image").addEventListener('input', () => {
 
 restoreCharactersCard();
 restoreCategories('world');
+tabInsideContent('content');

@@ -131,3 +131,5 @@ $( "#btn-addSceneToChap" ).click(function( event ) {
 });
 
 restoreScenesListInput("#scenesToChapter");
+tabInsideContent('content_full');
+

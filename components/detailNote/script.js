@@ -182,3 +182,5 @@ span.onclick = function () {
   document.getElementById('link_address').value = '';
   modalLinks.style.display = "none";
 };
+
+tabInsideContent('content');

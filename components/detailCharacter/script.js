@@ -349,3 +349,5 @@ async function saveRelation() {
   document.getElementById('relationDescription').value = '';
   return pageChange('#dinamic', 'components/detailCharacter/page.html', 'components/detailCharacter/script.js')
 }
+
+tabInsideContent('content');
