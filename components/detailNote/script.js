@@ -148,6 +148,7 @@ async function saveLink() {
   const positionInArray = await getCurrentCard();
   const title = document.getElementById('link_title').value;
   const address = document.getElementById('link_address').value;
+  var modalLinks = document.getElementById("myModalLink-notes");
   const verifyUrl = isValideURL(address)
   if (!verifyUrl) {
     return alert("O endereço deve começar com 'https://' ou 'http://'")
@@ -171,16 +172,19 @@ async function saveLink() {
   return pageChange('#dinamic', 'components/detailNote/page.html', 'components/detailNote/script.js')
 }
 
-var salverLinkBtn = document.querySelector("#addLink");
-var modalLinks = document.getElementById("myModalLink-notes");
-var span = document.getElementsByClassName("close")[0];
-salverLinkBtn.onclick = function () {
-  modalLinks.style.display = "block";
-};
-span.onclick = function () {
-  document.getElementById('link_title').value = '';
-  document.getElementById('link_address').value = '';
-  modalLinks.style.display = "none";
-};
+function handleLinksModal() {
+  var salverLinkBtn = document.querySelector("#addLink");
+  var modalLinks = document.getElementById("myModalLink-notes");
+  var span = document.getElementById("linksModal");
+  salverLinkBtn.onclick = function () {
+    modalLinks.style.display = "block";
+  };
+  span.onclick = function () {
+    document.getElementById('link_title').value = '';
+    document.getElementById('link_address').value = '';
+    modalLinks.style.display = "none";
+  };
+}
 
 tabInsideContent('content');
+handleLinksModal();
