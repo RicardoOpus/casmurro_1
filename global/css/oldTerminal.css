@@ -2,14 +2,14 @@ body {
   /* background-color: black; */
   /* background-image: url("../../assets/images/black_screen.jpg"); */
   background: repeating-linear-gradient(0deg, #000000, #000000 10px, #000000 10px, #060606 20px);
-  color: green;
+  color: gray;
   font-family: 'Terminal', Courier, monospace;
   margin: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
   font-size: 21px;
   /* text-shadow: 0 0 5px rgba(0, 255, 0, 0.2), 0 0 10px rgba(0, 255, 0, 0.2), 0 0 15px rgba(0, 255, 0, 0.2), 0 0 20px rgba(0, 255, 0, 0.2), 0 0 25px rgba(0, 255, 0, 0.2); */
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.1), 0 0 20px rgba(0, 255, 0, 0.1), 0 0 30px rgba(0, 255, 0, 0.1), 0 0 40px rgba(0, 255, 0, 0.1), 0 0 50px rgba(0, 255, 0, 0.1);
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.1), 0 0 20px rgba(189, 189, 189, 0.1), 0 0 30px rgba(219, 219, 219, 0.1), 0 0 40px rgba(152, 152, 152, 0.1), 0 0 50px rgba(105, 105, 105, 0.1);
 }
 
 footer {
@@ -57,7 +57,7 @@ footer {
 }
 
 .header a:hover {
-  color: green
+  color: gray
 }
 
 .header-right {
@@ -65,11 +65,11 @@ footer {
 }
 
 .header button {
-  color: green;
+  color: gray;
   font-size: 1em;
   font-family: 'Terminal';
   padding: 10px;
-  border: solid 1px green;
+  border: solid 1px gray;
   border-radius: 7px;
   background-color: transparent;
   cursor: pointer;
@@ -78,7 +78,7 @@ footer {
 
 
 .header button:hover {
-  background-color: green;
+  background-color: gray;
   color: black;
 }
 
@@ -163,7 +163,7 @@ footer {
   border: none;
   outline: none;
   background-color: black;
-  color: green;
+  color: gray;
   cursor: pointer;
   border-radius: 100%;
   width: 30px;
@@ -180,7 +180,7 @@ footer {
   border: none;
   outline: none;
   background-color: black;
-  color: green;
+  color: gray;
   cursor: pointer;
   border-radius: 100%;
   width: 30px;
@@ -190,7 +190,7 @@ footer {
 .topDownButton {
   font-size: 18px;
   background-color: black;
-  color: green;
+  color: gray;
   cursor: pointer;
   border-radius: 100%;
   width: 30px;
@@ -200,7 +200,7 @@ footer {
 .topDownButton:hover {
   background-color:black;
   border: solid 1px;
-  border-color: green
+  border-color: gray
 }
 
 .midleButtons {
@@ -317,7 +317,7 @@ footer {
   width: 50px;
   height: 50px;
   border: 3px solid #f3f3f3;
-  border-top: 3px solid green;
+  border-top: 3px solid gray;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -355,7 +355,7 @@ footer {
 ::-webkit-scrollbar-thumb {
   background: black;
   /* border-radius: 16px; */
-  box-shadow: inset 2px 2px 2px hsla(133, 100%, 50%, 0.25),inset -2px -2px 2px rgba(7, 255, 148, 0.25);
+  box-shadow: inset 2px 2px 2px hsla(132, 16%, 87%, 0.25),inset -2px -2px 2px rgba(133, 132, 132, 0.25);
 }
 
 textarea {
@@ -412,8 +412,8 @@ textarea {
   border-bottom-left-radius: 0%;
   border-bottom-right-radius: 0%;
   background: black;
-  border-color: green;
-  color: green;
+  border-color: gray;
+  color: gray;
 }
 
 .mainTabs {
@@ -421,7 +421,7 @@ textarea {
 }
 
 .innerContent {
-  border: solid green;
+  border: solid gray;
   background-color: black;
   border-width: 1px;
   border-radius: 5px;
@@ -432,8 +432,8 @@ textarea {
 .tabActive {
   font-family: 'Terminal';
   background-color: black;
-  color: green;
-  border: solid green; 
+  color: gray;
+  border: solid gray; 
   margin-bottom: -6px;
   border-width: 1px;
   border-bottom: transparent;
@@ -458,8 +458,8 @@ textarea {
 
 .dashboard-divisor {
   margin-top: 15px;
-  border-bottom: 1px solid green;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5), 0 0 20px rgba(0, 255, 0, 0.5), 0 0 30px rgba(0, 255, 0, 0.5);
+  border-bottom: 1px solid gray;
+  box-shadow: 0 0 10px #ffffff80, 0 0 20px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.5);
 }
 
 .dashboard-header p {
@@ -477,7 +477,7 @@ textarea {
 .ribbon {
   margin: 0;
   padding: 0;
-  background: green;
+  background: gray;
   padding: 7px;
   position: absolute;
   top:0;
@@ -494,7 +494,7 @@ textarea {
   margin: 0 -1px; /* tweak */
   width: 100%;
   height: 100%;
-  background: green;
+  background: gray;
 }
 
 .ribbon:before {
@@ -538,7 +538,7 @@ textarea {
   position: relative;
   transition: 0.25s ease;
   margin-right: 15px;
-  border: 1px solid green;
+  border: 1px solid gray;
   /* box-shadow: inset 0px 0px 25px 5px green; */
 }
 
@@ -587,9 +587,8 @@ box-shadow: inset 0 250px 150px 0px #202024;
 
 .dashboard-divisor2 {
   margin-top: 5px;
-  border-bottom: 1px solid green;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5), 0 0 20px rgba(0, 255, 0, 0.5), 0 0 30px rgba(0, 255, 0, 0.5);
-
+  border-bottom: 1px solid gray;
+  box-shadow: 0 0 10px #ffffff80, 0 0 20px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.5);
 }
 
 .divLastCards {
@@ -634,10 +633,10 @@ canvas {
 .infos {
   float: right;
   display: block;
-  border: solid green;
+  border: solid gray;
   border-width: 1px;
   background-color: black; 
-  color: green;
+  color: gray;
   cursor: pointer;
   transition: 0.3s;
   font-family: 'Terminal';
@@ -652,20 +651,20 @@ canvas {
 }
 
 .ui-button {
-  border: 1px solid green;
+  border: 1px solid gray;
   background-color: #000000;
   font-family: 'Terminal';
-  color: green;
+  color: gray;
 }
 
 .ui-button:hover {
-  background-color: green;
+  background-color: gray;
   color: black;
-  border: 1px solid green;
+  border: 1px solid gray;
 }
 
 a.ui-button {
-  color: green;
+  color: gray;
 }
 
 a.ui-button:hover {
@@ -735,7 +734,7 @@ a.ui-button:hover {
 
   *, :after, :before {
     box-sizing: border-box;
-    border: 0 solid green;
+    border: 0 solid gray;
   }
 
 .projectsName:hover {
@@ -769,21 +768,21 @@ a.ui-button:hover {
 }
 
 .novo {
-  color: green;
+  color: gray;
   border: solid #565f6a;
   border-width: 1px;
   background-color: #444C56;
 }
 
 .outro {
-  color: green;
+  color: gray;
   border: solid #565f6a;
   border-width: 1px;
   background-color: #444C56;
 }
 
 .concluído {
-  border: solid green;
+  border: solid gray;
   border-width: 1px;
   background-color: #5FD149;
 }
@@ -1141,7 +1140,7 @@ fieldset {
 
 .worldName {
   border-width: 1px;
-  border-color: green;
+  border-color: gray;
   /* transition: background 200ms ease 0s; */
   width: 100%;
   box-shadow:  0 1px 4px 0 #0000001a;
@@ -1155,7 +1154,7 @@ fieldset {
   cursor: pointer;
   border: solid 1px;
   /* border: 7px solid; */
-  box-shadow: inset 0px 0px 7px 2px green
+  box-shadow: inset 0px 0px 7px 2px gray
 
 }
 
@@ -1196,7 +1195,7 @@ fieldset {
   padding-right: 0.75em;
 }
 .worldContent {
-  background-image: linear-gradient(180deg, green 0%, #000000 130px);
+  background-image: linear-gradient(180deg, gray 0%, #000000 130px);
   background-size: 100%;
   background-repeat: repeat;
   -webkit-background-clip: text;
@@ -1235,10 +1234,10 @@ fieldset {
   display: block;
   width: 100%;
   min-width: 180px;
-  border: solid green;
+  border: solid gray;
   border-width: 1px;
   background-color: transparent; 
-  color: green;
+  color: gray;
   padding: 16px 16px;
   text-align: right;
   cursor: pointer;
@@ -1253,10 +1252,10 @@ fieldset {
 .innerTabInactive {
   display: block;
   width: 100%;
-  border: solid green;
+  border: solid gray;
   border-width: 1px;
   background-color: black;
-  color: green;
+  color: gray;
   padding: 16px 16px;
   text-align: right;
   cursor: pointer;
@@ -1276,7 +1275,7 @@ fieldset {
 
 .worldNewCatBtn {
   float: left;
-  color: green;
+  color: gray;
 }
 
 .worldNewCardBtn {
@@ -1587,7 +1586,7 @@ fieldset {
   border-radius: 5px;
   padding: 1rem 2rem 5rem 2rem;
   margin: 1rem;
-  color: green;
+  color: gray;
 }
 
 .cardAddimg{
