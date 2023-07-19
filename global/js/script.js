@@ -1367,3 +1367,15 @@ function tabInsideContent(elementID) {
     }
   });
 }
+
+function swapStyleSheet(sheet) {
+  document.getElementById('pagestyle').setAttribute('href', sheet);
+}
+
+function initate() {
+  const style1 = document.getElementById('stylesheet1');
+  const style2 = document.getElementById('stylesheet2');
+  style1.onclick = () => swapStyleSheet('global/css/default.css');
+  style2.onclick = () => swapStyleSheet('global/css/oldTerminal.css');
+}
+initate();
