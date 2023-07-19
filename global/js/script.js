@@ -15,15 +15,28 @@ function pageChange(place, page, script) {
   });
 }
 
-async function loadpage(pagename) {
-  const response = await fetch(`pages/${pagename}/page.html`);
-  const html = await response.text();
-  const dynamic = document.getElementById('dinamic');
-  dynamic.innerHTML = html;
+function showLoading() {
+  document.getElementById('loading').style.display = 'block';
+}
 
-  const script = document.createElement('script');
-  script.src = `pages/${pagename}/script.js`;
-  dynamic.appendChild(script);
+function hideLoading() {
+  document.getElementById('loading').style.display = 'none';
+}
+
+async function loadpage(pagename) {
+  showLoading();
+  try {
+    const response = await fetch(`pages/${pagename}/page.html`);
+    const html = await response.text();
+    const dynamic = document.getElementById('dinamic');
+    dynamic.innerHTML = html;
+    const script = document.createElement('script');
+    script.src = `pages/${pagename}/script.js`;
+    dynamic.appendChild(script);
+  } catch (error) {
+    console.error('Ocorreu um erro:', error);
+  }
+  hideLoading();
 }
 
 function loadpageDetail(detailPage) {
@@ -31,8 +44,14 @@ function loadpageDetail(detailPage) {
 }
 
 async function loadpageOnclick(card, id, idCall, pagaCall, scriptCall) {
-  await db.settings.update(1, { currentCard: card, currendIdCard: id });
-  return pageChange(idCall, pagaCall, scriptCall);
+  showLoading();
+  try {
+    await db.settings.update(1, { currentCard: card, currendIdCard: id });
+    pageChange(idCall, pagaCall, scriptCall);
+  } catch (error) {
+    console.error('Ocorreu um erro:', error);
+  }
+  hideLoading();
 }
 
 async function welcome() {
