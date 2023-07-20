@@ -1,6 +1,6 @@
 body {
-  background-color: #121214;
-  background-image: url("../../assets/images/arabesque4.png");
+  background-color: hsl(0, 0%, 0%);
+  /* background-image: url("../../assets/images/arabesque4.png"); */
   color: #cbcbcb;
   font-family: "Trebuchet MS", sans-serif;
   margin: 0px;
@@ -56,6 +56,7 @@ footer {
 
 .header-right {
   float: right;
+  color: #898989;
 }
 
 .header button {
@@ -325,7 +326,7 @@ footer {
   background-color: #121214;
   position: relative;
   min-height: 100vh;
-  background: linear-gradient(to right, rgba(18, 18, 20, 0.45) 0%, rgb(18, 18, 20) 15%, rgb(18, 18, 20) 85%, rgba(23, 23, 26, 0.45) 100%);
+  /* background: linear-gradient(to right, rgba(18, 18, 20, 0.45) 0%, rgb(18, 18, 20) 15%, rgb(18, 18, 20) 85%, rgba(23, 23, 26, 0.45) 100%); */
 }
 
 .dinamicPage{
@@ -402,14 +403,16 @@ textarea {
 /* Main Tabs page styles ================================================ */
 
 .tabInactive{
-  font-family: Courier;
   border-bottom-left-radius: 0%;
   border-bottom-right-radius: 0%;
-  background: linear-gradient(180deg, #2D333B 50%, #121214 95%);
+  /* background: linear-gradient(180deg, #2D333B 50%, #121214 95%); */
+  background-color: #121214;
+  color: #898989;
 }
 
 .mainTabs {
   margin-top: 1rem;
+  font-size: 15px;
 }
 
 .innerContent {
@@ -423,7 +426,6 @@ textarea {
 }
 
 .tabActive {
-  font-family: Courier;
   background-color: #121214;
   border: solid #565f6a; 
   margin-bottom: -6px;
