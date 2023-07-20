@@ -510,7 +510,6 @@ function gerarArquivoTxt(objeto, nomeArquivo, databackup) {
   const link = document.createElement('a');
   link.setAttribute('href', url);
   link.setAttribute('download', nomeArquivo);
-  console.log(link);
   link.click();
 }
 
@@ -545,6 +544,7 @@ function getCurrentDateString() {
   return {
     toFileName: `${year}-${pad(month)}-${pad(day)}-${pad(hours)}-${pad(minutes)}-${pad(seconds)}`,
     toBackup: `\n\nEste backup foi criado em ${pad(day)}/${pad(month)}/${year} às ${pad(hours)}:${pad(minutes)}:${pad(seconds)}\n`,
+    toDraft: `Este rascunho foi exportado em ${pad(day)}/${pad(month)}/${year} às ${pad(hours)}:${pad(minutes)}:${pad(seconds)}\n`,
   };
 }
 
@@ -648,3 +648,89 @@ function chamarFuncaoCadaMinuto() {
 }
 
 chamarFuncaoCadaMinuto();
+
+function getTextScenesDraft(project) {
+  const personagnes = sortByKey(project, 'position');
+  const propriedades = ['title', 'chapters'];
+  let texto = '';
+  for (let index = 0; index < personagnes.length; index += 1) {
+    const element = personagnes[index];
+    for (let i = 0; i < propriedades.length; i += 1) {
+      const propriedade = propriedades[i];
+      if (element[propriedade]) {
+        if (propriedade === 'title') {
+          texto += `Parte: ${element[propriedade]}\n\n`;
+        }
+        if (propriedade === 'chapters') {
+          const chaptersSort = sortByKey(element.chapters, 'position');
+          for (let indexChap = 0; indexChap < chaptersSort.length; indexChap += 1) {
+            const chapter = element.chapters[indexChap];
+            if (chapter.title) {
+              texto += `Capítulo: ${chapter.title}\n\n`;
+            }
+            if (chapter.scenes) {
+              const scenesSort = sortByKey(chapter.scenes, 'position');
+              for (let indexScene = 0; indexScene < scenesSort.length; indexScene += 1) {
+                const scene = chapter.scenes[indexScene];
+                if (scene.title) {
+                  texto += `${scene.title}\n\n`;
+                } if (scene.content_full) {
+                  texto += `${scene.content_full}\n\n`;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  texto += '\n\n*** Fim ***';
+  return texto;
+}
+
+function gerarArquivoTxtDraft(objeto, nomeArquivo, databackup) {
+  let texto = '';
+  for (const chave in objeto) {
+    if (typeof objeto[chave] !== 'object') {
+      if (chave === 'title') {
+        texto += `\nTítulo: ${objeto[chave]}\n`;
+      } else if (chave === 'subtitle' && objeto[chave] !== '') {
+        texto += `Subtítulo: ${objeto[chave]}\n`;
+      } else if (chave === 'author') {
+        texto += `Autor: ${objeto[chave]}\n\n`;
+      }
+    }
+  }
+
+  basic = `${databackup.toDraft}${texto}${getTextScenesDraft(objeto.data.parts)}`;
+
+  const data = new Blob([basic], { type: 'text/plain' });
+  const url = window.URL.createObjectURL(data);
+  const link = document.createElement('a');
+  link.setAttribute('href', url);
+  link.setAttribute('download', nomeArquivo);
+  link.click();
+}
+
+async function exportDraftText() {
+  const project = await getCurrentProject();
+  const newProject = { ...project };
+  // Mapear as cenas e adicionar cada uma ao capítulo correspondente
+  newProject.data.chapters.forEach((chapter) => {
+    chapter.scenes = chapter.scenes
+      .map((sceneId) => newProject.data.scenes.find((scene) => scene.id === sceneId));
+  });
+  // Mapear os capítulos e adicionar cada um à parte correspondente
+  newProject.data.parts.forEach((part) => {
+    part.chapters = part.chapters
+      .map((chapterId) => newProject.data.chapters.find((chapter) => chapter.id === chapterId));
+  });
+  const detatime = getCurrentDateString();
+  const nameReult = sanitizeFilename(project.title);
+  const name = `${nameReult} ${detatime.toFileName}`;
+  const modal = document.getElementById('myModal');
+  document.getElementById('backup').innerHTML = '';
+  gerarArquivoTxtDraft(newProject, name, detatime);
+  modal.style.display = 'none';
+  return true;
+}

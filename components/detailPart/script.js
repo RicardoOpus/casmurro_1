@@ -131,3 +131,4 @@ $( "#btn-addChaptersToPart" ).click(function( event ) {
 });
 
 restoreChapListInput("#chapterToPart");
+tabInsideContent('content_full');

@@ -15,15 +15,28 @@ function pageChange(place, page, script) {
   });
 }
 
-async function loadpage(pagename) {
-  const response = await fetch(`pages/${pagename}/page.html`);
-  const html = await response.text();
-  const dynamic = document.getElementById('dinamic');
-  dynamic.innerHTML = html;
+function showLoading() {
+  document.getElementById('loading').style.display = 'block';
+}
 
-  const script = document.createElement('script');
-  script.src = `pages/${pagename}/script.js`;
-  dynamic.appendChild(script);
+function hideLoading() {
+  document.getElementById('loading').style.display = 'none';
+}
+
+async function loadpage(pagename) {
+  showLoading();
+  try {
+    const response = await fetch(`pages/${pagename}/page.html`);
+    const html = await response.text();
+    const dynamic = document.getElementById('dinamic');
+    dynamic.innerHTML = html;
+    const script = document.createElement('script');
+    script.src = `pages/${pagename}/script.js`;
+    dynamic.appendChild(script);
+  } catch (error) {
+    console.error('Ocorreu um erro:', error);
+  }
+  hideLoading();
 }
 
 function loadpageDetail(detailPage) {
@@ -31,8 +44,14 @@ function loadpageDetail(detailPage) {
 }
 
 async function loadpageOnclick(card, id, idCall, pagaCall, scriptCall) {
-  await db.settings.update(1, { currentCard: card, currendIdCard: id });
-  return pageChange(idCall, pagaCall, scriptCall);
+  showLoading();
+  try {
+    await db.settings.update(1, { currentCard: card, currendIdCard: id });
+    pageChange(idCall, pagaCall, scriptCall);
+  } catch (error) {
+    console.error('Ocorreu um erro:', error);
+  }
+  hideLoading();
 }
 
 async function welcome() {
@@ -253,10 +272,13 @@ async function deleteImageCard(typeCard, htmlPlace, page, srcipt) {
   return pageChange(htmlPlace, page, srcipt);
 }
 
-function substituirHifens() {
-  const input = document.getElementById('content_full');
+function substituirHifens(input) {
   if (input) {
+    const startPos = input.selectionStart;
+    const endPos = input.selectionEnd;
+    // eslint-disable-next-line no-param-reassign
     input.value = input.value.replace(/--/g, '—');
+    input.setSelectionRange(startPos, endPos);
   }
 }
 
@@ -265,7 +287,6 @@ function autoGrow(element) {
   element.style.height = '0px';
   // eslint-disable-next-line no-param-reassign
   element.style.height = `${element.scrollHeight}px`;
-  substituirHifens();
 }
 
 function resumeHeight(...args) {
@@ -546,7 +567,7 @@ async function restoreChapListInput(id) {
   const itensList = resultSorted;
   $(id).empty();
   $.each(itensList, (i, value) => {
-    const isChapterPresent = filtredParts.some((part) => part.chapters.includes(value.id));
+    const isChapterPresent = filtredParts.some((part) => part?.chapters?.includes(value.id));
     if (isChapterPresent) {
       const checkbox = $('<input type=\'checkbox\' disabled></input><label style=\'text-decoration: line-through\'></label><br>').html(value.title);
       $(id).append(checkbox);
@@ -878,4 +899,471 @@ function putTabAllScenesAmount(project) {
   if (tabList.innerText === 'Todos') {
     tabList.innerText += ` (${project.length})`;
   }
+}
+
+function colocarItalico() {
+  const textoOriginal = document.getElementById('content_full').innerHTML;
+  const regex = /\*([^*]+)\*/g;
+  const resultado = textoOriginal.replace(regex, '<i><span class="invisibleChar">*</span>$1<span class="invisibleChar">*</span></i>');
+  document.getElementById('content_full').innerHTML = resultado;
+}
+
+function contarPalavras(conteudoTexto) {
+  const textoLimpo = conteudoTexto.trim().replace(/\s+/g, ' ');
+  const palavras = textoLimpo.split(' ');
+  if (palavras[0] === '') {
+    document.getElementById('wcQty').innerHTML = '0 ';
+    document.getElementById('wordCount').innerHTML = '0 ';
+  } else {
+    document.getElementById('wcQty').innerHTML = `${palavras.length} `;
+    document.getElementById('wordCount').innerHTML = `${palavras.length} `;
+  }
+  return palavras.length;
+}
+
+function replaceDiv() {
+  const contentElement = document.querySelector('.sceneViewer');
+  const contentDiv = document.getElementById('writingViwer');
+  const elementEdit = document.querySelector('.hwt-container');
+  if (elementEdit) {
+    contentDiv.removeChild(elementEdit);
+    contentDiv.appendChild(contentElement);
+  }
+}
+
+function salvarDeclaracaoCSS() {
+  const elemento = document.querySelector('.hwt-container');
+  const declaracaoCSS = elemento.getAttribute('style');
+  localStorage.setItem('declaracaoCSS', declaracaoCSS);
+}
+
+function salvarDimensoes(elemento) {
+  const declaracaoCSS = elemento.getAttribute('style');
+  localStorage.setItem('dimensoes', declaracaoCSS);
+}
+
+function resgatarDeclaracaoCSS() {
+  const elemento = document.querySelector('.hwt-container');
+  const declaracaoCSS = localStorage.getItem('declaracaoCSS');
+  if (declaracaoCSS) {
+    elemento.setAttribute('style', declaracaoCSS);
+  }
+}
+
+function setFullViewerScene() {
+  const declaracaoCSS = localStorage.getItem('dimensoes');
+  const writingViwer = document.getElementById('writingViwer');
+  writingViwer.classList = 'writingViwer';
+  const textArera = document.getElementById('content_full');
+  if (!declaracaoCSS) {
+    const altura = window.innerHeight;
+    const largura = window.innerWidth;
+    textArera.style.height = `${altura * 0.8}px`;
+    textArera.style.width = `${largura * 0.7}px`;
+  } else {
+    textArera.setAttribute('style', declaracaoCSS);
+  }
+  document.getElementById('main-header').style.display = 'none';
+  document.querySelector('footer').style.display = 'none';
+  window.scrollTo({ top: 0 });
+}
+
+function resetFullViewerScene() {
+  document.getElementById('main-header').style.display = 'block';
+  document.querySelector('footer').style.display = 'block';
+  document.getElementById('elementTimmer').style.display = 'none';
+  const writingViwer = document.getElementById('writingViwer');
+  writingViwer.classList = '';
+}
+
+function exibirFimdoTempo() {
+  const wordsOld = localStorage.getItem('wordsSession');
+  const wordsActual = document.getElementById('wordCount');
+  console.log(wordsActual.innerText, wordsOld);
+  const elemento = document.createElement('p');
+  document.getElementById('elementTimmer').innerText = `${Number(wordsActual.innerText) - wordsOld} palavras`;
+  elemento.innerHTML = 'Fim do tempo!';
+  elemento.classList = 'goalWarning';
+  document.body.appendChild(elemento);
+  setTimeout(() => {
+    document.body.removeChild(elemento);
+  }, 5000);
+}
+
+let intervalo;
+
+function contagemRegressiva(minutos) {
+  const words = document.getElementById('wordCount');
+  localStorage.setItem('wordsSession', words.innerText);
+  let segundos = minutos * 60;
+  clearInterval(intervalo);
+  intervalo = setInterval(() => {
+    const minutosRestantes = Math.floor(segundos / 60);
+    const segundosRestantes = segundos % 60;
+    const elementTimmer = document.getElementById('elementTimmer');
+
+    minutosRestantesFormatado = minutosRestantes.toString().padStart(2, '0');
+    segundosRestantesFormatado = segundosRestantes.toString().padStart(2, '0');
+    elementTimmer.innerText = `${minutosRestantesFormatado}:${segundosRestantesFormatado}`;
+    if (segundos > 0) {
+      segundos -= 1;
+    } else {
+      clearInterval(intervalo);
+      exibirFimdoTempo();
+    }
+  }, 1000);
+}
+
+function startTimmer() {
+  const modal = document.getElementById('myModalTimmer');
+  document.getElementById('elementTimmer').style.display = 'block';
+  const minutes = document.getElementById('minutes').value;
+  modal.style.display = 'none';
+  contagemRegressiva(minutes);
+}
+
+function transformSceneToViewer() {
+  resetFullViewerScene();
+  clearInterval(intervalo);
+  document.getElementById('doneBtn').disabled = true;
+  document.getElementById('doneBtn').classList = 'ui-button ui-corner-all disabledBtn';
+  document.getElementById('editBtn').disabled = false;
+  document.getElementById('editBtn').classList = 'ui-button ui-corner-all';
+  document.getElementById('WriteButtons').style.display = 'none';
+  document.getElementById('contValues').style.display = 'none';
+  document.getElementById('topButton').setAttribute('onclick', 'topFunction()');
+  const textarea = document.getElementById('content_full');
+  contarPalavras(textarea.value);
+  const div = document.createElement('div');
+  div.className = 'sceneViewer';
+  const paragraphs = textarea.value.split('\n'); // Separa o texto em parágrafos usando a quebra de linha como delimitador
+
+  for (let i = 0; i < paragraphs.length; i += 1) {
+    const paragraph = document.createElement('p');
+    if (i === 0) {
+      paragraph.classList = 'fristParagraph';
+    } if (i > 0) {
+      paragraph.classList = 'sceneViewerP';
+    }
+    paragraph.innerText = paragraphs[i];
+    div.appendChild(paragraph);
+  }
+
+  div.id = 'content_full';
+  textarea.parentNode.replaceChild(div, textarea);
+  replaceDiv();
+  colocarItalico();
+}
+
+function clearMark() {
+  const highlighter = new HighlightWithinTextarea(document.querySelector('.highlight'), {
+    highlight: '',
+  });
+}
+
+function markQuotation() {
+  const highlighter = new HighlightWithinTextarea(document.querySelector('.highlight'), {
+    highlight: /(['"])(.*?)\1/g,
+    className: 'green',
+  });
+}
+
+function markEmDash() {
+  const highlighter = new HighlightWithinTextarea(document.querySelector('.highlight'), {
+    highlight: /—(.+?)(?=(\n|$))/gs,
+    className: 'green',
+  });
+}
+
+function markItalics() {
+  const highlighter = new HighlightWithinTextarea(document.querySelector('.highlight'), {
+    highlight: /\*(.*?)\*/g,
+    className: 'green',
+  });
+}
+
+function markComments() {
+  const highlighter = new HighlightWithinTextarea(document.querySelector('.highlight'), {
+    highlight: /\[(.*?)\]/g,
+    className: 'green',
+  });
+}
+
+async function knowItens(itensList) {
+  const highlighter = new HighlightWithinTextarea(document.querySelector('.highlight'), {
+    highlight: itensList,
+    className: 'green',
+  });
+}
+
+async function markKnowItens(table) {
+  const projectData = await getCurrentProject();
+  const itensList = projectData.data[table].map((item) => item.title);
+  knowItens(itensList);
+}
+
+function setmark(value) {
+  switch (value) {
+    case 'markQuotation()':
+      markQuotation();
+      break;
+    case 'markEmDash()':
+      markEmDash();
+      break;
+    case 'markItalics()':
+      markItalics();
+      break;
+    case 'markComments()':
+      markComments();
+      break;
+    case "markKnowItens('characters')":
+      markKnowItens('characters');
+      break;
+    case "markKnowItens('world')":
+      markKnowItens('world');
+      break;
+    case 'clearMark()':
+      clearMark();
+      break;
+    default:
+      break;
+  }
+}
+
+function exibirMetaBatida() {
+  const elemento = document.createElement('p');
+  elemento.innerHTML = "<span style='color: green'>🗸</span> Meta batida!";
+  elemento.classList = 'goalWarning';
+  document.body.appendChild(elemento);
+  setTimeout(() => {
+    document.body.removeChild(elemento);
+  }, 5000);
+}
+
+function updateWC() {
+  const contentElement = document.getElementById('content_full');
+  const wordCountElement = document.getElementById('wordCount');
+  const goalElement = document.getElementById('goalWC');
+  const progressElement = document.getElementById('progress');
+
+  function countWords(text) {
+    const words = text.trim().split(/\s+/);
+    return words.length;
+  }
+
+  function updateWordCount() {
+    const content = contentElement.value;
+    const wordCount = countWords(content);
+    const goal = Number(goalElement.value);
+    wordCountElement.innerText = wordCount;
+    if (goal !== 0) {
+      const percentage = Math.floor((wordCount / goal) * 100);
+      progressElement.innerText = `- ${percentage}%`;
+      if (wordCount === goal) {
+        exibirMetaBatida();
+      }
+    }
+  }
+  contentElement.addEventListener('input', updateWordCount);
+}
+
+function tabInsideContentFull(element) {
+  element.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      element.scrollBy(0, 40);
+    }
+    if (e.ctrlKey) {
+      e.preventDefault();
+      element.scrollBy(0, -40);
+    }
+  });
+}
+
+function writeScene() {
+  document.getElementById('doneBtn').disabled = false;
+  document.getElementById('doneBtn').classList = 'ui-button ui-corner-all';
+  document.getElementById('editBtn').disabled = true;
+  document.getElementById('editBtn').classList = 'ui-button ui-corner-all disabledBtn';
+  document.getElementById('WriteButtons').style.display = 'block';
+  document.getElementById('contValues').style.display = 'block';
+  const div = document.getElementById('content_full');
+  const paragraphs = div.getElementsByTagName('p');
+  let text = '';
+  for (let i = 0; i < paragraphs.length; i += 1) {
+    text += `${paragraphs[i].innerText}\n`;
+  }
+  contarPalavras(text);
+  const textarea = document.createElement('textarea');
+  textarea.id = 'content_full';
+  textarea.classList = 'highlight projectInputForm focusMode';
+  textarea.setAttribute('type', 'textarea');
+  textarea.setAttribute('rows', '8');
+  textarea.setAttribute('oninput', 'substituirHifens(this)');
+  textarea.value = text;
+  div.parentNode.replaceChild(textarea, div);
+  clearMark();
+  resgatarDeclaracaoCSS();
+  saveDataScene();
+  updateWC();
+  setFullViewerScene();
+  tabInsideContentFull(textarea);
+}
+
+function toggleFullscreen() {
+  if (
+    document.fullscreenElement
+    || document.webkitFullscreenElement
+    || document.mozFullScreenElement
+    || document.msFullscreenElement
+  ) {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+  } else if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen();
+  } else if (document.documentElement.mozRequestFullScreen) {
+    document.documentElement.mozRequestFullScreen();
+  } else if (document.documentElement.webkitRequestFullscreen) {
+    document.documentElement.webkitRequestFullscreen();
+  } else if (document.documentElement.msRequestFullscreen) {
+    document.documentElement.msRequestFullscreen();
+  }
+}
+
+function aumentarFonte() {
+  const element = document.querySelector('.hwt-container');
+  const { fontSize } = window.getComputedStyle(element);
+  const currentSize = parseFloat(fontSize);
+  const newSize = currentSize + 2;
+  element.style.fontSize = `${newSize}px`;
+  salvarDeclaracaoCSS();
+}
+
+function diminuirFonte() {
+  const element = document.querySelector('.hwt-container');
+  const { fontSize } = window.getComputedStyle(element);
+  const currentSize = parseFloat(fontSize);
+  const newSize = currentSize - 2;
+  element.style.fontSize = `${newSize}px`;
+  salvarDeclaracaoCSS();
+}
+
+function modificarLargura(type) {
+  const element = document.getElementById('content_full');
+  const { width } = window.getComputedStyle(element);
+  const currentSize = parseFloat(width);
+  let newSize = 0;
+  if (type === 'sum') {
+    newSize = currentSize + 20;
+  } else {
+    newSize = currentSize - 20;
+  }
+  element.style.width = `${newSize}px`;
+  salvarDimensoes(element);
+}
+
+function modificarAltura(type) {
+  const element = document.getElementById('content_full');
+  const { height } = window.getComputedStyle(element);
+  const currentSize = parseFloat(height);
+  let newSize = 0;
+  if (type === 'sum') {
+    newSize = currentSize + 20;
+  } else {
+    newSize = currentSize - 20;
+  }
+  element.style.height = `${newSize}px`;
+  salvarDimensoes(element);
+}
+
+function changeFontFamily(fontFamily) {
+  document.querySelector('.hwt-container').style.fontFamily = fontFamily;
+  salvarDeclaracaoCSS();
+}
+
+function topFunction() {
+  const beginner = document.getElementById('main-header');
+  beginner.scrollIntoView({ behavior: 'smooth' });
+}
+
+function bottomFunction() {
+  const endPage = document.querySelector('footer');
+  endPage.scrollIntoView({ behavior: 'smooth' });
+}
+
+function topFunctionScene() {
+  const beginner = document.getElementById('content_full');
+  beginner.scrollTop = 0;
+}
+
+function bottomFunctionScene() {
+  const beginner = document.getElementById('content_full');
+  beginner.scrollTop = beginner.scrollHeight;
+}
+
+function onscrollUpAndDown() {
+  window.onscroll = function scrollFunction() {
+    const btn = document.getElementById('bottonButton');
+    const btn2 = document.getElementById('topButton');
+    if ((document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) && btn) {
+      btn.style.display = 'block';
+      btn2.style.display = 'block';
+    } else if (btn) {
+      document.getElementById('bottonButton').style.display = 'none';
+      document.getElementById('topButton').style.display = 'none';
+    }
+  };
+}
+
+function onscrollUp() {
+  window.onscroll = function scrollFunction() {
+    const btn = document.getElementById('topButton');
+    if ((document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) && btn) {
+      btn.style.display = 'block';
+    } else if (btn) {
+      document.getElementById('topButton').style.display = 'none';
+    }
+  };
+}
+
+function setSelectionItalic(char) {
+  const campoTexto = document.getElementById('content_full');
+  const inicioSelecao = campoTexto.selectionStart;
+  const fimSelecao = campoTexto.selectionEnd;
+  const textoAntes = campoTexto.value.substring(0, inicioSelecao);
+  const textoSelecionado = campoTexto.value.substring(inicioSelecao, fimSelecao);
+  const textoDepois = campoTexto.value.substring(fimSelecao);
+  campoTexto.value = `${textoAntes}${char}${textoSelecionado}${char}${textoDepois}`;
+}
+
+function getQtyCards(data) {
+  const totalchar = data.characters.length;
+  const totalworld = data.world.length;
+  const totalscenes = data.scenes.length;
+  const totalchapters = data.chapters.length;
+  const totaltimeline = data.timeline.length;
+  const totalnotes = data.notes.length;
+  const result = totalchar + totalworld + totalscenes + totalchapters + totaltimeline + totalnotes;
+  return result;
+}
+
+function tabInsideContent(elementID) {
+  const textarea = document.getElementById(elementID);
+  textarea.addEventListener('keydown', function (e) {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const start = this.selectionStart;
+      const end = this.selectionEnd;
+      this.value = `${this.value.substring(0, start)}    ${this.value.substring(end)}`;
+      // eslint-disable-next-line no-multi-assign
+      this.selectionStart = this.selectionEnd = start + 4;
+    }
+  });
 }

@@ -3,6 +3,7 @@
     <p class="extraInfosTab">Adicionar:</p>
     <button id="btn-addChar" class="btnExtra ui-button ui-corner-all">Personagens em cena</button>
     <input type="checkbox" id="checkbox-date-scene"><label class="extraInfosTab" for="checkbox-date-scene">Data da cena<br></label>
+    <input type="checkbox" id="checkbox-word-goal"><label class="extraInfosTab" for="checkbox-word-goal">Meta de palavras<br></label>
     <input type="checkbox" id="checkbox-constucao"><label class="extraInfosTab" for="checkbox-constucao">Construção de cena<br></label>
     <input type="checkbox" id="checkboxExtra-2"><label class="extraInfosTab" for="checkboxExtra-2">Detalhes da cena<br></label>
     <input type="checkbox" id="checkboxExtra-3"><label class="extraInfosTab" for="checkboxExtra-3">Profundidade<br></label>
@@ -91,16 +92,22 @@
                   <option value="Neblina">Neblina</option>
                   <option value="Ciclone">Ciclone</option>
                 </select>
+                <div id="info_extra_wc" style="display: none" >
+                  <h3>
+                    Meta de Palavras:
+                  </h3>
+                  <input class="cardInputNormal dateFactInputForm projectInputForm" type="number" min="0" oninput="validity.valid||(value='')" id="goalWC">
+                </div>
               </div>
               <div id="div_Date" class="editProjectBlock">          
                 <h3>POV:</h3>
                 <select class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget" id="pov_id"></select>
                 <h3>Capítulo:</h3>
-                <div id="chap_name"><p>Nenhum</p></div>
+                <div id="chap_name" class="chapNameScene"><p>Nenhum</p></div>
               </div>
             </div>
           </div>
-          <div>
+          <div id="detailsScene">
             <div id="characters_scene"></div>
             <h3>Resumo:</h3>
             <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="4" id="content" oninput="autoGrow(this)"></textarea>
@@ -134,8 +141,14 @@
               <p style='font-size: medium; margin-bottom: 1px;'>Defina um detalhe ou elemento que simbolize o estado de espírito do POV:</p>
               <textarea class='cardInputNormal projectInputForm projectInputResume' type='textarea' rows='1' id='extra_3-2' oninput='autoGrow(this)'></textarea>
             </fieldset>
-            <h3>Descrição completa:</h3>
-            <textarea class="cardInputNormal projectInputForm projectInputResume" type="textarea" rows="8" id="content_full" oninput="autoGrow(this)"></textarea>
+            <h3>Cena completa:</h3>
+            <div style="margin-bottom: 15px;">
+              <button id="editBtn" onclick="writeScene()" class=" ui-button ui-corner-all">Editar</button>
+              <p style="display: inline; float: right;"><span id="wcQty"></span>Palavras</p>
+            </div>
+            <div id="writingViwer" >
+              <textarea class="cardInputNormal projectInputForm projectInputResume vaiesse" type="textarea" rows="8" id="content_full" oninput="autoGrow(this)"></textarea>
+            </div>
           </div>
         </div>
       </div>
@@ -153,3 +166,65 @@
   <p>Marque para adicionar/remover:</p>
   <form id="chars_scene"></form>
 </div>
+
+<div id="WriteButtons" class="midleButtons" style="display: none;">
+  <button id="doneBtn" onclick="transformSceneToViewer()" class=" ui-button ui-corner-all" >Fechar</button>
+  <button onclick="aumentarFonte()" class="ui-button ui-corner-all markBtn" style="margin-left: 25px;">A+</button>
+  <button onclick="diminuirFonte()" class="ui-button ui-corner-all markBtn"><span style="font-size: smaller;">A</span> -</button>
+  <button onclick="setSelectionItalic('*')" class="ui-button ui-corner-all markBtn"><em>*I*</em></button>
+  <button onclick="modificarLargura('sum')" class="ui-button ui-corner-all markBtn" style="margin-left: 25px;">↔+</button>
+  <button onclick="modificarLargura('')" class="ui-button ui-corner-all markBtn">↔-</button>
+  <button onclick="modificarAltura('sum')" class="ui-button ui-corner-all markBtn">↕ +</button>
+  <button onclick="modificarAltura('')" class="ui-button ui-corner-all markBtn" style="margin-right: 25px;">↕ -</button>
+  <select onchange="setmark(this.value)" class="ui-button ui-corner-all">
+    <option selected disabled>Destaques</option>
+    <option value="markQuotation()" class="" title="Resaltar entre aspas">“Entre aspas”</option>
+    <option value="markEmDash()" class="" title="Resaltar diálogos">— Diálogos</option>
+    <option value="markItalics()" class="" title="Resaltar itálicos"><em>*itálicos*</em></option>
+    <option value="markComments()" class="" title="Resaltar comentários">[Comentários]</option>
+    <option value="markKnowItens('characters')" class="" title="Resaltar personagens">👤 Personagens</option>
+    <option value="markKnowItens('world')" class="" title="Resaltar mundo">🌐 Mundo</option>
+    <option value="clearMark()" class="" title="Limpar resaltos">Limpar</option>
+  </select>
+  <select onchange="changeFontFamily(this.value)" class="ui-button ui-corner-all">
+    <option selected disabled>Fonte</option>
+    <option value="'Times New Roman', Times, serif">Serifa</option>
+    <option value="'Trebuchet MS', sans-serif">Sem Serifa</option>
+    <option value="'Courier New', Courier, monospace">Mono</option>
+  </select>
+  <button id="timmer" class="ui-button ui-corner-all" title="Temporizador">⏱</button>
+  <button onclick="topFunctionScene()" class="topDownButton" title="Ir para o topo">🡅 </button>
+  <button onclick="bottomFunctionScene()" class="topDownButton" title="Ir para o fim">🡇 </button>
+  <button id="fullscreenButton" onclick="toggleFullscreen()" class="ui-button ui-corner-all" style="float: right;" title="Tela cheia (F11)"><sup>⇱</sup><sub>⇲</sub>
+</div>
+
+<div id="contValues" class="wordCount">
+  <p id="wordCount" style="display: inline;"></p>
+  <p  id="progress" style="display: inline;"></p>
+</div>
+<p id="elementTimmer" class="timmer"></p>
+
+
+<div id="myModalTimmer" class="modal">
+  <div class="modal-content">
+    <span id="closeSetTimmer" class="close">&times;</span>
+    <div style="text-align: center;">
+      <h2 style="margin-top: 0px;">Temporizador</h2>
+      <h3 style="display: inline;">Minutos:</h3>
+      <input type="number" name="" id="minutes" class="cardInputNormal dateFactInputForm projectInputForm" style="display: inline; width: 150px;">
+      <button onclick="startTimmer()" class="ui-button ui-corner-all" style="font-size: large;">▶ Iniciar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  var setTimmer = document.getElementById("timmer");
+  var modaTimmer = document.getElementById("myModalTimmer");
+  var span = document.getElementById("closeSetTimmer");
+  setTimmer.onclick = function () {
+    modaTimmer.style.display = "block";
+  };
+  span.onclick = function () {
+    modaTimmer.style.display = "none";
+  };
+</script>

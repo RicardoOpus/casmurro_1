@@ -143,7 +143,7 @@
 
 <div id="myModalCharacterRelations" class="modal">
   <div class="modal-content">
-    <span class="close">&times;</span>
+    <span class="close" id="closeAddRelaton">&times;</span>
     <div style="text-align: center;">
       <h3>Personagem</h3>
       <select id="relationListSelect" class="projectInputForm ui-selectmenu-button ui-selectmenu-button-closed ui-corner-all ui-button-select ui-widget"></select>
@@ -152,4 +152,11 @@
       <br>
       <button onclick="saveRelation()" class="ui-button ui-corner-all backupModal">Adicionar</button>
   </div>
+  <script>
+    var modal = document.getElementById("myModalCharacterRelations");
+    var span = document.getElementById("closeAddRelaton");
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
+  </script>
 </div> 

@@ -1,0 +1,277 @@
+<style>
+  body {
+    margin: 2em;
+  }
+
+  h1 {
+    margin: 5px;
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-weight: 100;
+    margin-bottom: 0px;
+    margin-left: 1rem;
+    margin-top: 15rem;
+    text-align: center;
+  }
+
+  h3 {
+    font-weight: bold;
+    margin-bottom: 0px;
+    margin-left: 1rem;
+    text-align: right;
+  }
+
+  p {
+    margin: 0px 1rem;
+    line-height: 1.2;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .title {
+    text-align: center;
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+    margin-top: 15em;
+  }
+  
+  .content {
+    text-indent: 2rem;
+    margin-top: 7px;
+  }
+  
+  .linha{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .infos{
+    text-align: center;
+    margin-top: 5px;
+    font-weight: 100;
+    margin-left: 0px;
+  }
+
+  .sceneTitle {
+    font-weight: bold;
+    margin: 1rem 0px;
+    text-align: center;
+  }
+
+  .fristParagraph {
+    margin-bottom: 0px;
+  }
+
+  .sceneViewerP {
+    text-indent: 20px;
+    margin-bottom: 5px;
+  }
+
+  .chapter{
+    text-transform: uppercase;
+  }
+
+  @media print {
+        .div-impressao {
+            page-break-before: always;
+        }
+    }
+</style>
+
+<p id="date-print" style="text-align: right;"></p>
+<div class="linha">
+  <div id="title" class="title"></div>
+</div>
+<h3 id="infos" class="infos"></h3>
+<div class="div-impressao"></div>
+<div id="scenes"></div>
+
+<script src="../../assets/js/dixie.js"></script>
+
+<script type="module">
+
+  import '/global/js/dataManager.js';
+
+  const db = window.myDb;
+
+  function getCurrentDateString() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+  const pad = (num) => (num < 10 ? "0" + num : num);
+  return {
+    toFileName: `${year}-${pad(month)}-${pad(day)}-${pad(hours)}-${pad(minutes)}-${pad(seconds)}`,
+    toBackup: `\n\n ${pad(day)}/${pad(month)}/${year} - ${pad(hours)}:${pad(minutes)}:${pad(seconds)}\n`
+    }
+  }
+
+  function sortByKey(array, key) {
+  return array.sort(function(a, b) {
+      var x = a[key]; var y = b[key];
+      return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+  }
+  
+  async function getCurrentProjectID() {
+    const projectActual = await db.settings.toArray();
+    const idProject = projectActual[0].currentproject;
+    return idProject;
+  };
+
+  async function getCurrentProject() {
+    const currentID = await getCurrentProjectID();
+    const project = await db.projects.get(currentID);
+    return project;
+  }
+  
+  function sortByDate(array) {
+  return array.sort(function(a, b) {
+    let dateA = new Date(a.date);
+    let dateB = new Date(b.date);
+    return dateA - dateB;
+    });
+  }
+
+  function setItalicsFromText() {
+  var paragrafos = document.getElementsByTagName('p');
+  
+    for (var i = 0; i < paragrafos.length; i++) {
+      var paragrafo = paragrafos[i];
+      var conteudo = paragrafo.innerHTML;
+      var regex = /\*(.*?)\*/g;
+      var resultado = conteudo.replace(regex, "<em>$1</em>");
+      paragrafo.innerHTML = resultado;
+    }
+  }
+
+  function removeComments() {
+  var elementos = document.querySelectorAll('*');
+  
+    for (var i = 0; i < elementos.length; i++) {
+      var elemento = elementos[i];
+      var conteudo = elemento.innerHTML;
+      var regex = /\[(.*?)\]/g;
+      var resultado = conteudo.replace(regex, "");
+      elemento.innerHTML = resultado;
+    }
+  }
+
+  // const teste2 = `"Quando" o seu 'relógio' do 'Mickey' "despertou"`;
+  function substituirAspasCurvas(texto) {
+    var regexAspasDuplas = /"(.*?)"/g;
+    var regexAspasSimples = /'(.*?)'/g;
+
+    var resultadoAspasDuplas = texto.replace(regexAspasDuplas, "“$1”");
+    var resultadoAspasCurvas = resultadoAspasDuplas.replace(regexAspasSimples, "ʽ$1ʼ");
+    return resultadoAspasCurvas;
+  }
+
+  async function main() {
+    const project = await getCurrentProject()
+    const date = getCurrentDateString()
+    document.getElementById('date-print').innerHTML = date.toBackup;
+
+    function getBasicInfos() {
+      const maintitle = document.getElementById('title');
+      const infoDiv = document.getElementById('infos');
+      const propriedades = ['title', 'subtitle', 'image_project', 'status', 'author', 'literary_genre', 'startDate', 'finishDate', 'description'];
+      for (let i = 0; i < propriedades.length; i++) {
+        const propriedade = propriedades[i];
+        const valor = project[propriedade];
+        if (typeof valor !== 'object' && valor !== '') {
+          if (propriedade === 'title') {
+            maintitle.innerHTML += `<h1>${valor}</h1>`;
+          } else if (propriedade === 'subtitle') {
+            infoDiv.innerHTML += `<h2 style='margin-top:0px'>${valor}</h2>`;
+          } else if (propriedade === 'author') {
+            infoDiv.innerHTML += `<p style='margin-top:0px; text-align: center;'><em>por</em> ${valor}</p>`;
+          }
+        }
+      };
+    };
+
+    function getTextScenesDraft(project) {
+      const contentDiv = document.getElementById('scenes');
+      const newProject = { ...project };
+      // Mapear as cenas e adicionar cada uma ao capítulo correspondente
+      newProject.data.chapters.forEach((chapter) => {
+        chapter.scenes = chapter.scenes
+          .map((sceneId) => newProject.data.scenes.find((scene) => scene.id === sceneId));
+      });
+      // Mapear os capítulos e adicionar cada um à parte correspondente
+      newProject.data.parts.forEach((part) => {
+        part.chapters = part.chapters
+          .map((chapterId) => newProject.data.chapters.find((chapter) => chapter.id === chapterId));
+      });
+
+      const personagnes = sortByKey(newProject.data.parts, 'position');
+      const propriedades = ['title', 'chapters'];
+      for (let index = 0; index < personagnes.length; index += 1) {
+        const element = personagnes[index];
+        for (let i = 0; i < propriedades.length; i += 1) {
+          const propriedade = propriedades[i];
+          if (element[propriedade]) {
+            if (propriedade === 'title') {
+              const newPart = document.createElement('div')
+              newPart.innerHTML = `<h2>${element[propriedade]}</h2>`
+              contentDiv.appendChild(newPart)
+            } 
+            if (propriedade === 'chapters') {
+              const chaptersSort = sortByKey(element.chapters, 'position');
+              for (let indexChap = 0; indexChap < chaptersSort.length; indexChap += 1) {
+                const chapter = element.chapters[indexChap];
+                if (chapter.title) {
+                  const newChap = document.createElement('div')
+                  newChap.innerHTML = `<h3 class="chapter">${chapter.title}</h3>`
+                  contentDiv.appendChild(newChap)
+                }
+                if (chapter.scenes) {
+                  const scenesSort = sortByKey(chapter.scenes, 'position');
+                  for (let indexScene = 0; indexScene < scenesSort.length; indexScene += 1) {
+                    const scene = chapter.scenes[indexScene];
+                    if (scene.title) {
+                      const newSceneTitle = document.createElement('div')
+                      newSceneTitle.innerHTML = `<p class="sceneTitle">${scene.title}</p>`
+                      contentDiv.appendChild(newSceneTitle)
+                    } if (scene.content_full) {
+                      const myString = substituirAspasCurvas(scene.content_full);
+                      const paragraphs = myString.split('\n'); // Separa o texto em parágrafos usando a quebra de linha como delimitador
+
+                        for (let i = 0; i < paragraphs.length; i += 1) {
+                          const paragraph = document.createElement('p');
+                          if (i === 0) {
+                            paragraph.classList = 'fristParagraph';
+                          } if (i > 0) {
+                            paragraph.classList = 'sceneViewerP';
+                          }
+                          paragraph.innerText = paragraphs[i];
+
+                          contentDiv.appendChild(paragraph);
+                        }
+                      }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      return null;
+    }
+
+    getBasicInfos();
+    getTextScenesDraft(project);
+    setItalicsFromText();
+    removeComments();
+  }
+
+  await main();
+</script>
