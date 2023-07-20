@@ -293,24 +293,23 @@ footer {
 #loading {
   display: none;
   position: fixed;
-  bottom: 50%;
+  top: 50%;
   left: 50%;
   transform: translateX(-50%);
+  transform: translateY(-50%);
   z-index: 99;
   text-align: center;
-  font-size: 24px;
-  margin-top: 50px;
-  /* background-color: #121214; */
+  font-size: 50px;
   border-radius: 15px;
   padding: 1rem;
 }
 
 .loader {
   display: inline-block;
-  width: 50px;
-  height: 50px;
-  border: 3px solid #f3f3f3;
-  border-top: 3px solid #3498db;
+  width: 70px;
+  height: 70px;
+  border: 8px solid #6c6c6c;
+  border-top: 8px solid #3498db;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
