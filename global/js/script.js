@@ -1367,3 +1367,19 @@ function tabInsideContent(elementID) {
     }
   });
 }
+
+function disableNavBar() {
+  const navBarButtons = document.getElementById('Header');
+  navBarButtons.style.display = 'none';
+}
+
+function restoreNavBar() {
+  const navDiv = document.getElementById('Header');
+  const navBarButtons = document.querySelectorAll('.navtrigger');
+  navDiv.style.display = 'block';
+  navBarButtons.forEach((buton) => {
+    // eslint-disable-next-line no-param-reassign
+    buton.classList = 'navtrigger tabInactive';
+  });
+  document.getElementById('dashboard').classList = 'navtrigger tabActive';
+}

@@ -39,7 +39,23 @@
       <button>Fazer backup</button>
     </div>
   </div>
-
+  <div class="mainTabs" id="Header">
+    <button class="navtrigger tabActive" onclick="pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js')" data-trigger="hover" id="dashboard" style="margin-left: 30px;">Dashboard</button>
+    <button class="navtrigger tabInactive" onclick="loadpage('personagens')"
+    data-trigger="hover" id="personagens">Personagens</button>
+    <button class="navtrigger tabInactive" onclick="loadpage('mundo')"
+    data-trigger="hover" id="mundo">Mundo</button>
+    <button class="navtrigger tabInactive" onclick="loadpage('cenas')"
+    data-trigger="hover" id="cenas">Cenas</button>
+    <button class="navtrigger tabInactive" onclick="loadpage('estrutura')"
+    data-trigger="hover" id="estrutura">Estrutura</button>
+    <button class="navtrigger tabInactive" onclick="loadpage('timeline')"
+    data-trigger="hover" id="timeline">Timeline</button>
+    <button class="navtrigger tabInactive" onclick="loadpage('notas')"
+    data-trigger="hover" id="notas">Notas</button>
+    <button class="infos" onclick="loadpage('informacoes')"
+    data-trigger="hover" id="informacoes">Informações</button>
+  </div>
   <div id="myModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>

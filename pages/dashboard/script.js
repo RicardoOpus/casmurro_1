@@ -353,3 +353,4 @@ async function restorelastEditCards() {
 restorelastEditCards();
 calcularTempoPassado();
 onscrollUpAndDown();
+restoreNavBar();

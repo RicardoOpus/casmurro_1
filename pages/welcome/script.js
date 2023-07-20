@@ -155,14 +155,6 @@ $('#dialog-link-import').click((event) => {
   });
 });
 
-function disableNavBar() {
-  const navBarButtons = document.querySelectorAll('.navtrigger');
-  navBarButtons.forEach((buton) => {
-    // eslint-disable-next-line no-param-reassign
-    buton.style.display = 'none';
-  });
-}
-
 async function setProjectAtual(id) {
   localStorage.clear();
   const result = await db.settings.update(1, { currentproject: id });
