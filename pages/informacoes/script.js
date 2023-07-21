@@ -7,3 +7,4 @@ function changeTabColorInfos() {
 }
 
 changeTabColorInfos();
+document.getElementById('sideBar').innerHTML = '';

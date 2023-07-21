@@ -151,7 +151,7 @@ async function getScenesCardsFiltred(filter) {
       `
       <ul class="worldListScenes" id="${ele.id}">
         <li class="worldItens">
-          <div class="ui-widget-content portlet ui-corner-all">
+          <div class="worldName portlet ui-corner-all">
             <div class="contentListWorld">
               <div data-testid='scene-${ ele.id }' class="ui-widget-header ui-corner-all portlet-header">${ele.title}</div>
                 <a onclick="loadpageOnclick('scenes', ${ ele.id }, '#dinamic', 'components/detailScene/page.html', 'components/detailScene/script.js')">

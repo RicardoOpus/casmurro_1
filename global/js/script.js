@@ -374,6 +374,11 @@ function sortByDate(array) {
 }
 
 async function setCustomTabs(type) {
+  $('.sideBar').empty();
+  $('.sideBar').append($('<h3>Categorías</h3><div class="divider"></div><button class="innerTabActive target" onclick="setFilterCategory(\'All\', \'All\')" id="Todos">Todos</button>'));
+  if (type === 'notes') {
+    $('.sideBar').append($('<button class="innerTabInactive target" onclick="setFilterCategory(\'Listas\', \'Listas\')" id="Listas">Listas</button>'));
+  }
   const project = await getCurrentProject();
   const categoryList = project.settings[type];
   $.each(categoryList, (i, value) => {
@@ -381,7 +386,7 @@ async function setCustomTabs(type) {
       return null;
     }
     const qty = project?.data?.[type]?.filter((ele) => ele.category === value);
-    return $('.innerTabDefault').append($(`<button class='innerTabInactive target' onclick="setFilterCategory('${value}', '${value}')" id='${value}'></button>`).html(`${value} (${qty.length})`));
+    return $('.sideBar').append($(`<button class='innerTabInactive target' onclick="setFilterCategory('${value}', '${value}')" id='${value}'></button>`).html(`${value} (${qty.length})`));
   });
 }
 
@@ -397,6 +402,8 @@ function chapterFilterLoadPage(id) {
 }
 
 async function setCustomPovTabs(type, callback) {
+  $('.sideBar').empty();
+  $('.sideBar').append($('<h3>Categorías</h3><div class="divider"></div><button class="innerTabActive target" onclick="setFilterCategory(\'All\', \'All\')" id="Todos">Todos</button>'));
   const project = await getCurrentProject();
   const categoryList = project.settings[type];
   $.each(categoryList, (i, value) => {
@@ -406,8 +413,9 @@ async function setCustomPovTabs(type, callback) {
     const povID = project.data.characters.map((e) => e.id).indexOf(Number(value));
     const povName = project?.data?.characters?.[povID]?.title ?? '';
     const qty = project?.data?.scenes?.filter((ele) => ele.pov_id === value);
-    return $('.innerTabDefault').append($(`<button id='${value}' class='innerTabInactive target' onclick="ocultarElementosPOV('${value}')"'></button>`).html(`${povName} (${qty.length})`));
+    return $('.sideBar').append($(`<button id='${value}' class='innerTabInactive target' onclick="ocultarElementosPOV('${value}')"'></button>`).html(`${povName} (${qty.length})`));
   });
+  $('.sideBar').append($('<div class="innerTabChapters"></div>'));
   if (callback) {
     callback(); // chama a função de callback, se fornecida
   }

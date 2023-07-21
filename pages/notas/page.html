@@ -1,15 +1,11 @@
 <div class="worldNewCardBtn">
   <button id="dialog-link-category-note" class="ui-button ui-corner-all worldNewCatBtn"><span class="ui-icon ui-icon-plusthick "></span> Categoria</button>
   <button id="dialog-link-delcategory-note" class="ui-button ui-corner-all worldNewCatBtn"><span class="ui-icon ui-icon-trash"></span> </button>
+  <button id="dialog-link-elapsedTime" onclick="createNewNoteList()" class="ui-button ui-corner-all worldNewCatBtn target"><span class="ui-icon ui-icon-plusthick"></span>Lista de tarefas</button>
   <button id="dialog-link-note" class="ui-button ui-corner-all ui-widget"><span class="ui-icon ui-icon-plusthick"></span> Cartão</button>
 </div>
 
 <div class="tab">
-  <div class="innerTabDefault">
-    <button id="dialog-link-elapsedTime" onclick="createNewNoteList()" class="ui-button ui-corner-all worldNewCatBtn target" style="margin-bottom: 5px;">Adicionar lista de tarefas</button>
-    <button class="innerTabActive target" onclick="setFilterCategory('All', 'All')" id="Todos">Todos</button>
-    <button class="innerTabInactive target" onclick="setFilterCategory('Listas', 'Listas')" id="Listas">Listas</button>
-  </div>
   <div id="project-list" class="listCards">
     <button onclick="sortByAZ('sortNotes', 'AZ', getNotesCards)" id="sortAscending" class="ui-corner-all btnAZ" style="margin-left: 1rem;">↑AZ</button>
     <button onclick="sortByAZ('sortNotes', 'ZA', getNotesCards)" id="sortDescending" class="ui-corner-all btnAZ">↓ZA</button>
