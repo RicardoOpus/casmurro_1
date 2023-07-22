@@ -421,6 +421,15 @@ async function setCustomPovTabs(type, callback) {
   }
 }
 
+async function setStructureTabs() {
+  $('.sideBar').empty();
+  $('.sideBar').append($(`<h3>Esboço</h3><div class="divider"></div>
+    <button class="innerTabActive target" onclick="setLastTabStructure('OUTLINE')" id="subplotsTab">Rascunho</button>
+    <button class="innerTabInactive target" onclick="setLastTabStructure('CHAPTER')" id="chaptersTab">Capítulos</button>
+    <button class="innerTabInactive target" onclick="setLastTabStructure('PART')" id="partsTab">Partes</button>
+  `));
+}
+
 async function setCustomTimelineTabs(type, callback) {
   const project = await getCurrentProject();
   const categoryList = project.settings[type];
@@ -882,8 +891,8 @@ function putTabsAmount(data) {
   const tabPart = document.getElementById('partsTab');
   const qtyChap = data.chapters.length;
   const qtyPart = data.parts.length;
-  tabChap.innerText += ` (${qtyChap})`;
-  tabPart.innerText += ` (${qtyPart})`;
+  tabChap.innerText = `Capítulos (${qtyChap})`;
+  tabPart.innerText = `Partes (${qtyPart})`;
 }
 
 function putTabAllAmount(data) {

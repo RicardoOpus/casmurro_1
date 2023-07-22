@@ -156,27 +156,43 @@ async function getStructureFiltred() {
 }
 
 function recovLastTabStructure() {
+  const tabs = document.querySelectorAll('.target');
+  for (let index = 0; index < tabs.length; index += 1) {
+    const element = tabs[index];
+    element.classList = 'innerTabInactive target';
+  }
   const tab = localStorage.getItem('StructureLastTab');
   if (tab === 'OUTLINE') {
+    document.getElementById('subplotsTab').classList = 'innerTabActive target';
     getStructureFiltred();
   } else if (tab === 'CHAPTER') {
+    document.getElementById('chaptersTab').classList = 'innerTabActive target';
     pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_chapters.js');
   } else {
+    document.getElementById('partsTab').classList = 'innerTabActive target';
     pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_parts.js');
   }
 }
 
 function setLastTabStructure(tab) {
+  const tabs = document.querySelectorAll('.target');
+  for (let index = 0; index < tabs.length; index += 1) {
+    const element = tabs[index];
+    element.classList = 'innerTabInactive target';
+  }
   switch (tab) {
     case 'OUTLINE':
+      document.getElementById('subplotsTab').classList = 'innerTabActive target';
       localStorage.setItem('StructureLastTab', 'OUTLINE');
       pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script.js');
       break;
     case 'CHAPTER':
+      document.getElementById('chaptersTab').classList = 'innerTabActive target';
       localStorage.setItem('StructureLastTab', 'CHAPTER');
       pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_chapters.js');
       break;
     case 'PART':
+      document.getElementById('partsTab').classList = 'innerTabActive target';
       localStorage.setItem('StructureLastTab', 'PART');
       pageChange('#dinamic', 'pages/estrutura/page.html', 'pages/estrutura/script_parts.js');
       break;
@@ -185,6 +201,7 @@ function setLastTabStructure(tab) {
   }
 }
 
+setStructureTabs();
 recovLastTabStructure();
 validateNewCard('structureName', '#okBtn-structure');
 validateNewCard('structureType', '#okBtn-structure');
