@@ -413,7 +413,7 @@ function setFilterCategory(tab, filterCategory) {
   }
 }
 
-async function recovLastTabScenePOV(table, tableNameTab) {
+async function recovLastTabTimelinePOV(table, tableNameTab) {
   await setCustomTimelineTabs(table);
   const savedTab = localStorage.getItem(tableNameTab);
   const tab = document.getElementById(savedTab);
@@ -425,7 +425,7 @@ async function recovLastTabScenePOV(table, tableNameTab) {
   }
 }
 
-recovLastTabScenePOV('timeline', 'tabTimeline');
+recovLastTabTimelinePOV('timeline', 'tabTimeline');
 validateNewCard('timelineName', '#okBtn-timeline');
 validateNewCard('catCharacterName', '#okBtn-cat-time');
 validateNewCard('categoryDeltimelineName', '#okBtn-delcatTimeline');

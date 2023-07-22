@@ -308,7 +308,7 @@ footer {
   display: inline-block;
   width: 70px;
   height: 70px;
-  border: 8px solid #6c6c6c;
+  border: 8px solid #cecece;
   border-top: 8px solid #3498db;
   border-radius: 50%;
   animation: spin 1s linear infinite;
@@ -1141,7 +1141,7 @@ fieldset {
   background: linear-gradient(90deg, rgb(32, 32, 36) 0%, rgb(6, 7, 7) 100%);
   width: 100%;
   flex-wrap: wrap;
-  padding: 10px 20px;
+  padding: 10px 10px;
   min-width: 100%;
   max-width: 100%;
 }
@@ -1266,14 +1266,17 @@ fieldset {
   text-align: center;
 }
 
+
+.qtyInfos{
+  font-weight: bold;
+  font-size: 1.2em;
+}
 /* Timeline page styles ================================================ */
 
 .containerTimeline{
   display: flex;
   justify-content: left;
   align-items: center;
-  padding: 0 1rem;
-  /* padding: 3rem 0; */
 }
 
 .containerTimeline ul, li{
@@ -1282,9 +1285,6 @@ fieldset {
 }
 
 .wrapper{
-  /* background: #eaf6ff; */
-  padding-left: 2rem;
-  padding-right: 2rem;
   border-radius: 15px;
   width: 100%;
 }
@@ -1387,6 +1387,7 @@ fieldset {
 
 .worldListStructure {
   width: 100%;
+  padding: 0;
   /* padding: 0rem 5px 0rem 5px; */
 }
 
@@ -1409,7 +1410,7 @@ fieldset {
   transition: background 200ms ease 0s;
   padding: 1rem 2rem;
   /* opacity: 0.9; */
-  margin: 1rem;
+  margin: 1rem 0rem;
   /* font-family: Verdana, Geneva, sans-serif; */
   color: #898989;
   width: 100%;

@@ -78,7 +78,7 @@ async function getStructureFiltred(filter) {
       `
       <ul class="worldListStructure" id="${ele.id}" data-testid='chapter-${ele.id}'>
         <li class="worldItens">
-          <div class="ui-widget-content portlet ui-corner-all">
+          <div class="worldName portlet ui-corner-all">
             <div class="contentListWorld">
               <div class="ui-widget-header ui-corner-all portlet-header">Capítulo ${i + 1} - ${ele.title}</div>
               <a data-testid='chapter-link-${ele.id}' onclick="loadpageOnclick('chapters', ${ele.id}, '#dinamic', 'components/detailChapter/page.html', 'components/detailChapter/script.js')">

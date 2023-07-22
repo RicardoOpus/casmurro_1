@@ -357,8 +357,8 @@ function restoreSideBar() {
   content.innerHTML = `
     <h3>RESUMO</h3>
     <div class="divider"></div>
-    <button class="innerTabInactive" style="cursor: default;">Total de cartões: <span id="totalcards"></span></button>
-    <button class="innerTabInactive" style="cursor: default;">Rascunho: <span id="totalPalavras"></span> palavras</button>
+    <button class="innerTabInactive" style="cursor: default;">Cartões: <span class="qtyInfos" id="totalcards"></span></button>
+    <button class="innerTabInactive" style="cursor: default;">Total palavras: <span class="qtyInfos" id="totalPalavras"></span></button>
     <h3>EXPORTAR</h3>
     <div class="divider"></div>
     <button onclick="exportDraftText()" class="ui-button ui-corner-all worldNewCatBtn sideBarBtn" >Texto puro</button>

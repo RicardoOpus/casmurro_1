@@ -431,6 +431,8 @@ async function setStructureTabs() {
 }
 
 async function setCustomTimelineTabs(type, callback) {
+  $('.sideBar').empty();
+  $('.sideBar').append($('<h3>Personagem</h3><div class="divider"></div><button class="innerTabActive target" onclick="setFilterCategory(\'All\', \'All\')" id="Todos">Todos</button>'));
   const project = await getCurrentProject();
   const categoryList = project.settings[type];
   $.each(categoryList, (i, value) => {
@@ -441,7 +443,7 @@ async function setCustomTimelineTabs(type, callback) {
     const povName = project?.data?.characters?.[povID]?.title ?? '';
     const qty = project?.data?.[type]
       ?.filter((ele) => ele.elementID === Number(value) || ele.pov_id === value);
-    return $('.innerTabDefault').append($(`<button id='${value}' data-testid='tab${value}' class='innerTabInactive target' onclick="setFilterCategory('tab${value}', '${value}')"'></button>`).html(`${povName} (${qty.length})`));
+    return $('.sideBar').append($(`<button id='${value}' data-testid='tab${value}' class='innerTabInactive target' onclick="setFilterCategory('tab${value}', '${value}')"'></button>`).html(`${povName} (${qty.length})`));
   });
   if (callback) {
     callback(); // chama a função de callback, se fornecida
