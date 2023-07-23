@@ -115,7 +115,8 @@ function setFilterCategory(tab, filterCategory) {
   }
 }
 function getChapInfos(chaptersData) {
-  const div = document.getElementById('ChapInfos');
+  $('.sideBar').empty();
+  const div = document.getElementById('sideBar');
   div.style.display = 'block';
   div.innerHTML = `<p>Capítulo:</p><h2 style="cursor:pointer" onclick="loadpageOnclick('chapters', ${chaptersData[0].id}, '#dinamic', 'components/detailChapter/page.html', 'components/detailChapter/script.js')">${chaptersData[0].title ? chaptersData[0].title : ''}</h2>
   <h3>${chaptersData[0].scenes.length} cenas</h3>
