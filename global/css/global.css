@@ -350,7 +350,8 @@ footer {
 .dinamicPage{
   max-width: 90rem;
   width: 81.25%;
-  /* margin: auto; */
+  margin-left: auto;
+  margin-right: auto;
   /* margin-left: 160px; */
 }
 
