@@ -1,6 +1,5 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-undef */
-changeInnerTabColor('chaptersTab');
 
 function validadeForm() {
   const dateField = document.getElementById('structureType').value;
@@ -98,6 +97,7 @@ async function getStructureFiltred(filter) {
 }
 
 getStructureFiltred('chapters');
+setStructureTabs('chap');
 validateNewCard('structureName', '#okBtn-structure');
 validateNewCard('structureType', '#okBtn-structure');
 document.getElementById('project-list').className = 'worldListStructure';

@@ -1586,7 +1586,7 @@ fieldset {
   transition: background 200ms ease 0s;
   padding: 1rem 2rem;
   /* opacity: 0.9; */
-  margin: 1rem;
+  margin: 1rem 0rem;
   /* font-family: Verdana, Geneva, sans-serif; */
   color: #898989;
 }

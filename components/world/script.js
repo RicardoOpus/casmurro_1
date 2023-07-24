@@ -1,5 +1,10 @@
 changeTabColor("mundo");
 
+function updateSideBar() {
+  $('.sideBar').empty();
+}
+updateSideBar();
+
 document.getElementById("category").addEventListener('change', (e) => enableDateInput(e.target.value))
 
 async function enableDateInput(target) {

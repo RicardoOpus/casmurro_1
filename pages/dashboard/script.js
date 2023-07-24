@@ -361,8 +361,12 @@ function restoreSideBar() {
     <button class="innerTabInactive" style="cursor: default;">Total palavras: <span class="qtyInfos" id="totalPalavras"></span></button>
     <h3>EXPORTAR</h3>
     <div class="divider"></div>
-    <button onclick="exportDraftText()" class="ui-button ui-corner-all worldNewCatBtn sideBarBtn" >Texto puro</button>
-    <button onclick="prepareToPrint()" target="_blank" class="ui-button ui-corner-all worldNewCatBtn sideBarBtn">Impressão </button>
+    <div>
+      <button onclick="exportDraftText()" class="ui-button ui-corner-all sideBarBtn" >Texto puro</button>
+    </div>
+    <div>
+      <button onclick="prepareToPrint()" target="_blank" class="ui-button ui-corner-all sideBarBtn">Impressão </button>
+    </div>
   `;
 }
 

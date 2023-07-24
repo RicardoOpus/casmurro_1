@@ -1,5 +1,10 @@
 changeTabColor("timeline");
 
+function updateSideBar() {
+  $('.sideBar').empty();
+}
+updateSideBar();
+
 async function restoreCharactersCard() {
   const currentCardID = await getCurrentCardID();
   const projectData = await getCurrentProject();

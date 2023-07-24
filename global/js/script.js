@@ -421,12 +421,12 @@ async function setCustomPovTabs(type, callback) {
   }
 }
 
-async function setStructureTabs() {
+async function setStructureTabs(tab) {
   $('.sideBar').empty();
   $('.sideBar').append($(`<h3>Esboço</h3><div class="divider"></div>
-    <button class="innerTabActive target" onclick="setLastTabStructure('OUTLINE')" id="subplotsTab">Rascunho</button>
-    <button class="innerTabInactive target" onclick="setLastTabStructure('CHAPTER')" id="chaptersTab">Capítulos</button>
-    <button class="innerTabInactive target" onclick="setLastTabStructure('PART')" id="partsTab">Partes</button>
+    <button class="${tab === 'outline' ? 'innerTabActive' : 'innerTabInactive'} target" onclick="setLastTabStructure('OUTLINE')" id="subplotsTab">Rascunho</button>
+    <button class="${tab === 'chap' ? 'innerTabActive' : 'innerTabInactive'} target" onclick="setLastTabStructure('CHAPTER')" id="chaptersTab">Capítulos</button>
+    <button class="${tab === 'part' ? 'innerTabActive' : 'innerTabInactive'} target" onclick="setLastTabStructure('PART')" id="partsTab">Partes</button>
   `));
 }
 

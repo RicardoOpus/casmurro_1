@@ -1,5 +1,14 @@
 changeTabColor("estrutura");
 
+function updateSideBar() {
+  $('.sideBar').empty();
+  $('.sideBar').append(`
+    <p class="extraInfosTab">Adicionar:</p>
+    <button id="btn-addSceneToChap" class="btnExtra ui-button ui-corner-all">Cenas ao capítulo</button>
+  `);
+}
+updateSideBar();
+
 async function applySceneslist(id, idChars) {
   const project = await getCurrentProject();
   $(id).empty();

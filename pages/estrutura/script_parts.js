@@ -1,6 +1,5 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-undef */
-changeInnerTabColor('partsTab');
 
 async function createNewStructure() {
   const ID = await idManager('id_structure');
@@ -92,6 +91,7 @@ async function getStructureFiltred(filter) {
 }
 
 getStructureFiltred('parts');
+setStructureTabs('part');
 validateNewCard('structureName', '#okBtn-structure');
 validateNewCard('structureType', '#okBtn-structure');
 document.getElementById('project-list').className = 'worldListStructure';

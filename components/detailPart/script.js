@@ -1,5 +1,14 @@
 changeTabColor("estrutura");
 
+function updateSideBar() {
+  $('.sideBar').empty();
+  $('.sideBar').append(`
+    <p class="extraInfosTab">Adicionar:</p>
+    <button id="btn-addChaptersToPart" class="btnExtra ui-button ui-corner-all">Capítulos à parte</button>
+  `);
+}
+updateSideBar();
+
 async function applyChapterslist(id, idChars) {
   const project = await getCurrentProject();
   $(id).empty();
