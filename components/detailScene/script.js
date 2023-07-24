@@ -2,6 +2,22 @@
 // /* eslint-disable */
 changeTabColor("cenas");
 
+function updateSideBar() {
+  $('.sideBar').empty();
+  $('.sideBar').append(`
+  <p class="extraInfosTab">Adicionar:</p>
+  <button id="btn-addChar" class="btnExtra ui-button ui-corner-all">Personagens em cena</button>
+  <input type="checkbox" id="checkbox-date-scene"><label class="extraInfosTab" for="checkbox-date-scene">Data da cena<br></label>
+  <input type="checkbox" id="checkbox-word-goal"><label class="extraInfosTab" for="checkbox-word-goal">Meta de palavras<br></label>
+  <input type="checkbox" id="checkbox-constucao"><label class="extraInfosTab" for="checkbox-constucao">Construção de cena<br></label>
+  <input type="checkbox" id="checkboxExtra-2"><label class="extraInfosTab" for="checkboxExtra-2">Detalhes da cena<br></label>
+  <input type="checkbox" id="checkboxExtra-3"><label class="extraInfosTab" for="checkboxExtra-3">Profundidade<br></label>
+  <input type="checkbox" id="checkboxExtra-4"><label class="extraInfosTab" for="checkboxExtra-4">Mostrar ficha POV<br></label>
+  <div id="POVcard" class="POVcard" style="display: none;">
+  `);
+}
+updateSideBar();
+
 function returnUrlImgWeather(param) {
   switch (param) {
     case 'Nascer do sol':

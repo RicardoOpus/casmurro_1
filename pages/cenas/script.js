@@ -131,12 +131,15 @@ function autoChapterFilter(project) {
   const tab = document.querySelector('.innerTabChapters');
   if (resultSorted.length > 0) {
     const chapDivider = document.createElement('h3');
-    chapDivider.innerHTML = 'Capítulos:<hr>';
+    chapDivider.innerHTML = 'Capítulos';
+    const divider = document.createElement('div');
+    divider.classList = 'divider';
     tab.appendChild(chapDivider);
+    tab.appendChild(divider);
     for (let i = 0; i < resultSorted.length; i += 1) {
       const chapter = resultSorted[i];
       const chapterItem = document.createElement('div');
-      chapterItem.innerHTML = `<p onclick="chapterFilterLoadPage(${chapter.id})">${chapter.title}</p><div class="dashboard-divisor2"><div>`;
+      chapterItem.innerHTML = `<button onclick="chapterFilterLoadPage(${chapter.id})" class="innerTabInactive">${chapter.title}</button>`;
       tab.appendChild(chapterItem);
     }
   }
@@ -162,7 +165,7 @@ async function getScenesdCards() {
       `
         <ul class="worldListScenes ${!ele.status ? '' : ` ${ele.status}-Status`}" id="${ele.id}">
           <li class="worldItens">
-            <div class="ui-widget-content portlet ui-corner-all">
+            <div class="worldName portlet ui-corner-all">
               <div class="contentListWorld">
                 <div data-testid='scene-${ele.id}' class="ui-widget-header ui-corner-all portlet-header">${ele.title}</div>
                   <a onclick="loadpageOnclick('scenes', ${ele.id}, '#dinamic', 'components/detailScene/page.html', 'components/detailScene/script.js')">
@@ -206,7 +209,7 @@ async function getScenesCardsFiltred(filter) {
         `
         <ul class="worldListScenes" id="${ele.id}">
           <li class="worldItens">
-            <div class="ui-widget-content portlet ui-corner-all">
+            <div class="worldName portlet ui-corner-all">
               <div class="contentListWorld">
                 <div data-testid='scene-${ele.id}' class="ui-widget-header ui-corner-all portlet-header">${ele.title}</div>
                   <a onclick="loadpageOnclick('scenes', ${ele.id}, '#dinamic', 'components/detailScene/page.html', 'components/detailScene/script.js')">

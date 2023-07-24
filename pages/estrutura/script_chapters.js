@@ -1,6 +1,5 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-undef */
-changeInnerTabColor('chaptersTab');
 
 function validadeForm() {
   const dateField = document.getElementById('structureType').value;
@@ -78,7 +77,7 @@ async function getStructureFiltred(filter) {
       `
       <ul class="worldListStructure" id="${ele.id}" data-testid='chapter-${ele.id}'>
         <li class="worldItens">
-          <div class="ui-widget-content portlet ui-corner-all">
+          <div class="worldName portlet ui-corner-all">
             <div class="contentListWorld">
               <div class="ui-widget-header ui-corner-all portlet-header">Capítulo ${i + 1} - ${ele.title}</div>
               <a data-testid='chapter-link-${ele.id}' onclick="loadpageOnclick('chapters', ${ele.id}, '#dinamic', 'components/detailChapter/page.html', 'components/detailChapter/script.js')">
@@ -98,6 +97,7 @@ async function getStructureFiltred(filter) {
 }
 
 getStructureFiltred('chapters');
+setStructureTabs('chap');
 validateNewCard('structureName', '#okBtn-structure');
 validateNewCard('structureType', '#okBtn-structure');
 document.getElementById('project-list').className = 'worldListStructure';

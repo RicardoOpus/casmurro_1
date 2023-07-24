@@ -1,3 +1,15 @@
+function updateSideBar() {
+  $('.sideBar').empty();
+  $('.sideBar').append(`
+  <h3>Opções:</h3>
+  <input type="checkbox" class="" name="showProgress" id="deadline" value="false" onchange="this.value=this.checked">
+  <label name="showProgress" for="deadline">Exibir barra de progresso (prazo final) na tela inicial.</label><br><br>
+  <input type="checkbox" class="" name="showSubtitle" id="showSubtitle" value="false" onchange="this.value=this.checked">
+  <label name="showSubtitle" for="showSubtitle">Adicionar subtítulo.</label>
+  `);
+}
+updateSideBar();
+
 async function restoreProjectData() {
   const project = await db.settings.get(1);
   const projectID = project.currentproject;

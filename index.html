@@ -39,7 +39,23 @@
       <button>Fazer backup</button>
     </div>
   </div>
-
+  <div class="mainTabs" id="Header">
+    <button class="navtrigger tabActive" onclick="pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js')" data-trigger="hover" id="dashboard" style="margin-left: 30px; padding-left: 0px;">Dashboard</button>
+    <button class="navtrigger tabInactive" onclick="loadpage('personagens')"
+    data-trigger="hover" id="personagens">Personagens</button>
+    <button class="navtrigger tabInactive" onclick="loadpage('mundo')"
+    data-trigger="hover" id="mundo">Mundo</button>
+    <button class="navtrigger tabInactive" onclick="loadpage('cenas')"
+    data-trigger="hover" id="cenas">Cenas</button>
+    <button class="navtrigger tabInactive" onclick="loadpage('estrutura')"
+    data-trigger="hover" id="estrutura">Estrutura</button>
+    <button class="navtrigger tabInactive" onclick="loadpage('timeline')"
+    data-trigger="hover" id="timeline">Timeline</button>
+    <button class="navtrigger tabInactive" onclick="loadpage('notas')"
+    data-trigger="hover" id="notas">Notas</button>
+    <button class="infos" onclick="loadpage('informacoes')"
+    data-trigger="hover" id="informacoes">Sobre</button>
+  </div>
   <div id="myModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
@@ -51,11 +67,6 @@
           <button onclick="exportProjectText()" class="ui-button ui-corner-all backupModal txt"><span class="ui-icon ui-icon-note "></span> Salvar como texto</button>
           <a onclick="prepareToPrint('project')" target="_blank" class="ui-button ui-corner-all backupModal print"><span class="ui-icon ui-icon-note "></span> Impressão </a>
         </fieldset>
-        <fieldset>
-          <legend>Rascunho (somente cenas)</legend>
-          <button onclick="exportDraftText()" class="ui-button ui-corner-all backupModal txt"><span class="ui-icon ui-icon-note "></span> Salvar como texto</button>
-          <a onclick="prepareToPrint()" target="_blank" class="ui-button ui-corner-all backupModal print"><span class="ui-icon ui-icon-note "></span> Impressão </a>
-        </fieldset>
       </div>
       <h3>Atenção! Mantenha seus dados seguros</h3>
       <p>Casmurro respeita sua privacidade e não coleta informações. Isso significa que todos os dados são armazenados localmente em seu próprio navegador. Portando, é recomendável fazer backups com frequência e salvá-los em pastas sincronizadas na nuvem, como o Google Drive ou Dropbox.</p>
@@ -63,6 +74,7 @@
   </div>    
 
   <div class="mainContent">
+    <div class="sideBar" id="sideBar"></div>
     <div class="dinamicPage" id="dinamicPage"></div>
       <footer>
         <p>created by Ricardo Serafim</p>

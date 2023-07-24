@@ -1,21 +1,3 @@
-<div class="mainTabs" id="Header">
-  <button class="navtrigger ui-button ui-corner-all ui-widget tabActive" onclick="pageChange('#dinamicPage', 'pages/dashboard/page.html', 'pages/dashboard/script.js')" data-trigger="hover" id="dashboard">Dashboard</button>
-  <button class="navtrigger ui-button ui-corner-all ui-widget tabInactive" onclick="loadpage('personagens')"
-  data-trigger="hover" id="personagens">Personagens</button>
-  <button class="navtrigger ui-button ui-corner-all ui-widget tabInactive" onclick="loadpage('mundo')"
-  data-trigger="hover" id="mundo">Mundo</button>
-  <button class="navtrigger ui-button ui-corner-all ui-widget tabInactive" onclick="loadpage('cenas')"
-  data-trigger="hover" id="cenas">Cenas</button>
-  <button class="navtrigger ui-button ui-corner-all ui-widget tabInactive" onclick="loadpage('estrutura')"
-  data-trigger="hover" id="estrutura">Estrutura</button>
-  <button class="navtrigger ui-button ui-corner-all ui-widget tabInactive" onclick="loadpage('timeline')"
-  data-trigger="hover" id="timeline">Timeline</button>
-  <button class="navtrigger ui-button ui-corner-all ui-widget tabInactive" onclick="loadpage('notas')"
-  data-trigger="hover" id="notas">Notas</button>
-  <button class="navtrigger ui-button ui-corner-all ui-widget infos" onclick="loadpage('informacoes')"
-  data-trigger="hover" id="informacoes">Informações</button>
-</div>
-
 <div class="innerContent">
   <div id="dinamic">
     
@@ -54,27 +36,27 @@
         <div  class="divLastCards">
           <h2>Cartões</h2>
             <div class="cardsItens"> 
-              <a id="cardsDashboard_characters" class="infoCardItens container zoom" onclick="loadpage('personagens')">
+              <a id="cardsDashboard_characters" class="infoCardItens container" onclick="loadpage('personagens')">
                 <h3><img src="../../assets/icons/characters.png" alt="characters" > Personagens <span id="cardsDashboard_characters_qtd" >0</span></h3>
                 <canvas id="myChartChar" class="chart"></canvas>
               </a>
             </div>
             <div class="cardsItens">
-              <a id="cardsDashboard_mundo" class="infoCardItens container zoom" onclick="loadpage('mundo')">
+              <a id="cardsDashboard_mundo" class="infoCardItens container" onclick="loadpage('mundo')">
                 <h3><img src="../../assets/icons/world.png" alt="world" > Mundo <span id="cardsDashboard_mundo_qtd">0</span>
                 </h3>
                 <canvas id="myChartWorld"></canvas>
               </a>
             </div>
             <div class="cardsItens">
-              <a id="cardsDashboard_scenes" class="infoCardItens container zoom" onclick="loadpage('cenas')">
+              <a id="cardsDashboard_scenes" class="infoCardItens container" onclick="loadpage('cenas')">
                 <h3><img src="../../assets/icons/scenes.png" alt="scenes" > Cenas <span id="cardsDashboard_scenes_qtd" >0</span></h3>
                 
                 <canvas id="myChartScenes"></canvas>
               </a>
             </div>
             <div class="cardsItens">
-              <a id="cardsDashboard_structure" class="infoCardItens container zoom" onclick="loadpage('estrutura')">
+              <a id="cardsDashboard_structure" class="infoCardItens container" onclick="loadpage('estrutura')">
                 <h3><img src="../../assets/icons/structure.png" alt="structure" > Capítulos <span id="cardsDashboard_structure_qtd">0</span></h3>
                 <canvas id="myChartChap"></canvas>
               </a>
@@ -85,9 +67,6 @@
           <div id="lastCards"></div>
         </div>
       </section>
-      <h3>Total de cartões <span id="totalcards" style="font-size: 2rem;"></span></h3>
-      <div class="dashboard-divisor"></div>
-      <h3>Rascunho: <span id="totalPalavras"></span> palavras</h3>
     </section>
   </div>
 </div>

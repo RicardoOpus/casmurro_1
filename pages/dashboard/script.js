@@ -236,6 +236,7 @@ function calcularProgresso(startDate, finishDate) {
 }
 
 function addInfosHtml(data) {
+  document.body.style.backgroundImage = 'none';
   document.getElementById('project-title-dashboard').innerText = data.title;
   document.getElementById('project-subtitle').innerHTML = `<h2>${data.subtitle}</h2>`;
   if (data.showSubtitle) {
@@ -350,6 +351,27 @@ async function restorelastEditCards() {
   return null;
 }
 
+function restoreSideBar() {
+  const content = document.getElementById('sideBar');
+  content.style.display = 'block';
+  content.innerHTML = `
+    <h3>RESUMO</h3>
+    <div class="divider"></div>
+    <button class="innerTabInactive" style="cursor: default;">Cartões: <span class="qtyInfos" id="totalcards"></span></button>
+    <button class="innerTabInactive" style="cursor: default;">Total palavras: <span class="qtyInfos" id="totalPalavras"></span></button>
+    <h3>EXPORTAR</h3>
+    <div class="divider"></div>
+    <div>
+      <button onclick="exportDraftText()" class="ui-button ui-corner-all sideBarBtn" >Texto puro</button>
+    </div>
+    <div>
+      <button onclick="prepareToPrint()" target="_blank" class="ui-button ui-corner-all sideBarBtn">Impressão </button>
+    </div>
+  `;
+}
+
 restorelastEditCards();
 calcularTempoPassado();
 onscrollUpAndDown();
+restoreNavBar();
+restoreSideBar();

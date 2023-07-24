@@ -1,12 +1,12 @@
 body {
-  background-color: hsl(0, 0%, 0%);
+  background-color: #060707;
   /* background-image: url("../../assets/images/arabesque4.png"); */
+  background-image: none;
   color: #cbcbcb;
   font-family: "Trebuchet MS", sans-serif;
   margin: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
-  /* background: linear-gradient(to right, rgba(18, 18, 20, 0) 0%, rgb(18, 18, 20) 10%, rgb(18, 18, 20) 90%, rgba(23, 23, 26, 0) 100%); */
 }
 
 footer {
@@ -29,7 +29,7 @@ footer {
 
 .header {
   overflow: hidden;
-  background-color: #202024;
+  background-color: #0F1010;
 }
 
 .header a {
@@ -41,13 +41,13 @@ footer {
   font-size: 20px; 
   line-height: 25px;
   border-radius: 4px;
-  border: solid 1px #202024;
   margin-left: 30px;
 }
 
 .header a.logo {
   font-size: 25px;
   font-weight: bold;
+  padding-left: 0px;
 }
 
 .header a:hover {
@@ -247,13 +247,13 @@ footer {
 
 .btnAZ {
   margin-top: 1rem;
-  background-color: #121214;
+  background-color: transparent;
   color: grey;
   cursor: pointer;
 }
 
 .btnAZ:disabled {
-  background-color: #555;
+  background-color: #121214;
   color: #cbcbcb;
   cursor: default;
 }
@@ -308,7 +308,7 @@ footer {
   display: inline-block;
   width: 70px;
   height: 70px;
-  border: 8px solid #6c6c6c;
+  border: 8px solid #cecece;
   border-top: 8px solid #3498db;
   border-radius: 50%;
   animation: spin 1s linear infinite;
@@ -319,20 +319,39 @@ footer {
   100% { transform: rotate(360deg); }
 }
 
+.divider{
+  border-bottom: 1px solid #DDDDDD;
+  border-bottom-color: rgb(60, 60, 61);
+}
 /* ============================================= */
 
 .mainContent {
-  background-color: #121214;
+  -webkit-box-align: stretch;
+  /* background-color: #121214; */
   position: relative;
   min-height: 100vh;
+  align-items: stretch;
+  display: flex;
   /* background: linear-gradient(to right, rgba(18, 18, 20, 0.45) 0%, rgb(18, 18, 20) 15%, rgb(18, 18, 20) 85%, rgba(23, 23, 26, 0.45) 100%); */
+}
+
+.sideBar {
+  width: 18.75% !important;
+  padding: 2rem 3rem 2rem 30px !important;
+  background-color: #0F1010;
+  border-right: 1px solid #DDDDDD;
+  border-right-color: rgb(60, 60, 61);
+}
+
+.sideBar h3 {
+  margin: 0.57142857em 0;
 }
 
 .dinamicPage{
   max-width: 90rem;
-  margin: auto;
+  width: 81.25%;
+  /* margin: auto; */
   /* margin-left: 160px; */
-  padding: 1rem 3rem 5rem 3rem;
 }
 
 ::-webkit-scrollbar {
@@ -376,6 +395,7 @@ textarea {
   box-shadow: 0 0 1px 900px rgba(0, 0, 0, 0.72);
   z-index: 9999;
 } */
+
 .ui-button-select {
   /* border: 1px solid #444444; */
   background: rgb(18, 18, 20);
@@ -402,36 +422,59 @@ textarea {
 /* Main Tabs page styles ================================================ */
 
 .tabInactive{
-  border-bottom-left-radius: 0%;
-  border-bottom-right-radius: 0%;
-  /* background: linear-gradient(180deg, #2D333B 50%, #121214 95%); */
-  background-color: #121214;
+  background-color: #060707;
   color: #898989;
+  font-size: 15px;
+  padding: 1em;
+  cursor: pointer;
+}
+
+.tabInactive:hover {
+  color: #0a62ce;
 }
 
 .mainTabs {
-  margin-top: 1rem;
   font-size: 15px;
+  background-color: #060707;
+  border-bottom: 1px solid #DDDDDD;
+  border-bottom-color: rgb(60, 60, 61);
 }
 
 .innerContent {
-  border: solid #565f6a;
-  border-width: 1px;
-  border-radius: 5px;
-  background-color: #121214;
-  /* background: linear-gradient(180deg, rgb(49, 49, 49) 0%, rgb(23, 23, 26) 300px); */
   padding: 2rem;
   min-height: 600px;
 }
 
-.tabActive {
+.projectsWellcome {
   background-color: #121214;
-  border: solid #565f6a; 
-  margin-bottom: -6px;
-  border-width: 1px;
-  border-bottom: transparent;
-  border-bottom-left-radius: 0%;
-  border-bottom-right-radius: 0%;
+  padding: 30px;
+  border-radius: 15px;
+  margin: 1rem 3rem 5rem 3rem;
+
+}
+
+.tabActive {
+  background-color: #060707;
+  color: white;
+  padding: 1em;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.infos {
+  float: right;
+  display: block;
+  background-color: #060707;
+  color: #898989;
+  padding: 1em;
+  font-size: 15px;
+  cursor: pointer;
+  margin-right: 30px;
+}
+
+.infos:hover {
+  color: #0a62ce;
 }
 
 /* Dashboard page styles ================================================ */
@@ -623,23 +666,6 @@ canvas {
   background-color: #0a62ce!important;
 }
 
-.infos {
-  float: right;
-  display: block;
-  /* width: 100%; */
-  border: solid #565f6a;
-  border-width: 1px;
-  background-color: #121214; 
-  color: #cbcbcb;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 1em;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-  border-top-left-radius: 9px;
-  border-bottom: transparent;
-}
-
 .editCard {
   width: 100%;
 }
@@ -682,7 +708,7 @@ canvas {
   justify-content: flex-start;
   list-style-type: none;
   padding-inline-start: 0px;
-  padding: 0rem 3rem 0rem 3rem;
+  /* padding: 0rem 3rem 0rem 3rem; */
 }
 
 .projectsItens {
@@ -918,12 +944,10 @@ input[type="color"]::-webkit-color-swatch {
 
 .listCardsScenes{
   width: 100%;
-  margin: 15px 0px 5px 15px;
 }
 
 .worldListScenes {
   padding-inline-start: 0px;
-  padding: 0rem 5px 0rem 5px;
 }
 
 .listCardsScenes ul {
@@ -972,7 +996,6 @@ fieldset {
 }
 
 .innerTabChapters {
-  margin-left: 5px;
   margin-bottom: 0px;
 }
 
@@ -1103,7 +1126,6 @@ fieldset {
   justify-content: flex-start;
   list-style-type: none;
   padding-inline-start: 0px;
-  padding: 0rem 1rem 0rem 1rem;
 }
 
 .worldItens {
@@ -1112,15 +1134,14 @@ fieldset {
 }
 
 .worldName {
-  border-width: 1px;
-  border-color: #565f6a;
+  border: 1px solid #DDDDDD;
+  border-color: rgb(60, 60, 61);
   border-radius: 4px;
-  background: linear-gradient(90deg, rgb(32, 32, 36) 0%, rgb(19, 19, 21) 100%);
-  transition: background 200ms ease 0s;
+  /* background-color: rgb(32, 32, 36); */
+  background: linear-gradient(90deg, rgb(32, 32, 36) 0%, rgb(6, 7, 7) 100%);
   width: 100%;
-  box-shadow:  0 1px 4px 0 #0000001a;
   flex-wrap: wrap;
-  padding: 10px 20px;
+  padding: 10px 10px;
   min-width: 100%;
   max-width: 100%;
 }
@@ -1154,7 +1175,6 @@ fieldset {
 }
 
 .cardLineTopChar {
-  border: 1px solid #0a62ce5a;
   margin-top: -10px;
 }
 
@@ -1208,36 +1228,27 @@ fieldset {
 .innerTabActive {
   display: block;
   width: 100%;
-  min-width: 180px;
-  border: solid #565f6a;
-  border-width: 1px;
   background-color: transparent; 
-  color: #cbcbcb;
-  padding: 16px 16px;
-  text-align: right;
+  color: white;
+  text-align: left;
   cursor: pointer;
-  transition: 0.3s;
-  font-size: 1rem;
-  border-bottom-left-radius: 9px;
-  border-top-left-radius: 9px;
-  border-right: transparent;
+  margin: 0.57142857em 0;
+  padding: 0.35714286em 0.5em;
 }
 
 .innerTabInactive {
   display: block;
   width: 100%;
-  border: solid #565f6a;
-  border-width: 1px;
-  background-color: #121214;
-  background: linear-gradient(to right, rgb(32, 32, 36) 0%, #121214 100%);
+  background-color: transparent;
   color: #898989;
-  padding: 16px 16px;
-  text-align: right;
+  text-align: left;
   cursor: pointer;
-  transition: 0.3s;
-  font-size: 1rem;
-  border-bottom-left-radius: 9px;
-  border-top-left-radius: 9px;
+  margin: 0.57142857em 0;
+  padding: 0.35714286em 0.5em;
+}
+
+.sideBarBtn {
+  margin: 0.57142857em 0;
 }
 
 .rete {
@@ -1255,14 +1266,17 @@ fieldset {
   text-align: center;
 }
 
+
+.qtyInfos{
+  font-weight: bold;
+  font-size: 1.2em;
+}
 /* Timeline page styles ================================================ */
 
 .containerTimeline{
   display: flex;
   justify-content: left;
   align-items: center;
-  padding: 0 1rem;
-  /* padding: 3rem 0; */
 }
 
 .containerTimeline ul, li{
@@ -1271,9 +1285,6 @@ fieldset {
 }
 
 .wrapper{
-  /* background: #eaf6ff; */
-  padding-left: 2rem;
-  padding-right: 2rem;
   border-radius: 15px;
   width: 100%;
 }
@@ -1376,6 +1387,7 @@ fieldset {
 
 .worldListStructure {
   width: 100%;
+  padding: 0;
   /* padding: 0rem 5px 0rem 5px; */
 }
 
@@ -1398,7 +1410,7 @@ fieldset {
   transition: background 200ms ease 0s;
   padding: 1rem 2rem;
   /* opacity: 0.9; */
-  margin: 1rem;
+  margin: 1rem 0rem;
   /* font-family: Verdana, Geneva, sans-serif; */
   color: #898989;
   width: 100%;
@@ -1561,9 +1573,7 @@ fieldset {
   background: linear-gradient(90deg, rgb(32, 32, 36) 0%, rgb(23, 23, 26) 100%);
   transition: background 200ms ease 0s;
   padding: 1rem 2rem 5rem 2rem;
-  /* opacity: 0.9; */
-  margin: 1rem;
-  /* font-family: Verdana, Geneva, sans-serif; */
+  /* margin: 1rem; */
   color: #898989;
 }
 
@@ -1576,7 +1586,7 @@ fieldset {
   transition: background 200ms ease 0s;
   padding: 1rem 2rem;
   /* opacity: 0.9; */
-  margin: 1rem;
+  margin: 1rem 0rem;
   /* font-family: Verdana, Geneva, sans-serif; */
   color: #898989;
 }

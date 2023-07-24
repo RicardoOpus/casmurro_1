@@ -1,5 +1,20 @@
 changeTabColor("personagens");
 
+function updateSideBar() {
+  $('.sideBar').empty();
+  $('.sideBar').append(`
+  <p class="extraInfosTab">Adicionar:</p>
+  <button id="addRelation" class="btnExtra ui-button ui-corner-all">Relacionamentos</button>
+  <input type="checkbox" name="" id="checkboxFullName"><label class="extraInfosTab" for="checkboxFullName">Nome completo<br></label>
+  <input type="checkbox" name="" id="checkbox-date-birth"><label class="extraInfosTab" for="checkbox-date-birth">Data de Nascimento<br></label>
+  <input type="checkbox" name="" id="checkbox-date-death"><label class="extraInfosTab" for="checkbox-date-death">Data da morte<br></label>
+  <input type="checkbox" name="" id="checkboxExtra_1"><label class="extraInfosTab" for="checkboxExtra_1">Características<br></label>
+  <input type="checkbox" name="" id="checkboxExtra_2"><label class="extraInfosTab" for="checkboxExtra_2">Jornada<br><label>
+  <input type="checkbox" name="" id="checkboxExtra_3"><label class="extraInfosTab" for="checkboxExtra_3">Dualidade<br><label>
+  `);
+}
+updateSideBar();
+
 async function clearDateDeathBirth(type) {
   document.getElementById(type).value = '';
   const projectData = await getCurrentProject();

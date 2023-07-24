@@ -374,6 +374,11 @@ function sortByDate(array) {
 }
 
 async function setCustomTabs(type) {
+  $('.sideBar').empty();
+  $('.sideBar').append($('<h3>Categorías</h3><div class="divider"></div><button class="innerTabActive target" onclick="setFilterCategory(\'All\', \'All\')" id="Todos">Todos</button>'));
+  if (type === 'notes') {
+    $('.sideBar').append($('<button class="innerTabInactive target" onclick="setFilterCategory(\'Listas\', \'Listas\')" id="Listas">Listas</button>'));
+  }
   const project = await getCurrentProject();
   const categoryList = project.settings[type];
   $.each(categoryList, (i, value) => {
@@ -381,7 +386,7 @@ async function setCustomTabs(type) {
       return null;
     }
     const qty = project?.data?.[type]?.filter((ele) => ele.category === value);
-    return $('.innerTabDefault').append($(`<button class='innerTabInactive target' onclick="setFilterCategory('${value}', '${value}')" id='${value}'></button>`).html(`${value} (${qty.length})`));
+    return $('.sideBar').append($(`<button class='innerTabInactive target' onclick="setFilterCategory('${value}', '${value}')" id='${value}'></button>`).html(`${value} (${qty.length})`));
   });
 }
 
@@ -397,6 +402,8 @@ function chapterFilterLoadPage(id) {
 }
 
 async function setCustomPovTabs(type, callback) {
+  $('.sideBar').empty();
+  $('.sideBar').append($('<h3>Categorías</h3><div class="divider"></div><button class="innerTabActive target" onclick="setFilterCategory(\'All\', \'All\')" id="Todos">Todos</button>'));
   const project = await getCurrentProject();
   const categoryList = project.settings[type];
   $.each(categoryList, (i, value) => {
@@ -406,14 +413,26 @@ async function setCustomPovTabs(type, callback) {
     const povID = project.data.characters.map((e) => e.id).indexOf(Number(value));
     const povName = project?.data?.characters?.[povID]?.title ?? '';
     const qty = project?.data?.scenes?.filter((ele) => ele.pov_id === value);
-    return $('.innerTabDefault').append($(`<button id='${value}' class='innerTabInactive target' onclick="ocultarElementosPOV('${value}')"'></button>`).html(`${povName} (${qty.length})`));
+    return $('.sideBar').append($(`<button id='${value}' class='innerTabInactive target' onclick="ocultarElementosPOV('${value}')"'></button>`).html(`${povName} (${qty.length})`));
   });
+  $('.sideBar').append($('<div class="innerTabChapters"></div>'));
   if (callback) {
     callback(); // chama a função de callback, se fornecida
   }
 }
 
+async function setStructureTabs(tab) {
+  $('.sideBar').empty();
+  $('.sideBar').append($(`<h3>Esboço</h3><div class="divider"></div>
+    <button class="${tab === 'outline' ? 'innerTabActive' : 'innerTabInactive'} target" onclick="setLastTabStructure('OUTLINE')" id="subplotsTab">Rascunho</button>
+    <button class="${tab === 'chap' ? 'innerTabActive' : 'innerTabInactive'} target" onclick="setLastTabStructure('CHAPTER')" id="chaptersTab">Capítulos</button>
+    <button class="${tab === 'part' ? 'innerTabActive' : 'innerTabInactive'} target" onclick="setLastTabStructure('PART')" id="partsTab">Partes</button>
+  `));
+}
+
 async function setCustomTimelineTabs(type, callback) {
+  $('.sideBar').empty();
+  $('.sideBar').append($('<h3>Personagem</h3><div class="divider"></div><button class="innerTabActive target" onclick="setFilterCategory(\'All\', \'All\')" id="Todos">Todos</button>'));
   const project = await getCurrentProject();
   const categoryList = project.settings[type];
   $.each(categoryList, (i, value) => {
@@ -424,7 +443,7 @@ async function setCustomTimelineTabs(type, callback) {
     const povName = project?.data?.characters?.[povID]?.title ?? '';
     const qty = project?.data?.[type]
       ?.filter((ele) => ele.elementID === Number(value) || ele.pov_id === value);
-    return $('.innerTabDefault').append($(`<button id='${value}' data-testid='tab${value}' class='innerTabInactive target' onclick="setFilterCategory('tab${value}', '${value}')"'></button>`).html(`${povName} (${qty.length})`));
+    return $('.sideBar').append($(`<button id='${value}' data-testid='tab${value}' class='innerTabInactive target' onclick="setFilterCategory('tab${value}', '${value}')"'></button>`).html(`${povName} (${qty.length})`));
   });
   if (callback) {
     callback(); // chama a função de callback, se fornecida
@@ -874,8 +893,8 @@ function putTabsAmount(data) {
   const tabPart = document.getElementById('partsTab');
   const qtyChap = data.chapters.length;
   const qtyPart = data.parts.length;
-  tabChap.innerText += ` (${qtyChap})`;
-  tabPart.innerText += ` (${qtyPart})`;
+  tabChap.innerText = `Capítulos (${qtyChap})`;
+  tabPart.innerText = `Partes (${qtyPart})`;
 }
 
 function putTabAllAmount(data) {
@@ -1366,4 +1385,20 @@ function tabInsideContent(elementID) {
       this.selectionStart = this.selectionEnd = start + 4;
     }
   });
+}
+
+function disableNavBar() {
+  const navBarButtons = document.getElementById('Header');
+  navBarButtons.style.display = 'none';
+}
+
+function restoreNavBar() {
+  const navDiv = document.getElementById('Header');
+  const navBarButtons = document.querySelectorAll('.navtrigger');
+  navDiv.style.display = 'block';
+  navBarButtons.forEach((buton) => {
+    // eslint-disable-next-line no-param-reassign
+    buton.classList = 'navtrigger tabInactive';
+  });
+  document.getElementById('dashboard').classList = 'navtrigger tabActive';
 }

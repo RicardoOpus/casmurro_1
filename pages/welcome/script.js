@@ -155,14 +155,6 @@ $('#dialog-link-import').click((event) => {
   });
 });
 
-function disableNavBar() {
-  const navBarButtons = document.querySelectorAll('.navtrigger');
-  navBarButtons.forEach((buton) => {
-    // eslint-disable-next-line no-param-reassign
-    buton.style.display = 'none';
-  });
-}
-
 async function setProjectAtual(id) {
   localStorage.clear();
   const result = await db.settings.update(1, { currentproject: id });
@@ -170,12 +162,22 @@ async function setProjectAtual(id) {
   return result;
 }
 
+function abreviarString(str) {
+  if (str.length > 30) {
+    return `${str.substring(0, 30)}…`;
+  }
+  return str;
+}
+
 async function listProjects() {
+  document.getElementById('sideBar').style.display = 'none';
+  document.getElementById('dinamicPage').style.width = '100%';
   const result = await db.projects.orderBy('timestamp').desc();
   await result.each((project) => {
     const qtyCards = getQtyCards(project.data);
     const dateEdit = convertDateBR(project.last_edit);
     const timeEdit = convertToTime(project.last_edit);
+    const titleRed = abreviarString(project.title);
     $('#project-list').append(
       `
       <ul class="projectsList">
@@ -183,7 +185,7 @@ async function listProjects() {
         <a class="projectsName" onclick="setProjectAtual(${project.id})">
         <img src="${!project.image_project ? 'assets/images/manuscript.jpeg' : project.image_project}" class="coverImage"> 
             <div>
-              <p class="projectTitle">${project.title}</p>
+              <p class="projectTitle">${titleRed}</p>
               <p class="projectCreated"><span class="ui-icon ui-icon-calendar"></span>Modificado em: <strong>${dateEdit}</strong> | <strong>${timeEdit}</strong></p>
             </div>
             <span class="projectStatus"> ${project.status} </span>

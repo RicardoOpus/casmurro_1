@@ -1,15 +1,12 @@
 <div class="worldNewCardBtn">
+  <button class="innerTabActive target" onclick="setFilterCategory('All', 'All')" id="Todos">❮ Todas as cenas</button>
   <button id="dialog-link-category" class="ui-button ui-corner-all worldNewCatBtn"><span class="ui-icon ui-icon-plusthick "></span> POV</button>
   <button id="dialog-link-delcategory" class="ui-button ui-corner-all worldNewCatBtn"><span class="ui-icon ui-icon-trash"></span> </button>
   <button id="dialog-link-scene" class="ui-button ui-corner-all ui-widget"><span class="ui-icon ui-icon-plusthick"></span> Cartão</button>
 </div>
 
 <div class="tab">
-  <div class="innerTabDefault" id="innerTabDefault">
-    <button class="innerTabActive target" onclick="setFilterCategory('All', 'All')" id="Todos">Todos</button>
-    <div id="ChapInfos" class="" style="display: none;"></div>
-  </div>
-  <div id="project-list" class="listCards"></div>
+  <div id="project-list" class="listCards" style="margin-top: 1rem;"></div>
 </div>
 
 <!-- ui-dialogs -->

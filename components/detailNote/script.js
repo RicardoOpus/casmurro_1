@@ -1,5 +1,14 @@
 changeTabColor("notas");
 
+function updateSideBar() {
+  $('.sideBar').empty();
+  $('.sideBar').append(`
+  <p class="extraInfosTab">Adicionar:</p>
+  <button id="addLink" class="btnExtra ui-button ui-corner-all">Adicionar link externo</button>
+  `);
+}
+updateSideBar();
+
 async function deleteLink(position) {
   const currentID = await getCurrentProjectID();
   const positionInArray = await getCurrentCard();
