@@ -1,4 +1,7 @@
 ![Logo Casmurro](assets/icons/casmurro-logo-3.png)
+
+# v 1.0
+
 ## Plataforma para planejamento de ficção
 
 Casmurro é um projeto *open source* (totalmente gratuito e livre) que visa ajudar escritores em todas as etapas da criação de ficção. Ele foi desenvolvido para ser usado como uma segunda tela, auxiliando durante o período de preparação e pesquisa, assim como no momento da escrita.
